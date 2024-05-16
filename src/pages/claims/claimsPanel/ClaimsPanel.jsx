@@ -44,6 +44,7 @@ const ClaimsPanel = () => {
      <ClaimCover queryID='Claim charges' root='ClaimCharges' />
      {/* <ClaimCharges /> */}
     </Panel>
+    
     <Panel
      data-id='panel-3'
      header={
