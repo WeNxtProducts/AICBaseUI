@@ -11,9 +11,9 @@ const CustomTextArea = ({
   <div className='custom-text-area'>
    <TextArea
     value={value}
-    autoSize
+    // autoSize
     disabled={disabled}
-    style={{ minHeight: 60, maxHeight: 100 }}
+    style={{ height: 32, minHeight: 32, maxHeight: 100 }}
     onChange={onChange}
     placeholder={placeholder}
    />

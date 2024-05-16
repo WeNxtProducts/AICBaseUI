@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './TextInputWithSearchIcon.scss';
+import { SearchOutlined } from '@ant-design/icons';
 
 const TextInputWithSearchIcon = ({ placeholder, onChange, value }) => {
  const handleChange = e => {
@@ -9,7 +10,7 @@ const TextInputWithSearchIcon = ({ placeholder, onChange, value }) => {
  };
 
  return (
-  <div className='search-container'>
+  <div className='search-container w-full'>
    <input
     type='text'
     className='search-input'
@@ -17,7 +18,8 @@ const TextInputWithSearchIcon = ({ placeholder, onChange, value }) => {
     value={value}
     onChange={handleChange}
    />
-   <i className='bi bi-search search-icon' />
+   <SearchOutlined className='search-icon' />
+   {/* <i className='bi bi-search search-icon' /> */}
   </div>
  );
 };

@@ -517,10 +517,64 @@ export const proposalStepper = [
 ];
 
 export const claimsStepper = [
- { key: 0, title: 'Claim Entry', status: 'inprogress' },
- { key: 1, title: 'Claim Cover', status: 'todo' },
- { key: 2, title: 'Claim Charges', status: 'todo' },
- { key: 3, title: 'Claim Estimate', status: 'todo' },
- { key: 4, title: 'Checklist', status: 'todo' },
+ { key: 0, title: 'Claim Entry', status: 'completed' },
+ { key: 1, title: 'Claim Cover', status: 'completed' },
+ { key: 2, title: 'Claim Charges', status: 'completed' },
+ { key: 3, title: 'Claim Estimate', status: 'completed' },
+ { key: 4, title: 'Checklist', status: 'inprogress' },
  { key: 5, title: 'Claim Decision', status: 'todo' },
+];
+
+export const checklistColumn = {
+ 'Checklist Type': 'Checklist Type',
+ 'Checklist Description': 'Checklist Description',
+ 'Checklist Code': 'Checklist Code',
+ 'Checklist Code Description': 'Checklist Code Description',
+};
+
+export const checklistData = [
+ {
+  'Checklist Type': 'CHKLST',
+  'Checklist Description': 'Checklist',
+  'Checklist Code': 'CHKLIST',
+  'Checklist Code Description': 'Checklist',
+ },
+ {
+  'Checklist Type': 'CHKLST',
+  'Checklist Description': 'Checklist',
+  'Checklist Code': 'CHKLIST',
+  'Checklist Code Description': 'Checklist',
+ },
+];
+
+export const checklistDetailsColumn = {
+ 'Sr.No': 'Sr.No',
+ 'ListItem Description': 'ListItem Description',
+ Remarks: 'Remarks',
+ 'Mandatory Y/N': 'Mandatory Y/N',
+ 'Received Yes/No': 'Received Yes/No',
+};
+
+export const checklistDetailsData = [
+ {
+  Sr_No: '1',
+  ListItem_Description: 'AGEPROOF',
+  Remarks: 'Good',
+  Mandatory: 'yes',
+  Received: 'Yes',
+ },
+ {
+  Sr_No: '2',
+  ListItem_Description: 'AGEPROOF',
+  Remarks: 'Nice',
+  Mandatory: 'no',
+  Received: 'No',
+ },
+ {
+  Sr_No: '3',
+  ListItem_Description: 'AGEPROOF',
+  Remarks: 'Excellent',
+  Mandatory: 'wavied',
+  Received: 'Waived',
+ },
 ];
