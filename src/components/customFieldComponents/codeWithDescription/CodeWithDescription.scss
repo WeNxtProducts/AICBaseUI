@@ -1,0 +1,34 @@
+.popover-contents {
+ padding: 6px;
+ //   border: 1px solid red;
+ border-radius: 5px;
+ &:hover {
+  background-color: #f6f6f7; // #e6f6ff
+ }
+ .main-pop {
+  .content-pop {
+   font-size: 15px;
+  }
+ }
+}
+
+.selected-field-in-popover {
+ background-color: #e6f6ff;
+ font-weight: 600;
+}
+
+.code-field-popover,
+.description-field-popover {
+ padding: 0.2rem 1rem;
+ // background-color: #f6f6f7;
+ border: 1px solid #cecece;
+}
+
+.code-description {
+ .code-field-popover {
+  border-radius: 8px 0 0 8px;
+ }
+ .description-field-popover {
+  border-radius: 0 8px 8px 0;
+ }
+}

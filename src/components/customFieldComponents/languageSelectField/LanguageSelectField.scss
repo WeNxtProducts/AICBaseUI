@@ -1,0 +1,23 @@
+.lang-field-select {
+  //   height: 24px;
+
+  .logo-resize-flag {
+    width: 22px;
+    height: 15px;
+  }
+  .selected-lang {
+    font-size: 13px;
+    color: #353535;
+    letter-spacing: 0.5px;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+  }
+  .arrow-icon {
+    font-size: 13px;
+    margin-left: 10px;
+    margin-top: 2px;
+    color: black;
+    font-weight: bold;
+  }
+}

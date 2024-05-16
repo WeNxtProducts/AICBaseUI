@@ -1,0 +1,22 @@
+{
+ "user_locked_yn": [
+  { "label": "NO", "value": "N" },
+  { "label": "YES", "value": "Y" }
+ ],
+ "user_administrator_yn": [
+  { "label": "NO", "value": "N" },
+  { "label": "YES", "value": "Y" }
+ ],
+ "user_logon_option": [
+  { "label": "MULTIPLE SESSION", "value": "M" },
+  { "label": "SINGLE SESSION", "value": "S" }
+ ],
+ "user_override_yn": [
+  { "label": "NO", "value": "N" },
+  { "label": "YES", "value": "Y" }
+ ],
+ "user_passwd_expiry_yn": [
+  { "label": "NO", "value": "N" },
+  { "label": "YES", "value": "Y" }
+ ]
+}

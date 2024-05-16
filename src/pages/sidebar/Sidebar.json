@@ -1,0 +1,141 @@
+[
+  {
+    "title": "General",
+    "icon": "bi-gear-fill",
+    "id": 1,
+    "childrens": [
+      {
+        "title": "Home",
+        "icon": "bi-house-fill",
+        "path": "/",
+        "id": 2
+      },
+      {
+        "title": "About",
+        "icon": "bi-info-circle-fill",
+        "path": "/about",
+        "id": 3
+      },
+      {
+        "title": "Contact",
+        "icon": "bi-phone-fill",
+        "id": 4,
+        "childrens": [
+          {
+            "title": "Facebook",
+            "icon": "bi-facebook",
+            "id": 5
+          },
+          {
+            "title": "Twitter",
+            "icon": "bi-twitter",
+            "id": 6
+          },
+          {
+            "title": "Instagram",
+            "icon": "bi-instagram",
+            "id": 7
+          }
+        ]
+      },
+      {
+        "title": "FAQ",
+        "icon": "bi-question-circle-fill",
+        "id": 8
+      }
+    ]
+  },
+  {
+    "title": "Account",
+    "icon": "bi-info-circle-fill",
+    "id": 9,
+    "childrens": [
+      {
+        "title": "Login",
+        "path": "/login",
+        "id": 10
+      },
+      {
+        "title": "Register",
+        "path": "/register",
+        "id": 11
+      },
+      {
+        "title": "Forgot Password",
+        "path": "/forgot-password",
+        "id": 12
+      },
+      {
+        "title": "Reset Password",
+        "path": "/reset-password",
+        "id": 13
+      }
+    ]
+  },
+  {
+    "title": "Profile",
+    "icon": "bi-person-fill",
+    "id": 14,
+    "childrens": [
+      {
+        "title": "Profile",
+        "path": "/profile",
+        "id": 15
+      },
+      {
+        "title": "Settings",
+        "id": 16,
+        "childrens": [
+          {
+            "title": "Account",
+            "path": "/settings/account",
+            "id": 17
+          },
+          {
+            "title": "Billing",
+            "id": 18
+          },
+          {
+            "title": "Notifications",
+            "path": "/settings/notifications",
+            "id": 19
+          }
+        ]
+      },
+      {
+        "title": "Logout",
+        "path": "/logout",
+        "id": 20
+      }
+    ]
+  },
+  {
+    "title": "Advance",
+    "icon": "bi-view-list",
+    "id": 21,
+    "childrens": [
+      {
+        "title": "Search",
+        "path": "/search",
+        "id": 22
+      },
+      {
+        "title": "History",
+        "path": "/history",
+        "id": 23
+      }
+    ]
+  },
+  {
+    "title": "Support",
+    "icon": "bi-question-circle-fill",
+    "path": "/support",
+    "id": 24
+  },
+  {
+    "title": "Report Bug",
+    "icon": "bi-bug",
+    "path": "/report-bug",
+    "id": 25
+  }
+]

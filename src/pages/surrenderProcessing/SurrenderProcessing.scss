@@ -1,0 +1,17 @@
+@import '../../styles/variable';
+
+.surrender-processing {
+ background-color: $main-page-background;
+ min-height: 50lvh;
+ //  border: 1px solid red;
+
+ .process-button {
+  padding: 7px 30px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  border-radius: 6px;
+  background-color: $save-button-forms;
+  color: #ffffff;
+ }
+}

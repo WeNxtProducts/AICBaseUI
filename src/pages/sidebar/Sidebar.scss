@@ -1,0 +1,123 @@
+@import "../../styles/variable";
+.sidebar {
+  width: 15%;
+  flex-shrink: 0;
+  position: fixed;
+  background-color: #ffffff;
+  left: 0;
+  top: 0;
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+  overflow-y: auto;
+  z-index: 11;
+  box-shadow: 2px 0 2px rgba(132, 132, 132, 0.2);
+  scrollbar-width: none;
+  scrollbar-color: #666 transparent;
+
+  .sidebar-title,
+  .sidebar-title-sub {
+    padding: 7px;
+    font-size: 1rem;
+  }
+  .sidebar-title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .sidebar-title-sub span i,
+  .sidebar-title span i {
+    display: inline-block;
+    width: 1.5em;
+  }
+
+  .sidebar-title .toggle-btn {
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .sidebar-item.open > .sidebar-title .toggle-btn {
+    transform: rotate(180deg);
+  }
+
+  .sidebar-content {
+    padding-top: 0.25em;
+    height: 0;
+    overflow: hidden;
+  }
+  .sidebar-item.open > .sidebar-content {
+    padding-left: 0.8rem;
+    height: auto;
+  }
+
+  .sidebar-item.plain {
+    color: #fff;
+    text-decoration: none;
+  }
+  .sidebar-item.plain:hover {
+    text-decoration: underline;
+  }
+
+  .icon-color {
+    color: #7e7d7d;
+    font-size: 14px;
+  }
+
+  .icon-color-selected {
+    color: #0989d0;
+    font-size: 14px;
+  }
+
+  .sidebar-text,
+  .sidebar-text-sub {
+    color: #7e7d7d;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .sidebar-text-sub {
+    font-weight: 400;
+  }
+
+  .sidebar-Header {
+    z-index: 1;
+    height: 45px;
+    background-color: #efefef;
+
+    .logo-resize {
+      width: 55px;
+      height: 46px;
+    }
+    .tools-icon {
+      color: #adadad;
+      font-size: 16px;
+    }
+  }
+
+  .sidebar-title:hover,
+  .sidebar-title-sub:hover {
+    background-color: #f7fbff;
+  }
+
+  .sidebar-title-selected {
+    background-image: linear-gradient(to right, #0989d0 5px, #def0fc 1%);
+  }
+  .sidebar-title-selected-sub {
+    background-color: #f7fcff;
+    position: relative;
+  }
+  .sidebar-title-selected-sub::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translate(50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: #0989d0;
+    border-radius: 50%;
+  }
+}
+
+.sidebar:hover ~ .app-content,
+.sidebar:hover ~ .header-content {
+  margin-left: 15%;
+}

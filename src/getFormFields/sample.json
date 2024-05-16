@@ -1,0 +1,36 @@
+{
+ "frontform": {
+  "formFields": {
+   "name_c": { "PFD_SEQ_NO": 1 },
+   "name_d": { "PFD_SEQ_NO": 2 },
+   "name": { "PFD_SEQ_NO": 3 }
+  }
+ },
+ "accordion": {
+  "customer": {
+   "formFields": {
+    "name_c": { "PFD_SEQ_NO": 1 },
+    "name_d": { "PFD_SEQ_NO": 2 },
+    "name": { "PFD_SEQ_NO": 3 }
+   }
+  },
+  "insurance": {
+   "tabs": {
+    "address": {
+     "formFields": {
+      "name_c": { "PFD_SEQ_NO": 1 },
+      "name_d": { "PFD_SEQ_NO": 2 },
+      "name": { "PFD_SEQ_NO": 3 }
+     }
+    }
+   }
+  },
+  "class": {
+   "formFields": {
+    "name_c": { "PFD_SEQ_NO": 1 },
+    "name_d": { "PFD_SEQ_NO": 2 },
+    "name": { "PFD_SEQ_NO": 3 }
+   }
+  }
+ }
+}

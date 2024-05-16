@@ -1,0 +1,52 @@
+.full-screen-loader {
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: rgba(255, 255, 255, 0.8);
+ z-index: 9999;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+
+ .loading-text {
+  color: #585c65;
+  font-size: 20px;
+ }
+
+ .loading-dots {
+  display: inline-block; /* Keep dots inline with loading text */
+  margin-left: 8px; /* Add space between text and dots */
+ }
+
+ /* Style for each dot */
+ .dot {
+  display: inline-block; /* Keep each dot inline */
+  opacity: 0; /* Start each dot with opacity 0 */
+  animation: dotFade 1.2s infinite linear; /* Animation for each dot */
+ }
+
+ /* Define keyframes for the dot animation */
+ @keyframes dotFade {
+  0%,
+  60% {
+   opacity: 0;
+  }
+  20% {
+   opacity: 1;
+  }
+ }
+
+ /* Delayed start of animation for each dot */
+ .dot:nth-child(1) {
+  animation-delay: 0s;
+ }
+ .dot:nth-child(2) {
+  animation-delay: 0.2s; /* Delay start of second dot */
+ }
+ .dot:nth-child(3) {
+  animation-delay: 0.4s; /* Delay start of third dot */
+ }
+}

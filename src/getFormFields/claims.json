@@ -1,0 +1,1369 @@
+{
+ "Header Info": {},
+ "frontForm": {
+  "Label": "Claim Entry",
+  "formFields": {
+   "PLAN_DESC": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "PLAN_DESC",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 61,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 2,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "PLAN NAME",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_PERIOD": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_PERIOD",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "date",
+    "PFD_SYS_ID": 67,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_SEQ_NO": 8,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "POLICY TERM",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_SRC_BUS": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_SRC_BUS",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 72,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 13,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "SOURCE OF BUSINESS",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PM_CUSTOMER.CUST_NAME": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "PM_CUSTOMER.CUST_NAME",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 66,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 7,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "CUSTOMER NAME",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_FRZ_YN": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_FRZ_YN",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 63,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 4,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "POLICY FREEZE  YN",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_UW_YEAR": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_UW_YEAR",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "date",
+    "PFD_SYS_ID": 62,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_SEQ_NO": 3,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "UW YEAR",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_PREM_PAY_YRS": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_PREM_PAY_YRS",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "number",
+    "PFD_SYS_ID": 68,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 9,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "POLICY PAYING TERM",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_MODE_OF_PYMT": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_MODE_OF_PYMT",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 74,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 15,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "MODE OF PAYMENT",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_CUST_CODE": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_CUST_CODE",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 65,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 6,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "CUSTOMER CODE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_JOINT_LIFE_AGE": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_JOINT_LIFE_AGE",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 69,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 10,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "ASSURED AGE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_FC_ANNUAL_SALARY": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_FC_ANNUAL_SALARY",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 75,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 16,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "CUSTOMER ANNUAL SALARY",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_LAST_INST_DT": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_LAST_INST_DT",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "date",
+    "PFD_SYS_ID": 78,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_SEQ_NO": 19,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "LAST INSTALMENT DATE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_FC_SUM_ASSURED": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_FC_SUM_ASSURED",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "number",
+    "PFD_SYS_ID": 76,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 17,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "SUM ASSURED",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_START_DT": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_START_DT",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 70,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 11,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "POLICY START DATE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_ASSRD_REF_ID1": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_ASSRD_REF_ID1",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 64,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 5,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "LIFE ASSURED ID",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_PYMT_TYPE": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_PYMT_TYPE",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 79,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 20,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "METHOD OF COLLECTION",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_SA_CURR_CODE": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_SA_CURR_CODE",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 73,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 14,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "POLICY CURRENCY",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_FIRST_INST_DT": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_FIRST_INST_DT",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "date",
+    "PFD_SYS_ID": 77,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_SEQ_NO": 18,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "FIRST INSTALLMENT DATE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_PLAN_CODE": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_PLAN_CODE",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 60,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 1,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "PLAN CODE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "POL_EXPIRY_DT": {
+    "PFD_HINT": "S",
+    "PFD_COLUMN_NAME": "POL_EXPIRY_DT",
+    "PFD_FORM_ITEM_TYPE1": "FrontFormField",
+    "PFD_TABLE_NAME": "LT_POLICY",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 71,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "BLDESC",
+    "PFD_SEQ_NO": 12,
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "POLICY MATURITY DATE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": "1",
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   }
+  }
+ },
+ "claim_cover": {
+  "Label": "Life Assured Details",
+  "formFields": {
+   "assured_name": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "assured_name",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Assured Name"
+   },
+   "y_n": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "y_n",
+    "PFD_DATA_TYPE": "checkbox",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "",
+    "options": [
+     {
+      "label": "Policy owner Y/N",
+      "value": "Policy owner Y/N"
+     },
+     {
+      "label": "Smoker Y/N",
+      "value": "Smoker Y/N"
+     },
+     {
+      "label": "Age proof submitted Y/N",
+      "value": "Age proof submitted Y/N"
+     }
+    ]
+   },
+   "national_id": {
+    "PFD_HINT": "select",
+    "PFD_COLUMN_NAME": "national_iD",
+    "PFD_DATA_TYPE": "lov",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "National ID",
+    "options": [
+     {
+      "label": "NO",
+      "value": "N"
+     },
+     {
+      "label": "YES",
+      "value": "Y"
+     }
+    ]
+   },
+   "annual_income_lC": {
+    "PFD_HINT": "Annual Income LC",
+    "PFD_COLUMN_NAME": "annual_income_lC",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Annual Income LC"
+   },
+   "age_proof": {
+    "PFD_HINT": "select",
+    "PFD_COLUMN_NAME": "age_proof",
+    "PFD_DATA_TYPE": "lov",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Age proof"
+   },
+   "annual_fncome_foreign_curr_value": {
+    "PFD_HINT": "Annual Income Foreign Curr value",
+    "PFD_COLUMN_NAME": "annual_fncome_foreign_curr_value",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Annual Income Foreign Curr value"
+   },
+   "gender": {
+    "PFD_HINT": "select",
+    "PFD_COLUMN_NAME": "gender",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Gender"
+   },
+   "date_of_birth": {
+    "PFD_HINT": "date",
+    "PFD_COLUMN_NAME": "date_of_birth",
+    "PFD_DATA_TYPE": "date",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Date Of Birth"
+   },
+   "height": {
+    "PFD_HINT": "0",
+    "PFD_COLUMN_NAME": "height",
+    "PFD_DATA_TYPE": "number",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Height"
+   },
+   "weight": {
+    "PFD_HINT": "0",
+    "PFD_COLUMN_NAME": "weight",
+    "PFD_DATA_TYPE": "number",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Weight"
+   },
+   "assured_bmi": {
+    "PFD_HINT": "Assured BMI",
+    "PFD_COLUMN_NAME": "assured_bmi",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Assured BMI"
+   },
+   "total_sum_assured": {
+    "PFD_HINT": "0",
+    "PFD_COLUMN_NAME": "total_sum_assured",
+    "PFD_DATA_TYPE": "number",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Total sum assured"
+   },
+   "nationality": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "nationality",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Nationality"
+   },
+   "nature_of_work": {
+    "PFD_HINT": "Nature Of Work",
+    "PFD_COLUMN_NAME": "nature_of_work",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Nature Of Work"
+   },
+   "occupation_code": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "occupation_code",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Occupation Code"
+   },
+   "occupation_class": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "occupation_class",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Occupation Class"
+   }
+  }
+ },
+ "claim_charges": {
+  "Label": "Beneficiary",
+  "formFields": {
+   "Serial_no": {
+    "PFD_HINT": "Serial No",
+    "PFD_COLUMN_NAME": "Serial_no",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Serial No"
+   },
+   "Type": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "Type",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Type"
+   },
+   "Beneficiary_id": {
+    "PFD_HINT": "select",
+    "PFD_COLUMN_NAME": "Beneficiary_id",
+    "PFD_DATA_TYPE": "lov",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Beneficiary ID"
+   },
+   "name": {
+    "PFD_HINT": "Name",
+    "PFD_COLUMN_NAME": "name",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Name"
+   },
+   "DOB": {
+    "PFD_HINT": "date",
+    "PFD_COLUMN_NAME": "DOB",
+    "PFD_DATA_TYPE": "date",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "DOB"
+   },
+   "Age": {
+    "PFD_HINT": "age",
+    "PFD_COLUMN_NAME": "Age",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Age"
+   },
+   "gender": {
+    "PFD_HINT": "select",
+    "PFD_COLUMN_NAME": "gender",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Gender"
+   },
+   "Relation_code": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "Relation_code",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Relation Code"
+   },
+   "Other_relation": {
+    "PFD_HINT": "Relation",
+    "PFD_COLUMN_NAME": "Other_relation",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Other relation"
+   },
+   "Percentage": {
+    "PFD_HINT": "%",
+    "PFD_COLUMN_NAME": "Percentage",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Percentage"
+   },
+   "Guardian_name": {
+    "PFD_HINT": "Guardian Name",
+    "PFD_COLUMN_NAME": "Guardian_name",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Guardian Name"
+   },
+   "Bank_code": {
+    "PFD_HINT": "",
+    "PFD_COLUMN_NAME": "Bank_code",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Bank Code"
+   },
+   "acc_no": {
+    "PFD_HINT": "0",
+    "PFD_COLUMN_NAME": "acc_no",
+    "PFD_DATA_TYPE": "number",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Account No"
+   },
+   "Branch_code": {
+    "PFD_HINT": "Branch Code",
+    "PFD_COLUMN_NAME": "Branch_code",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Branch Code"
+   },
+   "email": {
+    "PFD_HINT": "email",
+    "PFD_COLUMN_NAME": "email",
+    "PFD_DATA_TYPE": "text",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Email ID"
+   },
+   "mob_no": {
+    "PFD_HINT": "0",
+    "PFD_COLUMN_NAME": "mob_no",
+    "PFD_DATA_TYPE": "phonenumber",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Mobile No"
+   },
+   "Remarks": {
+    "PFD_HINT": "Remarks",
+    "PFD_COLUMN_NAME": "Remarks",
+    "PFD_DATA_TYPE": "textarea",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Remarks"
+   },
+   "Eff_From_Date": {
+    "PFD_HINT": "date",
+    "PFD_COLUMN_NAME": "Eff_From_Date",
+    "PFD_DATA_TYPE": "date",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Eff From Date"
+   },
+   "Eff_To_Date": {
+    "PFD_HINT": "date",
+    "PFD_COLUMN_NAME": "Eff_To_Date",
+    "PFD_DATA_TYPE": "date",
+    "PFD_FLD_VALUE": "",
+    "PFD_MANDATORY_YN": false,
+    "PFD_FLD_NAME": "Eff To Date"
+   }
+  }
+ },
+ "accordions": {
+  "claim_cover": {
+   "Label": "Life Assured Details",
+   "formFields": {
+    "assured_name": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "assured_name",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Assured Name"
+    },
+    "y_n": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "y_n",
+     "PFD_DATA_TYPE": "checkbox",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "",
+     "options": [
+      {
+       "label": "Policy owner Y/N",
+       "value": "Policy owner Y/N"
+      },
+      {
+       "label": "Smoker Y/N",
+       "value": "Smoker Y/N"
+      },
+      {
+       "label": "Age proof submitted Y/N",
+       "value": "Age proof submitted Y/N"
+      }
+     ]
+    },
+    "national_id": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "national_iD",
+     "PFD_DATA_TYPE": "lov",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "National ID",
+     "options": [
+      {
+       "label": "NO",
+       "value": "N"
+      },
+      {
+       "label": "YES",
+       "value": "Y"
+      }
+     ]
+    },
+    "annual_income_lC": {
+     "PFD_HINT": "Annual Income LC",
+     "PFD_COLUMN_NAME": "annual_income_lC",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Annual Income LC"
+    },
+    "age_proof": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "age_proof",
+     "PFD_DATA_TYPE": "lov",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Age proof"
+    },
+    "annual_fncome_foreign_curr_value": {
+     "PFD_HINT": "Annual Income Foreign Curr value",
+     "PFD_COLUMN_NAME": "annual_fncome_foreign_curr_value",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Annual Income Foreign Curr value"
+    },
+    "gender": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "gender",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Gender"
+    },
+    "date_of_birth": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "date_of_birth",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Date Of Birth"
+    },
+    "height": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "height",
+     "PFD_DATA_TYPE": "number",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Height"
+    },
+    "weight": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "weight",
+     "PFD_DATA_TYPE": "number",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Weight"
+    },
+    "assured_bmi": {
+     "PFD_HINT": "Assured BMI",
+     "PFD_COLUMN_NAME": "assured_bmi",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Assured BMI"
+    },
+    "total_sum_assured": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "total_sum_assured",
+     "PFD_DATA_TYPE": "number",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Total sum assured"
+    },
+    "nationality": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "nationality",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Nationality"
+    },
+    "nature_of_work": {
+     "PFD_HINT": "Nature Of Work",
+     "PFD_COLUMN_NAME": "nature_of_work",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Nature Of Work"
+    },
+    "occupation_code": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "occupation_code",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Occupation Code"
+    },
+    "occupation_class": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "occupation_class",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Occupation Class"
+    }
+   }
+  },
+  "claim_charges": {
+   "Label": "Beneficiary",
+   "formFields": {
+    "Serial_no": {
+     "PFD_HINT": "Serial No",
+     "PFD_COLUMN_NAME": "Serial_no",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Serial No"
+    },
+    "Type": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "Type",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Type"
+    },
+    "Beneficiary_id": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "Beneficiary_id",
+     "PFD_DATA_TYPE": "lov",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Beneficiary ID"
+    },
+    "name": {
+     "PFD_HINT": "Name",
+     "PFD_COLUMN_NAME": "name",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Name"
+    },
+    "DOB": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "DOB",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "DOB"
+    },
+    "Age": {
+     "PFD_HINT": "age",
+     "PFD_COLUMN_NAME": "Age",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Age"
+    },
+    "gender": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "gender",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Gender"
+    },
+    "Relation_code": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "Relation_code",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Relation Code"
+    },
+    "Other_relation": {
+     "PFD_HINT": "Relation",
+     "PFD_COLUMN_NAME": "Other_relation",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Other relation"
+    },
+    "Percentage": {
+     "PFD_HINT": "%",
+     "PFD_COLUMN_NAME": "Percentage",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Percentage"
+    },
+    "Guardian_name": {
+     "PFD_HINT": "Guardian Name",
+     "PFD_COLUMN_NAME": "Guardian_name",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Guardian Name"
+    },
+    "Bank_code": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "Bank_code",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Bank Code"
+    },
+    "acc_no": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "acc_no",
+     "PFD_DATA_TYPE": "number",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Account No"
+    },
+    "Branch_code": {
+     "PFD_HINT": "Branch Code",
+     "PFD_COLUMN_NAME": "Branch_code",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Branch Code"
+    },
+    "email": {
+     "PFD_HINT": "email",
+     "PFD_COLUMN_NAME": "email",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Email ID"
+    },
+    "mob_no": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "mob_no",
+     "PFD_DATA_TYPE": "phonenumber",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Mobile No"
+    },
+    "Remarks": {
+     "PFD_HINT": "Remarks",
+     "PFD_COLUMN_NAME": "Remarks",
+     "PFD_DATA_TYPE": "textarea",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Remarks"
+    },
+    "Eff_From_Date": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "Eff_From_Date",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Eff From Date"
+    },
+    "Eff_To_Date": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "Eff_To_Date",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Eff To Date"
+    }
+   }
+  },
+  "claim_estimate": {
+   "Label": "Beneficiary",
+   "formFields": {
+    "Serial_no": {
+     "PFD_HINT": "Serial No",
+     "PFD_COLUMN_NAME": "Serial_no",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Serial No"
+    },
+    "Type": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "Type",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Type"
+    },
+    "Beneficiary_id": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "Beneficiary_id",
+     "PFD_DATA_TYPE": "lov",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Beneficiary ID"
+    },
+    "name": {
+     "PFD_HINT": "Name",
+     "PFD_COLUMN_NAME": "name",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Name"
+    },
+    "DOB": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "DOB",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "DOB"
+    },
+    "Age": {
+     "PFD_HINT": "age",
+     "PFD_COLUMN_NAME": "Age",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Age"
+    },
+    "gender": {
+     "PFD_HINT": "select",
+     "PFD_COLUMN_NAME": "gender",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Gender"
+    },
+    "Relation_code": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "Relation_code",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Relation Code"
+    },
+    "Other_relation": {
+     "PFD_HINT": "Relation",
+     "PFD_COLUMN_NAME": "Other_relation",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Other relation"
+    },
+    "Percentage": {
+     "PFD_HINT": "%",
+     "PFD_COLUMN_NAME": "Percentage",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Percentage"
+    },
+    "Guardian_name": {
+     "PFD_HINT": "Guardian Name",
+     "PFD_COLUMN_NAME": "Guardian_name",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Guardian Name"
+    },
+    "Bank_code": {
+     "PFD_HINT": "",
+     "PFD_COLUMN_NAME": "Bank_code",
+     "PFD_DATA_TYPE": "codedesc",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Bank Code"
+    },
+    "acc_no": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "acc_no",
+     "PFD_DATA_TYPE": "number",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Account No"
+    },
+    "Branch_code": {
+     "PFD_HINT": "Branch Code",
+     "PFD_COLUMN_NAME": "Branch_code",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Branch Code"
+    },
+    "email": {
+     "PFD_HINT": "email",
+     "PFD_COLUMN_NAME": "email",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Email ID"
+    },
+    "mob_no": {
+     "PFD_HINT": "0",
+     "PFD_COLUMN_NAME": "mob_no",
+     "PFD_DATA_TYPE": "phonenumber",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Mobile No"
+    },
+    "Remarks": {
+     "PFD_HINT": "Remarks",
+     "PFD_COLUMN_NAME": "Remarks",
+     "PFD_DATA_TYPE": "textarea",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Remarks"
+    },
+    "Eff_From_Date": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "Eff_From_Date",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Eff From Date"
+    },
+    "Eff_To_Date": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "Eff_To_Date",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Eff To Date"
+    }
+   }
+  },
+  "checkList": {
+   "Label": "Checklist",
+   "formFields": {
+    "list_item_desc": {
+     "PFD_HINT": "desc.",
+     "PFD_COLUMN_NAME": "list_item_desc",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "List Item desc."
+    },
+    "recieved_date": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "recieved_date",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Recieved Date"
+    },
+    "remarks": {
+     "PFD_HINT": "Remarks",
+     "PFD_COLUMN_NAME": "remarks",
+     "PFD_DATA_TYPE": "textarea",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Remarks"
+    },
+    "y_n": {
+     "PFD_HINT": "check",
+     "PFD_COLUMN_NAME": "y_n",
+     "PFD_DATA_TYPE": "checkbox",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "",
+     "options": [
+      {
+       "label": "Received Y/N",
+       "value": "Received Y/N"
+      },
+      {
+       "label": "Mandatory Y/N",
+       "value": "Mandatory Y/N"
+      }
+     ]
+    }
+   }
+  },
+  "claim_decision": {
+   "Label": "Checklist",
+   "formFields": {
+    "list_item_desc": {
+     "PFD_HINT": "desc.",
+     "PFD_COLUMN_NAME": "list_item_desc",
+     "PFD_DATA_TYPE": "text",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "List Item desc."
+    },
+    "recieved_date": {
+     "PFD_HINT": "date",
+     "PFD_COLUMN_NAME": "recieved_date",
+     "PFD_DATA_TYPE": "date",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Recieved Date"
+    },
+    "remarks": {
+     "PFD_HINT": "Remarks",
+     "PFD_COLUMN_NAME": "remarks",
+     "PFD_DATA_TYPE": "textarea",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "Remarks"
+    },
+    "y_n": {
+     "PFD_HINT": "check",
+     "PFD_COLUMN_NAME": "y_n",
+     "PFD_DATA_TYPE": "checkbox",
+     "PFD_FLD_VALUE": "",
+     "PFD_MANDATORY_YN": false,
+     "PFD_FLD_NAME": "",
+     "options": [
+      {
+       "label": "Received Y/N",
+       "value": "Received Y/N"
+      },
+      {
+       "label": "Mandatory Y/N",
+       "value": "Mandatory Y/N"
+      }
+     ]
+    }
+   }
+  }
+ }
+}

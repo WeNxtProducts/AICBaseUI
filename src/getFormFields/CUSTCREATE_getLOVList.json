@@ -1,0 +1,36 @@
+{
+ "CCUR_CURR_CODE": [{ "label": "RUPEES", "value": "RS" }],
+ "cust_catg_code": [],
+ "CUST_OCC_CODE": [],
+ "CUST_RELIGION": [],
+ "CUST_PHY_REGION": [],
+ "CUST_ID_TYPE": [],
+ "cust_salutation": [
+  { "label": "MR", "value": "1" },
+  { "label": "ADMIRAL", "value": "10" },
+  { "label": "BR", "value": "11" },
+  { "label": "BRIGADIER", "value": "12" },
+  { "label": "COLONEL", "value": "14" },
+  { "label": "COMMANDER", "value": "15" },
+  { "label": "JUDGE", "value": "18" },
+  { "label": "LT", "value": "19" },
+  { "label": "PROF", "value": "2" },
+  { "label": "MASTER", "value": "20" },
+  { "label": "OTHER", "value": "21" },
+  { "label": "PROFESSOR", "value": "22" },
+  { "label": "SIR", "value": "23" },
+  { "label": "SPECIAL", "value": "24" },
+  { "label": "DR", "value": "3" },
+  { "label": "SIR ", "value": "4" },
+  { "label": "M/S", "value": "8" },
+  { "label": "ADVOCATE", "value": "9" }
+ ],
+ "CDIV_DIVN_CODE": [
+  { "label": "Branch One", "value": "201" },
+  { "label": "Branch Two", "value": "202" },
+  { "label": "Branch Three", "value": "203" },
+  { "label": "Branch Four", "value": "204" },
+  { "label": "Branch Five", "value": "205" }
+ ],
+ "CUST_NATIONALITY_CODE": []
+}

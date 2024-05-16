@@ -1,0 +1,23 @@
+@import "../../../styles/variable";
+
+.search-container {
+  position: relative;
+
+  .search-input {
+    width: 100%;
+    padding: 5px 40px 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: $form-fields-bg-color;
+  }
+  .search-input:focus {
+    outline: none;
+  }
+}

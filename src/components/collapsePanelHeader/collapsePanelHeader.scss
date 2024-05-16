@@ -1,0 +1,58 @@
+@import '../../styles/variable';
+
+.ant-collapse {
+ padding: 0px;
+ border: none;
+ background-color: #e5f6ff;
+
+ .ant-collapse-content {
+  border-top: 0px;
+ }
+
+ .ant-collapse-header {
+  background-color: white;
+  padding: 3px !important;
+ }
+ .ant-collapse-content-box {
+  padding: 0 !important;
+ }
+
+ .ant-collapse-item {
+  border: none;
+  margin-bottom: 5px;
+ }
+
+ .ant-collapse-item-active {
+  .title-style {
+   font-weight: 900;
+  }
+  .ant-collapse-header {
+   border-radius: 3px;
+   border: 1px solid #0382c8;
+   position: sticky;
+   top: 0.4px;
+   z-index: 50;
+  }
+ }
+}
+
+.custom-header-panel {
+ .title-style {
+  color: #4d5e80;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 30px;
+ }
+ .saved-status {
+  p {
+   padding: 0 7px;
+   background-color: #22a06b;
+   color: white;
+   font-size: 12px;
+   line-height: 30px;
+   letter-spacing: 0.7px;
+   font-weight: 500;
+   border-radius: 30px;
+  }
+ }
+}

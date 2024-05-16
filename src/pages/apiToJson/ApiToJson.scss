@@ -1,0 +1,41 @@
+@import '../../styles/variable';
+
+.corner-div {
+ position: fixed;
+ top: 20%;
+ right: 0;
+ width: 20px;
+ //  height: 50%;
+ //  border: 3px solid red;
+ transition: width 0.4s ease;
+ z-index: 100;
+
+ .all-actions {
+  .actions {
+   border: 1px solid red;
+   height: 80px;
+   width: 25px;
+   background-color: aqua;
+
+   p {
+    margin-top: 37px;
+    margin-left: -8px;
+    transform: rotate(270deg);
+   }
+  }
+
+  .action-area {
+   border: 1px solid black1;
+   width: 100%;
+   background-color: rgb(179, 179, 248);
+  }
+ }
+}
+.api-to-json-submit {
+ color: #ffffff;
+ background-color: $save-button-forms;
+}
+
+.corner-div:hover {
+ width: 20%; /* When hovered, width expands */
+}
