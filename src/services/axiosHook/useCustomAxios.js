@@ -15,7 +15,7 @@ import { setMenu } from '../../globalStore/slices/MenuSlices';
 import showNotification from '../../components/notification/Notification';
 import { useNavigate } from 'react-router-dom';
 
-axios.defaults.baseURL = 'http://192.168.1.130:8098/';
+axios.defaults.baseURL = 'http://192.168.1.150:8098/';
 
 const useCustomAxios = () => {
  const navigate = useNavigate();

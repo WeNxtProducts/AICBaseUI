@@ -517,11 +517,11 @@ export const proposalStepper = [
 ];
 
 export const claimsStepper = [
- { key: 0, title: 'Claim Entry', status: 'completed' },
- { key: 1, title: 'Claim Cover', status: 'completed' },
- { key: 2, title: 'Claim Charges', status: 'completed' },
- { key: 3, title: 'Claim Estimate', status: 'completed' },
- { key: 4, title: 'Checklist', status: 'inprogress' },
+ { key: 0, title: 'Claim Entry', status: 'inprogress' },
+ { key: 1, title: 'Claim Cover', status: 'todo' },
+ { key: 2, title: 'Claim Charges', status: 'todo' },
+ { key: 3, title: 'Claim Estimate', status: 'todo' },
+ { key: 4, title: 'Checklist', status: 'todo' },
  { key: 5, title: 'Claim Decision', status: 'todo' },
 ];
 

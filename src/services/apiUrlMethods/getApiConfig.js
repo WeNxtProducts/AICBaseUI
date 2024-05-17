@@ -1,6 +1,6 @@
 const GET_API_URL = {
  getMenuList: {
-  url: 'common/getMenuList?groupId=ADM',
+  url: 'common/getMenuList',
  },
  getListing: {
   url: '/common/getlistingdata',

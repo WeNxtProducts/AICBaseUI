@@ -65,5 +65,8 @@ const POST_API_URL = {
  deleteCurrency: {
   url: '/customer/deleteCurrency',
  },
+ createClaim: {
+  url: '/ltclaim/claimSave',
+ },
 };
 export default POST_API_URL;

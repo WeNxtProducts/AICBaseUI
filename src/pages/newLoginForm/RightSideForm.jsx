@@ -10,6 +10,7 @@ import { loginValidationSchema } from '../../schemaValidations/loginValidation';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { storeEncryptedData } from '../../globalStore/cryptoUtils/cryptoUtil';
 import {
+ setGroupId,
  setToken,
  setUserDetails,
 } from '../../globalStore/slices/TokenAndMenuList';
@@ -67,6 +68,7 @@ const RightSideForm = () => {
    storeEncryptedData('token', response?.Data?.Token || response?.Token);
    dispatch(setToken(response?.Data?.Token || response?.Token));
    dispatch(setUserDetails(values));
+   dispatch(setGroupId(response?.Data?.group));
    if (response?.Status === 'REDIRECT') {
     navigate(response?.Data?.URL || '/resetpassword');
    } else if (response?.Status === 'SUCCESS') navigate('/dashboard');
