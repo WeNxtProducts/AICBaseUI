@@ -11,13 +11,14 @@ export default function Sidebar() {
  const dispatch = useDispatch();
  const [isExpanded, setIsExpanded] = useState(false); // change to false
  const menuList = useSelector(state => state?.tokenAndMenuList?.sidebarList);
+ const groupId = useSelector(state => state?.tokenAndMenuList?.groupId);
  const menuListAPI = useApiRequests('getMenuList', 'GET');
  const [loader, setLoader] = useState(false);
 
  const handleMenuList = async () => {
   setLoader(true);
   try {
-   const response = await menuListAPI();
+   const response = await menuListAPI('', { groupId });
    dispatch(setSidebarList(response?.Data));
    setLoader(false);
   } catch (err) {

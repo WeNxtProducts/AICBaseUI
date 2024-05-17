@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import ProtectedRoute from './PrivateRoute';
+import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const CustomerListingScreen = lazy(() =>
@@ -51,6 +52,14 @@ const AppRouter = () => {
      }
     />
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/claimsEntryList'
+      element={
+       <Suspense fallback={<div>Claim Listing...</div>}>
+        <ClaimListing />
+       </Suspense>
+      }
+     />
      <Route
       path='/surrenderprocessing'
       element={

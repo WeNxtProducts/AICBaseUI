@@ -5,6 +5,7 @@ const initialState = {
  sidebarList: [],
  currentMenuId: {},
  userDetails: {},
+ groupId: '',
 };
 
 const TokenAndMenuList = createSlice({
@@ -23,10 +24,18 @@ const TokenAndMenuList = createSlice({
   setUserDetails: (state, action) => {
    state.userDetails = action.payload;
   },
+  setGroupId: (state, action) => {
+   state.groupId = action.payload;
+  },
  },
 });
 
-export const { setToken, setSidebarList, setCurrentMenuId, setUserDetails } =
- TokenAndMenuList.actions;
+export const {
+ setToken,
+ setSidebarList,
+ setCurrentMenuId,
+ setUserDetails,
+ setGroupId,
+} = TokenAndMenuList.actions;
 
 export default TokenAndMenuList.reducer;

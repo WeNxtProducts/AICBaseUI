@@ -3,16 +3,18 @@ import CustomStepper from '../../components/customStepper/CustomStepper';
 import useStepper from '../../components/customStepper/useStepper';
 import { claimsStepper } from '../../components/tableComponents/sampleData';
 import ClaimEntry from './claimEntryForm/ClaimEntry';
-import '../../styles/components/Quotation.scss';
 import ClaimsPanel from './claimsPanel/ClaimsPanel';
 import ClaimsJson from '../../getFormFields/CLAIMENTRY_getFieldList.json';
+import { useSelector } from 'react-redux';
 import './Claims.scss';
+import '../../styles/components/Quotation.scss';
 
 export const ClaimStepperContext = createContext();
 
 const Claims = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
   useStepper(claimsStepper);
+ const id = useSelector(state => state?.id?.id);
 
  const handleSkipStep = index => {
   handleSkip(index);
@@ -25,9 +27,11 @@ const Claims = () => {
   handlePrevious,
   handleSkip,
   ClaimsJson,
+  id,
  };
 
  useEffect(() => {
+  console.log('id : ', id);
   const panel = document.querySelector(`[data-id='panel-${currentStep}']`);
   if (panel) {
    setTimeout(() => {
