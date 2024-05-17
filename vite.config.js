@@ -8,4 +8,8 @@ export default defineConfig({
   enabled: true,
   // maxNumberOfWorkers: 4,
  },
+ server: {
+  port: 3001,
+  strictPort: true,
+ },
 });
