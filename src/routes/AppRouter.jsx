@@ -22,6 +22,9 @@ const CashbackProcessing = lazy(() =>
 const SurrenderProcessing = lazy(() =>
  import('../pages/surrenderProcessing/SurrenderProcessing'),
 );
+const SurrenderPayment = lazy(() =>
+ import('../pages/surrenderPayment/SurrenderPayment'),
+);
 
 const AppRouter = () => {
  return (
@@ -51,6 +54,30 @@ const AppRouter = () => {
       </Suspense>
      }
     />
+    <Route
+     path='/surrenderprocessing'
+     element={
+      <Suspense fallback={<div>surrenderprocessing...</div>}>
+       <SurrenderProcessing />
+      </Suspense>
+     }
+    />
+    <Route
+     path='/claims'
+     element={
+      <Suspense fallback={<div>Claims...</div>}>
+       <Claims />
+      </Suspense>
+     }
+    />
+    <Route
+     path='/surrenderpayment'
+     element={
+      <Suspense fallback={<div>SurrenderPayment...</div>}>
+       <SurrenderPayment />
+      </Suspense>
+     }
+    />
     <Route element={<ProtectedRoute />}>
      <Route
       path='/claimsEntryList'
@@ -60,14 +87,14 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-     <Route
+     {/* <Route
       path='/surrenderprocessing'
       element={
        <Suspense fallback={<div>ClaimSettlement...</div>}>
         <SurrenderProcessing />
        </Suspense>
       }
-     />
+     /> */}
      <Route
       path='/cashbackprocessing'
       element={
@@ -84,14 +111,14 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-     <Route
+     {/* <Route
       path='/claims'
       element={
        <Suspense fallback={<div>Claims...</div>}>
         <Claims />
        </Suspense>
       }
-     />
+     /> */}
      <Route
       path='/resetpassword_profile'
       element={

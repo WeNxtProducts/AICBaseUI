@@ -111,6 +111,7 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
+         size='medium'
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onChange={e => {

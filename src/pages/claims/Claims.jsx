@@ -7,7 +7,7 @@ import ClaimsPanel from './claimsPanel/ClaimsPanel';
 import ClaimsJson from '../../getFormFields/CLAIMENTRY_getFieldList.json';
 import { useSelector } from 'react-redux';
 import './Claims.scss';
-import '../../styles/components/Quotation.scss';
+// import '../../styles/components/Quotation.scss';
 
 export const ClaimStepperContext = createContext();
 
