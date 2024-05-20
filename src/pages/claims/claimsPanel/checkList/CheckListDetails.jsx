@@ -54,9 +54,9 @@ const CheckListDetails = () => {
      handleUpload={handleUpload}
     />
    </div>
-   {openUpload && (
+   {/* {openUpload && (
     <UploadDocuments open={openUpload} handleClose={handleClose} />
-   )}
+   )} */}
   </div>
  );
 };

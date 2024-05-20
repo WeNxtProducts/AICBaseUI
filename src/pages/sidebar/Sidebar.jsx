@@ -27,10 +27,10 @@ export default function Sidebar() {
  };
 
  useEffect(() => {
-  if (menuList?.length === 0) handleMenuList();
+  // if (menuList?.length === 0) handleMenuList();
  }, []);
 
- if (menuList?.length === 0) return <Loader />;
+//  if (menuList?.length === 0) return <Loader />;
 
  return (
   <div

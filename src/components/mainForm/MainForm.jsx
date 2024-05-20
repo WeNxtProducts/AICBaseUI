@@ -10,6 +10,7 @@ const MainForm = ({
  onSubmit,
  handleChangeValue,
  grid = '2',
+ action = true,
 }) => {
  const [validation, setValidation] = useState(null);
 
@@ -26,7 +27,7 @@ const MainForm = ({
     <Formik
      initialValues={initialValues}
      values={initialValues}
-    //  validationSchema={validation}
+     //  validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue }) => {
@@ -53,13 +54,14 @@ const MainForm = ({
           );
          })}
         </div>
-
-        <div className='w-full mt-5 mb-5 submit-button-form'>
-         <button className='reset'>Reset</button>
-         <button type='submit' className='save ml-9'>
-          Submit
-         </button>
-        </div>
+        {action && (
+         <div className='w-full mt-5 mb-5 submit-button-form'>
+          <button className='reset'>Reset</button>
+          <button type='submit' className='save ml-9'>
+           Submit
+          </button>
+         </div>
+        )}
        </Form>
       );
      }}
