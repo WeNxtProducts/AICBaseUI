@@ -14,6 +14,7 @@ const useApiRequests = (apiName, method) => {
  ) => {
   return new Promise(async (resolve, reject) => {
    let url = api?.url;
+   const baseURL = api?.baseURL ? import.meta.env[`VITE_${api?.baseURL}`] : '';
 
    try {
     if (Object.keys(pathParams).length > 0)
@@ -37,6 +38,7 @@ const useApiRequests = (apiName, method) => {
      url: url,
      data: payload,
      headers: header,
+     ...(baseURL && { baseURL }),
     });
 
     resolve(response.data);

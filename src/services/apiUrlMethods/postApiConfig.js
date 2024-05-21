@@ -67,6 +67,7 @@ const POST_API_URL = {
  },
  createClaim: {
   url: '/ltclaim/claimSave',
+  baseURL: 'CLAIMURL',
  },
 };
 export default POST_API_URL;

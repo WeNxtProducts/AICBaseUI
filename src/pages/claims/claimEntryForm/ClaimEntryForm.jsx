@@ -9,6 +9,8 @@ import {
 } from './../../../components/commonHelper/DataSend';
 import showNotification from '../../../components/notification/Notification';
 import useApiRequests from '../../../services/useApiRequests';
+import { setCurrentID } from '../../../globalStore/slices/IdSlices';
+import { useDispatch } from 'react-redux';
 
 const ClaimEntryForm = () => {
  const {
@@ -20,6 +22,7 @@ const ClaimEntryForm = () => {
   ClaimsJson,
   id: tranId,
  } = useContext(ClaimStepperContext);
+ const dispatch = useDispatch();
  const [claimEntry, setClaimEntry] = useState(null);
  const [claimEntryInitialValues, setClaimEntryInitialValues] = useState(null);
  const [loader, setLoader] = useState(false);

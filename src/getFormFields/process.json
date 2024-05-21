@@ -420,7 +420,7 @@
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "Interest_Value": {

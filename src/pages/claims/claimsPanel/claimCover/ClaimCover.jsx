@@ -22,7 +22,8 @@ const ClaimCover = ({ queryID, root }) => {
 
  const onSubmit = values => {
   handleNext();
-  console.log('values : ', values);
+  const payload = { [root]: { formFields: values } };
+  console.log('values : ', payload);
  };
 
  const handleChangeValue = (value, path, setFieldValue, values) => {

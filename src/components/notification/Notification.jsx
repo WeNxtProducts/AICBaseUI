@@ -1,5 +1,4 @@
 import { notification } from 'antd';
-import CollapsePanelHeader from '../collapsePanelHeader/CollapsePanelHeader';
 
 const showNotification = {
  SUCCESS: description => {

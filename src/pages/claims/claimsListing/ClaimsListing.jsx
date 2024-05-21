@@ -7,6 +7,7 @@ import { TextInputWithSearchIcon } from '../../../components/commonExportsFields
 import TableComponent from '../../../components/tableComponents/TableComponent';
 import useApiRequests from '../../../services/useApiRequests';
 import { setCurrentID } from '../../../globalStore/slices/IdSlices';
+import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 
 const ClaimListing = () => {
  const dispatch = useDispatch();
@@ -15,13 +16,15 @@ const ClaimListing = () => {
  const currentMenuId = useSelector(
   state => state?.tokenAndMenuList?.currentMenuId,
  );
-
+ const deleteClaim = useApiRequests('deleteClaim', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
  const [loader, setLoader] = useState(false);
  const [sortState, setSortState] = useState({});
  const [current, setCurrent] = useState(1);
  const [count, setCount] = useState(10);
+ const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+ const [deleteId, setDeleteId] = useState(null);
  const limit = 20;
 
  const handleInputChange = value => {
@@ -50,6 +53,28 @@ const ClaimListing = () => {
   }
  };
 
+ const handleDeleteConfirm = async () => {
+  setLoader(true);
+  try {
+   const response = await deleteClaim('', {}, { id: deleteId?.ID });
+   setDeleteId(null);
+   if (response?.Status === 'FAILURE')
+    showNotification.ERROR(response?.Message);
+   if (response?.Status === 'SUCCESS') {
+    handleListingApi(0, 1);
+    showNotification.SUCCESS(response?.Message);
+   }
+   setLoader(false);
+  } catch (err) {
+   console.log('err  : ', err);
+  }
+ };
+
+ const handleClose = status => {
+  setDeleteConfirmation(false);
+  if (status) handleDeleteConfirm();
+ };
+
  useEffect(() => {
   handleListingApi(0);
  }, []);
@@ -68,7 +93,8 @@ const ClaimListing = () => {
  };
 
  const handleDelete = async item => {
-  console.log('delete');
+  setDeleteConfirmation(true);
+  setDeleteId(item);
  };
 
  function calculateOffset(pageNumber, limit = 20) {
@@ -125,6 +151,9 @@ const ClaimListing = () => {
       defaultPageSize={limit}
      />
     </div>
+   )}
+   {deleteConfirmation && (
+    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
    )}
   </div>
  );
