@@ -40,15 +40,19 @@ const MainForm = ({
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
           return useMemo(
            () => (
-            <div key={dataId} data-id={dataId}>
-             <FieldWithValue
-              currentData={formRender?.[root]?.formFields[fieldKey]}
-              values={values}
-              setFieldValue={setFieldValue}
-              handleChangeValue={handleChangeValue}
-              parent={root}
-             />
-            </div>
+            <React.Fragment>
+             {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
+              <div key={dataId} data-id={dataId}>
+               <FieldWithValue
+                currentData={formRender?.[root]?.formFields[fieldKey]}
+                values={values}
+                setFieldValue={setFieldValue}
+                handleChangeValue={handleChangeValue}
+                parent={root}
+               />
+              </div>
+             )}
+            </React.Fragment>
            ),
            [values?.[root]?.formFields[fieldKey]],
           );

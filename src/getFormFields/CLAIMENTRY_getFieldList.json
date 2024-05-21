@@ -25,7 +25,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_UNIT_LC_AMT": {
@@ -49,7 +49,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_REMARKS": {
@@ -73,7 +73,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LC_EXCESS_AMT": {
@@ -97,7 +97,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LC_EST_AMT": {
@@ -121,7 +121,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_REF_NO": {
@@ -145,7 +145,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LC_PREM_OS": {
@@ -169,7 +169,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_FC_ACC_PROFIT": {
@@ -193,7 +193,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LC_ACC_PROFIT": {
@@ -217,7 +217,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LC_NET_EST_AMT": {
@@ -241,7 +241,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_TOTAL_CHRG_AMT": {
@@ -265,7 +265,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_FC_EST_AMT": {
@@ -289,7 +289,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_SETL_START_DT": {
@@ -313,7 +313,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
@@ -343,7 +343,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_CHRG_LC_VALUE": {
@@ -367,7 +367,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_BENF_CODE": {
@@ -391,7 +391,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_RATE": {
@@ -415,7 +415,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_CHRG_CODE": {
@@ -439,7 +439,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_PAID_TO": {
@@ -463,7 +463,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_CHRG_FC_VALUE": {
@@ -487,7 +487,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_REMARKS": {
@@ -511,7 +511,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
@@ -540,7 +540,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_LC_EST_AMT": {
@@ -564,7 +564,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_COVER_CODE": {
@@ -588,7 +588,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_FC_EST_AMT": {
@@ -612,7 +612,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_CONFIRM_FLAG": {
@@ -636,7 +636,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_DISAB_TYPE": {
@@ -660,7 +660,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_SET_FLAG": {
@@ -684,7 +684,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_PERIOD_UNIT": {
@@ -708,7 +708,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_CLAIM_PAY_TO": {
@@ -732,7 +732,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_PERIOD": {
@@ -756,7 +756,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_NO_OF_DAYS": {
@@ -780,7 +780,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_RESERVE_DT": {
@@ -804,7 +804,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_FRZ_FLAG": {
@@ -828,7 +828,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_LOSS_TYPE": {
@@ -852,7 +852,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CCD_RATE_PER": {
@@ -876,7 +876,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
@@ -904,7 +904,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_CLAIM_NO": {
@@ -927,7 +927,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_INTM_DT": {
@@ -950,7 +950,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_REF_NO": {
@@ -973,7 +973,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_CUST_CODE": {
@@ -996,7 +996,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_SYS_ID": {
@@ -1016,7 +1016,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "0",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_ASSRD_REF_ID1": {
@@ -1033,13 +1033,13 @@
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
     "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
+    "PFD_EDIT_YN": true,
     "PFD_FLD_NAME": "ASSURED NATIONAL ID",
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_HOSP_DSCHG_DT": {
@@ -1062,7 +1062,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_POL_NO": {
@@ -1085,7 +1085,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_EMAIL": {
@@ -1108,7 +1108,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_ASSR_CODE": {
@@ -1131,7 +1131,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_DISEASES_CODE": {
@@ -1154,7 +1154,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_HOSP_ADDM_DT": {
@@ -1177,7 +1177,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_CURR_CODE": {
@@ -1200,7 +1200,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_TYPE": {
@@ -1223,7 +1223,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_REMARKS": {
@@ -1246,7 +1246,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_LOSS_DT": {
@@ -1269,7 +1269,7 @@
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": "1",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
