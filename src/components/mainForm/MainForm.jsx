@@ -11,22 +11,35 @@ const MainForm = ({
  handleChangeValue,
  grid = '2',
  action = true,
+ addOrUpdate,
+ resetForm,
 }) => {
+ const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
+ const [resetMain, setResetMain] = useState(false);
 
  useEffect(() => {
+  console.log('resetMain');
   const validationSchema = createYupSchema({
    frontForm: formRender?.frontForm,
   });
   setValidation(validationSchema);
- }, [initialValues, formRender]);
+
+  if (addOrUpdate) {
+   console.log('if');
+   setInitValues(initialValues);
+  } else {
+   console.log('else');
+   setInitValues(formRender);
+  }
+ }, [initialValues, formRender, initValues, resetMain]);
 
  return (
   <>
    {validation !== null && (
     <Formik
-     initialValues={initialValues}
-     values={initialValues}
+     initialValues={initValues}
+     values={initValues}
      //  validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
@@ -40,9 +53,9 @@ const MainForm = ({
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
           return useMemo(
            () => (
-            <React.Fragment>
+            <React.Fragment key={dataId}>
              {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
-              <div key={dataId} data-id={dataId}>
+              <div data-id={dataId}>
                <FieldWithValue
                 currentData={formRender?.[root]?.formFields[fieldKey]}
                 values={values}
@@ -60,9 +73,19 @@ const MainForm = ({
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          <button className='reset'>Reset</button>
+          {!addOrUpdate && (
+           <button type='button' onClick={() => resetForm()} className='reset'>
+            Reset
+           </button>
+          )}
+          <button
+           type='button'
+           onClick={() => setResetMain(!resetMain)}
+           className='reset'>
+           Reset check
+          </button>
           <button type='submit' className='save ml-9'>
-           Submit
+           {addOrUpdate ? 'Update' : 'Submit'}
           </button>
          </div>
         )}
