@@ -26,6 +26,9 @@ const GET_API_URL = {
  getCustomerMaster: {
   url: '/common/customerEdit',
  },
+ getClaim: {
+  url: '/common/claimsEdit',
+ },
 };
 
 export default GET_API_URL;

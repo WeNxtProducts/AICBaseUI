@@ -3,7 +3,7 @@ const DELETE_API_URL = {
   url: '/usermaster/delete',
  },
  deleteClaim: {
-  url: '/deleteClaim',
+  url: '/ltclaim/deleteClaim',
   baseURL: 'CLAIMURL',
  },
 };

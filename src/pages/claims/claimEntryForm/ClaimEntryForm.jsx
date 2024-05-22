@@ -27,20 +27,21 @@ const ClaimEntryForm = () => {
  const [claimEntryInitialValues, setClaimEntryInitialValues] = useState(null);
  const [loader, setLoader] = useState(false);
  const createClaim = useApiRequests('createClaim', 'POST');
+ const updateClaim = useApiRequests('updateClaim', 'POST');
+ const getClaim = useApiRequests('getClaim', 'GET');
 
  const handleStateInit = value => {
-  console.log('value : ', value);
   const orderedData = sortObjectByPFDSeqNo(value);
-  setClaimEntryInitialValues(orderedData);
-  setClaimEntry(orderedData);
+  setClaimEntryInitialValues({ frontForm: orderedData?.frontForm });
+  setClaimEntry({ frontForm: orderedData?.frontForm });
  };
 
  const handleGetClaim = async () => {
   setLoader(true);
   try {
-   const response = await getCustomerMaster('', {
-    screenCode: 'CUSTOMERMASTER',
-    screenName: 'CUSTCREATE',
+   const response = await getClaim('', {
+    screenCode: 'CLAIMENTRY',
+    screenName: 'CLAIMENTRY',
     tranId,
    });
    handleStateInit(response);
@@ -55,18 +56,13 @@ const ClaimEntryForm = () => {
   else handleStateInit(ClaimsJson);
  }, []);
 
- const onSubmit = async values => {
-  //   handleNext();
-  const val = deepCopy(values);
-  const modifiedData = extractFieldValuesInPlace(val);
-  const { frontForm } = modifiedData;
-  const payload = { frontForm };
+ const addOrUpdateClaim = async (payload, addOrUpdate) => {
   try {
-   const response = await createClaim(payload);
+   const response = await addOrUpdate(payload, '', tranId && { tranId });
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    dispatch(setCurrentID(response?.data?.Id));
+    if (!tranId) dispatch(setCurrentID(response?.data?.Id));
     showNotification.SUCCESS(response?.status_msg);
    }
    setLoader(false);
@@ -75,8 +71,21 @@ const ClaimEntryForm = () => {
   }
  };
 
+ const onSubmit = async values => {
+  // handleNext();
+  const val = deepCopy(values);
+  const modifiedData = extractFieldValuesInPlace(val);
+  const { frontForm } = modifiedData;
+  const payload = { frontForm };
+  addOrUpdateClaim(payload, tranId ? updateClaim : createClaim);
+ };
+
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);
+ };
+
+ const resetForm = () => {
+  handleStateInit(ClaimsJson);
  };
 
  return (
@@ -91,8 +100,10 @@ const ClaimEntryForm = () => {
       initialValues={claimEntryInitialValues}
       formRender={claimEntry}
       root='frontForm'
+      addOrUpdate={!!tranId}
       onSubmit={onSubmit}
       handleChangeValue={handleChangeValue}
+      resetForm={resetForm}
      />
     </div>
    )}
