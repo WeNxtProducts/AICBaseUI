@@ -1,79 +1,82 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
-import MRVFieldWithValue from './MRVFieldWithValue';
-import { generateMRVValidationSchema } from '../commonHelper/SchemaGenerator';
+import { createYupSchema } from '../commonHelper/SchemaGenerator';
+import FieldWithValue from '../fieldsWithValues/FieldWithValue';
+import Loader from '../loader/Loader';
 
-const MRVform = ({
+const MainForm = ({
  initialValues,
  formRender,
  root,
  onSubmit,
  handleChangeValue,
  grid = '2',
+ action = true,
+ addOrUpdate,
  resetForm,
- isSubmit = true,
- lovObject = {},
 }) => {
  const [initValues, setInitValues] = useState(null);
- const [validation, setVaidation] = useState(null);
+ const [validation, setValidation] = useState(null);
+ const [loader, setLoader] = useState(false);
 
  useEffect(() => {
-  const validationSchema = generateMRVValidationSchema(
-   formRender[root]?.formFields,
-  );
-  setVaidation(validationSchema);
-  if (initialValues === null) {
-   const simplifiedFormFields = {};
-   for (const key in formRender[root]?.formFields) {
-    simplifiedFormFields[key] = '';
-   }
-   setInitValues(simplifiedFormFields);
-  } else {
-   setInitValues(initialValues);
-  }
+  const validationSchema = createYupSchema({
+   [root]: formRender[root],
+  });
+  setValidation(validationSchema);
+  setInitValues(initialValues);
  }, [initialValues]);
 
  return (
   <>
-   {initValues !== null && validation !== null && (
+   {/* {loader && <Loader />} */}
+   {validation !== null && (
     <Formik
      initialValues={initValues}
      values={initValues}
-    //  validationSchema={validation}
+     //validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue }) => {
-      // console.log('values check : ', values);
+      // console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
         <div className={`items-center grid grid-cols-${grid} gap-0`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
-          return useMemo(
-           () => (
-            <div key={dataId} data-id={dataId}>
-             <MRVFieldWithValue
-              currentData={formRender?.[root]?.formFields[fieldKey]}
-              values={values}
-              setFieldValue={setFieldValue}
-              handleChangeValue={handleChangeValue}
-              lovData={lovObject?.[dataId]}
-              parent={root}
-             />
-            </div>
-           ),
-           [values?.[fieldKey]],
-          );
+          return useMemo(() => {
+           return (
+            <React.Fragment key={dataId}>
+             {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
+              <div data-id={dataId}>
+               <FieldWithValue
+                currentData={formRender?.[root]?.formFields[fieldKey]}
+                values={values}
+                setFieldValue={setFieldValue}
+                handleChangeValue={handleChangeValue}
+                parent={root}
+               />
+              </div>
+             )}
+            </React.Fragment>
+           );
+          }, [values?.[root]?.formFields[fieldKey]]);
          })}
         </div>
-        {isSubmit && (
-         <div className='w-full mt-5 mb-5 submit-button-MRV'>
-          <button type='button' onClick={() => resetForm()} className='reset'>
+        {action && (
+         <div className='w-full mt-5 mb-5 submit-button-form'>
+          <button
+           type='button'
+           onClick={() => {
+            // setInitValues(null);
+            resetForm();
+           }}
+           className='reset'>
            Reset
           </button>
           <button type='submit' className='save ml-9'>
-           Submit
+           {addOrUpdate ? 'Update' : 'Submit'}
           </button>
          </div>
         )}
@@ -86,4 +89,4 @@ const MRVform = ({
  );
 };
 
-export default MRVform;
+export default MainForm;
