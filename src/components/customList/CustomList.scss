@@ -8,7 +8,7 @@
  .custom-list-table {
   border: 1px solid $list-table-border;
   width: 100%;
-  table-layout: fixed;
+  //   table-layout: fixed;
   border-collapse: collapse;
 
   td {
@@ -41,13 +41,23 @@
     margin-right: 15px;
    }
   }
+  thead {
+   th {
+    user-select: none;
+    font-weight: 500;
+    color: $form-fields-bg-color;
+   }
+  }
+  .last-column-action {
+   width: 7%;
+  }
  }
 
  .custom-list-actions {
   position: absolute;
   bottom: 0;
   left: 0;
-  top: 100%;
+  top: 110%;
 
   p {
    font-weight: 400;

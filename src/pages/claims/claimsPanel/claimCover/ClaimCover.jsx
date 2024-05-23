@@ -1,45 +1,158 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ClaimStepperContext } from '../../Claims';
-import claim from '../../../../getFormFields/claims.json';
 import CustomList from '../../../../components/customList/CustomList';
 import MRVform from '../../../../components/mrvForm/MRVform';
+import { response } from '../../../../components/tableComponents/sampleData';
+import { sortObjectByPFDSeqNo } from '../../../../components/commonHelper/SortBySequence';
+import { getQueryId } from './../../../../components/commonHelper/QueryIdFetch';
+import useMRVListing from './../../../../components/mrvListing/useMRVListing';
+import useApiRequests from '../../../../services/useApiRequests';
 import {
- bankColumn,
- bankData,
-} from '../../../../components/tableComponents/sampleData';
+ deepCopy,
+ extractFieldValuesInPlace,
+} from '../../../../components/commonHelper/DataSend';
+import showNotification from '../../../../components/notification/Notification';
+import ConfirmationModal from '../../../../components/confirmationModal/ConfirmationModal';
+import Loader from '../../../../components/loader/Loader';
 
-const ClaimCover = ({ queryID, root }) => {
- const {
-  currentStep,
-  stepperData,
-  handleNext,
-  handlePrevious,
-  handleSkip,
-  ClaimsJson,
- } = useContext(ClaimStepperContext);
- const [claimCoverDetails, setClaimCoverDetails] = useState(ClaimsJson);
+const ClaimCover = ({
+ queryID,
+ root,
+ mrvGet,
+ screenCode,
+ screenName,
+ saveRow,
+ editRow,
+ deleteRow,
+}) => {
+ const { ClaimsJson, id: tranId } = useContext(ClaimStepperContext);
+ const { mrvListingId } = ClaimsJson;
+ const { rowData, columnData, handleMRVListing } = useMRVListing();
+ const mrvGetById = useApiRequests(mrvGet, 'GET');
+ const saveMRV = useApiRequests(saveRow, 'POST');
+ const editMRV = useApiRequests(editRow, 'POST');
+ const deleteMRV = useApiRequests(deleteRow, 'POST');
+ const [claimCoverDetails, setClaimCoverDetails] = useState(null);
  const [claimCoverInitialValues, setClaimCoverInitialValues] = useState(null);
+ const [editMRVId, setEditMRVId] = useState('');
+ const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+ const [loader, setLoader] = useState(false);
+
+ const addOrUpdateMRV = async (payload, addOrUpdate) => {
+  try {
+   const params = editMRVId ? { editMRVId } : { tranId };
+   const response = await addOrUpdate(payload, '', params);
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    MRVListing();
+    setEditMRVId('');
+    showNotification.SUCCESS(response?.status_msg);
+   }
+   setLoader(false);
+  } catch (err) {
+   setLoader(false);
+  }
+ };
 
  const onSubmit = values => {
-  handleNext();
-  const payload = { [root]: { formFields: values } };
-  console.log('values : ', payload);
+  //handleNext();
+  const val = deepCopy(values);
+  const modifiedData = extractFieldValuesInPlace(val);
+  const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
+  console.log('payload : ', payload);
+  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
  };
+
+ const handleInitData = response => {
+  const orderedData = sortObjectByPFDSeqNo(response);
+  setClaimCoverDetails({ [root]: orderedData[root] });
+  setClaimCoverInitialValues({ [root]: orderedData[root] });
+  console.log('orderedData : ', { [root]: orderedData[root] });
+ };
+
+ const MRVListing = () => {
+  if (tranId) {
+   const queryId = getQueryId(queryID, mrvListingId);
+   handleMRVListing(queryId, tranId);
+  }
+ };
+
+ useEffect(() => {
+  handleInitData(ClaimsJson);
+  MRVListing();
+ }, []);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);
  };
 
  const resetForm = () => {
-  setClaimCoverInitialValues(null);
+  setEditMRVId('');
+  handleInitData(ClaimsJson);
+ };
+
+ const handleEdit = async item => {
+  //   console.log('handleEdit : ', item);
+  try {
+   const response = await mrvGetById('', {
+    screenCode,
+    screenName,
+    tranId: item?.ID,
+   });
+   if (response?.status === 'SUCCESS') {
+    setEditMRVId(item?.ID);
+    handleInitData(response?.Data);
+   } else if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
+ const handleDeleteConfirm = async id => {
+  setLoader(true);
+  try {
+   const response = await deleteMRV('', {}, { id });
+   if (response?.status === 'SUCCESS') {
+    MRVListing();
+    showNotification.SUCCESS(response?.status_msg);
+   } else if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   }
+   setEditMRVId('');
+   setDeleteConfirmation(false);
+   setLoader(false);
+  } catch (err) {
+   console.log('err  : ', err);
+  }
+ };
+
+ const handleClose = status => {
+  const deleteId = editMRVId;
+  setEditMRVId('');
+  if (status) handleDeleteConfirm(deleteId);
+ };
+
+ const handleDelete = item => {
+  console.log('handleDelete : ', item);
+  setEditMRVId(item?.ID);
+  setDeleteConfirmation(true);
  };
 
  return (
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
+   {loader && <Loader />}
    <div className='propasal-entry-form col-span-8'>
-    {bankData?.length > 0 && (
-     <div className='inline-table-details mb-1 mt-2 col-span-8'>
-      <CustomList tableColumn={bankColumn} tableData={bankData} />
+    {rowData?.length > 0 && (
+     <div className='inline-table-details mb-4 mt-2 col-span-8'>
+      <CustomList
+       tableColumn={columnData}
+       tableData={rowData}
+       handleEdit={handleEdit}
+       handleDelete={handleDelete}
+      />
      </div>
     )}
     {claimCoverDetails?.hasOwnProperty(root) && (
@@ -53,6 +166,9 @@ const ClaimCover = ({ queryID, root }) => {
      />
     )}
    </div>
+   {deleteConfirmation && (
+    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
+   )}
   </div>
  );
 };

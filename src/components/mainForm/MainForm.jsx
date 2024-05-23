@@ -12,35 +12,30 @@ const MainForm = ({
  grid = '2',
  action = true,
  addOrUpdate,
- resetForm,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
- const [resetMain, setResetMain] = useState(false);
 
  useEffect(() => {
-  console.log('resetMain');
   const validationSchema = createYupSchema({
-   frontForm: formRender?.frontForm,
+   [root]: formRender[root],
   });
   setValidation(validationSchema);
 
   if (addOrUpdate) {
-   console.log('if');
    setInitValues(initialValues);
   } else {
-   console.log('else');
    setInitValues(formRender);
   }
- }, [initialValues, formRender, initValues, resetMain]);
+ }, [initValues]);
 
  return (
   <>
-   {validation !== null && (
+   {initValues !== null && validation !== null && (
     <Formik
      initialValues={initValues}
      values={initValues}
-     //  validationSchema={validation}
+     //validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue }) => {
@@ -51,8 +46,8 @@ const MainForm = ({
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
-          return useMemo(
-           () => (
+          return useMemo(() => {
+           return (
             <React.Fragment key={dataId}>
              {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
               <div data-id={dataId}>
@@ -66,23 +61,20 @@ const MainForm = ({
               </div>
              )}
             </React.Fragment>
-           ),
-           [values?.[root]?.formFields[fieldKey]],
-          );
+           );
+          }, [values?.[root]?.formFields[fieldKey]]);
          })}
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          {!addOrUpdate && (
-           <button type='button' onClick={() => resetForm()} className='reset'>
-            Reset
-           </button>
-          )}
           <button
            type='button'
-           onClick={() => setResetMain(!resetMain)}
+           onClick={() => {
+            setInitValues(null);
+            // resetForm();
+           }}
            className='reset'>
-           Reset check
+           Reset
           </button>
           <button type='submit' className='save ml-9'>
            {addOrUpdate ? 'Update' : 'Submit'}

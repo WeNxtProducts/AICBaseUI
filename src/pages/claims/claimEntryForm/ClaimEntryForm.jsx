@@ -30,9 +30,11 @@ const ClaimEntryForm = () => {
  const updateClaim = useApiRequests('updateClaim', 'POST');
  const getClaim = useApiRequests('getClaim', 'GET');
 
- const handleStateInit = value => {
+ const handleStateInit = (value, isEdit) => {
   const orderedData = sortObjectByPFDSeqNo(value);
-  setClaimEntryInitialValues({ frontForm: orderedData?.frontForm });
+  setClaimEntryInitialValues(
+   isEdit ? { frontForm: orderedData?.frontForm } : null,
+  );
   setClaimEntry({ frontForm: orderedData?.frontForm });
  };
 
@@ -44,7 +46,7 @@ const ClaimEntryForm = () => {
     screenName: 'CLAIMENTRY',
     tranId,
    });
-   handleStateInit(response);
+   handleStateInit(response, true);
    setLoader(false);
   } catch (err) {
    setLoader(false);
@@ -53,7 +55,7 @@ const ClaimEntryForm = () => {
 
  useEffect(() => {
   if (tranId) handleGetClaim();
-  else handleStateInit(ClaimsJson);
+  else handleStateInit(ClaimsJson, false);
  }, []);
 
  const addOrUpdateClaim = async (payload, addOrUpdate) => {
@@ -72,7 +74,7 @@ const ClaimEntryForm = () => {
  };
 
  const onSubmit = async values => {
-  // handleNext();
+  handleNext();
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const { frontForm } = modifiedData;
@@ -84,17 +86,13 @@ const ClaimEntryForm = () => {
   setFieldValue(path, value);
  };
 
- const resetForm = () => {
-  handleStateInit(ClaimsJson);
- };
-
  return (
   <div>
    {loader && <Loader />}
    <div className='flex items-center justify-between'>
     <p className='header-font pl-1'>Claim Entry</p>
    </div>
-   {claimEntryInitialValues !== null && (
+   {claimEntry !== null && (
     <div className='mt-3 mb-5'>
      <MainForm
       initialValues={claimEntryInitialValues}
@@ -103,7 +101,6 @@ const ClaimEntryForm = () => {
       addOrUpdate={!!tranId}
       onSubmit={onSubmit}
       handleChangeValue={handleChangeValue}
-      resetForm={resetForm}
      />
     </div>
    )}

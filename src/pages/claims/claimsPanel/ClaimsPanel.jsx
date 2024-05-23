@@ -31,9 +31,20 @@ const ClaimsPanel = () => {
     size='small'>
     <Panel
      data-id='panel-1'
-     header={<CollapsePanelHeader name='Claim Cover' saved={stepperData[1]} />}
+     header={
+      <CollapsePanelHeader name='Claim Estimate' saved={stepperData[1]} />
+     }
      key={1}>
-     <ClaimCover queryID='Claim Cover' root='ClaimCover' />
+     <ClaimCover
+      queryID='Claim_Estimate'
+      root='Claim_Estimate'
+      mrvGet='getClaimEstimate'
+      screenCode='CLAIMENTRY'
+      screenName='CLAIMENTRY'
+      saveRow='saveEstimate'
+      editRow='editEstimate'
+      deleteRow='deleteEstimate'
+     />
     </Panel>
     <Panel
      data-id='panel-2'
@@ -41,33 +52,32 @@ const ClaimsPanel = () => {
       <CollapsePanelHeader name='Claim Charges' saved={stepperData[2]} />
      }
      key={2}>
-     <ClaimCover queryID='Claim charges' root='ClaimCharges' />
+     <ClaimCover
+      queryID='Claim_Estimate'
+      root='Claim_Estimate'
+      mrvGet='getClaimEstimate'
+      screenCode='CLAIMENTRY'
+      screenName='CLAIMENTRY'
+      saveRow='saveEstimate'
+      editRow='editEstimate'
+      deleteRow='deleteEstimate'
+     />
      {/* <ClaimCharges /> */}
-    </Panel>
-    
-    <Panel
-     data-id='panel-3'
-     header={
-      <CollapsePanelHeader name='Claim Estimate' saved={stepperData[3]} />
-     }
-     key={3}>
-     {/* <ClaimEstimate /> */}
-     <ClaimCover queryID='Claim estimate' root='ClaimEstimate' />
     </Panel>
     <Panel
      data-id='panel-4'
-     header={<CollapsePanelHeader name='Checklist' saved={stepperData[4]} />}
-     key={4}>
+     header={<CollapsePanelHeader name='Checklist' saved={stepperData[3]} />}
+     key={3}>
      <CheckList />
     </Panel>
-    <Panel
+    {/* <Panel
      data-id='panel-5'
      header={
       <CollapsePanelHeader name='Claim Decision' saved={stepperData[5]} />
      }
-     key={5}>
-     <ClaimDecision />
-    </Panel>
+     key={4}> */}
+    {/* <ClaimDecision /> */}
+    {/* </Panel> */}
    </Collapse>
   </div>
  );

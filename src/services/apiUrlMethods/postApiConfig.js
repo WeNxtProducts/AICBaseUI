@@ -73,5 +73,13 @@ const POST_API_URL = {
   url: '/ltclaim/claimUpdate',
   baseURL: 'CLAIMURL',
  },
+ saveEstimate: {
+  url: '/claimest/claimEstSave',
+  baseURL: 'CLAIMURL',
+ },
+ editEstimate: {
+  url: '/claimest/updateLtClaimEstimate',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

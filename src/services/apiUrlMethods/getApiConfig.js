@@ -29,6 +29,9 @@ const GET_API_URL = {
  getClaim: {
   url: '/common/claimsEdit',
  },
+ getClaimEstimate: {
+  url: '/common/claimsEstimatEdit',
+ },
 };
 
 export default GET_API_URL;

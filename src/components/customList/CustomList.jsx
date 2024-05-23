@@ -35,6 +35,15 @@ const CustomList = ({
     </div>
    )}
    <table className='custom-list-table'>
+    <thead>
+     <tr>
+      <th></th>
+      {Object.keys(column)?.map(item => (
+       <th key={item}>{column[item]}</th>
+      ))}
+      <th className='last-column-action'>Action</th>
+     </tr>
+    </thead>
     {Object.keys(tableData[0])?.length > 0 && (
      <tbody>
       {tableData?.map(item => (
