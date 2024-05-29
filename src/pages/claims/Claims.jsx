@@ -5,6 +5,7 @@ import { claimsStepper } from '../../components/tableComponents/sampleData';
 import ClaimEntry from './claimEntryForm/ClaimEntry';
 import ClaimsPanel from './claimsPanel/ClaimsPanel';
 import ClaimsJson from '../../getFormFields/CLAIMENTRY_getFieldList.json';
+import ClaimsLOVJson from '../../getFormFields/CLAIMENTRY_getLOVList.json';
 import { useSelector } from 'react-redux';
 import './Claims.scss';
 // import '../../styles/components/Quotation.scss';
@@ -15,6 +16,7 @@ const Claims = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
   useStepper(claimsStepper);
  const id = useSelector(state => state?.id?.id);
+ const formValues = useSelector(state => state?.id?.formValues);
 
  const handleSkipStep = index => {
   handleSkip(index);
@@ -28,6 +30,8 @@ const Claims = () => {
   handleSkip,
   ClaimsJson,
   id,
+  ClaimsLOVJson,
+  formValues,
  };
 
  useEffect(() => {

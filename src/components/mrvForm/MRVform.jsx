@@ -14,6 +14,8 @@ const MainForm = ({
  action = true,
  addOrUpdate,
  resetForm,
+ lovList,
+ handleOnBlur,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -54,6 +56,8 @@ const MainForm = ({
                 currentData={formRender?.[root]?.formFields[fieldKey]}
                 values={values}
                 setFieldValue={setFieldValue}
+                handleOnBlur={handleOnBlur}
+                lovData={lovList?.[dataId]}
                 handleChangeValue={handleChangeValue}
                 parent={root}
                />
@@ -61,7 +65,7 @@ const MainForm = ({
              )}
             </React.Fragment>
            );
-          }, [values?.[root]?.formFields[fieldKey]]);
+          }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
          })}
         </div>
         {action && (

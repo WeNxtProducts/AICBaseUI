@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
  id: '',
+ formValues: {},
 };
 
 const IdSlices = createSlice({
@@ -11,9 +12,12 @@ const IdSlices = createSlice({
   setCurrentID: (state, action) => {
    state.id = action.payload;
   },
+  setFormValues: (state, action) => {
+   state.formValues = action.payload;
+  },
  },
 });
 
-export const { setCurrentID } = IdSlices.actions;
+export const { setCurrentID, setFormValues } = IdSlices.actions;
 
 export default IdSlices.reducer;
