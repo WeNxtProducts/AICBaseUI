@@ -1,36 +1,15 @@
 {
- "frontform": {
-  "formFields": {
-   "name_c": { "PFD_SEQ_NO": 1 },
-   "name_d": { "PFD_SEQ_NO": 2 },
-   "name": { "PFD_SEQ_NO": 3 }
-  }
+ "CLAIM_ASSRD_REF_ID1": {
+  "PFD_COLUMN_NAME": "CLAIM_ASSRD_REF_ID1",
+
+  "PFD_FLD_VALUE": "mkmk"
  },
- "accordion": {
-  "customer": {
-   "formFields": {
-    "name_c": { "PFD_SEQ_NO": 1 },
-    "name_d": { "PFD_SEQ_NO": 2 },
-    "name": { "PFD_SEQ_NO": 3 }
-   }
-  },
-  "insurance": {
-   "tabs": {
-    "address": {
-     "formFields": {
-      "name_c": { "PFD_SEQ_NO": 1 },
-      "name_d": { "PFD_SEQ_NO": 2 },
-      "name": { "PFD_SEQ_NO": 3 }
-     }
-    }
-   }
-  },
-  "class": {
-   "formFields": {
-    "name_c": { "PFD_SEQ_NO": 1 },
-    "name_d": { "PFD_SEQ_NO": 2 },
-    "name": { "PFD_SEQ_NO": 3 }
-   }
-  }
+ "CLM_REF_NO": {
+  "PFD_COLUMN_NAME": "CLM_REF_NO",
+  "PFD_FLD_VALUE": "mkmkm"
+ },
+ "CLM_POL_NO": {
+  "PFD_COLUMN_NAME": "CLM_POL_NO",
+  "PFD_FLD_VALUE": ""
  }
 }

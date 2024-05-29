@@ -15,6 +15,7 @@ const CustomSelect = ({
  size = 'large',
  name,
  firstFieldRef = null,
+ onBlur,
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -55,6 +56,7 @@ const CustomSelect = ({
     name={name}
     placeholder={placeholder}
     onSearch={onSearch}
+    onBlur={onBlur}
     loading={loading}
     value={value}
     onChange={onChange}

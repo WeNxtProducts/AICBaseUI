@@ -12,6 +12,8 @@ const MainForm = ({
  grid = '2',
  action = true,
  addOrUpdate,
+ lovList,
+ handleOnBlur,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -35,7 +37,7 @@ const MainForm = ({
     <Formik
      initialValues={initValues}
      values={initValues}
-     //validationSchema={validation}
+     //  validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue }) => {
@@ -55,6 +57,8 @@ const MainForm = ({
                 currentData={formRender?.[root]?.formFields[fieldKey]}
                 values={values}
                 setFieldValue={setFieldValue}
+                lovData={lovList?.[dataId]}
+                handleOnBlur={handleOnBlur}
                 handleChangeValue={handleChangeValue}
                 parent={root}
                />
@@ -62,7 +66,7 @@ const MainForm = ({
              )}
             </React.Fragment>
            );
-          }, [values?.[root]?.formFields[fieldKey]]);
+          }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
          })}
         </div>
         {action && (

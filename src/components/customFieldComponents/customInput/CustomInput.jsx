@@ -10,6 +10,7 @@ const CustomInput = ({
  size = 'large',
  firstFieldRef = null,
  disabled = false,
+ onBlur,
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -29,6 +30,7 @@ const CustomInput = ({
     name={name}
     type='text'
     ref={firstFieldRef}
+    onBlur={onBlur}
     className='custom-form-fields'
     placeholder={placeholder}
     value={value}

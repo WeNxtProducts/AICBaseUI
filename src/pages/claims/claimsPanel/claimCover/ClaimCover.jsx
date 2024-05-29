@@ -25,7 +25,12 @@ const ClaimCover = ({
  editRow,
  deleteRow,
 }) => {
- const { ClaimsJson, id: tranId } = useContext(ClaimStepperContext);
+ const {
+  ClaimsJson,
+  id: tranId,
+  ClaimsLOVJson,
+  formValues,
+ } = useContext(ClaimStepperContext);
  const { mrvListingId } = ClaimsJson;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
@@ -36,6 +41,7 @@ const ClaimCover = ({
  const [claimCoverInitialValues, setClaimCoverInitialValues] = useState(null);
  const [editMRVId, setEditMRVId] = useState('');
  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+ const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const [loader, setLoader] = useState(false);
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
@@ -79,6 +85,7 @@ const ClaimCover = ({
  };
 
  useEffect(() => {
+  console.log('formValues : ', formValues);
   handleInitData(ClaimsJson);
   MRVListing();
  }, []);
@@ -141,6 +148,10 @@ const ClaimCover = ({
   setDeleteConfirmation(true);
  };
 
+ const handleOnBlur = (currentData, values) => {
+  console.log('currentData : ', currentData, formValues);
+ };
+
  return (
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
    {loader && <Loader />}
@@ -160,9 +171,11 @@ const ClaimCover = ({
       initialValues={claimCoverInitialValues}
       formRender={claimCoverDetails}
       root={root}
+      lovList={dropDown}
       onSubmit={onSubmit}
       handleChangeValue={handleChangeValue}
       resetForm={resetForm}
+      handleOnBlur={handleOnBlur}
      />
     )}
    </div>

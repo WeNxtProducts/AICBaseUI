@@ -9,8 +9,15 @@ import {
 } from './../../../components/commonHelper/DataSend';
 import showNotification from '../../../components/notification/Notification';
 import useApiRequests from '../../../services/useApiRequests';
-import { setCurrentID } from '../../../globalStore/slices/IdSlices';
+import {
+ setCurrentID,
+ setFormValues,
+} from '../../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
+import {
+ getValQueryId,
+ mergeDropdownData,
+} from '../../../components/commonHelper/ParamLov';
 
 const ClaimEntryForm = () => {
  const {
@@ -20,15 +27,18 @@ const ClaimEntryForm = () => {
   handlePrevious,
   handleSkip,
   ClaimsJson,
+  ClaimsLOVJson,
   id: tranId,
  } = useContext(ClaimStepperContext);
  const dispatch = useDispatch();
  const [claimEntry, setClaimEntry] = useState(null);
  const [claimEntryInitialValues, setClaimEntryInitialValues] = useState(null);
  const [loader, setLoader] = useState(false);
+ const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const createClaim = useApiRequests('createClaim', 'POST');
  const updateClaim = useApiRequests('updateClaim', 'POST');
  const getClaim = useApiRequests('getClaim', 'GET');
+ const getParamLov = useApiRequests('getParamLov', 'GET');
 
  const handleStateInit = (value, isEdit) => {
   const orderedData = sortObjectByPFDSeqNo(value);
@@ -64,6 +74,7 @@ const ClaimEntryForm = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
+    handleNext();
     if (!tranId) dispatch(setCurrentID(response?.data?.Id));
     showNotification.SUCCESS(response?.status_msg);
    }
@@ -74,7 +85,9 @@ const ClaimEntryForm = () => {
  };
 
  const onSubmit = async values => {
-  handleNext();
+  //handleNext();
+  console.log('values : ', values);
+  dispatch(setFormValues(values));
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const { frontForm } = modifiedData;
@@ -82,8 +95,46 @@ const ClaimEntryForm = () => {
   addOrUpdateClaim(payload, tranId ? updateClaim : createClaim);
  };
 
- const handleChangeValue = (value, path, setFieldValue, values) => {
+ const handleChangeValue = (
+  value,
+  path,
+  setFieldValue,
+  parent,
+  values,
+  currentData,
+ ) => {
   setFieldValue(path, value);
+ };
+
+ const apiCallsParamLov = (PFD_PARAM_2, valueKey, valueQueryId) => {
+  const promises = PFD_PARAM_2.map(item => {
+   const queryParams = { queryId: valueQueryId[item], ...valueKey };
+   return getParamLov('', queryParams);
+  });
+
+  Promise.all(promises)
+   .then(responses => {
+    if (responses[0].status === 'SUCCESS') {
+     const mergedData = mergeDropdownData(responses);
+     setDropDown(prevDropdown => {
+      return { ...prevDropdown, ...mergedData };
+     });
+    }
+   })
+   .catch(error => {
+    console.error(error);
+   });
+ };
+
+ const handleOnBlur = (currentData, values) => {
+  if (currentData.hasOwnProperty('PFD_PARAM_2')) {
+   const fields = values?.formFields;
+   const PFD_PARAM_2 = currentData?.PFD_PARAM_2.split(',');
+   const PFD_PARAM_3 = currentData?.PFD_PARAM_3.split(',');
+   const valueKey = getValQueryId(PFD_PARAM_3, fields, 'PFD_FLD_VALUE');
+   const valueQueryId = getValQueryId(PFD_PARAM_2, fields, 'PFD_PARAM_1');
+   apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
+  }
  };
 
  return (
@@ -98,8 +149,10 @@ const ClaimEntryForm = () => {
       initialValues={claimEntryInitialValues}
       formRender={claimEntry}
       root='frontForm'
+      lovList={dropDown}
       addOrUpdate={!!tranId}
       onSubmit={onSubmit}
+      handleOnBlur={handleOnBlur}
       handleChangeValue={handleChangeValue}
      />
     </div>

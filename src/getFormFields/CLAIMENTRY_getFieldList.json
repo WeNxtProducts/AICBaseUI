@@ -22,8 +22,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_RATE_PER": {
@@ -46,8 +46,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_BENF_CODE": {
@@ -70,8 +70,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_RATE": {
@@ -94,8 +94,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_CHRG_CODE": {
@@ -118,8 +118,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_PAID_TO": {
@@ -142,8 +142,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_CHRG_FC_VALUE": {
@@ -166,8 +166,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CC_REMARKS": {
@@ -190,8 +190,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
@@ -220,8 +220,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "DTLS_APPR_STS": {
@@ -232,6 +232,7 @@
     "PFD_TABLE_NAME": "LT_DOC_TODO_LIST_STATUS",
     "PFD_DATA_TYPE": "text",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "63",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -244,8 +245,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "DTLS_MANDATORY_YN": {
@@ -256,6 +257,7 @@
     "PFD_TABLE_NAME": "LT_DOC_TODO_LIST_STATUS",
     "PFD_DATA_TYPE": "text",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "62",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -268,8 +270,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "DTLS_REMARKS": {
@@ -292,8 +294,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "DTLS_DOC_REC_DT": {
@@ -316,19 +318,14 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
  },
  "staticDetails": { "formFields": {} },
- "mrvListingId": [
-  {
-   "queryName": "Claim_Estimate",
-   "queryId": "51"
-  }
- ],
+ "mrvListingId": [{ "queryName": "Claim_Estimate", "queryId": "51" }],
  "Claim_Beneficiary": {
   "Label": "Claim_Beneficiary",
   "formFields": {
@@ -352,8 +349,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CBEN_BANK_CODE": {
@@ -376,8 +373,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CBEN_ACCOUNT_CODE": {
@@ -400,8 +397,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CBEN_RELATION_CODE": {
@@ -424,8 +421,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CBEN_FC_PAID_AMT": {
@@ -448,8 +445,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CBEN_LC_PAID_AMT": {
@@ -472,8 +469,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": true,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
@@ -500,8 +497,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_INTM_DT": {
@@ -523,8 +520,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_REF_NO": {
@@ -546,8 +543,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_CUST_CODE": {
@@ -555,8 +552,9 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "CLM_CUST_CODE",
     "PFD_TABLE_NAME": "LT_CLAIM",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "paramlov",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "55",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -569,8 +567,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_TRAN_ID": {
@@ -592,8 +590,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_ASSRD_REF_ID1": {
@@ -602,6 +600,7 @@
     "PFD_COLUMN_NAME": "CLAIM_ASSRD_REF_ID1",
     "PFD_TABLE_NAME": "LT_CLAIM",
     "PFD_DATA_TYPE": "text",
+    "PFD_PARAM_2": "CLM_POL_NO",
     "PFD_SYS_ID": 0,
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
@@ -615,8 +614,9 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
+    "PFD_PARAM_3": "CLAIM_ASSRD_REF_ID1",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_HOSP_DSCHG_DT": {
@@ -638,8 +638,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_ASSR_CODE": {
@@ -661,8 +661,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_DISEASES_CODE": {
@@ -670,7 +670,7 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "CLAIM_DISEASES_CODE",
     "PFD_TABLE_NAME": "LT_CLAIM",
-    "PFD_DATA_TYPE": "lov",
+    "PFD_DATA_TYPE": "text",
     "PFD_SYS_ID": 0,
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
@@ -684,8 +684,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_HOSP_ADDM_DT": {
@@ -707,8 +707,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_CURR_CODE": {
@@ -716,8 +716,9 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "CLM_CURR_CODE",
     "PFD_TABLE_NAME": "LT_CLAIM",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "paramlov",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "54",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -730,8 +731,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_POL_NO": {
@@ -740,7 +741,9 @@
     "PFD_COLUMN_NAME": "CLM_POL_NO",
     "PFD_TABLE_NAME": "LT_CLAIM",
     "PFD_DATA_TYPE": "paramlov",
+    "PFD_PARAM_2": "CLM_CURR_CODE,CLM_CUST_CODE",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "52",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -753,8 +756,9 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
+    "PFD_PARAM_3": "CLM_POL_NO",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_TYPE": {
@@ -762,8 +766,9 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "CLM_TYPE",
     "PFD_TABLE_NAME": "LT_CLAIM",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "lov",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "53",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -776,8 +781,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLAIM_INT_EMAIL": {
@@ -799,8 +804,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_REMARKS": {
@@ -822,8 +827,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CLM_LOSS_DT": {
@@ -845,8 +850,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
@@ -854,28 +859,29 @@
  "Claim_Estimate": {
   "Label": "Claim_Estimate",
   "formFields": {
-   "CE_CONFIRM_FLAG": {
+   "CE_EST_TYP": {
     "PFD_HINT": "S",
     "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "CE_CONFIRM_FLAG",
+    "PFD_COLUMN_NAME": "CE_EST_TYP",
     "PFD_FORM_ITEM_TYPE2": "Claim_Estimate",
     "PFD_TABLE_NAME": "LT_CLAIM_ESTIMATE",
     "PFD_DATA_TYPE": "text",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "60",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
-    "PFD_SEQ_NO": 10,
+    "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
     "PFD_MANDATORY_YN": true,
     "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "CONFIRM",
+    "PFD_FLD_NAME": "Set Flag",
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_FC_COVER_AMT": {
@@ -889,7 +895,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
-    "PFD_SEQ_NO": 14,
+    "PFD_SEQ_NO": 18,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
     "PFD_MANDATORY_YN": true,
@@ -898,8 +904,58 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
+    "PFD_SCREEN_NAME": "CLAIMENTRY"
+   },
+   "CE_FRZ_FLAG": {
+    "PFD_HINT": "S",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "CE_FRZ_FLAG",
+    "PFD_FORM_ITEM_TYPE2": "Claim_Estimate",
+    "PFD_TABLE_NAME": "LT_CLAIM_ESTIMATE",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "60",
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_SEQ_NO": 11,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "FREEZE",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "CLAIMENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
+    "PFD_SCREEN_NAME": "CLAIMENTRY"
+   },
+   "CE_CONFIRM_FLAG": {
+    "PFD_HINT": "S",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "CE_CONFIRM_FLAG",
+    "PFD_FORM_ITEM_TYPE2": "Claim_Estimate",
+    "PFD_TABLE_NAME": "LT_CLAIM_ESTIMATE",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "59",
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_SEQ_NO": 10,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "CONFIRM",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "CLAIMENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LC_COVER_AMT": {
@@ -913,7 +969,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
-    "PFD_SEQ_NO": 15,
+    "PFD_SEQ_NO": 19,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
     "PFD_MANDATORY_YN": true,
@@ -922,32 +978,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
-    "PFD_SCREEN_NAME": "CLAIMENTRY"
-   },
-   "CE_FRZ_FLAG": {
-    "PFD_HINT": "S",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "CE_FRZ_FLAG",
-    "PFD_FORM_ITEM_TYPE2": "Claim_Estimate",
-    "PFD_TABLE_NAME": "LT_CLAIM_ESTIMATE",
-    "PFD_DATA_TYPE": "text",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_SEQ_NO": 11,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "FREEZE",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "CLAIMENTRY",
-    "PFD_FONT_SIZE": "20",
     "PFD_FLD_LEN": "25",
-    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_COVER_CODE": {
@@ -956,8 +988,9 @@
     "PFD_COLUMN_NAME": "CE_COVER_CODE",
     "PFD_FORM_ITEM_TYPE2": "Claim_Estimate",
     "PFD_TABLE_NAME": "LT_CLAIM_ESTIMATE",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "paramlov",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "57",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -970,8 +1003,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
    "CE_LOSS_CODE": {
@@ -980,8 +1013,9 @@
     "PFD_COLUMN_NAME": "CE_LOSS_CODE",
     "PFD_FORM_ITEM_TYPE2": "Claim_Estimate",
     "PFD_TABLE_NAME": "LT_CLAIM_ESTIMATE",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "lov",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "56",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -994,8 +1028,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
+    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }
   }
