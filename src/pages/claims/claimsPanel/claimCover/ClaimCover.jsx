@@ -14,6 +14,10 @@ import {
 import showNotification from '../../../../components/notification/Notification';
 import ConfirmationModal from '../../../../components/confirmationModal/ConfirmationModal';
 import Loader from '../../../../components/loader/Loader';
+import {
+ extractValues,
+ mergeDropdownData,
+} from '../../../../components/commonHelper/ParamLov';
 
 const ClaimCover = ({
  queryID,
@@ -30,10 +34,13 @@ const ClaimCover = ({
   id: tranId,
   ClaimsLOVJson,
   formValues,
+  setDropDown,
+  dropDown,
  } = useContext(ClaimStepperContext);
  const { mrvListingId } = ClaimsJson;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
+ const getParamLov = useApiRequests('getParamLov', 'GET');
  const saveMRV = useApiRequests(saveRow, 'POST');
  const editMRV = useApiRequests(editRow, 'POST');
  const deleteMRV = useApiRequests(deleteRow, 'POST');
@@ -41,7 +48,7 @@ const ClaimCover = ({
  const [claimCoverInitialValues, setClaimCoverInitialValues] = useState(null);
  const [editMRVId, setEditMRVId] = useState('');
  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
- const [dropDown, setDropDown] = useState(ClaimsLOVJson);
+ //  const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const [loader, setLoader] = useState(false);
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
@@ -74,7 +81,7 @@ const ClaimCover = ({
   const orderedData = sortObjectByPFDSeqNo(response);
   setClaimCoverDetails({ [root]: orderedData[root] });
   setClaimCoverInitialValues({ [root]: orderedData[root] });
-  console.log('orderedData : ', { [root]: orderedData[root] });
+  //console.log('orderedData : ', { [root]: orderedData[root] });
  };
 
  const MRVListing = () => {
@@ -148,8 +155,35 @@ const ClaimCover = ({
   setDeleteConfirmation(true);
  };
 
+ const apiCallsParamLov = (PFD_PARAM_2, valueKey, valueQueryId) => {
+  const promises = PFD_PARAM_2.map(item => {
+   const queryParams = { queryId: valueQueryId[item], ...valueKey };
+   return getParamLov('', queryParams);
+  });
+
+  Promise.all(promises)
+   .then(responses => {
+    if (responses[0].status === 'SUCCESS') {
+     const mergedData = mergeDropdownData(responses);
+     setDropDown(prevDropdown => {
+      return { ...prevDropdown, ...mergedData };
+     });
+    }
+   })
+   .catch(error => {
+    console.error(error);
+   });
+ };
+
  const handleOnBlur = (currentData, values) => {
-  console.log('currentData : ', currentData, formValues);
+  // if (currentData.hasOwnProperty('PFD_PARAM_2')) {
+  if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_2')) {
+   const PFD_PARAM_2 = currentData?.PFD_PARAM_2.split(',');
+   const PFD_PARAM_3 = currentData?.PFD_PARAM_3.split(',');
+   const valueKey = extractValues(PFD_PARAM_3, values, 'PFD_FLD_VALUE');
+   const valueQueryId = extractValues(PFD_PARAM_2, formValues, 'PFD_PARAM_1');
+   apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
+  }
  };
 
  return (
@@ -166,18 +200,19 @@ const ClaimCover = ({
       />
      </div>
     )}
-    {claimCoverDetails?.hasOwnProperty(root) && (
-     <MRVform
-      initialValues={claimCoverInitialValues}
-      formRender={claimCoverDetails}
-      root={root}
-      lovList={dropDown}
-      onSubmit={onSubmit}
-      handleChangeValue={handleChangeValue}
-      resetForm={resetForm}
-      handleOnBlur={handleOnBlur}
-     />
-    )}
+    {claimCoverDetails &&
+     Object.prototype.hasOwnProperty.call(claimCoverDetails, root) && (
+      <MRVform
+       initialValues={claimCoverInitialValues}
+       formRender={claimCoverDetails}
+       root={root}
+       lovList={dropDown}
+       onSubmit={onSubmit}
+       handleChangeValue={handleChangeValue}
+       resetForm={resetForm}
+       handleOnBlur={handleOnBlur}
+      />
+     )}
    </div>
    {deleteConfirmation && (
     <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />

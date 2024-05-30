@@ -6,7 +6,7 @@ import Loader from '../../../components/loader/Loader';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
 import TableComponent from '../../../components/tableComponents/TableComponent';
 import useApiRequests from '../../../services/useApiRequests';
-import { setCurrentID } from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 
 const ClaimListing = () => {
@@ -32,6 +32,7 @@ const ClaimListing = () => {
  };
 
  const handleNavigate = () => {
+  dispatch(setFormValues(null));
   dispatch(setCurrentID(''));
   navigate('/claims');
  };

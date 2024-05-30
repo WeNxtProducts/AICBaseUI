@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import CustomStepper from '../../components/customStepper/CustomStepper';
 import useStepper from '../../components/customStepper/useStepper';
 import { claimsStepper } from '../../components/tableComponents/sampleData';
@@ -15,6 +15,7 @@ export const ClaimStepperContext = createContext();
 const Claims = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
   useStepper(claimsStepper);
+ const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const id = useSelector(state => state?.id?.id);
  const formValues = useSelector(state => state?.id?.formValues);
 
@@ -32,6 +33,8 @@ const Claims = () => {
   id,
   ClaimsLOVJson,
   formValues,
+  dropDown,
+  setDropDown,
  };
 
  useEffect(() => {
@@ -56,9 +59,11 @@ const Claims = () => {
     </div>
     <div className='main-screen mt-4'>
      <ClaimEntry />
-     <div className='mt-3'>
-      <ClaimsPanel />
-     </div>
+     {formValues !== null && (
+      <div className='mt-3'>
+       <ClaimsPanel />
+      </div>
+     )}
     </div>
    </div>
   </ClaimStepperContext.Provider>
