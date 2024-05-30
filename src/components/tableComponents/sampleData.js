@@ -730,3 +730,45 @@ export const response = {
   },
  },
 };
+
+const a = {
+    Claim_Beneficiary: {
+     Label: 'Claim_Beneficiary',
+     formFields: {
+      CBEN_BNF_NAME: {
+       PFD_COLUMN_NAME: 'CBEN_BNF_NAME',
+       PFD_FLD_VALUE: 'karur',
+      },
+     },
+    },
+    frontForm: {
+     Label: 'Claim Entry',
+     formFields: {
+      CLAIM_DISEASES_REMARKS: {
+       PFD_COLUMN_NAME: 'CLAIM_DISEASES_REMARKS',
+       PFD_FLD_VALUE: 'chennai',
+      },
+      CLM_INTM_DT: {
+       PFD_COLUMN_NAME: 'CLM_INTM_DT',
+       PFD_FLD_VALUE: '',
+      },
+     },
+    },
+    Claim_Estimate: {
+     Label: 'Claim_Estimate',
+     formFields: {
+      CE_EST_TYP: {
+       PFD_COLUMN_NAME: 'CE_EST_TYP',
+       PFD_FLD_VALUE: 'timothy',
+      },
+      CE_FC_COVER_AMT: {
+       PFD_COLUMN_NAME: 'CE_FC_COVER_AMT',
+       PFD_FLD_VALUE: 'godwin',
+      },
+      CE_FRZ_FLAG: {
+       PFD_COLUMN_NAME: 'CE_FRZ_FLAG',
+       PFD_FLD_VALUE: '',
+      },
+     },
+    },
+   };

@@ -19,3 +19,16 @@ export const getValQueryId = (dataArr, mainVal, keyVal) => {
   return acc;
  }, {});
 };
+
+export const extractValues = (paramsKeys, valueJson, mainKey) => {
+ return paramsKeys.reduce((acc, key) => {
+  for (const section in valueJson) {
+   if (section === 'mrvListingId') continue;
+   if (valueJson[section]?.formFields[key]) {
+    acc[key] = valueJson[section].formFields[key][mainKey];
+    break;
+   }
+  }
+  return acc;
+ }, {});
+};

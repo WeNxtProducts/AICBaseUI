@@ -15,7 +15,7 @@ import {
 } from '../../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
 import {
- getValQueryId,
+ extractValues,
  mergeDropdownData,
 } from '../../../components/commonHelper/ParamLov';
 
@@ -29,12 +29,14 @@ const ClaimEntryForm = () => {
   ClaimsJson,
   ClaimsLOVJson,
   id: tranId,
+  setDropDown,
+  dropDown,
+  formValues,
  } = useContext(ClaimStepperContext);
  const dispatch = useDispatch();
  const [claimEntry, setClaimEntry] = useState(null);
  const [claimEntryInitialValues, setClaimEntryInitialValues] = useState(null);
  const [loader, setLoader] = useState(false);
- const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const createClaim = useApiRequests('createClaim', 'POST');
  const updateClaim = useApiRequests('updateClaim', 'POST');
  const getClaim = useApiRequests('getClaim', 'GET');
@@ -42,10 +44,10 @@ const ClaimEntryForm = () => {
 
  const handleStateInit = (value, isEdit) => {
   const orderedData = sortObjectByPFDSeqNo(value);
-  setClaimEntryInitialValues(
-   isEdit ? { frontForm: orderedData?.frontForm } : null,
-  );
-  setClaimEntry({ frontForm: orderedData?.frontForm });
+  setClaimEntryInitialValues(isEdit ? orderedData : null);
+  setClaimEntry(orderedData);
+  // setClaimEntry({ frontForm: orderedData?.frontForm });
+  dispatch(setFormValues(orderedData));
  };
 
  const handleGetClaim = async () => {
@@ -86,7 +88,6 @@ const ClaimEntryForm = () => {
 
  const onSubmit = async values => {
   //handleNext();
-  console.log('values : ', values);
   dispatch(setFormValues(values));
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
@@ -127,12 +128,11 @@ const ClaimEntryForm = () => {
  };
 
  const handleOnBlur = (currentData, values) => {
-  if (currentData.hasOwnProperty('PFD_PARAM_2')) {
-   const fields = values?.formFields;
+  if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_2')) {
    const PFD_PARAM_2 = currentData?.PFD_PARAM_2.split(',');
    const PFD_PARAM_3 = currentData?.PFD_PARAM_3.split(',');
-   const valueKey = getValQueryId(PFD_PARAM_3, fields, 'PFD_FLD_VALUE');
-   const valueQueryId = getValQueryId(PFD_PARAM_2, fields, 'PFD_PARAM_1');
+   const valueKey = extractValues(PFD_PARAM_3, values, 'PFD_FLD_VALUE');
+   const valueQueryId = extractValues(PFD_PARAM_2, formValues, 'PFD_PARAM_1');
    apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
   }
  };
