@@ -66,9 +66,9 @@ const CustomList = ({
         })}
         <td>
          <div className='icon-container'>
-          <i class='bi bi-eye' />
-          <i class='bi bi-pencil-square' onClick={() => handleEdit(item)} />
-          <i class='bi bi-trash' onClick={() => handleDelete(item)} />
+          <i className='bi bi-eye' />
+          <i className='bi bi-pencil-square' onClick={() => handleEdit(item)} />
+          <i className='bi bi-trash' onClick={() => handleDelete(item)} />
          </div>
         </td>
        </tr>

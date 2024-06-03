@@ -39,7 +39,7 @@ export default function Sidebar() {
     width: isExpanded ? '15%' : '3.8%',
    }}
    onMouseEnter={() => setIsExpanded(true)}
-   onMouseLeave={() => setIsExpanded(false)} // change to false
+   onMouseLeave={() => setIsExpanded(false)}
   >
    <div className='sidebar-Header flex justify-between sticky top-0 mb-2'>
     <div>
@@ -47,7 +47,10 @@ export default function Sidebar() {
     </div>
     {isExpanded && (
      <div className='flex items-center pr-4'>
-      <i className='bi bi-tools tools-icon'></i>
+      <i
+       className='bi bi-tools tools-icon cursor-pointer'
+      //  onClick={() => setIsExpanded(false)}
+      />
      </div>
     )}
    </div>
