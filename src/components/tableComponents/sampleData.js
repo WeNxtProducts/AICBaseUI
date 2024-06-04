@@ -519,6 +519,30 @@ export const claim_check = [
  { value: 'policyNo', label: 'Policy No' },
 ];
 
+export const CoverageTableData = [
+ {
+  key: 1,
+  pol: 'P/90/7789/9876/9877',
+  claim: 'C/0292/8383/0393/8384',
+  amount: '20000',
+  process: false,
+ },
+ {
+  key: 2,
+  pol: 'P/90/7789/9876/8987',
+  claim: 'C/0292/8383/0393/2345',
+  amount: '10000',
+  process: false,
+ },
+ {
+  key: 3,
+  pol: 'P/90/7789/9876/8987',
+  claim: 'C/0292/8383/0393/2345',
+  amount: '89878',
+  process: true,
+ },
+];
+
 export const proposalStepper = [
  { key: 0, title: 'Propposal Entry', status: 'inprogress' },
  { key: 1, title: 'Life Assured Details', status: 'todo' },

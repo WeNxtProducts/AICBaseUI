@@ -1,7 +1,15 @@
 import React, { useMemo } from 'react';
-import { CustomDatePicker } from '../../../components/commonExportsFields/CommonExportsFields';
+import {
+ CustomDatePicker,
+ CustomInput,
+} from '../../../components/commonExportsFields/CommonExportsFields';
 
-const ClaimFieldRender = ({ fieldInfo, handleChangeValue, values }) => {
+const ClaimFieldRender = ({
+ fieldInfo,
+ handleChangeValue,
+ values,
+ keyField,
+}) => {
  const {
   PFD_FLD_NAME,
   PFD_COLUMN_NAME,
@@ -9,10 +17,7 @@ const ClaimFieldRender = ({ fieldInfo, handleChangeValue, values }) => {
   PFD_MANDATORY_YN,
   PFD_HINT,
   PFD_EDIT_YN,
-  PFD_HIDE_YN,
  } = fieldInfo;
-
- console.log('values : ', values);
 
  return (
   <div className='current-field p-2 flex items-center'>
@@ -25,16 +30,28 @@ const ClaimFieldRender = ({ fieldInfo, handleChangeValue, values }) => {
    <div className='input-container fields-error w-3/4 pl-3'>
     {(() => {
      switch (PFD_DATA_TYPE) {
+      case 'text':
+       return (
+        <CustomInput
+         name={`${PFD_FLD_NAME}`}
+         placeholder={PFD_HINT}
+         value={values?.formFields[PFD_COLUMN_NAME]?.PFD_FLD_VALUE}
+         disabled={!PFD_EDIT_YN}
+         onChange={e => {
+          handleChangeValue(e.target.value, keyField, PFD_COLUMN_NAME);
+         }}
+        />
+       );
       case 'date':
        return (
         <CustomDatePicker
-         name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
+         name={`${PFD_FLD_NAME}`}
          placeholder={PFD_HINT}
          size='medium'
-        //  value={value?.PFD_FLD_VALUE}
+         value={values?.formFields[PFD_COLUMN_NAME]?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onChange={date => {
-          handleChangeValue(date, `check`);
+          handleChangeValue(date, keyField, PFD_COLUMN_NAME);
          }}
         />
        );

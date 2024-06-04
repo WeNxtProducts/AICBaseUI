@@ -6,25 +6,38 @@ import {
 } from './../../../components/tableComponents/sampleData';
 import claimJSON from './../../../getFormFields/process.json';
 import ClaimFieldRender from './ClaimFieldRender';
+import { Button } from 'antd';
 
 const ClaimTypeSelect = () => {
  const [initValues, setInitValues] = useState({
   claim_type: 'death',
   claim_type_fields: claimJSON?.death,
-  claim_based: 'preclaimNo',
-  claim_based_fields: claimJSON?.preclaimNo,
+  claim_based: 'policyNo',
+  claim_based_fields: claimJSON?.policyNo,
  });
 
  const handleSelectionChange = (selectedValue, type, mainKey) => {
-  setInitValues({
-   ...initValues,
+  setInitValues(prevValues => ({
+   ...prevValues,
    [mainKey]: selectedValue,
    [type]: claimJSON[selectedValue],
-  });
+  }));
  };
 
- const handleChangeValue = () => {
-  console.log('handleChangeValue');
+ const handleChangeValue = (val, type, col_name) => {
+  setInitValues(prevValues => ({
+   ...prevValues,
+   [type]: {
+    ...prevValues[type],
+    formFields: {
+     ...prevValues[type].formFields,
+     [col_name]: {
+      ...prevValues[type].formFields[col_name],
+      PFD_FLD_VALUE: val,
+     },
+    },
+   },
+  }));
  };
 
  return (
@@ -47,7 +60,6 @@ const ClaimTypeSelect = () => {
        onSelectionChange={handleSelectionChange}
       />
      </div>
-
      <div className='col-span-2'></div>
      <div className='col-span-10 grid grid-cols-2 gap-0'>
       {Object.keys(initValues?.claim_type_fields?.formFields).map(
@@ -58,6 +70,7 @@ const ClaimTypeSelect = () => {
            fieldInfo={initValues?.claim_type_fields?.formFields[fieldKey]}
            handleChangeValue={handleChangeValue}
            values={initValues?.claim_type_fields}
+           keyField='claim_type_fields'
           />
          </div>
         );
@@ -75,11 +88,10 @@ const ClaimTypeSelect = () => {
        main='claim_based'
        type='claim_based_fields'
        items={claim_check}
-       selectedValue={initValues?.claim_type}
+       selectedValue={initValues?.claim_based}
        onSelectionChange={handleSelectionChange}
       />
      </div>
-
      <div className='col-span-2'></div>
      <div className='col-span-10 grid grid-cols-2 gap-0'>
       {Object.keys(initValues?.claim_based_fields?.formFields).map(
@@ -90,11 +102,15 @@ const ClaimTypeSelect = () => {
            fieldInfo={initValues?.claim_based_fields?.formFields[fieldKey]}
            handleChangeValue={handleChangeValue}
            values={initValues?.claim_based_fields}
+           keyField='claim_based_fields'
           />
          </div>
         );
        },
       )}
+      <div className=' flex items-center'>
+       <Button className='ml-3 ok_button'>OK</Button>
+      </div>
      </div>
     </div>
    </div>
