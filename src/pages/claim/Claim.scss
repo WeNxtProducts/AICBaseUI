@@ -1,0 +1,29 @@
+@import '../../styles/variable';
+@import '../../styles//components/Quotation.scss';
+
+.claim {
+ .main-screen {
+  min-height: 87vh;
+  max-height: 87vh;
+  overflow-y: auto;
+ }
+ .chip-label {
+  color: #4d5e80;
+  font-size: 14px;
+  font-weight: 500;
+ }
+ .ok_button {
+  background-color: #0382c8;
+  color: #ffffff;
+ }
+ .form-divide {
+  padding: 0px;
+  border: 0.7px solid #e5e7eb;
+ }
+ .process_button {
+  color: #ffffff;
+  background-color: #0382c8;
+  padding: 4px 17px;
+  border-radius: 6px;
+ }
+}

@@ -36,7 +36,7 @@ const CheckListDetails = () => {
     <Button
      className='filter-button'
      type='primary'
-     icon={<i class='bi bi-funnel-fill' />}>
+     icon={<i className='bi bi-funnel-fill' />}>
      Filter
     </Button>
     <div className='w-ful text-search'>

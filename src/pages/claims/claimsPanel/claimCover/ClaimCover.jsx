@@ -110,7 +110,7 @@ const ClaimCover = ({
   //   console.log('handleEdit : ', item);
   try {
    const response = await mrvGetById('', {
-    screenCode,
+    screenCode, 
     screenName,
     tranId: item?.ID,
    });

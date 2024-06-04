@@ -507,6 +507,42 @@ export const listTable = [
  },
 ];
 
+export const platforms = [
+ { value: 'death', label: 'Death' },
+ { value: 'disability', label: 'Disability' },
+ { value: 'accident', label: 'Accident' },
+];
+
+export const claim_check = [
+ { value: 'preclaimNo', label: 'Preclaim' },
+ { value: 'nationalID', label: 'National ID' },
+ { value: 'policyNo', label: 'Policy No' },
+];
+
+export const CoverageTableData = [
+ {
+  key: 1,
+  pol: 'P/90/7789/9876/9877',
+  claim: 'C/0292/8383/0393/8384',
+  amount: '20000',
+  process: false,
+ },
+ {
+  key: 2,
+  pol: 'P/90/7789/9876/8987',
+  claim: 'C/0292/8383/0393/2345',
+  amount: '10000',
+  process: false,
+ },
+ {
+  key: 3,
+  pol: 'P/90/7789/9876/8987',
+  claim: 'C/0292/8383/0393/2345',
+  amount: '89878',
+  process: true,
+ },
+];
+
 export const proposalStepper = [
  { key: 0, title: 'Propposal Entry', status: 'inprogress' },
  { key: 1, title: 'Life Assured Details', status: 'todo' },
@@ -732,43 +768,43 @@ export const response = {
 };
 
 const a = {
-    Claim_Beneficiary: {
-     Label: 'Claim_Beneficiary',
-     formFields: {
-      CBEN_BNF_NAME: {
-       PFD_COLUMN_NAME: 'CBEN_BNF_NAME',
-       PFD_FLD_VALUE: 'karur',
-      },
-     },
-    },
-    frontForm: {
-     Label: 'Claim Entry',
-     formFields: {
-      CLAIM_DISEASES_REMARKS: {
-       PFD_COLUMN_NAME: 'CLAIM_DISEASES_REMARKS',
-       PFD_FLD_VALUE: 'chennai',
-      },
-      CLM_INTM_DT: {
-       PFD_COLUMN_NAME: 'CLM_INTM_DT',
-       PFD_FLD_VALUE: '',
-      },
-     },
-    },
-    Claim_Estimate: {
-     Label: 'Claim_Estimate',
-     formFields: {
-      CE_EST_TYP: {
-       PFD_COLUMN_NAME: 'CE_EST_TYP',
-       PFD_FLD_VALUE: 'timothy',
-      },
-      CE_FC_COVER_AMT: {
-       PFD_COLUMN_NAME: 'CE_FC_COVER_AMT',
-       PFD_FLD_VALUE: 'godwin',
-      },
-      CE_FRZ_FLAG: {
-       PFD_COLUMN_NAME: 'CE_FRZ_FLAG',
-       PFD_FLD_VALUE: '',
-      },
-     },
-    },
-   };
+ Claim_Beneficiary: {
+  Label: 'Claim_Beneficiary',
+  formFields: {
+   CBEN_BNF_NAME: {
+    PFD_COLUMN_NAME: 'CBEN_BNF_NAME',
+    PFD_FLD_VALUE: 'karur',
+   },
+  },
+ },
+ frontForm: {
+  Label: 'Claim Entry',
+  formFields: {
+   CLAIM_DISEASES_REMARKS: {
+    PFD_COLUMN_NAME: 'CLAIM_DISEASES_REMARKS',
+    PFD_FLD_VALUE: 'chennai',
+   },
+   CLM_INTM_DT: {
+    PFD_COLUMN_NAME: 'CLM_INTM_DT',
+    PFD_FLD_VALUE: '',
+   },
+  },
+ },
+ Claim_Estimate: {
+  Label: 'Claim_Estimate',
+  formFields: {
+   CE_EST_TYP: {
+    PFD_COLUMN_NAME: 'CE_EST_TYP',
+    PFD_FLD_VALUE: 'timothy',
+   },
+   CE_FC_COVER_AMT: {
+    PFD_COLUMN_NAME: 'CE_FC_COVER_AMT',
+    PFD_FLD_VALUE: 'godwin',
+   },
+   CE_FRZ_FLAG: {
+    PFD_COLUMN_NAME: 'CE_FRZ_FLAG',
+    PFD_FLD_VALUE: '',
+   },
+  },
+ },
+};

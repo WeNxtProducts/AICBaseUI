@@ -13,6 +13,7 @@ const ResetPassword = lazy(() =>
 );
 const ApiToJson = lazy(() => import('../pages/apiToJson/ApiToJson'));
 const Claims = lazy(() => import('../pages/claims/Claims'));
+const Claim = lazy(() => import('../pages/claim/Claim'));
 const ClaimSettlement = lazy(() =>
  import('../pages/claimSettlement/ClaimSettlement'),
 );
@@ -78,7 +79,16 @@ const AppRouter = () => {
       </Suspense>
      }
     />
+
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/claim'
+      element={
+       <Suspense fallback={<div>Claims...</div>}>
+        <Claim />
+       </Suspense>
+      }
+     />
      <Route
       path='/claimsEntryList'
       element={

@@ -1,0 +1,124 @@
+.claim_status_table {
+ user-select: none;
+ overflow: auto;
+ border-radius: 8px;
+ border: 1px solid #c6c2de;
+ .status_main_table {
+  width: 100%;
+  max-width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-style: hidden;
+  border-collapse: collapse;
+  th,
+  td {
+   padding: 7px;
+   text-align: left;
+  }
+  td:nth-child(1) {
+   width: 20%;
+  }
+
+  .policy_number_click {
+   color: #0382c8;
+   font-weight: 400;
+   cursor: pointer;
+   &:hover {
+    text-decoration: underline;
+   }
+  }
+
+  td:nth-child(2) {
+   width: 20%;
+  }
+
+  td:nth-child(3) {
+   width: 20%;
+  }
+
+  td:nth-child(4),
+  td:nth-child(5),
+  td:nth-child(6),
+  th:nth-child(4),
+  th:nth-child(5),
+  th:nth-child(6) {
+   width: 12%;
+   text-align: center;
+  }
+
+  td {
+   border-bottom: 1px solid #c6c2de;
+  }
+  th {
+   border-bottom: 1px solid #c6c2de;
+   background-color: #ffffff;
+   color: #667085;
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 18px;
+  }
+  td {
+   color: #667085;
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 20px;
+  }
+  .tab_buttons {
+   background-color: #0382c8;
+   color: #ffffff;
+   width: 70%;
+   border-radius: 5px;
+  }
+  td {
+   .status_notify {
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-block;
+    padding: 3px 15px;
+    border-radius: 20px;
+    position: relative;
+
+    &::before {
+     content: '';
+     position: absolute;
+     left: 6px;
+     top: 50%;
+     transform: translateY(-50%);
+     width: 5px;
+     height: 5px;
+     border-radius: 50%;
+    }
+   }
+   .approved {
+    background-color: #ecfdf3;
+    color: #037847;
+    &::before {
+     background-color: #14ba6d;
+    }
+   }
+   .pending {
+    background-color: #f2f4f7;
+    color: #6c778b;
+    &::before {
+     background-color: #6c778b;
+    }
+   }
+   .rejected {
+    background-color: #fdf4f7;
+    color: #c1536e;
+    &::before {
+     background-color: #eb5858;
+    }
+   }
+  }
+ }
+ .upload-icons {
+  color: #2f80ed;
+
+  &:hover {
+   cursor: pointer;
+   text-decoration: underline;
+   text-underline-offset: 3px;
+  }
+ }
+}
