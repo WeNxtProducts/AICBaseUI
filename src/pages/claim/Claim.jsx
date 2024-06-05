@@ -1,6 +1,7 @@
 import React, { createContext } from 'react';
 import './Claim.scss';
 import MainEntry from './mainEntry/MainEntry';
+import SlidingCards from '../slidingCards/SlidingCards';
 
 export const ClaimContext = createContext();
 
@@ -10,7 +11,8 @@ const Claim = () => {
   <ClaimContext.Provider value={data}>
    <div className='claims quotation claim'>
     <div className='main-screen'>
-     <MainEntry />
+     {/* <MainEntry /> */}
+     <SlidingCards />
     </div>
    </div>
   </ClaimContext.Provider>
