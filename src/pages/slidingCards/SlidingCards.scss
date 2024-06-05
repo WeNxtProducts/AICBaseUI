@@ -1,0 +1,187 @@
+@mixin card-background($color, $image, $opac) {
+ background-color: $color;
+ &::before {
+  content: '';
+  background-image: url('#{$image}');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: $opac;
+ }
+}
+
+@mixin top-left-curve($color) {
+ &::after {
+  content: '';
+  position: absolute;
+  top: -70px;
+  left: -20px;
+  width: 150px;
+  height: 200px;
+  background-color: $color;
+  border-radius: 50%;
+  transform: rotate(50deg);
+  opacity: 0.5;
+ }
+}
+
+.wrapper_sliding_cards {
+ width: 100%;
+ height: 100vh;
+ display: flex;
+ align-items: center;
+
+ .container {
+  height: 70%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+ }
+
+ .card_wrapper {
+  display: flex;
+  align-items: center;
+ }
+
+ .card {
+  height: 100%;
+  //   border: 2px solid red;
+  width: 100px;
+  border-radius: 0.75rem;
+  background-size: cover;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 1.3rem;
+  margin: 0 10px;
+  transition: 0.6s cubic-bezier(0.28, -0.03, 0, 0.99);
+  //   box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.8);
+  position: relative;
+ }
+
+ .card_wrapper:nth-child(1) .card {
+  @include card-background(#369fff, '', 1);
+  @include top-left-curve(#369fff);
+ }
+
+ input:checked + .card {
+  //   @include card-background(red, '../../assets/term_img.png', 0.3);
+  //   @include top-left-curve(red);
+
+  &::before {
+   content: '';
+   background-image: url('../../assets/term_img.png') !important;
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: center;
+   position: absolute;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   opacity: 0.3 !important;
+  }
+ }
+
+ .card_wrapper:nth-child(2) .card {
+  //   @include card-background(#8ac53e, '../../assets/endowment_img.png', 1);
+  @include card-background(#8ac53e, '', 1);
+  @include top-left-curve(#8ac53e);
+ }
+
+ .card_wrapper:nth-child(3) .card {
+  //   @include card-background(#ff993a, '../../assets/mortgage_img.png', 1);
+  @include card-background(#ff993a, '', 1);
+  @include top-left-curve(#ff993a);
+ }
+
+ .card_wrapper:nth-child(4) .card {
+  @include card-background(#ffd143, '', 0.6);
+  //   @include card-background(#ffd143, '../../assets/medical_img.png', 0.6);
+  @include top-left-curve(#ffd143);
+ }
+
+ .mouseSvg {
+  width: 40px;
+  height: 40px;
+  fill: #ffffff;
+ }
+
+ .card > .row > .icon {
+  position: absolute;
+  bottom: 2%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition-delay: 0.3s;
+  transition: all 0.9s ease;
+ }
+
+ input {
+  display: none;
+ }
+
+ input:checked + label {
+  width: 500px;
+ }
+
+ input:checked + label .icon {
+  opacity: 1 !important;
+  transform: translateY(0px) !important;
+ }
+
+ .row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+ }
+
+ .initial-letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition-delay: 0.3s;
+  transition: all 0.9s ease;
+ }
+
+ .initial-letter,
+ .full-text {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 55px;
+ }
+
+ .full-text {
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(0px);
+  transition-delay: 0.3s;
+  transition: all 0.9s ease;
+  display: inline-block;
+  margin-left: 0.5rem; /* Adjust as needed for spacing */
+ }
+
+ input:checked + label .full-text {
+  white-space: nowrap;
+  opacity: 1 !important;
+  transform: translateY(0px) !important;
+ }
+
+ input:checked + label .initial-letter {
+  opacity: 0 !important;
+  transform: translateY(0px) !important;
+ }
+
+ .card_wrapper {
+  //   border: 1px solid green;
+ }
+}
