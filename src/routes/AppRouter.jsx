@@ -4,6 +4,10 @@ import ProtectedRoute from './PrivateRoute';
 import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const EmailSetUp = lazy(() => import('../pages/emailSetUp/EmailSetUp'));
+const EmailTemplateListing = lazy(() =>
+ import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
+);
 const CustomerListingScreen = lazy(() =>
  import('../pages/customerListingScreens/customerListingScreen'),
 );
@@ -55,37 +59,53 @@ const AppRouter = () => {
       </Suspense>
      }
     />
-    <Route
-     path='/surrenderprocessing'
-     element={
-      <Suspense fallback={<div>surrenderprocessing...</div>}>
-       <SurrenderProcessing />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/claims'
-     element={
-      <Suspense fallback={<div>Claims...</div>}>
-       <Claims />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/surrenderpayment'
-     element={
-      <Suspense fallback={<div>SurrenderPayment...</div>}>
-       <SurrenderPayment />
-      </Suspense>
-     }
-    />
 
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/emailtemplate'
+      element={
+       <Suspense fallback={<div>Email SetUp</div>}>
+        <EmailSetUp />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/getTemplateList'
+      element={
+       <Suspense fallback={<div>Email SetUp</div>}>
+        <EmailTemplateListing />
+       </Suspense>
+      }
+     />
      <Route
       path='/claim'
       element={
        <Suspense fallback={<div>Claims...</div>}>
         <Claim />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/surrenderprocessing'
+      element={
+       <Suspense fallback={<div>surrenderprocessing...</div>}>
+        <SurrenderProcessing />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/claims'
+      element={
+       <Suspense fallback={<div>Claims...</div>}>
+        <Claims />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/surrenderpayment'
+      element={
+       <Suspense fallback={<div>SurrenderPayment...</div>}>
+        <SurrenderPayment />
        </Suspense>
       }
      />

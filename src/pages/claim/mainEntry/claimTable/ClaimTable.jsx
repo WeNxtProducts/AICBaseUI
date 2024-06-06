@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import { CustomInput } from '../../../../components/commonExportsFields/CommonExportsFields';
 import './ClaimTable.scss';
+import PriceBreakUpAndBonus from './PriceBreakUpAndBonus';
 
 const ClaimTable = ({ tableColumn = {}, tableData = [] }) => {
- const [expandedRows, setExpandedRows] = useState([]);
+ const [expandedRows, setExpandedRows] = useState([1]);
 
  const handleRowClick = rowId => {
   const currentExpandedRows = expandedRows;
   const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
-
   const newExpandedRows = isRowCurrentlyExpanded
    ? currentExpandedRows.filter(id => id !== rowId)
    : currentExpandedRows.concat(rowId);
-
   setExpandedRows(newExpandedRows);
  };
 
@@ -54,15 +53,8 @@ const ClaimTable = ({ tableColumn = {}, tableData = [] }) => {
   if (expandedRows.includes(item.key)) {
    itemRows.push(
     <tr key={`row-expanded-${item.key}`}>
-     <td colSpan='6'>
-      <div className='expanded-content flex p-5 gap-10'>
-       <p>
-        <strong>Policy:</strong> {item.pol}
-       </p>
-       <p>
-        <strong>Claim:</strong> {item.claim}
-       </p>
-      </div>
+     <td colSpan='6' className='price_breakup_bonus'>
+      <PriceBreakUpAndBonus />
      </td>
     </tr>,
    );

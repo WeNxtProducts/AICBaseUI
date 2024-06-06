@@ -63,45 +63,53 @@
   position: relative;
  }
 
+ //  &::before {
+ //   content: '';
+ //   background-image: url('../../assets/term_img.png') !important;
+ //   background-repeat: no-repeat;
+ //   background-size: cover;
+ //   background-position: center;
+ //   position: absolute;
+ //   top: 0;
+ //   left: 0;
+ //   bottom: 0;
+ //   right: 0;
+ //   opacity: 0.3 !important;
+ //  }
+
  .card_wrapper:nth-child(1) .card {
-  @include card-background(#369fff, '', 1);
+  background-color: #369fff;
+ }
+
+ input:checked + .c1check {
+  @include card-background(#369fff, '../../assets/term_img.png', 0.3);
   @include top-left-curve(#369fff);
  }
 
- input:checked + .card {
-  //   @include card-background(red, '../../assets/term_img.png', 0.3);
-  //   @include top-left-curve(red);
-
-  &::before {
-   content: '';
-   background-image: url('../../assets/term_img.png') !important;
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: center;
-   position: absolute;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   opacity: 0.3 !important;
-  }
+ .card_wrapper:nth-child(2) .card {
+  background-color: #8ac53e;
  }
 
- .card_wrapper:nth-child(2) .card {
-  //   @include card-background(#8ac53e, '../../assets/endowment_img.png', 1);
-  @include card-background(#8ac53e, '', 1);
+ input:checked + .c2check {
+  @include card-background(#8ac53e, '../../assets/endowment_img.png', 0.3);
   @include top-left-curve(#8ac53e);
  }
 
  .card_wrapper:nth-child(3) .card {
-  //   @include card-background(#ff993a, '../../assets/mortgage_img.png', 1);
-  @include card-background(#ff993a, '', 1);
+  background-color: #ff993a;
+ }
+
+ input:checked + .c3check {
+  @include card-background(#ff993a, '../../assets/mortgage_img.png', 0.3);
   @include top-left-curve(#ff993a);
  }
 
  .card_wrapper:nth-child(4) .card {
-  @include card-background(#ffd143, '', 0.6);
-  //   @include card-background(#ffd143, '../../assets/medical_img.png', 0.6);
+  background-color: #ffd143;
+ }
+
+ input:checked + .c4check {
+  @include card-background(#ffd143, '../../assets/medical_img.png', 0.3);
   @include top-left-curve(#ffd143);
  }
 

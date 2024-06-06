@@ -1,0 +1,13 @@
+.email_setup {
+ border: 1px solid red;
+ background-color: #ffffff;
+ min-height: 88vh;
+ max-height: 88vh;
+ overflow-y: auto;
+
+ .template_header {
+  color: #4d5e80;
+  font-size: 20px;
+  font-weight: 700;
+ }
+}

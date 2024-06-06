@@ -615,6 +615,20 @@ export const checklistDetailsData = [
  },
 ];
 
+export const emailData = {
+    not_type: '',
+    module_name: '',
+    template_type: '',
+    product_code: '',
+    subject: '',
+    eff_from: '',
+    eff_to: '',
+    mail_to: [],
+    mail_cc: [],
+    message: '',
+    col_name: [],
+   };
+
 export const response = {
  Claim_Estimate: {
   Label: 'Claim_Estimate',

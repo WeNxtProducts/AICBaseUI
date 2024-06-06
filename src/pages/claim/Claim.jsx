@@ -11,8 +11,8 @@ const Claim = () => {
   <ClaimContext.Provider value={data}>
    <div className='claims quotation claim'>
     <div className='main-screen'>
-     {/* <MainEntry /> */}
-     <SlidingCards />
+     <MainEntry />
+     {/* <SlidingCards /> */}
     </div>
    </div>
   </ClaimContext.Provider>
