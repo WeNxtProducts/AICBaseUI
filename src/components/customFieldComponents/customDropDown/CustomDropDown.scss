@@ -1,4 +1,5 @@
 .custom-dropdown-main {
+ position: relative;
  .code-select-field {
   width: 100%;
  }
@@ -15,20 +16,20 @@
  }
 }
 
-.my-custom-select-dropdown-large {
- width: 399px;
- min-width: 399px;
-}
+// .my-custom-select-dropdown-large {
+//  width: 399px;
+//  min-width: 399px;
+// }
 
-.my-custom-select-dropdown-medium {
- width: 239px;
- min-width: 239px;
-}
+// .my-custom-select-dropdown-medium {
+//  width: 239px;
+//  min-width: 239px;
+// }
 
-.my-custom-select-dropdown-small {
- width: 160px;
- min-width: 160px;
-}
+// .my-custom-select-dropdown-small {
+//  width: 160px;
+//  min-width: 160px;
+// }
 
 // .ant-select-dropdown {
 //  position: absolute;

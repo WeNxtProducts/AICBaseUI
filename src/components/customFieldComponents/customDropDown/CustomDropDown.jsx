@@ -21,6 +21,13 @@ const CustomDropDown = ({
  };
  const inputRef = useRef(null);
  const [selected, setSelected] = useState({});
+ const inputContainerRef = useRef(null);
+ const [popoverWidth, setPopoverWidth] = useState(0);
+
+ useEffect(() => {
+  if (inputContainerRef.current)
+   setPopoverWidth(inputContainerRef.current.offsetWidth);
+ }, []);
 
  useEffect(() => {
   if (firstFieldRef?.current) {
@@ -63,8 +70,10 @@ const CustomDropDown = ({
 
  return (
   <div
+   ref={inputContainerRef}
    name={name}
-   className={`flex w-${fieldSize[size].main} custom-dropdown-main`}>
+   className={`flex w-${fieldSize[size].main} custom-dropdown-main`}
+   style={{ position: 'relative' }}>
    <div className={`w-${fieldSize[size].code}`}>
     <Select
      value={value}
@@ -72,7 +81,8 @@ const CustomDropDown = ({
      disabled={disabled}
      ref={firstFieldRef}
      placeholder='code'
-     popupClassName={`my-custom-select-dropdown-${size}`}
+     dropdownStyle={{ width: `${popoverWidth - 30}px`, maxHeight: '200px' }}
+     //popupClassName={`my-custom-select-dropdown-${size}`}
      optionLabelProp='value'
      {...sharedProps}>
      {options?.map((item, index) => (

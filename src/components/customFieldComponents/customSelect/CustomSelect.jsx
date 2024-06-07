@@ -36,8 +36,7 @@ const CustomSelect = ({
   allowClear: true,
   maxTagCount: 'responsive',
   filterOption: (input, option) => {
-   console.log('option : ', option);
-   option?.children?.toLowerCase()?.indexOf(input.toLowerCase()) >= 0;
+   return option.children.toLowerCase().includes(input.toLowerCase());
   },
   className: 'customer-select-fields',
   disabled,

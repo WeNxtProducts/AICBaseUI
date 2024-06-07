@@ -616,18 +616,44 @@ export const checklistDetailsData = [
 ];
 
 export const emailData = {
-    not_type: '',
-    module_name: '',
-    template_type: '',
-    product_code: '',
-    subject: '',
-    eff_from: '',
-    eff_to: '',
-    mail_to: [],
-    mail_cc: [],
-    message: '',
-    col_name: [],
-   };
+ not_type: 'SMS',
+ module_name: '1',
+ template_type: '2',
+ product_code: '3',
+ subject: '',
+ eff_from: '2024-06-28',
+ eff_to: '',
+ mail_to: [],
+ mail_cc: [],
+ message: '',
+ col_name: [],
+};
+
+export const notification_options = [
+ { label: 'Email', value: 'Email' },
+ { label: 'SMS', value: 'SMS' },
+];
+
+export const module_type_options = [
+ { label: 'Both GL and IL', value: '1' },
+ { label: 'Group Life', value: '2' },
+ { label: 'Individual Life', value: '3' },
+];
+
+export const mailList = [
+ { label: 'PASCALINA', value: '1' },
+ { label: 'SMAAISSA', value: '2' },
+ { label: 'AHAMAD LUOGS', value: '3' },
+ { label: 'JOSEPHINE MFIKWA', value: '4' },
+ { label: 'RANDHEER CHITTE', value: '5' },
+ { label: 'PAUL', value: '6' },
+ { label: 'DOMINICK', value: '7' },
+ { label: 'ELIUD', value: '8' },
+ { label: 'JUMA PATRICE', value: '9' },
+ { label: 'ISSA HAMISI', value: '10' },
+ { label: 'ELUHUDI', value: '11' },
+ { label: 'MWANAIDI', value: '12' },
+];
 
 export const response = {
  Claim_Estimate: {
