@@ -1,12 +1,16 @@
 .file-upload {
  .file-drop-zone {
-  background-color: #f8f8f8;
+  //   background-color: #f8f8f8;
   cursor: pointer;
   text-align: center;
   padding: 10px;
   .inner-drop {
-   padding: 20px;
-   border: 2px dashed #e2e6ea;
+   width: 100%;
+   //margin: auto;
+   padding: 8px;
+   background-color: #ffffff;
+   border-radius: 23px;
+   border: 0.3px dashed #d4d2d2;
   }
  }
  .upload-file-table {
@@ -15,14 +19,17 @@
   border-spacing: 0;
   border-collapse: collapse;
   border-style: hidden;
+
   th,
   td {
    padding: 7px;
    text-align: center;
   }
+
   thead {
    background-color: #f4f2ff;
    th {
+    background-color: #f4f2ff;
     padding: 10px;
     font-size: 12px;
     color: #6e6893;
@@ -30,6 +37,7 @@
     font-weight: 600;
    }
   }
+
   tbody {
    background-color: #f2faff;
    tr {

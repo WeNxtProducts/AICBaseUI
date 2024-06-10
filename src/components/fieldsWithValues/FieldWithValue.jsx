@@ -45,6 +45,8 @@ const FieldWithValue = ({
   PFD_HIDE_YN,
  } = currentData;
 
+//  console.log('PFD_FLD_NAME :', PFD_FLD_NAME);
+
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
  return (
