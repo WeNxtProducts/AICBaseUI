@@ -4,7 +4,7 @@ import { createYupSchema } from '../commonHelper/SchemaGenerator';
 import FieldWithValue from '../fieldsWithValues/FieldWithValue';
 import Loader from '../loader/Loader';
 
-const MainForm = ({
+const MRVform = ({
  initialValues,
  formRender,
  root,
@@ -27,7 +27,7 @@ const MainForm = ({
   });
   setValidation(validationSchema);
   setInitValues(initialValues);
- }, [initialValues]);
+ }, [formRender, initialValues, root]);
 
  return (
   <>
@@ -40,7 +40,7 @@ const MainForm = ({
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue }) => {
-      // console.log('values : ', values);
+      //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
         <div className={`items-center grid grid-cols-${grid} gap-0`}>
@@ -73,7 +73,7 @@ const MainForm = ({
           <button
            type='button'
            onClick={() => {
-            // setInitValues(null);
+            //setInitValues(null);
             resetForm();
            }}
            className='reset'>
@@ -93,4 +93,4 @@ const MainForm = ({
  );
 };
 
-export default MainForm;
+export default MRVform;

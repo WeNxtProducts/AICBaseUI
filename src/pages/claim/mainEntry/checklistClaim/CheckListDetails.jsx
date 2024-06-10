@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { TextInputWithSearchIcon } from '../../../../components/commonExportsFields/CommonExportsFields';
 import { Button } from 'antd';
-import DetailsTable from './DetailsTable';
-import {
- checklistDetailsColumn,
- checklistDetailsData,
-} from '../../../../components/tableComponents/sampleData';
+import { checklistDetailsColumn, checklistDetailsData } from '../../../../components/tableComponents/sampleData';
+import { TextInputWithSearchIcon } from '../../../../components/commonExportsFields/CommonExportsFields';
 import UploadDocuments from './UploadDocuments';
+import DetailsTable from './DetailsTable';
 
 const CheckListDetails = () => {
  const [rowData, setRowData] = useState(checklistDetailsData);

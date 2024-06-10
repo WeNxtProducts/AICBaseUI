@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import { CustomInput } from '../../../../components/commonExportsFields/CommonExportsFields';
+import PriceBreakUpAndBonus from './PriceBreakUpAndBonus';
+import ClaimCharges from '../ClaimCharges';
 import './ClaimTable.scss';
 
 const ClaimTable = ({ tableColumn = {}, tableData = [] }) => {
  const [expandedRows, setExpandedRows] = useState([]);
+ const [openCharges, setOpenCharges] = useState(false);
+ const [openReserve, setOpenReserve] = useState(false);
 
  const handleRowClick = rowId => {
   const currentExpandedRows = expandedRows;
   const isRowCurrentlyExpanded = currentExpandedRows.includes(rowId);
-
   const newExpandedRows = isRowCurrentlyExpanded
    ? currentExpandedRows.filter(id => id !== rowId)
    : currentExpandedRows.concat(rowId);
-
   setExpandedRows(newExpandedRows);
+ };
+
+ const handleClose = () => {
+  setOpenCharges(false);
+  setOpenReserve(false);
  };
 
  const renderRow = item => {
@@ -38,10 +45,14 @@ const ClaimTable = ({ tableColumn = {}, tableData = [] }) => {
      </div>
     </td>
     <td>
-     <Button className='tab_buttons'>Charges</Button>
+     <Button onClick={() => setOpenCharges(true)} className='tab_buttons'>
+      Charges
+     </Button>
     </td>
     <td>
-     <Button className='tab_buttons'>Reserve</Button>
+     <Button onClick={() => setOpenReserve(true)} className='tab_buttons'>
+      Reserve
+     </Button>
     </td>
     <td>
      <div>
@@ -54,15 +65,8 @@ const ClaimTable = ({ tableColumn = {}, tableData = [] }) => {
   if (expandedRows.includes(item.key)) {
    itemRows.push(
     <tr key={`row-expanded-${item.key}`}>
-     <td colSpan='6'>
-      <div className='expanded-content flex p-5 gap-10'>
-       <p>
-        <strong>Policy:</strong> {item.pol}
-       </p>
-       <p>
-        <strong>Claim:</strong> {item.claim}
-       </p>
-      </div>
+     <td colSpan='6' className='price_breakup_bonus'>
+      <PriceBreakUpAndBonus />
      </td>
     </tr>,
    );
@@ -85,6 +89,36 @@ const ClaimTable = ({ tableColumn = {}, tableData = [] }) => {
     </thead>
     <tbody>{tableData?.map(item => renderRow(item))}</tbody>
    </table>
+   {openCharges && (
+    <ClaimCharges
+     queryID='Claim_Estimate'
+     root='Claim_Charges'
+     mrvGet='getClaimEstimate'
+     screenCode='CLAIMENTRY'
+     screenName='CLAIMENTRY'
+     saveRow='saveEstimate'
+     editRow='editEstimate'
+     deleteRow='deleteEstimate'
+     handleCloseModal={handleClose}
+     openModal={openCharges}
+     title='Claim Charges'
+    />
+   )}
+   {openReserve && (
+    <ClaimCharges
+     queryID='Claim_Estimate'
+     root='Claim_Estimate' // Claim_Beneficiary
+     mrvGet='getClaimEstimate'
+     screenCode='CLAIMENTRY'
+     screenName='CLAIMENTRY'
+     saveRow='saveEstimate'
+     editRow='editEstimate'
+     deleteRow='deleteEstimate'
+     handleCloseModal={handleClose}
+     openModal={openReserve}
+     title='Reserve'
+    />
+   )}
   </div>
  );
 };

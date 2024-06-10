@@ -1,5 +1,6 @@
 import React from 'react';
 import TotalFieldsSummary from './TotalFieldsSummary';
+import ActionButtons from './ActionButtons';
 
 const TotalSummary = () => {
  return (
@@ -11,7 +12,9 @@ const TotalSummary = () => {
     <div className='col-span-9'>
      <TotalFieldsSummary />
     </div>
-    <div className='col-span-1'>Buttons</div>
+    <div className='col-span-1'>
+     <ActionButtons />
+    </div>
    </div>
   </div>
  );

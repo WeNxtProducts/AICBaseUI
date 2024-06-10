@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Button, Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import useApiRequests from '../../../services/useApiRequests';
+import {
+ setCurrentID,
+ setFormValues,
+} from '../../../globalStore/slices/IdSlices';
+import showNotification from '../../../components/notification/Notification';
 import Loader from '../../../components/loader/Loader';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
 import TableComponent from '../../../components/tableComponents/TableComponent';
-import useApiRequests from '../../../services/useApiRequests';
-import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
-import showNotification from '../../../components/notification/Notification';
 
-const ClaimListing = () => {
+const EmailTemplateListing = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const listingAPI = useApiRequests('getListing', 'GET');
@@ -35,7 +38,7 @@ const ClaimListing = () => {
  const handleNavigate = () => {
   dispatch(setFormValues(null));
   dispatch(setCurrentID(''));
-  navigate('/claims');
+  navigate('/emailtemplate');
  };
 
  const handleListingApi = async offset => {
@@ -91,7 +94,7 @@ const ClaimListing = () => {
 
  const handleEdit = item => {
   dispatch(setCurrentID(item?.ID));
-  navigate('/claims');
+  navigate('/emailtemplate');
  };
 
  const handleDelete = async item => {
@@ -113,7 +116,7 @@ const ClaimListing = () => {
    {loader && <Loader />}
    <div className='custmer-search flex items-end justify-between'>
     <div className='w-full'>
-     <p className='search-title'>Claims List</p>
+     <p className='search-title'>Email Template List</p>
      <div className='search-bar mt-2'>
       <TextInputWithSearchIcon
        placeholder='Search'
@@ -127,7 +130,7 @@ const ClaimListing = () => {
       className='add-buttons'
       type='primary'
       icon={<i className='bi bi-plus icon-style' />}>
-      Add Claims
+      Add Email Template
      </Button>
     </div>
    </div>
@@ -161,4 +164,4 @@ const ClaimListing = () => {
  );
 };
 
-export default ClaimListing;
+export default EmailTemplateListing;
