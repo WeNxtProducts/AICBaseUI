@@ -101,19 +101,21 @@ const DetailsTable = ({
   return itemRows;
  };
 
+ const renderColumns = () => (
+  <tr>
+   <th>Sr.No</th>
+   <th>ListItem Description</th>
+   <th>Remarks</th>
+   <th>Mandatory Y/N</th>
+   <th>Received Yes/No</th>
+   <th>Upload</th>
+  </tr>
+ );
+
  return (
   <div className='status_table rounded-lg'>
    <table className='status_main_table'>
-    <thead>
-     <tr>
-      <th>Sr.No</th>
-      <th>ListItem Description</th>
-      <th>Remarks</th>
-      <th>Mandatory Y/N</th>
-      <th>Received Yes/No</th>
-      <th>Upload</th>
-     </tr>
-    </thead>
+    <thead>{renderColumns()}</thead>
     <tbody>{tableData?.map((item, index) => renderRow(item, index))}</tbody>
    </table>
   </div>

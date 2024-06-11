@@ -6,7 +6,6 @@ import {
  notification_options,
 } from '../../components/tableComponents/sampleData';
 import { Form, Formik } from 'formik';
-import './EmailSetUp.scss';
 import { Checkbox } from 'antd';
 import {
  CustomDatePicker,
@@ -18,6 +17,7 @@ import MailCheckListing from './mailCheckListing/MailCheckListing';
 import MessageValue from './mailCheckListing/MessageValue';
 import HtmlEditor from './mailCheckListing/HtmlEditor';
 import MailMessageEditor from './mailCheckListing/MailMessageEditor';
+import './EmailSetUp.scss';
 
 const EmailSetUp = () => {
  const [initialValues, setInitialValues] = useState(emailData);
