@@ -81,5 +81,20 @@ const POST_API_URL = {
   url: '/claimest/updateLtClaimEstimate',
   baseURL: 'CLAIMURL',
  },
+ createEmail: {
+  url: '/emailTemplate/createTemplate',
+ },
+ updateEmail: {
+  url: '/emailTemplate/updateTemplate',
+ },
+ saveEmailParameter: {
+  url: '/emailTemplate/createTemplateParam',
+ },
+ editEmailParameter: {
+  url: '/emailTemplate/updateTemplateParam',
+ },
+ deleteEmailParameter: {
+  url: '/emailTemplate/deleteTemplateParam',
+ },
 };
 export default POST_API_URL;

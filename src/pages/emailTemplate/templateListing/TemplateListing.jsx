@@ -20,7 +20,7 @@ const TemplateListing = () => {
  const currentMenuId = useSelector(
   state => state?.tokenAndMenuList?.currentMenuId,
  );
- const deleteClaim = useApiRequests('deleteClaim', 'POST');
+ const deleteEmailTemplate = useApiRequests('deleteEmailTemplate', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
  const [loader, setLoader] = useState(false);
@@ -61,13 +61,13 @@ const TemplateListing = () => {
  const handleDeleteConfirm = async () => {
   setLoader(true);
   try {
-   const response = await deleteClaim('', {}, { id: deleteId?.ID });
+   const response = await deleteEmailTemplate('', { templateId: deleteId?.ID });
    setDeleteId(null);
-   if (response?.Status === 'FAILURE')
-    showNotification.ERROR(response?.Message);
-   if (response?.Status === 'SUCCESS') {
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
     handleListingApi(0, 1);
-    showNotification.SUCCESS(response?.Message);
+    showNotification.SUCCESS(response?.status_msg);
    }
    setLoader(false);
   } catch (err) {
@@ -93,6 +93,7 @@ const TemplateListing = () => {
  };
 
  const handleEdit = item => {
+  dispatch(setFormValues(null));
   dispatch(setCurrentID(item?.ID));
   navigate('/emailtemplate');
  };

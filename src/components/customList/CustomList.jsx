@@ -7,6 +7,7 @@ const CustomList = ({
  tableData = [],
  handleEdit,
  handleDelete,
+ selectedRow = '',
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
  const [selectedRows, setSelectedRows] = useState([]);
@@ -47,7 +48,11 @@ const CustomList = ({
     {Object.keys(tableData[0])?.length > 0 && (
      <tbody>
       {tableData?.map(item => (
-       <tr key={item?.ID}>
+       <tr
+        key={item?.ID}
+        className={
+         selectedRow == item?.ID ? 'highlighted_row' : 'non_highlighted_row'
+        }>
         <td>
          <Checkbox
           checked={selectedRows.some(

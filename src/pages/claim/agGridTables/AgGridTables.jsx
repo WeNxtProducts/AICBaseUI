@@ -35,10 +35,10 @@ const AgGridTables = () => {
  }, []);
 
  const onGridReady = useCallback(params => {
-  setRowData(olympics);
-  //   fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
-  //    .then(resp => resp.json())
-  //    .then(data => setRowData(olympics));
+  //   setRowData(olympics);
+  fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
+   .then(resp => resp.json())
+   .then(data => setRowData(data));
  }, []);
 
  return (

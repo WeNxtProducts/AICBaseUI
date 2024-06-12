@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
-import EmailTemplateJSON from '../../getFormFields/DOCPRINTSETUP_getFieldList.json';
-import EmailTemplateLOVJSON from '../../getFormFields/DOCPRINTSETUP_getLOVList.json';
+import EmailTemplateJSON from '../../getFormFields/EMAILTEMPLATE_getFieldList.json';
+import EmailTemplateLOVJSON from '../../getFormFields/EMAILTEMPLATE_getLOVList.json';
 import { useSelector } from 'react-redux';
 import EmailTemplateEntryForm from './emailTemplateEntryForm/EmailTemplateEntryForm';
 import EmailTempatePanels from './emailTempatePanels/EmailTempatePanels';
@@ -25,7 +25,7 @@ const EmailTemplate = () => {
  return (
   <MailTemplateContext.Provider value={data}>
    <div className='doc_print p-3'>
-    <p className='template_header'>Email TemplateSetUp</p>
+    <p className='template_header'>Email Template SetUp</p>
     <EmailTemplateEntryForm />
    </div>
    <EmailTempatePanels />

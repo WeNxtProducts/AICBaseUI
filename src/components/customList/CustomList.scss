@@ -17,9 +17,17 @@
    line-height: 24px;
    font-weight: 400;
    text-align: center;
-   background-color: $list-table-bg;
+   //background-color: $list-table-bg;
    border-top: 1px solid $list-table-border;
    padding: 6px;
+  }
+
+  .non_highlighted_row {
+   background-color: $list-table-bg;
+  }
+
+  .highlighted_row {
+   background-color: #83D4FF;
   }
 
   tr:last-child {
