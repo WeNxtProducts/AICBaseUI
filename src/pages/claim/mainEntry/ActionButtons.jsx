@@ -5,7 +5,7 @@ import ChecklistClaim from './checklistClaim/ChecklistClaim';
 
 const ActionButtons = () => {
  const [openBeneficiary, setOpenBeneficiary] = useState(false);
- const [openChecklist, setOpenChecklist] = useState(false);
+ const [openChecklist, setOpenChecklist] = useState(true);
 
  const handleClose = () => {
   setOpenBeneficiary(false);

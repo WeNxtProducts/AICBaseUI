@@ -2,11 +2,21 @@ import { Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import ProtectedRoute from './PrivateRoute';
 import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
+import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
-const EmailSetUp = lazy(() => import('../pages/emailSetUp/EmailSetUp'));
+const DocPrint = lazy(() => import('../pages/docPrint/DocPrint'));
+const DocPrintListing = lazy(() =>
+ import('../pages/docPrint/docPrintListing/DocPrintListing'),
+);
+const EmailTemplate = lazy(() =>
+ import('../pages/emailTemplate/EmailTemplate'),
+);
 const EmailTemplateListing = lazy(() =>
  import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
+);
+const TemplateListing = lazy(() =>
+ import('../pages/emailTemplate/templateListing/TemplateListing'),
 );
 const CustomerListingScreen = lazy(() =>
  import('../pages/customerListingScreens/customerListingScreen'),
@@ -36,6 +46,14 @@ const AppRouter = () => {
   <div>
    <Routes>
     <Route
+     path='/agTable'
+     element={
+      <Suspense fallback={<div>AG GRID TABLE</div>}>
+       <AgGridTables />
+      </Suspense>
+     }
+    />
+    <Route
      path='/'
      element={
       <Suspense fallback={<div>Login</div>}>
@@ -62,21 +80,23 @@ const AppRouter = () => {
 
     <Route element={<ProtectedRoute />}>
      <Route
-      path='/emailtemplate'
+      path='/docPrint'
       element={
-       <Suspense fallback={<div>Email SetUp</div>}>
-        <EmailSetUp />
+       <Suspense fallback={<div>DocPrint SetUp...</div>}>
+        <DocPrint />
        </Suspense>
       }
      />
+
      <Route
-      path='/getTemplateList'
+      path='/docPrintList'
       element={
-       <Suspense fallback={<div>Email SetUp</div>}>
-        <EmailTemplateListing />
+       <Suspense fallback={<div>DocPrint SetUp...</div>}>
+        <DocPrintListing />
        </Suspense>
       }
      />
+
      <Route
       path='/claim'
       element={
@@ -85,6 +105,25 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
+     <Route
+      path='/emailtemplate'
+      element={
+       <Suspense fallback={<div>Email SetUp</div>}>
+        <EmailTemplate />
+       </Suspense>
+      }
+     />
+
+     <Route
+      path='/getTemplateList'
+      element={
+       <Suspense fallback={<div>Email SetUp</div>}>
+        <TemplateListing />
+       </Suspense>
+      }
+     />
+
      <Route
       path='/surrenderprocessing'
       element={
@@ -93,6 +132,7 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
      <Route
       path='/claims'
       element={
@@ -101,6 +141,7 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
      <Route
       path='/surrenderpayment'
       element={
@@ -109,6 +150,7 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
      <Route
       path='/claimsEntryList'
       element={
@@ -117,6 +159,7 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
      {/* <Route
       path='/surrenderprocessing'
       element={
@@ -133,6 +176,7 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
      <Route
       path='/claimSettlement'
       element={
@@ -149,6 +193,7 @@ const AppRouter = () => {
        </Suspense>
       }
      /> */}
+
      <Route
       path='/resetpassword_profile'
       element={
@@ -157,6 +202,7 @@ const AppRouter = () => {
        </Suspense>
       }
      />
+
      <Route
       path='/Dashboard'
       element={

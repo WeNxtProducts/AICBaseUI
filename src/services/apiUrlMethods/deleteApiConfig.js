@@ -10,6 +10,9 @@ const DELETE_API_URL = {
   url: '/claimest/deleteclaimestByid',
   baseURL: 'CLAIMURL',
  },
+ deleteEmailTemplate: {
+  url: '/emailTemplate/deleteTemplate',
+ },
 };
 
 export default DELETE_API_URL;

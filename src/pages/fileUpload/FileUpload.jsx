@@ -103,75 +103,77 @@ const FileTable = ({ files, onDelete }) => {
      Delete Selected
     </button>
    )}
-   <table className='upload-file-table'>
-    <thead>
-     <tr>
-      <th></th>
-      <th></th>
-      <th>Remarks</th>
-      <th>DOCUMENT TYPE</th>
-      <th>UPDATED BY</th>
-      <th>UPDATED DATE</th>
-      <th></th>
-     </tr>
-    </thead>
-    <tbody>
-     {files.map((file, index) => (
-      <tr key={index}>
-       <td>
-        <Checkbox
-         checked={selectedRows.includes(file.name)}
-         onChange={event => handleCheckboxChange(event, file)}
-        />
-       </td>
-       <td>
-        <p>
-         <span
-          className='download-link'
-          onClick={event => handleDownload(event, file)}>
-          Download
-         </span>
-        </p>
-       </td>
-       <td>
-        <div className='table_textarea'>
-         <CustomTextArea
-          // value={item?.Remarks}
-          placeholder={'remarks'}
-          onChange={e => {
-           console.log('e.target.value : ', e.target.value);
-           //  handleSelect(index, 'Remarks', e.target.value);
-          }}
-         />
-        </div>
-       </td>
-       <td>
-        <div className='table_lov'>
-         <CustomSelect
-          options={[]}
-          placeholder={'select'}
-          size='large'
-          showSearch={false}
-          // value={item?.Received}
-          onChange={e => {
-           console.log('e : ', e);
-           //  handleSelect(index, 'Received', e);
-          }}
-         />
-        </div>
-       </td>
-       <td>PREMIA</td>
-       <td>14-MAY-2023</td>
-       <td>
-        <Tooltip placement='top' title='Post'>
-         <SaveOutlined className='post-icon' />
-        </Tooltip>
-        {/* <button onClick={() => onDelete([file.name])}>Delete</button> */}
-       </td>
+   <div className='upload_file_wrapper'>
+    <table className='upload-file-table'>
+     <thead>
+      <tr>
+       <th></th>
+       <th></th>
+       <th>Remarks</th>
+       <th>DOCUMENT TYPE</th>
+       <th>UPDATED BY</th>
+       <th>UPDATED DATE</th>
+       <th></th>
       </tr>
-     ))}
-    </tbody>
-   </table>
+     </thead>
+     <tbody>
+      {files.map((file, index) => (
+       <tr key={index}>
+        <td>
+         <Checkbox
+          checked={selectedRows.includes(file.name)}
+          onChange={event => handleCheckboxChange(event, file)}
+         />
+        </td>
+        <td>
+         <p>
+          <span
+           className='download-link'
+           onClick={event => handleDownload(event, file)}>
+           Download
+          </span>
+         </p>
+        </td>
+        <td>
+         <div className='table_textarea'>
+          <CustomTextArea
+           // value={item?.Remarks}
+           placeholder={'remarks'}
+           onChange={e => {
+            console.log('e.target.value : ', e.target.value);
+            //  handleSelect(index, 'Remarks', e.target.value);
+           }}
+          />
+         </div>
+        </td>
+        <td>
+         <div className='table_lov'>
+          <CustomSelect
+           options={[]}
+           placeholder={'select'}
+           size='large'
+           showSearch={false}
+           // value={item?.Received}
+           onChange={e => {
+            console.log('e : ', e);
+            //  handleSelect(index, 'Received', e);
+           }}
+          />
+         </div>
+        </td>
+        <td>PREMIA</td>
+        <td>14-MAY-2023</td>
+        <td>
+         <Tooltip placement='top' title='Post'>
+          <SaveOutlined className='post-icon' />
+         </Tooltip>
+         {/* <button onClick={() => onDelete([file.name])}>Delete</button> */}
+        </td>
+       </tr>
+      ))}
+     </tbody>
+    </table>
+   </div>
   </div>
  );
 };

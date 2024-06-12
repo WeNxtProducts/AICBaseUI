@@ -12,4 +12,16 @@ export default defineConfig({
   port: 3001,
   strictPort: true,
  },
+ build: {
+  minify: 'esbuild', // Use esbuild for minification
+  rollupOptions: {
+   output: {
+    chunkFileNames: 'chunks/[name]-[hash].js',
+    manualChunks: {
+     vendor: ['react', 'react-dom'],
+    },
+   },
+  },
+  cacheDir: 'node_modules/.vite_cache', // Set a custom cache directory
+ },
 });

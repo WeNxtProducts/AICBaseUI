@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import './collapsePanelHeader.scss';
 
-const CollapsePanelHeader = ({ name, saved, completed }) => {
+const CollapsePanelHeader = ({ name, saved, completed, color = '#ffffff' }) => {
+ useEffect(() => {
+  document.documentElement.style.setProperty('--accordion-color', color);
+ }, []);
+
  return (
   <div className='custom-header-panel flex items-center justify-between select-none'>
    <div>

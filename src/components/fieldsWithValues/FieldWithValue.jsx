@@ -45,9 +45,13 @@ const FieldWithValue = ({
   PFD_HIDE_YN,
  } = currentData;
 
-//  console.log('PFD_FLD_NAME :', PFD_FLD_NAME);
-
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
+
+ const onBlurHandler = (currentData, values) => {
+  if (handleOnBlur) {
+   handleOnBlur(currentData, values);
+  }
+ };
 
  return (
   <div className='current-field p-2 flex items-center'>
@@ -71,7 +75,7 @@ const FieldWithValue = ({
          placeholder={PFD_HINT}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
-         onBlur={() => handleOnBlur(currentData, values)}
+         onBlur={() => onBlurHandler(currentData, values)}
          onChange={e => {
           handleChangeValue(
            e.target.value,
@@ -94,7 +98,7 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
-         onBlur={() => handleOnBlur(currentData, values)}
+         onBlur={() => onBlurHandler(currentData, values)}
          disabled={!PFD_EDIT_YN}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
          value={value?.PFD_FLD_VALUE || undefined}

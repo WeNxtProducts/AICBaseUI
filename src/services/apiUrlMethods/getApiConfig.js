@@ -35,6 +35,12 @@ const GET_API_URL = {
  getParamLov: {
   url: '/common/getparamlov',
  },
+ getEmail: {
+  url: '/emailTemplate/getTemplate',
+ },
+ getEmailParameter: {
+  url: '/emailTemplate/getTemplateParam',
+ },
 };
 
 export default GET_API_URL;

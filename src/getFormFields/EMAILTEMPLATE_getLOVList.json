@@ -1,0 +1,17 @@
+{
+ "ET_ACTIVE_YN": [
+  { "label": "Yes", "value": "EMS001" },
+  { "label": "No", "value": "EMS002" }
+ ],
+ "EP_PARAM_NAME": [
+  { "label": "to", "value": "EPN001" },
+  { "label": "cc", "value": "EPN002" },
+  { "label": "bcc", "value": "EPN003" },
+  { "label": "subject", "value": "EPN004" }
+ ],
+ "EP_TYPE": [
+  { "label": "Static", "value": "EMP001" },
+  { "label": "Parameter", "value": "EMP002" },
+  { "label": "Query", "value": "EMP003" }
+ ]
+}

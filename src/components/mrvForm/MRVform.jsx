@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { createYupSchema } from '../commonHelper/SchemaGenerator';
@@ -73,7 +74,7 @@ const MRVform = ({
           <button
            type='button'
            onClick={() => {
-            //setInitValues(null);
+            // setInitValues(null);
             resetForm();
            }}
            className='reset'>

@@ -1,0 +1,25 @@
+.ag_grid_tables {
+ border: 1px solid red;
+ min-height: 88vh;
+ max-height: 88vh;
+ overflow-y: auto;
+}
+
+.grid-wrapper {
+ display: flex;
+ flex: 1 1 0px;
+ flex-grow: 1;
+}
+.grid-wrapper > div {
+ width: 100%;
+ height: 100%;
+}
+.container {
+ display: flex;
+ flex-direction: column;
+ height: 100%;
+}
+.columns {
+ display: flex;
+ flex-direction: row;
+}
