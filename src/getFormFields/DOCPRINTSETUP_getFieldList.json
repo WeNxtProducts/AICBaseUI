@@ -1,7 +1,7 @@
 {
  "headerInfo": { "formFields": {} },
  "staticDetails": { "formFields": {} },
- "mrvListingId": [],
+ "mrvListingId": [{ "queryName": "Doc_print_setup", "queryId": "69" }],
  "Doc_Print_Param": {
   "Label": "Doc_Print_Param",
   "formFields": {

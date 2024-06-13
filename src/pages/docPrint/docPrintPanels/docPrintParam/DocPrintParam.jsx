@@ -56,7 +56,7 @@ const DocPrintParam = ({
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
-    setEditMRVId('');
+    // setEditMRVId(response?.data?.Id);
     showNotification.SUCCESS(response?.status_msg);
    }
    setLoader(false);
@@ -88,7 +88,6 @@ const DocPrintParam = ({
  };
 
  useEffect(() => {
-  console.log('formValues : ', formValues);
   handleInitData(DoctPrintJSON);
   MRVListing();
  }, []);
@@ -103,19 +102,18 @@ const DocPrintParam = ({
  };
 
  const handleEdit = async item => {
-  //   console.log('handleEdit : ', item);
   try {
    const response = await mrvGetById('', {
     screenCode,
     screenName,
     tranId: item?.ID,
    });
-   if (response?.status === 'SUCCESS') {
-    setEditMRVId(item?.ID);
-    handleInitData(response?.Data);
-   } else if (response?.status === 'FAILURE') {
-    showNotification.ERROR(response?.status_msg);
-   }
+   //  if (response?.status === 'SUCCESS') {
+   setEditMRVId(item?.ID);
+   handleInitData(response?.Data);
+   //  } else if (response?.status === 'FAILURE') {
+   //   showNotification.ERROR(response?.status_msg);
+   //  }
   } catch (err) {
    console.log('err : ', err);
   }
@@ -146,7 +144,6 @@ const DocPrintParam = ({
  };
 
  const handleDelete = item => {
-  console.log('handleDelete : ', item);
   setEditMRVId(item?.ID);
   setDeleteConfirmation(true);
  };
@@ -193,6 +190,7 @@ const DocPrintParam = ({
        tableData={rowData}
        handleEdit={handleEdit}
        handleDelete={handleDelete}
+       selectedRow={editMRVId}
       />
      </div>
     )}
@@ -207,6 +205,7 @@ const DocPrintParam = ({
        handleChangeValue={handleChangeValue}
        resetForm={resetForm}
        handleOnBlur={handleOnBlur}
+       addOrUpdate={!!editMRVId}
       />
      )}
    </div>

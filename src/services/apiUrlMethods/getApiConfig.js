@@ -41,6 +41,12 @@ const GET_API_URL = {
  getEmailParameter: {
   url: '/emailTemplate/getTemplateParam',
  },
+ getDoc: {
+  url: '/common/docPrintListEdit',
+ },
+ getDocPrint: {
+  url: '/common/docParamListEdit',
+ },
 };
 
 export default GET_API_URL;

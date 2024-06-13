@@ -28,7 +28,6 @@ const EmailParameters = ({
  editRow,
  deleteRow,
 }) => {
- console.log('deleteRow : ', deleteRow);
  const {
   EmailTemplateJSON,
   id: tranId,

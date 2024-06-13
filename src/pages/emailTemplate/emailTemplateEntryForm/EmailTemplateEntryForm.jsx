@@ -1,7 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Form, Formik } from 'formik';
-import FieldWithValue from '../../../components/fieldsWithValues/FieldWithValue';
 import {
  deepCopy,
  extractFieldValuesInPlace,
@@ -13,10 +10,10 @@ import {
  setFormValues,
 } from '../../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
-import { createYupSchema } from '../../../components/commonHelper/SchemaGenerator';
 import useApiRequests from '../../../services/useApiRequests';
 import Loader from '../../../components/loader/Loader';
 import showNotification from '../../../components/notification/Notification';
+import MainForm from './../../../components/mainForm/MainForm';
 
 const EmailTemplateEntryForm = () => {
  const {
@@ -31,7 +28,6 @@ const EmailTemplateEntryForm = () => {
  const getEmail = useApiRequests('getEmail', 'GET');
  const [initialValues, setInitialValues] = useState(null);
  const [formRender, setFormRender] = useState(null);
- const [validation, setValidation] = useState(null);
  const [loader, setLoader] = useState(false);
 
  const resetForm = setValues => {
@@ -39,10 +35,6 @@ const EmailTemplateEntryForm = () => {
  };
 
  const handleStateInit = (value, isEdit) => {
-  const validationSchema = createYupSchema({
-   frontForm: value.frontForm,
-  });
-  setValidation(validationSchema);
   const orderedData = sortObjectByPFDSeqNo(value);
   setInitialValues({ frontForm: orderedData?.frontForm });
   setFormRender({ frontForm: orderedData?.frontForm });
@@ -108,55 +100,18 @@ const EmailTemplateEntryForm = () => {
  return (
   <div className='mt-4'>
    {loader && <Loader />}
-   {validation !== null && initialValues !== null && (
-    <Formik
-     initialValues={initialValues}
-     //  values={initialValues}
-     validationSchema={validation}
-     onSubmit={onSubmit}
-     enableReinitialize={true}>
-     {({ handleSubmit, values, setFieldValue, setValues }) => {
-      return (
-       <Form onSubmit={handleSubmit}>
-        <div className={`items-center grid grid-cols-${'2'} gap-0`}>
-         {Object.keys(formRender?.frontForm?.formFields).map(fieldKey => {
-          const dataId =
-           formRender?.frontForm?.formFields[fieldKey]?.PFD_COLUMN_NAME;
-          return useMemo(() => {
-           return (
-            <React.Fragment key={dataId}>
-             {!formRender?.frontForm?.formFields[fieldKey]?.PFD_HIDE_YN && (
-              <div data-id={dataId}>
-               <FieldWithValue
-                currentData={formRender?.frontForm?.formFields[fieldKey]}
-                values={values}
-                lovData={dropDown?.[dataId]}
-                setFieldValue={setFieldValue}
-                handleChangeValue={handleChangeValue}
-                parent='frontForm'
-               />
-              </div>
-             )}
-            </React.Fragment>
-           );
-          }, [values?.frontForm?.formFields[fieldKey], dropDown?.[dataId]]);
-         })}
-        </div>
-        <div className='w-full mt-9 mb-5 submit-button-form'>
-         <button
-          type='button'
-          onClick={() => resetForm(setValues)}
-          className='reset'>
-          Reset
-         </button>
-         <button type='submit' className='save ml-9'>
-          Submit
-         </button>
-        </div>
-       </Form>
-      );
-     }}
-    </Formik>
+   {initialValues !== null && (
+    <div className='mt-3 mb-5'>
+     <MainForm
+      initialValues={initialValues}
+      formRender={formRender}
+      root='frontForm'
+      lovList={dropDown}
+      addOrUpdate={!!tranId}
+      onSubmit={onSubmit}
+      handleChangeValue={handleChangeValue}
+     />
+    </div>
    )}
   </div>
  );

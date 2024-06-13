@@ -1,12 +1,20 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Form, Formik } from 'formik';
 import { DocPrintContext } from '../DocPrint';
-import FieldWithValue from '../../../components/fieldsWithValues/FieldWithValue';
 import {
  deepCopy,
  extractFieldValuesInPlace,
 } from '../../../components/commonHelper/DataSend';
+import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
+import {
+ setCurrentID,
+ setFormValues,
+} from '../../../globalStore/slices/IdSlices';
+import useApiRequests from '../../../services/useApiRequests';
+import { useDispatch } from 'react-redux';
+import showNotification from '../../../components/notification/Notification';
+import Loader from '../../../components/loader/Loader';
+import MainForm from '../../../components/mainForm/MainForm';
 
 const DocPrintEntryForm = () => {
  const {
@@ -15,8 +23,60 @@ const DocPrintEntryForm = () => {
   dropDown,
   setDropDown,
  } = useContext(DocPrintContext);
- const [initialValues, setInitialValues] = useState(DoctPrintJSON);
- const [formRender, setFormRender] = useState(DoctPrintJSON);
+ const dispatch = useDispatch();
+ const createDoc = useApiRequests('createDoc', 'POST');
+ const updateDoc = useApiRequests('updateDoc', 'POST');
+ const getDoc = useApiRequests('getDoc', 'GET');
+ const [initialValues, setInitialValues] = useState(null);
+ const [formRender, setFormRender] = useState(null);
+ const [loader, setLoader] = useState(false);
+
+ const resetForm = setValues => {
+  setValues({ frontForm: initialValues?.frontForm });
+ };
+
+ const handleStateInit = (value, isEdit) => {
+  const orderedData = sortObjectByPFDSeqNo(value);
+  setInitialValues({ frontForm: orderedData?.frontForm });
+  setFormRender({ frontForm: orderedData?.frontForm });
+  dispatch(setFormValues(orderedData));
+ };
+
+ const handleGetDoc = async () => {
+  setLoader(true);
+  try {
+   const response = await getDoc('', {
+    tranId,
+    screenCode: 'DOCPRINTSETUP',
+    screenName: 'DOCPRINTSETUP',
+   });
+   handleStateInit(response?.Data, true);
+   setLoader(false);
+  } catch (err) {
+   setLoader(false);
+  }
+ };
+
+ useEffect(() => {
+  if (tranId) handleGetDoc();
+  else handleStateInit(DoctPrintJSON, false);
+ }, []);
+
+ const addOrUpdateDoc = async (payload, addOrUpdate) => {
+  setLoader(true);
+  try {
+   const response = await addOrUpdate(payload, '', tranId && { tranId });
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    if (!tranId) dispatch(setCurrentID(response?.data?.Id));
+    showNotification.SUCCESS(response?.status_msg);
+   }
+   setLoader(false);
+  } catch (err) {
+   setLoader(false);
+  }
+ };
 
  const onSubmit = async values => {
   const val = deepCopy(values);
@@ -24,6 +84,7 @@ const DocPrintEntryForm = () => {
   const { frontForm } = modifiedData;
   const payload = { frontForm };
   console.log('payload : ', payload);
+  addOrUpdateDoc(payload, tranId ? updateDoc : createDoc);
  };
 
  const handleChangeValue = (
@@ -39,50 +100,20 @@ const DocPrintEntryForm = () => {
 
  return (
   <div className='mt-4'>
-   <Formik
-    initialValues={initialValues}
-    values={initialValues}
-    onSubmit={onSubmit}
-    enableReinitialize={true}>
-    {({ handleSubmit, values, setFieldValue }) => {
-     return (
-      <Form onSubmit={handleSubmit}>
-       <div className={`items-center grid grid-cols-${'2'} gap-0`}>
-        {Object.keys(formRender?.frontForm?.formFields).map(fieldKey => {
-         const dataId =
-          formRender?.frontForm?.formFields[fieldKey]?.PFD_COLUMN_NAME;
-         return useMemo(() => {
-          return (
-           <React.Fragment key={dataId}>
-            {!formRender?.frontForm?.formFields[fieldKey]?.PFD_HIDE_YN && (
-             <div data-id={dataId}>
-              <FieldWithValue
-               currentData={formRender?.frontForm?.formFields[fieldKey]}
-               values={values}
-               lovData={dropDown?.[dataId]}
-               setFieldValue={setFieldValue}
-               handleChangeValue={handleChangeValue}
-               parent='frontForm'
-              />
-             </div>
-            )}
-           </React.Fragment>
-          );
-         }, [values?.frontForm?.formFields[fieldKey], dropDown?.[dataId]]);
-        })}
-       </div>
-       <div className='w-full mt-9 mb-5 submit-button-form'>
-        <button type='button' className='reset'>
-         Reset
-        </button>
-        <button type='submit' className='save ml-9'>
-         Submit
-        </button>
-       </div>
-      </Form>
-     );
-    }}
-   </Formik>
+   {loader && <Loader />}
+   {initialValues !== null && (
+    <div className='mt-3 mb-5'>
+     <MainForm
+      initialValues={initialValues}
+      formRender={formRender}
+      root='frontForm'
+      lovList={dropDown}
+      addOrUpdate={!!tranId}
+      onSubmit={onSubmit}
+      handleChangeValue={handleChangeValue}
+     />
+    </div>
+   )}
   </div>
  );
 };

@@ -24,14 +24,14 @@ const DocPrintPanels = () => {
      header={<CollapsePanelHeader color='#e9ecef' name='Doc Print Params' />}
      key={1}>
      <DocPrintParam
-      queryID='Doc_Print_Param'
+      queryID='Doc_print_setup'
       root='Doc_Print_Param'
-      mrvGet='getClaimEstimate'
-      screenCode='CLAIMENTRY'
-      screenName='CLAIMENTRY'
-      saveRow='saveEstimate'
-      editRow='editEstimate'
-      deleteRow='deleteEstimate'
+      mrvGet='getDocPrint'
+      screenCode='DOCPRINTSETUP'
+      screenName='DOCPRINTSETUP'
+      saveRow='saveDocPrint'
+      editRow='editDocPrint'
+      deleteRow='deleteDocPrint'
      />
     </Panel>
    </Collapse>

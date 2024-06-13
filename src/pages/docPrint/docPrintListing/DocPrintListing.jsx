@@ -20,7 +20,7 @@ const DocPrintListing = () => {
  const currentMenuId = useSelector(
   state => state?.tokenAndMenuList?.currentMenuId,
  );
- const deleteClaim = useApiRequests('deleteClaim', 'POST');
+ const deleteClaim = useApiRequests('deleteDocById', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
  const [loader, setLoader] = useState(false);

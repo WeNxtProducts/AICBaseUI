@@ -96,5 +96,25 @@ const POST_API_URL = {
  deleteEmailParameter: {
   url: '/emailTemplate/deleteTemplateParam',
  },
+ createDoc: {
+  url: '/docprintsetup/create',
+  baseURL: 'DOCPRINT',
+ },
+ updateDoc: {
+  url: '/docprintsetup/updateDocprintsetup',
+  baseURL: 'DOCPRINT',
+ },
+ saveDocPrint: {
+  url: '/docparam/create',
+  baseURL: 'DOCPRINT',
+ },
+ editDocPrint: {
+  url: '/docparam/updateDocparam',
+  baseURL: 'DOCPRINT',
+ },
+ deleteDocPrint: {
+  url: '/docparam/deletedocparambyid',
+  baseURL: 'DOCPRINT',
+ },
 };
 export default POST_API_URL;
