@@ -44,8 +44,8 @@ const ClaimEntryForm = () => {
 
  const handleStateInit = (value, isEdit) => {
   const orderedData = sortObjectByPFDSeqNo(value);
-  setClaimEntryInitialValues(isEdit ? orderedData : null);
-  setClaimEntry(orderedData);
+  setClaimEntryInitialValues({ frontForm: orderedData?.frontForm });
+  setClaimEntry({ frontForm: orderedData?.frontForm });
   // setClaimEntry({ frontForm: orderedData?.frontForm });
   dispatch(setFormValues(orderedData));
  };

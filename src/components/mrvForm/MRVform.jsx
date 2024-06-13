@@ -71,15 +71,17 @@ const MRVform = ({
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          <button
-           type='button'
-           onClick={() => {
-            // setInitValues(null);
-            resetForm();
-           }}
-           className='reset'>
-           Reset
-          </button>
+          {addOrUpdate && (
+           <button
+            type='button'
+            onClick={() => {
+             // setInitValues(null);
+             resetForm();
+            }}
+            className='reset'>
+            Reset
+           </button>
+          )}
           <button type='submit' className='save ml-9'>
            {addOrUpdate ? 'Update' : 'Submit'}
           </button>

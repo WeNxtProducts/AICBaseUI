@@ -13,6 +13,10 @@ const DELETE_API_URL = {
  deleteEmailTemplate: {
   url: '/emailTemplate/deleteTemplate',
  },
+ deleteDocById: {
+  url: '/docprintsetup/deletexdocbyid',
+  baseURL: 'DOCPRINT',
+ },
 };
 
 export default DELETE_API_URL;

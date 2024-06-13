@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useMemo, useState } from 'react';
-import { Formik, Form } from 'formik';
+import { Formik, Form, useFormikContext } from 'formik';
 import FieldWithValue from '../fieldsWithValues/FieldWithValue';
 import { createYupSchema } from '../commonHelper/SchemaGenerator';
 
@@ -37,10 +38,10 @@ const MainForm = ({
     <Formik
      initialValues={initValues}
      values={initValues}
-     //  validationSchema={validation}
+     //validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
-     {({ handleSubmit, values, setFieldValue }) => {
+     {({ handleSubmit, values, setFieldValue, resetForm }) => {
       //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
@@ -74,8 +75,7 @@ const MainForm = ({
           <button
            type='button'
            onClick={() => {
-            setInitValues(null);
-            // resetForm();
+            resetForm();
            }}
            className='reset'>
            Reset
