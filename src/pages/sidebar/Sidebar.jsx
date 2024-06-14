@@ -34,12 +34,12 @@ export default function Sidebar() {
 
  return (
   <div
-   className='sidebar'
+   className={`sidebar ${isExpanded && 'sideBar_hovered'}`}
    style={{
     width: isExpanded ? '15%' : '3.8%',
    }}
-   onMouseEnter={() => setIsExpanded(true)}
-   onMouseLeave={() => setIsExpanded(false)}
+   //  onMouseEnter={() => setIsExpanded(true)}
+   //  onMouseLeave={() => setIsExpanded(false)}
   >
    <div className='sidebar-Header flex justify-between sticky top-0 mb-2'>
     <div>
@@ -49,15 +49,17 @@ export default function Sidebar() {
      <div className='flex items-center pr-4'>
       <i
        className='bi bi-tools tools-icon cursor-pointer'
-      //  onClick={() => setIsExpanded(false)}
+       onClick={() => setIsExpanded(false)}
       />
      </div>
     )}
    </div>
-   {menuList?.length > 0 &&
-    menuList?.map((item, index) => (
-     <SidebarItem key={index} item={item} isExpanded={isExpanded} />
-    ))}
+   <div onMouseEnter={() => setIsExpanded(true)}>
+    {menuList?.length > 0 &&
+     menuList?.map((item, index) => (
+      <SidebarItem key={index} item={item} isExpanded={isExpanded} />
+     ))}
+   </div>
   </div>
  );
 }
