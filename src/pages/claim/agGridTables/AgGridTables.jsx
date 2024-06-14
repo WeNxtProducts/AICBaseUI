@@ -215,8 +215,8 @@ const AgGridTables = () => {
        columnDefs={columnDefs}
        defaultColDef={defaultColDef}
        //  rowSelection={'multiple'}
-       //  pagination={true}
-       //  paginationPageSize={10}
+       // pagination={true}
+       // paginationPageSize={10}
        //  rowHeight={30}
        //  rowStyle={rowStyle}
        //  getRowStyle={getRowStyle}

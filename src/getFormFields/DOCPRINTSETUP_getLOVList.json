@@ -1,5 +1,6 @@
 {
  "DPS_TYPE": [
+  { "label": "StaticDoc", "value": "DEC003" },
   { "label": "Jasper", "value": "DEC001" },
   { "label": "Xdoc", "value": "DEC002" }
  ]

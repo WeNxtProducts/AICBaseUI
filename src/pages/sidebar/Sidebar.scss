@@ -122,7 +122,12 @@
  }
 }
 
-.sidebar:hover ~ .app-content,
-.sidebar:hover ~ .header-content {
+// .sidebar:hover ~ .app-content,
+// .sidebar:hover ~ .header-content {
+//  margin-left: 15%;
+// }
+
+.sideBar_hovered ~ .app-content,
+.sideBar_hovered ~ .header-content {
  margin-left: 15%;
 }
