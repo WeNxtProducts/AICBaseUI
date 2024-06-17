@@ -472,21 +472,36 @@ export const relationHistoryData = [
 ];
 
 export const bankColumn = {
- bank_code: 'Bank Code',
- bank_sort_code: 'Bank Sort Code',
- account_number: 'Account Number',
+ bank_code: 'Date',
+ bank_sort_code: 'Cover',
+ account_number: 'Cover ID',
+ ifsc_code: 'Amount',
 };
 
 export const bankData = [
  {
   bank_code: '107',
   bank_sort_code: '4',
-  account_number: '748920987876456',
+  account_number: '74892',
+  ifsc_code: 'CC001',
  },
  {
   bank_code: '111',
   bank_sort_code: '2',
-  account_number: '839011127864536',
+  account_number: '83901',
+  ifsc_code: 'CC002',
+ },
+ {
+  bank_code: '1233',
+  bank_sort_code: '3',
+  account_number: '83901',
+  ifsc_code: 'CC003',
+ },
+ {
+  bank_code: '789',
+  bank_sort_code: '4',
+  account_number: '83901',
+  ifsc_code: 'CC004',
  },
 ];
 
@@ -644,7 +659,7 @@ export const module_type_options = [
 ];
 
 export const mailList = [
- { label: 'PASCALINA', value: '1' },
+ { label: 'P/90/7789/9876/9877', value: '1' },
  { label: 'SMAAISSA', value: '2' },
  { label: 'AHAMAD LUOGS', value: '3' },
  { label: 'JOSEPHINE MFIKWA', value: '4' },
@@ -656,6 +671,21 @@ export const mailList = [
  { label: 'ISSA HAMISI', value: '10' },
  { label: 'ELUHUDI', value: '11' },
  { label: 'MWANAIDI', value: '12' },
+];
+
+export const policy_list = [
+ { label: 'P/90/7789/9876/9877', value: '1' },
+ { label: 'P/90/7789/9876/9877', value: '2' },
+ { label: 'P/90/7789/9876/9877', value: '3' },
+ { label: 'P/90/7789/9876/9877', value: '4' },
+ { label: 'P/90/7789/9876/9877', value: '5' },
+ { label: 'P/90/7789/9876/9877', value: '6' },
+ { label: 'P/90/7789/9876/9877', value: '7' },
+ { label: 'P/90/7789/9876/9877', value: '8' },
+ { label: 'P/90/7789/9876/9877', value: '9' },
+ { label: 'P/90/7789/9876/9877', value: '10' },
+ { label: 'P/90/7789/9876/9877', value: '11' },
+ { label: 'P/90/7789/9876/9877', value: '12' },
 ];
 
 export const response = {

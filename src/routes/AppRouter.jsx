@@ -5,6 +5,7 @@ import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const ModernClaim = lazy(() => import('../pages/modernClaim/ModernClaim'));
 const DocPrint = lazy(() => import('../pages/docPrint/DocPrint'));
 const DocPrintListing = lazy(() =>
  import('../pages/docPrint/docPrintListing/DocPrintListing'),
@@ -137,7 +138,7 @@ const AppRouter = () => {
       path='/claims'
       element={
        <Suspense fallback={<div>Claims...</div>}>
-        <Claims />
+        <ModernClaim />
        </Suspense>
       }
      />

@@ -1,0 +1,189 @@
+@import '../../styles/variable';
+// @import '../../styles/components/Quotation.scss';
+
+.modern_claim {
+ .main-screen {
+  min-height: 87vh;
+  max-height: 87vh;
+  overflow-y: auto;
+  background-color: #fafafa;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
+ }
+ .chip-label {
+  color: #4d5e80;
+  font-size: 14px;
+  font-weight: 500;
+ }
+ .ok_button {
+  background-color: #0382c8;
+  color: #ffffff;
+ }
+ .form-divide {
+  padding: 0px;
+  border: 0.7px solid #e5e7eb;
+ }
+ .process_button {
+  color: #ffffff;
+  background-color: #0382c8;
+  padding: 4px 17px;
+  border-radius: 6px;
+ }
+ .header-font {
+  color: #4d5e80;
+  font-size: 17px;
+  line-height: 30px;
+  font-weight: 700;
+ }
+ .coverage_main_grid {
+  //   border: 1px solid red;
+  background-color: #ffffff;
+  .header_list_font {
+   font-weight: 700;
+   font-size: 14px;
+   line-height: 20px;
+   color: #4d5e80;
+  }
+
+  .policy_list {
+   //    min-height: 300px;
+   max-height: 300px;
+   overflow-y: auto;
+
+   .list_policy_style {
+    border-top: 0.4px solid #d9d9dc;
+    padding: 10px 7px;
+    user-select: none;
+    cursor: pointer;
+    .list_style {
+     font-weight: 400;
+     color: #0382c8;
+     font-size: 14px;
+     line-height: 20px;
+    }
+   }
+   .list_policy_style_active {
+    background-color: #e5f6ff;
+    position: relative;
+    overflow-x: hidden;
+
+    &::after {
+     content: '';
+     position: absolute;
+     top: 50%;
+     right: -10px;
+     width: 15px;
+     height: 15px;
+     transform: translateY(-50%) rotate(45deg);
+     background-color: #ffffff;
+    }
+   }
+  }
+ }
+
+ .policy_details {
+  //   border: 1px solid red;
+  .summary_header {
+   height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+   .check_box_label {
+    user-select: none;
+    margin-right: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4d5e80;
+   }
+
+   .reason_select_box {
+    .ant-select-selector {
+     border-radius: 4px;
+     background-color: #f3f3f8;
+     width: 150px;
+     height: 29px;
+     text-align: center;
+    }
+   }
+  }
+ }
+ .divider_summary {
+  margin-top: 5px;
+  border: 1px solid #e5e7eb;
+ }
+ .print_Setup {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .printer_icon {
+   font-size: 23px;
+   color: #2f80ed;
+  }
+  .printer_font {
+   cursor: pointer;
+   margin-right: 8px;
+   color: #2f80ed;
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 20px;
+  }
+ }
+ .border_left_divider {
+  border-left: 1px solid #C6C2DE;
+ }
+ .MRV_card {
+  max-height: 250px;
+  overflow-y: auto;
+  .list_card {
+   background-color: #e5f6ff;
+   user-select: none;
+   padding: 0px 5px 5px 5px;
+   margin-top: 5px;
+   border-radius: 5px;
+   .mrv_list {
+    .key_font,
+    .value_font {
+     color: #000000;
+     font-weight: 400;
+     font-size: 14px;
+     line-height: 20px;
+    }
+    .value_font {
+     font-weight: 300;
+    }
+   }
+  }
+ }
+}
+
+.checklist_claim {
+ .text-search {
+  margin-left: 5px;
+  width: 25%;
+ }
+ .filter-button {
+  background-color: #ffffff;
+  color: #25213b;
+  border: 1px solid #c6c2de;
+  i {
+   color: #4d5e80;
+  }
+  &:hover {
+   i {
+    color: #ffffff !important;
+   }
+  }
+ }
+
+ .table-divider {
+  opacity: 0.2;
+  border: 1px solid #0382c8;
+ }
+
+ .table-header-checklist {
+  color: #667085;
+  font-weight: 600;
+  font-size: 16px;
+ }
+}
