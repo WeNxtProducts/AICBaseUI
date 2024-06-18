@@ -1,5 +1,6 @@
 @import '../../styles/variable';
 // @import '../../styles/components/Quotation.scss';
+@import '../../components//modernTable/ModernTable.scss';
 
 .modern_claim {
  .main-screen {
@@ -106,6 +107,45 @@
     }
    }
   }
+
+  .policy_header_total {
+   user-select: none;
+   margin-top: 5px;
+   margin-right: 5px;
+   //    border: 1px solid red;
+   .amount_field_curr {
+    border: 1.3px solid #d9d9dc;
+    border-radius: 5px;
+    width: 65%;
+
+    & > p {
+     padding: 5px 10px 5px 7px;
+     color: #35353a;
+     font-size: 14px;
+     font-weight: 400;
+     line-height: 20px;
+    }
+   }
+   .pol_head_divider {
+    margin-top: 5px;
+    border: 1px solid #e5e7eb;
+   }
+   .estimate_cost_select {
+    width: 68%;
+   }
+   .pol_actions_buttons {
+    margin-top: 16px;
+    button {
+     width: 20%;
+     color: #0382c8;
+     border: 1px solid #0382c8;
+     &:nth-of-type(1) {
+      background-color: #0382c8;
+      color: #ffffff;
+     }
+    }
+   }
+  }
  }
  .divider_summary {
   margin-top: 5px;
@@ -117,23 +157,23 @@
   align-items: center;
   justify-content: center;
   .printer_icon {
-   font-size: 23px;
+   font-size: 21px;
    color: #2f80ed;
   }
   .printer_font {
    cursor: pointer;
    margin-right: 8px;
    color: #2f80ed;
-   font-size: 14px;
+   font-size: 13px;
    font-weight: 600;
    line-height: 20px;
   }
  }
  .border_left_divider {
-  border-left: 1px solid #C6C2DE;
+  border-left: 1px solid #c6c2de;
  }
  .MRV_card {
-  max-height: 250px;
+  max-height: 300px;
   overflow-y: auto;
   .list_card {
    background-color: #e5f6ff;
@@ -153,11 +193,190 @@
      font-weight: 300;
     }
    }
+   .mrv_icons {
+    cursor: pointer;
+
+    &:hover {
+     color: #2f80ed;
+    }
+   }
+   .delete_mrv_row:hover {
+    color: red;
+   }
+  }
+ }
+ .price_breakup_bonus {
+  .container {
+   display: grid;
+   grid-template-columns: 1fr 1px 1fr;
+
+   .divider {
+    background-color: #d9d9dc;
+   }
+
+   .left-half,
+   .right-half {
+    display: flex;
+    flex-direction: column;
+    padding: 3px;
+    .breakup_title {
+     color: #4d5e80;
+     font-size: 12px;
+     font-weight: 700;
+    }
+    .breakUpContent {
+     margin-top: 15px;
+     //  border: 1px solid red;
+     width: 100%;
+    }
+    .content_header {
+     color: #4d5e80;
+     font-weight: 700;
+     font-size: 12px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+    }
+    .field_name_style {
+     color: #4d5e80;
+     font-weight: 600;
+     font-size: 12px;
+     line-height: 20px;
+    }
+    .field_val_style {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: #ffffff;
+     border: 1px solid #e5e7eb;
+     border-radius: 8px;
+     font-size: 14px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+     height: 30px;
+    }
+    .total_value {
+     width: 30%;
+     background-color: #ffffff;
+     border: 1px solid #e5e7eb;
+     border-radius: 8px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+     height: 30px;
+    }
+   }
+
+   .left-half {
+    .deduction_buttons {
+     button {
+      width: 20%;
+      margin-right: 10px;
+      &:nth-of-type(1) {
+       background-color: #0382c8;
+       color: #ffffff;
+      }
+      &:nth-of-type(2) {
+       border: 1px solid #0382c8;
+       color: #0382c8;
+      }
+     }
+    }
+    .total_intersect {
+     user-select: none;
+     font-size: 11px;
+     color: #4d5e80;
+     font-weight: 600;
+    }
+   }
+
+   .right-half {
+    .field_val_style_bonus {
+     background-color: #ffffff;
+     border: 1px solid #e5e7eb;
+     border-radius: 8px;
+     font-size: 14px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+     height: 30px;
+    }
+   }
+  }
+ }
+ .re_insurance {
+  //   border: 1px solid red;
+  user-select: none;
+  .ri_font {
+   color: #4d5e80;
+   font-size: 13px;
+   line-height: 30px;
+   font-weight: 700;
+  }
+  .ri_close_btn {
+   min-width: 13%;
+   background-color: #0382c8;
+   color: #ffffff;
+  }
+  .claim_ri_table {
+   width: 100%;
+   max-width: 100%;
+   //    table-layout: fixed;
+   tbody {
+    tr {
+     &:hover {
+      background-color: #fdfdff;
+     }
+    }
+   }
+   th,
+   td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #b9b9b9;
+    font-size: 12px;
+    line-height: 15px;
+   }
+   th {
+    color: #4d5e80;
+    font-weight: 600;
+   }
+   td {
+    color: #323232;
+    line-height: 15px;
+   }
+  }
+ }
+ .key_name,
+ .key_value {
+  color: #4d5e80;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+ }
+ .key_value {
+  font-weight: 400;
+ }
+
+ .summary_form {
+  .amount_field_curr {
+   background-color: #ffffff;
+   border: 1.3px solid #d9d9dc;
+   border-radius: 5px;
+   width: 65%;
+
+   & > p {
+    padding: 5px 10px 5px 7px;
+    color: #35353a;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+   }
+  }
+  .pro_btn {
+   min-width: 10%;
+   background-color: #0382c8;
+   color: #ffffff;
   }
  }
 }
 
-.checklist_claim {
+.modern_checklist_claim {
  .text-search {
   margin-left: 5px;
   width: 25%;

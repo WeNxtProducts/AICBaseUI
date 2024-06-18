@@ -220,7 +220,7 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
+    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
@@ -245,7 +245,7 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
+    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
@@ -270,7 +270,7 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
+    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
@@ -294,7 +294,7 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
+    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    },
@@ -318,7 +318,7 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "CLAIMENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
+    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "CLAIMENTRY"
    }

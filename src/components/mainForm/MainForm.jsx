@@ -45,7 +45,7 @@ const MainForm = ({
       //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
-        <div className={`items-center grid grid-cols-${grid} gap-0`}>
+        <div className={`items-start grid grid-cols-${grid} gap-0`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;

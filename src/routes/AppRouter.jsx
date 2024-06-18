@@ -5,6 +5,13 @@ import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const AutoDispatchSetUp = lazy(() =>
+ import('../pages/autoDispatchSetUp/AutoDispatchSetUp'),
+);
+
+const AutoDispatchListing = lazy(() =>
+ import('../pages/autoDispatchSetUp/autoDispatchListing/AutoDispatchListing'),
+);
 const ModernClaim = lazy(() => import('../pages/modernClaim/ModernClaim'));
 const DocPrint = lazy(() => import('../pages/docPrint/DocPrint'));
 const DocPrintListing = lazy(() =>
@@ -79,7 +86,27 @@ const AppRouter = () => {
      }
     />
 
+    {/* ProtectedRoute */}
+
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/autoDispatchSetUp'
+      element={
+       <Suspense fallback={<div>DocPrint SetUp...</div>}>
+        <AutoDispatchSetUp />
+       </Suspense>
+      }
+     />
+
+     <Route
+      path='/autoDispatch'
+      element={
+       <Suspense fallback={<div>DocPrint SetUp...</div>}>
+        <AutoDispatchListing />
+       </Suspense>
+      }
+     />
+
      <Route
       path='/docPrint'
       element={
@@ -88,7 +115,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/docPrintList'
       element={
@@ -97,7 +123,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/claim'
       element={
@@ -106,7 +131,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/emailtemplate'
       element={
@@ -115,7 +139,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/getTemplateList'
       element={
@@ -124,7 +147,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/surrenderprocessing'
       element={
@@ -133,7 +155,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/claims'
       element={
@@ -142,7 +163,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/surrenderpayment'
       element={
@@ -151,7 +171,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/claimsEntryList'
       element={
@@ -160,7 +179,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      {/* <Route
       path='/surrenderprocessing'
       element={
@@ -177,7 +195,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/claimSettlement'
       element={
@@ -186,15 +203,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-     {/* <Route
-      path='/claims'
-      element={
-       <Suspense fallback={<div>Claims...</div>}>
-        <Claims />
-       </Suspense>
-      }
-     /> */}
-
      <Route
       path='/resetpassword_profile'
       element={
@@ -203,7 +211,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/Dashboard'
       element={
@@ -212,7 +219,6 @@ const AppRouter = () => {
        </Suspense>
       }
      />
-
      <Route
       path='/customerList'
       element={

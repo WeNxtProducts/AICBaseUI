@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
-import { createYupSchema } from '../commonHelper/SchemaGenerator';
-import FieldWithValue from '../fieldsWithValues/FieldWithValue';
-import Loader from '../loader/Loader';
+import ModernMRVFieldWithValue from './ModernMRVFieldWithValue';
+import { createYupSchema } from '../../../components/commonHelper/SchemaGenerator';
 
-const MRVform = ({
+const ModernMRV = ({
  initialValues,
  formRender,
  root,
@@ -45,7 +44,7 @@ const MRVform = ({
       //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
-        <div className={`items-center grid grid-cols-${grid} gap-0`}>
+        <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
@@ -54,7 +53,7 @@ const MRVform = ({
             <React.Fragment key={dataId}>
              {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
               <div data-id={dataId}>
-               <FieldWithValue
+               <ModernMRVFieldWithValue
                 currentData={formRender?.[root]?.formFields[fieldKey]}
                 values={values}
                 setFieldValue={setFieldValue}
@@ -98,4 +97,4 @@ const MRVform = ({
  );
 };
 
-export default MRVform;
+export default ModernMRV;
