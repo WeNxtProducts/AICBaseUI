@@ -1,10 +1,10 @@
 import React from 'react';
-import { Checkbox } from 'antd';
+import { Checkbox, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 
 const MRVListingScreen = ({ tableColumn = '', tableData = [] }) => {
  return (
-  <div className='MRV_card'>
+  <div className='MRV_card pe-2'>
    {tableData?.map(item => (
     <div key={item?.value} className='list_card'>
      <div className='flex item-center justify-between'>
@@ -12,9 +12,15 @@ const MRVListingScreen = ({ tableColumn = '', tableData = [] }) => {
        <Checkbox />
       </div>
       <div className='flex gap-2'>
-       <EyeOutlined />
-       <EditOutlined />
-       <DeleteOutlined />
+       <Tooltip title='View'>
+        <EyeOutlined className='mrv_icons' />
+       </Tooltip>
+       <Tooltip title='Edit'>
+        <EditOutlined className='mrv_icons' />
+       </Tooltip>
+       <Tooltip title='Delete'>
+        <DeleteOutlined className='mrv_icons delete_mrv_row' />
+       </Tooltip>
       </div>
      </div>
 

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import ClaimSelect from './claimSelect/ClaimSelect';
 import './ModernClaim.scss';
 import ClaimsCoverage from './claimsCoverage/ClaimsCoverage';
+import ClaimTotal from './claimTotal/ClaimTotal';
 
 export const ClaimContext = createContext();
 
@@ -28,6 +29,7 @@ const ModernClaim = () => {
     <div className='main-screen p-3'>
      <ClaimSelect />
      <ClaimsCoverage />
+     <ClaimTotal />
     </div>
    </div>
   </ClaimContext.Provider>

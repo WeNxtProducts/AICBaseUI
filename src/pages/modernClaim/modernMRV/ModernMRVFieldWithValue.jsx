@@ -1,16 +1,15 @@
 import React, { useMemo } from 'react';
+import { ErrorMessage } from 'formik';
 import {
- CustomDatePicker,
  CustomInput,
+ CustomDatePicker,
  CustomNumberField,
  CustomSelect,
  CodeWithNumber,
  CustomTextArea,
  CustomPasswordField,
-} from '../commonExportsFields/CommonExportsFields';
-import { ErrorMessage } from 'formik';
-import CustomDropDown from '../customFieldComponents/customDropDown/CustomDropDown';
-import CustomCheckList from '../customCheckList/CustomCheckList';
+ CustomDropDown,
+} from '../../../components/commonExportsFields/CommonExportsFields';
 
 const getNestedValue = (obj, path) => {
  const keys = path.split('.');
@@ -25,7 +24,7 @@ const getNestedValue = (obj, path) => {
  return value;
 };
 
-const FieldWithValue = ({
+const ModernMRVFieldWithValue = ({
  currentData,
  values,
  setFieldValue,
@@ -55,8 +54,8 @@ const FieldWithValue = ({
  };
 
  return (
-  <div className='current-field p-2 flex items-baseline'>
-   <div className='w-1/4'>
+  <div className='col-span-1 grid grid-cols-3 items-center'>
+   <div className='col-span-1'>
     <p
      className={`${
       smallFont ? 'label_small_font' : 'label-font'
@@ -65,7 +64,7 @@ const FieldWithValue = ({
      {PFD_MANDATORY_YN && <span className='mandatory-symbol'>*</span>}
     </p>
    </div>
-   <div className='input-container fields-error w-3/4 pl-3'>
+   <div className='col-span-2 pe-3'>
     {(() => {
      const mainPath = `${parent}.formFields.${PFD_COLUMN_NAME}`;
      const value = memoizedGetNestedValue(values, mainPath);
@@ -238,23 +237,6 @@ const FieldWithValue = ({
          }}
         />
        );
-      case 'multiselect':
-       return (
-        <CustomCheckList
-         options={lovData}
-         value={value.PFD_FLD_VALUE ?? []}
-         onChange={e => {
-          handleChangeValue(
-           e,
-           `${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`,
-           setFieldValue,
-           parent,
-           values,
-           currentData,
-          );
-         }}
-        />
-       );
       default:
        return null;
      }
@@ -269,4 +251,4 @@ const FieldWithValue = ({
  );
 };
 
-export default FieldWithValue;
+export default ModernMRVFieldWithValue;
