@@ -68,3 +68,39 @@ export const generateMRVValidationSchema = formFields => {
 // formFieldsSchema.validate(data.formFields)
 //   .then(valid => console.log("Valid"))
 //   .catch(err => console.error(err));
+
+// const initialValues = {
+//  claim_type: 'death',
+//  claim_based: 'preclaimNo',
+//  preclaimNo: '',
+//  reference_no: '',
+//  loss_date: '',
+//  init_date: '',
+// };
+
+// const validationSchema = Yup.object().shape({
+//  claim_type: Yup.string()
+//   .oneOf(['death', 'anotherClaimType'])
+//   .required('Claim type is required'),
+//  claim_based: Yup.string()
+//   .oneOf(['preclaimNo', 'nationalID', 'policyNo'])
+//   .required('Claim based is required'),
+//  preclaimNo: Yup.string().when('claim_based', {
+//   is: 'preclaimNo',
+//   then: Yup.string().required('Claim number is required'),
+//   otherwise: Yup.string().notRequired(),
+//  }),
+//  nationalID: Yup.string().when('claim_based', {
+//   is: 'nationalID',
+//   then: Yup.string().required('National ID is required'),
+//   otherwise: Yup.string().notRequired(),
+//  }),
+//  policyNo: Yup.string().when('claim_based', {
+//   is: 'policyNo',
+//   then: Yup.string().required('Policy number is required'),
+//   otherwise: Yup.string().notRequired(),
+//  }),
+//  reference_no: Yup.string().required('Reference number is required'),
+//  loss_date: Yup.date().required('Loss date is required').nullable(),
+//  init_date: Yup.date().required('Initial date is required').nullable(),
+// });
