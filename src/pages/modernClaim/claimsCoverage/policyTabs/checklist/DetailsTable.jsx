@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { UploadOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined, UploadOutlined } from '@ant-design/icons';
 import FileUpload from '../../../../fileUpload/FileUpload';
 import {
  CustomSelect,
  CustomTextArea,
 } from '../../../../../components/commonExportsFields/CommonExportsFields';
+import { Checkbox } from 'antd';
 
 const DetailsTable = ({
  tableColumn = {},
@@ -41,7 +42,7 @@ const DetailsTable = ({
 
   const itemRows = [
    <tr key={`row-data-${item?.key}`}>
-    <td>{item?.Sr_No}</td>
+    {/* <td>{item?.Sr_No}</td> */}
     <td>{item?.ListItem_Description}</td>
     <td>
      <div className='table_textarea'>
@@ -78,7 +79,8 @@ const DetailsTable = ({
         // handleUpload(item);
        }}
        className='upload-icons'>
-       Upload Docs
+       {/* Upload Docs */}
+       <CloudUploadOutlined />
        {/* <UploadOutlined /> */}
       </span>
      </div>
@@ -104,11 +106,15 @@ const DetailsTable = ({
 
  const renderColumns = () => (
   <tr>
-   <th>Sr.No</th>
-   <th>ListItem Description</th>
+   {/* <th>Sr.No</th> */}
+   <th>List item Description</th>
    <th>Remarks</th>
    <th>Mandatory Y/N</th>
-   <th>Received Yes/No</th>
+   <th>
+    <div>
+     <span>Status</span> <Checkbox />
+    </div>
+   </th>
    <th>Upload</th>
   </tr>
  );

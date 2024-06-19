@@ -71,6 +71,17 @@
   color: #7e7d7d;
   font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
+  animation: increaseFontSize 0.1s ease-in-out forwards;
+ }
+
+ @keyframes increaseFontSize {
+  0% {
+   font-size: 9px;
+  }
+  100% {
+   font-size: 13px;
+  }
  }
 
  .sidebar-text-sub {

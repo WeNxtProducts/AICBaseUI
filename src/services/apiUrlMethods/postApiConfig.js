@@ -116,5 +116,14 @@ const POST_API_URL = {
   url: '/docparam/deletedocparambyid',
   baseURL: 'DOCPRINT',
  },
+ createAutoDispatch: {
+  url: '/auto-dispatch/createAutoDispatch',
+ },
+ updateAutoDispatch: {
+  url: '/auto-dispatch/updateAutoDispDetails',
+ },
+ deleteAutoDispatch: {
+  url: '/auto-dispatch/deleteAutoDispDetails',
+ },
 };
 export default POST_API_URL;

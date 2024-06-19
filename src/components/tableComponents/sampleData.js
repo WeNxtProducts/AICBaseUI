@@ -529,7 +529,7 @@ export const platforms = [
 ];
 
 export const claim_check = [
- { value: 'preclaimNo', label: 'Preclaim' },
+ { value: 'preclaimNo', label: 'Preclaim No' },
  { value: 'nationalID', label: 'National ID' },
  { value: 'policyNo', label: 'Policy No' },
 ];

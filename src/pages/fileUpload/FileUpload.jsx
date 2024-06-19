@@ -51,8 +51,8 @@ const FileUpload = () => {
       <p>Drop the files here ...</p>
      ) : (
       <div>
-       <p>Click to browse or</p>
-       <p>drag and drop your files</p>
+       <p>Click to browse or drag and drop your files</p>
+       {/* <p>drag and drop your files</p> */}
       </div>
      )}
     </div>
@@ -94,7 +94,7 @@ const FileTable = ({ files, onDelete }) => {
  };
 
  return (
-  <div className='mt-5'>
+  <div className=''>
    {selectedRows.length > 0 && (
     <button
      className='delete-file mt-1'

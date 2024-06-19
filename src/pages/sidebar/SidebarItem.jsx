@@ -42,8 +42,13 @@ export default function SidebarItem({ item, isExpanded }) {
   if (isExpanded)
    setTimeout(() => {
     setActivateClassName(true);
-   }, 200);
-  else setActivateClassName(false);
+   }, 300);
+  else {
+   setActivateClassName(false);
+   setTimeout(() => {
+    setActivateClassName(false);
+   }, 300);
+  }
  }, [isExpanded]);
 
  const handleMenuSelected = () => {
