@@ -50,7 +50,7 @@ const DocPrintEntryForm = () => {
     screenCode: 'AUTODISPATCH',
     screenName: 'AUTODISPATCH',
    });
-   handleStateInit(response?.Data, true);
+   handleStateInit(response, true);
    setLoader(false);
   } catch (err) {
    setLoader(false);

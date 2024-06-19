@@ -18,6 +18,8 @@
  .ok_button {
   background-color: #0382c8;
   color: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
  }
  .form-divide {
   padding: 0px;
@@ -46,9 +48,10 @@
   }
 
   .policy_list {
-   //    min-height: 300px;
+   min-height: 300px;
    max-height: 300px;
    overflow-y: auto;
+   border-right: 1px solid #d9d9dc;
 
    .list_policy_style {
     border-top: 0.4px solid #d9d9dc;
@@ -56,7 +59,7 @@
     user-select: none;
     cursor: pointer;
     .list_style {
-     font-weight: 400;
+     font-weight: 500;
      color: #0382c8;
      font-size: 14px;
      line-height: 20px;

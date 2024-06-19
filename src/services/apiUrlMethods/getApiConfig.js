@@ -47,6 +47,13 @@ const GET_API_URL = {
  getDocPrint: {
   url: '/common/docParamListEdit',
  },
+ getAutoDispatch: {
+  url: '/auto-dispatch/getAutoDispDetails',
+ },
+ getPolicyList: {
+  url: '/ltclaim/getListOfPolicies',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default GET_API_URL;

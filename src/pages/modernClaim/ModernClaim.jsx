@@ -11,6 +11,8 @@ export const ClaimContext = createContext();
 
 const ModernClaim = () => {
  const [dropDown, setDropDown] = useState(ClaimsLOVJson);
+ const [policyList, setPolicyList] = useState([]);
+ const [selectedPolicy, setelectedPolicy] = useState('PEND2024001');
  const id = useSelector(state => state?.id?.id);
  const formValues = useSelector(state => state?.id?.formValues);
 
@@ -21,6 +23,10 @@ const ModernClaim = () => {
   formValues,
   dropDown,
   setDropDown,
+  setPolicyList,
+  policyList,
+  selectedPolicy,
+  setelectedPolicy,
  };
 
  return (

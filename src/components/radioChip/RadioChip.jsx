@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './RadioChip.scss';
 
-const RadioChip = ({ items, selectedValue, onSelectionChange, type, main }) => {
+const RadioChip = ({ items, selectedValue, onSelectionChange, main }) => {
  return (
   <div className='container'>
    <div className='list'>
@@ -9,11 +9,11 @@ const RadioChip = ({ items, selectedValue, onSelectionChange, type, main }) => {
      <div className='form-element' key={item?.value}>
       <input
        type='radio'
-       name={`${main}-${type}`}
+       name={`${main}`}
        value={item.value}
        id={item.value}
        checked={selectedValue === item.value}
-       onChange={() => onSelectionChange(item.value, type, main)}
+       onChange={() => onSelectionChange(item)}
       />
       <label htmlFor={item.value}>
        <div className='title'>{item.label}</div>

@@ -23,8 +23,8 @@
    padding: 4px;
    text-align: center;
   }
-  th{
-    padding: 10px;
+  th {
+   padding: 10px;
   }
   td {
    border-bottom: 1px solid #c6c2de;
@@ -88,11 +88,10 @@
  }
  .upload-icons {
   color: #2f80ed;
+  font-size: 20px;
 
   &:hover {
    cursor: pointer;
-   text-decoration: underline;
-   text-underline-offset: 3px;
   }
  }
  .table_lov {
