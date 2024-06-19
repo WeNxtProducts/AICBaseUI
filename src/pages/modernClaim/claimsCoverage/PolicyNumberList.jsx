@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { policy_list } from '../../../components/tableComponents/sampleData';
 import { ClaimContext } from '../ModernClaim';
 
 const PolicyNumberList = () => {
