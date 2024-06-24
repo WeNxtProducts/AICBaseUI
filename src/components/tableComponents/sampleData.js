@@ -523,15 +523,15 @@ export const listTable = [
 ];
 
 export const platforms = [
- { value: 'death', label: 'Death' },
- { value: 'disability', label: 'Disability' },
- { value: 'accident', label: 'Accident' },
+ { value: 'D', label: 'Death' },
+ { value: 'O', label: 'Disability' },
+ { value: 'A', label: 'Accident' },
 ];
 
 export const claim_check = [
- { value: 'preclaimNo', label: 'Preclaim No' },
- { value: 'nationalID', label: 'National ID' },
- { value: 'policyNo', label: 'Policy No' },
+ { value: 'Preclaim_No', label: 'Preclaim No' },
+ { value: 'National_Id', label: 'National ID' },
+ { value: 'Policy_No', label: 'Policy No' },
 ];
 
 export const CoverageTableData = [

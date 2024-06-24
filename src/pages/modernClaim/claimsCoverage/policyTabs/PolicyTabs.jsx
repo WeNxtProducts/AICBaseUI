@@ -21,10 +21,20 @@ const PolicyTabs = () => {
   }
  };
  return (
-  <div data-id='claim_tabs'>
+  <div>
    <Tabs activeTab={activeTab} onTabClick={handleTabClick}>
-    <Tab label='Policy Details'>
-     <PolicyDetails />
+    <Tab label='Claim Details'>
+     {/* <PolicyDetails /> */}
+     <MRVClaim
+      queryID='Doc_print_setup'
+      root='Claim_Estimate'
+      mrvGet='getDocPrint'
+      screenCode='DOCPRINTSETUP'
+      screenName='DOCPRINTSETUP'
+      saveRow='saveDocPrint'
+      editRow='editDocPrint'
+      deleteRow='deleteDocPrint'
+     />
     </Tab>
     <Tab label='Charges'>
      <MRVClaim
@@ -46,8 +56,8 @@ const PolicyTabs = () => {
       queryID='Doc_print_setup'
       root='Claim_Beneficiary'
       mrvGet='getDocPrint'
-      screenCode='DOCPRINTSETUP'
-      screenName='DOCPRINTSETUP'
+      screenCode='CLAIMENTRY'
+      screenName='CLAIMENTRY'
       saveRow='saveDocPrint'
       editRow='editDocPrint'
       deleteRow='deleteDocPrint'

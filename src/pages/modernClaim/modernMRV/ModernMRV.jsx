@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Formik, Form } from 'formik';
 import ModernMRVFieldWithValue from './ModernMRVFieldWithValue';
 import { createYupSchema } from '../../../components/commonHelper/SchemaGenerator';
+import { Button } from 'antd';
 
 const ModernMRV = ({
  initialValues,
@@ -32,7 +33,6 @@ const ModernMRV = ({
 
  return (
   <>
-   {/* {loader && <Loader />} */}
    {validation !== null && (
     <Formik
      initialValues={initValues}
@@ -40,11 +40,30 @@ const ModernMRV = ({
      //validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
-     {({ handleSubmit, values, setFieldValue }) => {
+     {({ handleSubmit, values, setFieldValue, resetForm }) => {
       //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
+        <div className='mb-4 flex items-center justify-between'>
+         <p className='mrv_header'>Claim Cover Details</p>
+         <Button
+          className='add-buttons me-5'
+          type='primary'
+          onClick={() => resetForm()}
+          icon={<i className='bi bi-plus icon-style' />}>
+          Add New
+         </Button>
+        </div>
         <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
+         <div className='col-span-1 grid grid-cols-3 items-center'>
+          <div className='col-span-1'>
+           <p className={`label_small_font select-none`}>Cover Code</p>
+          </div>
+          <div className='col-span-2 pe-3'>
+           <p className='cover_code_number'>A34R45T565R</p>
+          </div>
+         </div>
+         <div className='col-span-1' />
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
@@ -72,7 +91,7 @@ const ModernMRV = ({
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          {addOrUpdate && (
+          {/* {addOrUpdate && (
            <button
             type='button'
             onClick={() => {
@@ -82,7 +101,7 @@ const ModernMRV = ({
             className='reset'>
             Reset
            </button>
-          )}
+          )} */}
           <button type='submit' className='save ml-9'>
            {addOrUpdate ? 'Update' : 'Submit'}
           </button>

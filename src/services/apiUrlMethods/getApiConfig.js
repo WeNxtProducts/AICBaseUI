@@ -54,6 +54,9 @@ const GET_API_URL = {
   url: '/ltclaim/getListOfPolicies',
   baseURL: 'CLAIMURL',
  },
+ getPreClaimDate: {
+  url: '/common/getMapQuery',
+ },
 };
 
 export default GET_API_URL;

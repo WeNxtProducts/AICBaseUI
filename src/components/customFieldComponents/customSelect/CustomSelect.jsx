@@ -3,7 +3,7 @@ import { Select, Tooltip } from 'antd';
 import './CustomSelect.scss';
 
 const CustomSelect = ({
- options,
+ options = [],
  loading,
  placeholder,
  value,

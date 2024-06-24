@@ -16,8 +16,12 @@ import Loader from '../../../../../components/loader/Loader';
 import ConfirmationModal from '../../../../../components/confirmationModal/ConfirmationModal';
 import { ClaimContext } from '../../../ModernClaim';
 import MRVListingScreen from '../MRVListingScreen';
-import { bankColumn, bankData } from '../../../../../components/tableComponents/sampleData';
+import {
+ bankColumn,
+ bankData,
+} from '../../../../../components/tableComponents/sampleData';
 import ModernMRV from '../../../modernMRV/ModernMRV';
+import { Button } from 'antd';
 
 const MRVClaim = ({
  queryID,
@@ -103,6 +107,7 @@ const MRVClaim = ({
  };
 
  const handleEdit = async item => {
+  console.log('id : ', item);
   try {
    const response = await mrvGetById('', {
     screenCode,
@@ -184,18 +189,7 @@ const MRVClaim = ({
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
    {loader && <Loader />}
    <div className='propasal-entry-form col-span-8 grid grid-cols-7'>
-    {/* {rowData?.length > 0 && (
-     <div className='inline-table-details mb-4 mt-2 col-span-8'>
-      <CustomList
-       tableColumn={columnData}
-       tableData={rowData}
-       handleEdit={handleEdit}
-       handleDelete={handleDelete}
-       selectedRow={editMRVId}
-      />
-     </div>
-    )} */}
-    <div className='col-span-5 mt-3'>
+    <div className='col-span-5 mt-2'>
      {claimMRV && Object.prototype.hasOwnProperty.call(claimMRV, root) && (
       <ModernMRV
        initialValues={claimMRVInitialValues}
@@ -212,7 +206,13 @@ const MRVClaim = ({
      )}
     </div>
     <div className='col-span-2 p-2 border_left_divider'>
-     <MRVListingScreen tableColumn={bankColumn} tableData={bankData} />
+     <MRVListingScreen
+      tableColumn={bankColumn}
+      tableData={bankData}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+      selectedRow={editMRVId}
+     />
     </div>
    </div>
    {deleteConfirmation && (

@@ -2,7 +2,13 @@ import React from 'react';
 import { Checkbox, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 
-const MRVListingScreen = ({ tableColumn = '', tableData = [] }) => {
+const MRVListingScreen = ({
+ tableColumn = '',
+ tableData = [],
+ handleEdit,
+ handleDelete,
+ selectedRow = '',
+}) => {
  return (
   <div className='MRV_card pe-2'>
    {tableData?.map(item => (
@@ -16,10 +22,13 @@ const MRVListingScreen = ({ tableColumn = '', tableData = [] }) => {
         <EyeOutlined className='mrv_icons' />
        </Tooltip>
        <Tooltip title='Edit'>
-        <EditOutlined className='mrv_icons' />
+        <EditOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
        </Tooltip>
        <Tooltip title='Delete'>
-        <DeleteOutlined className='mrv_icons delete_mrv_row' />
+        <DeleteOutlined
+         onClick={() => handleDelete(item)}
+         className='mrv_icons delete_mrv_row'
+        />
        </Tooltip>
       </div>
      </div>

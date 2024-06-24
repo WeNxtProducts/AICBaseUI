@@ -125,5 +125,8 @@ const POST_API_URL = {
  deleteAutoDispatch: {
   url: '/auto-dispatch/deleteAutoDispDetails',
  },
+ claimBfcrycreate: {
+  url: '',
+ },
 };
 export default POST_API_URL;

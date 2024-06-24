@@ -11,18 +11,18 @@ const PolicyNumberList = () => {
 
  return (
   <div className=''>
-   <p className='flex items-center justify-center p-2 header_list_font'>
+   <p className='flex items-center justify-center header_list_font'>
     Policy No
    </p>
-   <div className='policy_list mt-1'>
+   <div className='policy_list mt-1 p-2'>
     {policyList?.map((item, index) => (
      <div
       className={`list_policy_style ${
-       selectedPolicy === item ? 'list_policy_style_active' : ''
+       selectedPolicy === item?.pol_no ? 'list_policy_style_active' : ''
       }`}
-      onClick={() => setelectedPolicy(item)}
-      key={`${item}-${index}`}>
-      <p className='list_style'>{item}</p>
+      onClick={() => setelectedPolicy(item?.pol_no)}
+      key={`${item?.pol_no}-${index}`}>
+      <p className='list_style'>{item?.pol_no}</p>
      </div>
     ))}
    </div>
