@@ -45,6 +45,7 @@ const ClaimSelect = () => {
   CH_CLAIM_BAS_VAL: [],
   ASSURED_CODE: [],
  });
+ 
 
  const handleGetPolicyList = async sysId => {
   try {
