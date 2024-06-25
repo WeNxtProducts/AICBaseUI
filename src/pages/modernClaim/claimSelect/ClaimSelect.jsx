@@ -46,7 +46,6 @@ const ClaimSelect = () => {
   ASSURED_CODE: [],
  });
  
-
  const handleGetPolicyList = async sysId => {
   try {
    const response = await getPolicyList('', { sysId: 16 });
