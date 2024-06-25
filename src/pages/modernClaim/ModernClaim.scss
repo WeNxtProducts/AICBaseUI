@@ -11,9 +11,10 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
  }
  .selected_claim_highlight {
-  background-color: #e5f6ff;
+  // background-color: #e5f6ff;
  }
  .claim_header {
+  background-color: #f6fcff;
   border-bottom: 1px solid #6e6893;
   display: flex;
   align-items: center;
@@ -64,6 +65,12 @@
      //  height: 29px;
      text-align: center;
     }
+   }
+   .app_rej_btn {
+    border: 1px solid #0382c8;
+    background-color: #ffffff;
+    font-weight: 600;
+    color: #0382c8;
    }
   }
  }
@@ -225,10 +232,11 @@
   }
  }
  .MRV_card {
-  max-height: 300px;
+  max-height: 350px;
+  min-height: 350px;
   overflow-y: auto;
-  .list_card {
-   background-color: #ffffff;
+  .list_card,
+  .list_card_highlighted_row {
    user-select: none;
    padding: 0px 5px 5px 5px;
    margin-top: 5px;
@@ -255,6 +263,24 @@
    .delete_mrv_row:hover {
     color: red;
    }
+  }
+  .list_card_highlighted_row {
+   background-color: #0382c8;
+   .key_font,
+   .value_font {
+    color: #ffffff !important;
+   }
+   .mrv_icons {
+    &:hover {
+     color: #ffffff;
+    }
+   }
+   .delete_mrv_row:hover {
+    color: red;
+   }
+  }
+  .list_card {
+   background-color: #ffffff;
   }
  }
  .price_breakup_bonus {
@@ -447,6 +473,25 @@
   font-size: 12px;
   line-height: 20px;
  }
+ .claim_level_total {
+  .amount_field_curr {
+   border: 1.3px solid #d9d9dc;
+   border-radius: 7px;
+   background-color: #FFFFFF;
+   width: 57%;
+
+   & > p {
+    padding: 5px 10px 5px 7px;
+    color: #35353a;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+   }
+  }
+ }
+ .claim_level_divider{
+  border: 1px solid #C6C2DE;
+ }
 }
 
 .modern_checklist_claim {
@@ -477,5 +522,14 @@
   color: #667085;
   font-weight: 600;
   font-size: 16px;
+ }
+}
+
+.approve_reject_modal {
+ .app_rej_btn {
+  background-color: #0382c8;
+  color: #ffffff;
+  //   padding: 5px;
+  border-radius: 5px;
  }
 }

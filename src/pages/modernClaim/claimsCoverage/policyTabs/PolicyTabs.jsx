@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Tab, Tabs } from '../../../../components/customTabs/Tabs';
 import PolicyDetails from './policyDetails/PolicyDetails';
 import MRVClaim from './mrvClaim/MRVClaim';
 import Checklist from './checklist/Checklist';
 import DeductionAndBonus from './deductionAndBonus/DeductionAndBonus';
 import ReInsurance from './reInsurance/ReInsurance';
+import { ClaimContext } from '../../ModernClaim';
 
 const PolicyTabs = () => {
- const [activeTab, setActiveTab] = useState(0);
+ const { activeTab, setActiveTab } = useContext(ClaimContext);
 
  const handleTabClick = index => {
   setActiveTab(index);
@@ -26,26 +27,28 @@ const PolicyTabs = () => {
     <Tab label='Claim Details'>
      {/* <PolicyDetails /> */}
      <MRVClaim
-      queryID='Doc_print_setup'
-      root='Claim_Estimate'
-      mrvGet='getDocPrint'
-      screenCode='DOCPRINTSETUP'
-      screenName='DOCPRINTSETUP'
-      saveRow='saveDocPrint'
-      editRow='editDocPrint'
-      deleteRow='deleteDocPrint'
+      queryID='ClaimCoverDetailsList'
+      root='ClaimCover'
+      mrvGet='getClaimCoverDetailsEdit'
+      screenCode='CLAIMENTRY'
+      screenName='CLAIMENTRY'
+      saveRow='claimCoverCreate'
+      editRow='claimCoverUpdate'
+      deleteRow='claimCoverDelete'
+      title='Claim Cover'
      />
     </Tab>
     <Tab label='Charges'>
      <MRVClaim
-      queryID='Doc_print_setup'
-      root='Claim_Charges'
-      mrvGet='getDocPrint'
-      screenCode='DOCPRINTSETUP'
-      screenName='DOCPRINTSETUP'
-      saveRow='saveDocPrint'
-      editRow='editDocPrint'
-      deleteRow='deleteDocPrint'
+      queryID='ClaimChargeDetailsList'
+      root='ClaimCharges'
+      mrvGet='getClaimChargesDetailsEdit'
+      screenCode='CLAIMENTRY'
+      screenName='CLAIMENTRY'
+      saveRow='claimChargeCreate'
+      editRow='claimChargeUpdate'
+      deleteRow='claimChargeDelete'
+      title='Claim Charges'
      />
     </Tab>
     <Tab label='Ded & Bonus'>
@@ -53,14 +56,15 @@ const PolicyTabs = () => {
     </Tab>
     <Tab label='Pay To'>
      <MRVClaim
-      queryID='Doc_print_setup'
-      root='Claim_Beneficiary'
-      mrvGet='getDocPrint'
+      queryID='ClaimPayToDetailsList'
+      root='ClaimBeneficiary'
+      mrvGet='getClaimPayToDetailsEdit'
       screenCode='CLAIMENTRY'
       screenName='CLAIMENTRY'
-      saveRow='saveDocPrint'
-      editRow='editDocPrint'
-      deleteRow='deleteDocPrint'
+      saveRow='claimBfcryCreate'
+      editRow='claimBfcryUpdate'
+      deleteRow='claimBfcryDelete'
+      title='Pay To'
      />
     </Tab>
     <Tab label='Checklist'>
@@ -71,14 +75,19 @@ const PolicyTabs = () => {
     </Tab>
     <Tab label='History'>
      <MRVClaim
-      queryID='Doc_print_setup'
-      root='Claim_CheckList'
-      mrvGet='getDocPrint'
-      screenCode='DOCPRINTSETUP'
-      screenName='DOCPRINTSETUP'
+      queryID='ClaimHistoryDetailsList'
+      root='ClaimHistory'
+      mrvGet='getClaimHistoryDetailsEdit'
+      screenCode='CLAIMENTRY'
+      screenName='CLAIMENTRY'
       saveRow='saveDocPrint'
       editRow='editDocPrint'
       deleteRow='deleteDocPrint'
+      title='History'
+      action={false}
+      isView={true}
+      isEdit={false}
+      isDelete={false}
      />
     </Tab>
    </Tabs>

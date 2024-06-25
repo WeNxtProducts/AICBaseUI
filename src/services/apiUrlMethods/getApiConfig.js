@@ -57,6 +57,18 @@ const GET_API_URL = {
  getPreClaimDate: {
   url: '/common/getMapQuery',
  },
+ getClaimPayToDetailsEdit: {
+  url: '/common/claimsBeneficiaryEdit',
+ },
+ getClaimChargesDetailsEdit: {
+  url: '/common/claimsChargesEdit',
+ },
+ getClaimCoverDetailsEdit: {
+  url: '/common/claimsEstimatEdit',
+ },
+ getClaimHistoryDetailsEdit: {
+  url: '/common/claimsHistoryEdit',
+ },
 };
 
 export default GET_API_URL;

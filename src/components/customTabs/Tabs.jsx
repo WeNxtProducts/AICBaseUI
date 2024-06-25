@@ -3,11 +3,13 @@ import './Tabs.scss';
 
 const Tabs = ({ children, activeTab, onTabClick }) => {
  return (
-  <div className='custom_tabs p-2'>
-   <div className='tab-list'>
+  <div className='custom_tabs'>
+   <div className='tab-list pt-2'>
     {React.Children.map(children, (child, index) => (
      <button
-      className={`tab ${index === activeTab ? 'active' : ''}`}
+      className={`tab ${
+       index === activeTab ? 'active' : index < activeTab ? 'crossed' : ''
+      }`}
       onClick={() => onTabClick(index)}>
       {child.props.label}
      </button>

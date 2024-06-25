@@ -528,6 +528,11 @@ export const platforms = [
  { value: 'A', label: 'Accident' },
 ];
 
+export const appOrRej = [
+ { value: 'A', label: 'Approve' },
+ { value: 'R', label: 'Reject' },
+];
+
 export const claim_check = [
  { value: 'Preclaim_No', label: 'Preclaim No' },
  { value: 'National_Id', label: 'National ID' },

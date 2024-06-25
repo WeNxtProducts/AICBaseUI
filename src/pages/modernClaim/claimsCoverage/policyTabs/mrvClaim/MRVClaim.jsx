@@ -16,12 +16,8 @@ import Loader from '../../../../../components/loader/Loader';
 import ConfirmationModal from '../../../../../components/confirmationModal/ConfirmationModal';
 import { ClaimContext } from '../../../ModernClaim';
 import MRVListingScreen from '../MRVListingScreen';
-import {
- bankColumn,
- bankData,
-} from '../../../../../components/tableComponents/sampleData';
 import ModernMRV from '../../../modernMRV/ModernMRV';
-import { Button } from 'antd';
+import ClaimLevelTotal from '../ClaimLevelTotal';
 
 const MRVClaim = ({
  queryID,
@@ -32,6 +28,11 @@ const MRVClaim = ({
  saveRow,
  editRow,
  deleteRow,
+ title,
+ action = true,
+ isView = true,
+ isEdit = true,
+ isDelete = true,
 }) => {
  const {
   ClaimsJson,
@@ -39,7 +40,9 @@ const MRVClaim = ({
   formValues,
   setDropDown,
   dropDown,
+  selectedPolDetails,
  } = useContext(ClaimContext);
+ const { CLM_TRAN_ID } = selectedPolDetails;
  const { mrvListingId } = ClaimsJson;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
@@ -55,7 +58,8 @@ const MRVClaim = ({
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
-   const params = editMRVId ? { editMRVId } : { tranId };
+   const params = editMRVId ? { editMRVId } : { CLM_TRAN_ID };
+   console.log('params : ', params);
    const response = await addOrUpdate(payload, '', params);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
@@ -86,16 +90,24 @@ const MRVClaim = ({
  };
 
  const MRVListing = () => {
-  if (tranId) {
+  if (CLM_TRAN_ID) {
    const queryId = getQueryId(queryID, mrvListingId);
-   handleMRVListing(queryId, tranId);
+   handleMRVListing(queryId, CLM_TRAN_ID);
   }
  };
 
  useEffect(() => {
-  handleInitData(ClaimsJson);
-  MRVListing();
- }, []);
+  if (rowData?.length > 0) {
+   handleEdit(rowData[0]);
+  }
+ }, [rowData]);
+
+ useEffect(() => {
+  if (CLM_TRAN_ID) {
+   handleInitData(ClaimsJson);
+   MRVListing();
+  }
+ }, [CLM_TRAN_ID]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);
@@ -188,8 +200,14 @@ const MRVClaim = ({
  return (
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
    {loader && <Loader />}
+
    <div className='propasal-entry-form col-span-8 grid grid-cols-7'>
-    <div className='col-span-5 mt-2'>
+    <div className='col-span-5 mt-1'>
+     {title === 'Claim Cover' && (
+      <div className='col-span-5 mb-4'>
+       <ClaimLevelTotal />
+      </div>
+     )}
      {claimMRV && Object.prototype.hasOwnProperty.call(claimMRV, root) && (
       <ModernMRV
        initialValues={claimMRVInitialValues}
@@ -202,17 +220,26 @@ const MRVClaim = ({
        handleOnBlur={handleOnBlur}
        addOrUpdate={!!editMRVId}
        smallFont={true}
+       title={title}
+       action={action}
       />
      )}
     </div>
+
     <div className='col-span-2 p-2 border_left_divider'>
-     <MRVListingScreen
-      tableColumn={bankColumn}
-      tableData={bankData}
-      handleEdit={handleEdit}
-      handleDelete={handleDelete}
-      selectedRow={editMRVId}
-     />
+     {rowData?.length > 0 && (
+      <MRVListingScreen
+       tableColumn={columnData}
+       tableData={rowData}
+       handleEdit={handleEdit}
+       handleDelete={handleDelete}
+       selectedRow={editMRVId}
+       action={action}
+       isView={isView}
+       isEdit={isEdit}
+       isDelete={isDelete}
+      />
+     )}
     </div>
    </div>
    {deleteConfirmation && (

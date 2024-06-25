@@ -20,7 +20,11 @@ import { debounce } from 'lodash';
 import dayjs from 'dayjs';
 
 const ClaimSelect = () => {
- const { id: tranId, setPolicyList } = useContext(ClaimContext);
+ const {
+  id: tranId,
+  setPolicyList,
+  setelectedPolicy,
+ } = useContext(ClaimContext);
  const dispatch = useDispatch();
  const formRef = useRef(null);
  const companyCode = useSelector(
@@ -45,14 +49,18 @@ const ClaimSelect = () => {
   CH_CLAIM_BAS_VAL: [],
   ASSURED_CODE: [],
  });
- 
- const handleGetPolicyList = async sysId => {
+
+ const handleGetPolicyList = async tranId => {
   try {
-   const response = await getPolicyList('', { sysId: 16 });
+   const response = await getPreClaimDate(
+    { queryParams: { tranId: 55 } },
+    { queryId: 117 },
+   );
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    setPolicyList(response?.Data?.Policy_Numbers);
+    setPolicyList(response?.Data);
+    setelectedPolicy(response?.Data[0]?.CLM_POL_NO);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -66,7 +74,8 @@ const ClaimSelect = () => {
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleGetPolicyList(response?.Data?.Id);
-    if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
+    // response?.Data?.Id
+    if (!tranId) dispatch(setCurrentID(55));
     showNotification.SUCCESS(response?.status_msg);
    }
   } catch (err) {

@@ -125,8 +125,41 @@ const POST_API_URL = {
  deleteAutoDispatch: {
   url: '/auto-dispatch/deleteAutoDispDetails',
  },
- claimBfcrycreate: {
-  url: '',
+ claimBfcryCreate: {
+  url: '/claimBfcry/claimBfcry_creates',
+  baseURL: 'CLAIMURL',
+ },
+ claimBfcryUpdate: {
+  url: '/claimBfcry/updateLtClaimBeneficiary',
+  baseURL: 'CLAIMURL',
+ },
+ claimBfcryDelete: {
+  url: '/claimBfcry/deletesclaimBfcryByid',
+  baseURL: 'CLAIMURL',
+ },
+ claimChargeCreate: {
+  url: '/claimchrgs/claimChrgsSave',
+  baseURL: 'CLAIMURL',
+ },
+ claimChargeUpdate: {
+  url: '/claimchrgs/updateClaimCharges',
+  baseURL: 'CLAIMURL',
+ },
+ claimChargeDelete: {
+  url: '/claimchrgs/deleteclaimchrgsByid',
+  baseURL: 'CLAIMURL',
+ },
+ claimCoverCreate: {
+  url: '/claimest/claimEstSave',
+  baseURL: 'CLAIMURL',
+ },
+ claimCoverUpdate: {
+  url: '/claimest/updateLtClaimEstimate',
+  baseURL: 'CLAIMURL',
+ },
+ claimCoverDelete: {
+  url: '/claimest/deleteclaimestByid',
+  baseURL: 'CLAIMURL',
  },
 };
 export default POST_API_URL;

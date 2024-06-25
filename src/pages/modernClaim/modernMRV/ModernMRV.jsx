@@ -14,10 +14,11 @@ const ModernMRV = ({
  grid = '2',
  action = true,
  addOrUpdate,
- resetForm,
+ resetForm: formReset,
  lovList,
  handleOnBlur,
  smallFont = false,
+ title = '',
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -45,25 +46,35 @@ const ModernMRV = ({
       return (
        <Form onSubmit={handleSubmit}>
         <div className='mb-4 flex items-center justify-between'>
-         <p className='mrv_header'>Claim Cover Details</p>
-         <Button
-          className='add-buttons me-5'
-          type='primary'
-          onClick={() => resetForm()}
-          icon={<i className='bi bi-plus icon-style' />}>
-          Add New
-         </Button>
+         <p className='mrv_header'>{title}</p>
+         {action && (
+          <Button
+           className='add-buttons me-5'
+           type='primary'
+           onClick={() => {
+            if (addOrUpdate) formReset();
+            else resetForm();
+           }}
+           icon={<i className='bi bi-plus icon-style' />}>
+           Add New
+          </Button>
+         )}
         </div>
+
         <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
-         <div className='col-span-1 grid grid-cols-3 items-center'>
-          <div className='col-span-1'>
-           <p className={`label_small_font select-none`}>Cover Code</p>
-          </div>
-          <div className='col-span-2 pe-3'>
-           <p className='cover_code_number'>A34R45T565R</p>
-          </div>
-         </div>
-         <div className='col-span-1' />
+         {title === 'Claim Covers' && (
+          <>
+           <div className='col-span-1 grid grid-cols-3 items-center mb-2'>
+            <div className='col-span-1'>
+             <p className={`label_small_font select-none`}>Cover Code</p>
+            </div>
+            <div className='col-span-2 pe-3'>
+             <p className='cover_code_number'>A34R45T565R</p>
+            </div>
+           </div>
+           <div className='col-span-1' />
+          </>
+         )}
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
