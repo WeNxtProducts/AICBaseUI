@@ -69,6 +69,13 @@ const GET_API_URL = {
  getClaimHistoryDetailsEdit: {
   url: '/common/claimsHistoryEdit',
  },
+ getLovList: {
+  url: '/common/getlov',
+ },
+ getModernClaim: {
+  url: '/ltclaim/claimHdrGet',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default GET_API_URL;

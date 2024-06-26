@@ -41,6 +41,7 @@ const MRVClaim = ({
   setDropDown,
   dropDown,
   selectedPolDetails,
+  freeze,
  } = useContext(ClaimContext);
  const { CLM_TRAN_ID } = selectedPolDetails;
  const { mrvListingId } = ClaimsJson;
@@ -157,6 +158,7 @@ const MRVClaim = ({
   const deleteId = editMRVId;
   setEditMRVId('');
   if (status) handleDeleteConfirm(deleteId);
+  else if (!status) setDeleteConfirmation(false);
  };
 
  const handleDelete = item => {
@@ -201,7 +203,7 @@ const MRVClaim = ({
 
    <div className='propasal-entry-form col-span-8 grid grid-cols-7'>
     <div className='col-span-5 mt-1'>
-     {title === 'Claim Cover' && (
+     {title === 'Claim Cover' && freeze && (
       <div className='col-span-5 mb-4'>
        <ClaimLevelTotal />
       </div>

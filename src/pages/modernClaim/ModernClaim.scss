@@ -75,6 +75,67 @@
   }
  }
 
+ .ref_no,
+ .ref_no_val {
+  user-select: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #4d5e80;
+ }
+ .ref_no_val {
+  font-size: 14px;
+  .status_notify {
+   margin-left: 10px;
+   font-weight: 600;
+   font-size: 13px;
+   display: inline-block;
+   padding: 3px 15px;
+   border-radius: 20px;
+   position: relative;
+
+   &::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+   }
+  }
+  .approved {
+   background-color: #ecfdf3;
+   color: #037847;
+   &::before {
+    background-color: #14ba6d;
+   }
+  }
+  .pending {
+   background-color: #f2f4f7;
+   color: #6c778b;
+   &::before {
+    background-color: #6c778b;
+   }
+  }
+ }
+
+ .key_value_form {
+  background-color: #ffffff;
+  user-select: none;
+  border: 1.3px solid #d9d9dc;
+  border-radius: 5px;
+  width: 100%;
+
+  & > p {
+   padding: 5px 10px 5px 7px;
+   color: #35353a;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 20px;
+  }
+ }
+
  .chip-label {
   color: #4d5e80;
   font-size: 14px;
@@ -477,7 +538,7 @@
   .amount_field_curr {
    border: 1.3px solid #d9d9dc;
    border-radius: 7px;
-   background-color: #FFFFFF;
+   background-color: #ffffff;
    width: 57%;
 
    & > p {
@@ -489,8 +550,8 @@
    }
   }
  }
- .claim_level_divider{
-  border: 1px solid #C6C2DE;
+ .claim_level_divider {
+  border: 1px solid #c6c2de;
  }
 }
 

@@ -10,13 +10,14 @@ import './ModernClaim.scss';
 export const ClaimContext = createContext();
 
 const ModernClaim = () => {
+ const id = useSelector(state => state?.id?.id);
+ const formValues = useSelector(state => state?.id?.formValues);
  const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const [policyList, setPolicyList] = useState([]);
  const [selectedPolicy, setelectedPolicy] = useState('');
  const [activeTab, setActiveTab] = useState(1);
  const [selectedPolDetails, setSelectedPolDetails] = useState({});
- const id = useSelector(state => state?.id?.id);
- const formValues = useSelector(state => state?.id?.formValues);
+ const [freeze, setFreeze] = useState(false);
 
  const data = {
   ClaimsJson,
@@ -33,6 +34,8 @@ const ModernClaim = () => {
   setActiveTab,
   selectedPolDetails,
   setSelectedPolDetails,
+  freeze,
+  setFreeze,
  };
 
  return (

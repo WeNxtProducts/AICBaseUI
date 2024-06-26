@@ -25,7 +25,10 @@ const MRVListingScreen = ({
      <div className={`flex item-center justify-${action ? 'between' : 'end'}`}>
       {action && (
        <div>
-        <Checkbox />
+        <Checkbox
+         checked={item?.isSelected === 'Y'}
+         onChange={e => handleDelete(item)}
+        />
        </div>
       )}
       <div className='flex gap-2'>

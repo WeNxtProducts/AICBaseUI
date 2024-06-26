@@ -161,5 +161,20 @@ const POST_API_URL = {
   url: '/claimest/deleteclaimestByid',
   baseURL: 'CLAIMURL',
  },
+ claimDeductionUpdate: {
+  url: '/ltclaim/claimDeductionsave',
+  baseURL: 'CLAIMURL',
+ },
+ processApproveOrReject: {
+  url: '/ltclaim/saveClaimFlagDetails',
+  baseURL: 'CLAIMURL',
+ },
+ invokeClaimsProcedure: {
+  url: '/common/invokeProcedure',
+ },
+ modernClaimDelete: {
+  url: '/ltclaim/claimHdrDelete',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

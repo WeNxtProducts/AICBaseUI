@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import RadioChip from '../../../components/radioChip/RadioChip';
@@ -8,7 +8,6 @@ import {
 } from '../../../components/tableComponents/sampleData';
 import {
  CustomDatePicker,
- CustomInput,
  CustomSelect,
 } from '../../../components/commonExportsFields/CommonExportsFields';
 import { Form, Formik } from 'formik';
@@ -34,7 +33,9 @@ const ClaimSelect = () => {
  const createClaim = useApiRequests('createClaim', 'POST');
  const getPolicyList = useApiRequests('getPolicyList', 'GET');
  const getParamLov = useApiRequests('getParamLov', 'GET');
+ const getClaimDetails = useApiRequests('getModernClaim', 'GET');
  const getPreClaimDate = useApiRequests('getPreClaimDate', 'POST');
+ const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [fieldName, setFieldName] = useState('Preclaim No');
  const [initialValues, setInitialValues] = useState({
   CH_CLAIM_TYPE: 'D',
@@ -50,10 +51,29 @@ const ClaimSelect = () => {
   ASSURED_CODE: [],
  });
 
+ const handleGetClaim = async () => {
+  try {
+   const response = await getClaimDetails('', { tranId });
+   console.log('response : ', response);
+   setInitialValues(response?.Data);
+   handleGetPolicyList(response?.Data?.CH_TRAN_ID);
+   //  handleGetPolicyList(55);
+  } catch (err) {
+   console.log('err');
+  }
+ };
+
+ useEffect(() => {
+  if (tranId) {
+   handleGetClaim();
+   console.log('tranId :  ', tranId);
+  }
+ }, []);
+
  const handleGetPolicyList = async tranId => {
   try {
    const response = await getPreClaimDate(
-    { queryParams: { tranId: 55 } },
+    { queryParams: { tranId } },
     { queryId: 117 },
    );
    if (response?.status === 'FAILURE')
@@ -67,16 +87,57 @@ const ClaimSelect = () => {
   }
  };
 
- const onSubmit = async values => {
+ const claimSave = async values => {
   try {
    const response = await createClaim(values);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
+    // handleGetPolicyList(response?.Data?.Id);
     handleGetPolicyList(response?.Data?.Id);
     // response?.Data?.Id
-    if (!tranId) dispatch(setCurrentID(55));
+    if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
     showNotification.SUCCESS(response?.status_msg);
+   }
+  } catch (err) {
+   console.error('err : ', err);
+  }
+ };
+
+ const onSubmit = async values => {
+  // claimSave(values);
+  const {
+   CH_CLAIM_TYPE,
+   CH_CLAIM_BAS,
+   CH_CLAIM_BAS_VAL,
+   CH_LOSS_DT,
+   ASSURED_CODE,
+  } = values;
+  const payload = {
+   inParams: {
+    P_CLAIM_TYPE: CH_CLAIM_TYPE,
+    P_CLAIM_BAS:
+     CH_CLAIM_BAS === 'Preclaim_No'
+      ? 'PR'
+      : CH_CLAIM_BAS === 'Policy_No'
+      ? 'PO'
+      : CH_CLAIM_BAS === 'National_Id'
+      ? 'ID'
+      : '',
+    P_CLAIM_BAS_VAL: CH_CLAIM_BAS_VAL,
+    P_LOSS_DT: CH_LOSS_DT,
+    P_ASSR_CODE: ASSURED_CODE,
+   },
+  };
+  try {
+   const response = await invokeClaimsProcedure(payload, {
+    procedureName: 'P_VAL_ELIGIBLE_POL',
+   });
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    console.log('ressss : ', response);
+    claimSave(values);
    }
   } catch (err) {
    console.error('err : ', err);
@@ -119,13 +180,13 @@ const ClaimSelect = () => {
   try {
    const response = await getParamLov({}, queryParams);
    if (response?.status === 'SUCCESS') {
-    console.log('response : ', response?.Data['ASSURED_CODE']);
     const list =
      key === 'ASSURED_CODE'
       ? response?.Data['ASSURED_CODE']
       : response?.Data[formRef?.current?.values?.CH_CLAIM_BAS];
-    if (setFieldValue && list?.length === 1)
+    if (setFieldValue && list?.length === 1) {
      setFieldValue('ASSURED_CODE', list[0]?.value);
+    }
     setSelectDropDown(pre => ({
      ...pre,
      [key]: list,
@@ -149,7 +210,27 @@ const ClaimSelect = () => {
 
  return (
   <div>
-   <p className='header-font pl-1'>Claim Entry</p>
+   <div className='pl-1 mb-6 mt-1 grid grid-cols-2 gap-5 items-start'>
+    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+     <div className='col-span-2'>
+      <p className='header-font'>Claim Entry</p>
+     </div>
+    </div>
+    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+     <div className='col-span-2'>
+      <p className='ref_no'>Reference No</p>
+     </div>
+     <div className='col-span-4'>
+      {/* <p className='ref_no_val'>
+       C/008/8987 <span className='status_notify pending'>Not Submitted</span>
+      </p> */}
+      <p className='ref_no_val'>
+       C/008/8987 <span className='status_notify approved'>Submitted</span>
+      </p>
+     </div>
+    </div>
+   </div>
+
    <Formik
     initialValues={initialValues}
     //validationSchema={validation}
@@ -170,7 +251,7 @@ const ClaimSelect = () => {
            items={platforms}
            selectedValue={values?.CH_CLAIM_TYPE}
            onSelectionChange={val => {
-            setFieldValue('CH_CLAIM_TYPE', val?.value);
+            !tranId && setFieldValue('CH_CLAIM_TYPE', val?.value);
            }}
           />
          </div>
@@ -185,19 +266,21 @@ const ClaimSelect = () => {
            items={claim_check}
            selectedValue={values?.CH_CLAIM_BAS}
            onSelectionChange={val => {
-            setFieldValue('CH_CLAIM_BAS_VAL', '');
-            setFieldValue('ASSURED_CODE', '');
-            setFieldName(val?.label);
-            setFieldValue('CH_CLAIM_BAS', val?.value);
-            setFieldValue('CH_LOSS_DT', '');
-            setFieldValue(
-             'CH_INTIM_DT',
-             val?.value !== 'Preclaim_No' ? dayjs().format('YYYY-MM-DD') : '',
-            );
-            setSelectDropDown({
-             CH_CLAIM_BAS_VAL: [],
-             ASSURED_CODE: [],
-            });
+            if (!tranId) {
+             setFieldValue('CH_CLAIM_BAS_VAL', '');
+             setFieldValue('ASSURED_CODE', '');
+             setFieldName(val?.label);
+             setFieldValue('CH_CLAIM_BAS', val?.value);
+             setFieldValue('CH_LOSS_DT', '');
+             setFieldValue(
+              'CH_INTIM_DT',
+              val?.value !== 'Preclaim_No' ? dayjs().format('YYYY-MM-DD') : '',
+             );
+             setSelectDropDown({
+              CH_CLAIM_BAS_VAL: [],
+              ASSURED_CODE: [],
+             });
+            }
            }}
           />
          </div>
@@ -207,48 +290,66 @@ const ClaimSelect = () => {
           <p className='chip-label'>{fieldName}</p>
          </div>
          <div className='col-span-4'>
-          <CustomSelect
-           name={fieldName}
-           options={selectDropDown?.CH_CLAIM_BAS_VAL}
-           onSearch={handleSearch}
-           onBlur={() => handleOnBlur(setFieldValue)}
-           placeholder=''
-           value={values?.CH_CLAIM_BAS_VAL || undefined}
-           onChange={e => {
-            setFieldValue('CH_CLAIM_BAS_VAL', e);
-           }}
-          />
+          {tranId ? (
+           <div className='flex items-center justify-between min-h-8 key_value_form'>
+            <p className=''>{values?.CH_CLAIM_BAS_VAL}</p>
+           </div>
+          ) : (
+           <CustomSelect
+            name={fieldName}
+            options={selectDropDown?.CH_CLAIM_BAS_VAL}
+            onSearch={handleSearch}
+            onBlur={() => handleOnBlur(setFieldValue)}
+            placeholder=''
+            value={values?.CH_CLAIM_BAS_VAL || undefined}
+            onChange={e => {
+             setFieldValue('CH_CLAIM_BAS_VAL', e);
+            }}
+           />
+          )}
          </div>
         </div>
-        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+        {/* <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
          <div className='col-span-2'>
           <p className='chip-label'>Reference No</p>
          </div>
          <div className='col-span-4'>
-          <CustomInput
-           name='CH_REF_NO'
-           placeholder=''
-           value={values?.CH_REF_NO}
-           onChange={e => {
-            setFieldValue('CH_REF_NO', e.target.value);
-           }}
-          />
+          {tranId ? (
+           <div className='flex items-center justify-between min-h-8 key_value_form'>
+            <p className=''>{values?.CH_REF_NO}</p>
+           </div>
+          ) : (
+           <CustomInput
+            name='CH_REF_NO'
+            placeholder=''
+            value={values?.CH_REF_NO}
+            onChange={e => {
+             setFieldValue('CH_REF_NO', e.target.value);
+            }}
+           />
+          )}
          </div>
-        </div>
+        </div> */}
         <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
          <div className='col-span-2'>
           <p className='chip-label'>Loss Date</p>
          </div>
          <div className='col-span-4'>
-          <CustomDatePicker
-           name='CH_LOSS_DT'
-           placeholder='date'
-           disabled={values?.CH_CLAIM_BAS === 'Preclaim_No'}
-           value={values?.CH_LOSS_DT}
-           onChange={date => {
-            setFieldValue('CH_LOSS_DT', date);
-           }}
-          />
+          {tranId ? (
+           <div className='flex items-center justify-between min-h-8 key_value_form'>
+            <p className=''>{dayjs(values?.CH_LOSS_DT).format('YYYY-MM-DD')}</p>
+           </div>
+          ) : (
+           <CustomDatePicker
+            name='CH_LOSS_DT'
+            placeholder='date'
+            disabled={values?.CH_CLAIM_BAS === 'Preclaim_No'}
+            value={values?.CH_LOSS_DT}
+            onChange={date => {
+             setFieldValue('CH_LOSS_DT', date);
+            }}
+           />
+          )}
          </div>
         </div>
         <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
@@ -256,15 +357,23 @@ const ClaimSelect = () => {
           <p className='chip-label'>Intimation Date</p>
          </div>
          <div className='col-span-4'>
-          <CustomDatePicker
-           name='CH_INTIM_DT'
-           placeholder='date'
-           disabled={true}
-           value={values?.CH_INTIM_DT}
-           onChange={date => {
-            setFieldValue('CH_INTIM_DT', date);
-           }}
-          />
+          {tranId ? (
+           <div className='flex items-center justify-between min-h-8 key_value_form'>
+            <p className=''>
+             {dayjs(values?.CH_INTIM_DT).format('YYYY-MM-DD')}
+            </p>
+           </div>
+          ) : (
+           <CustomDatePicker
+            name='CH_INTIM_DT'
+            placeholder='date'
+            disabled={true}
+            value={values?.CH_INTIM_DT}
+            onChange={date => {
+             setFieldValue('CH_INTIM_DT', date);
+            }}
+           />
+          )}
          </div>
         </div>
         {/* {values?.CH_CLAIM_BAS !== 'Preclaim_No' && ( */}
@@ -273,24 +382,31 @@ const ClaimSelect = () => {
           <p className='chip-label'>Assured Code</p>
          </div>
          <div className='col-span-4'>
-          <CustomSelect
-           name={'assured_code'}
-           options={selectDropDown?.ASSURED_CODE}
-           placeholder='select'
-           value={values?.ASSURED_CODE || undefined}
-           onChange={e => {
-            setFieldValue('ASSURED_CODE', e);
-           }}
-          />
+          {tranId ? (
+           <div className='flex items-center justify-between min-h-8 key_value_form'>
+            <p className=''>{values?.ASSURED_CODE}</p>
+           </div>
+          ) : (
+           <CustomSelect
+            name={'assured_code'}
+            options={selectDropDown?.ASSURED_CODE}
+            placeholder='select'
+            value={values?.ASSURED_CODE || undefined}
+            onChange={e => {
+             setFieldValue('ASSURED_CODE', e);
+            }}
+           />
+          )}
          </div>
         </div>
         {/* )} */}
-
-        <div className='col-span-2 flex items-center justify-center'>
-         <button type='submit' className='ok_button w-1/12'>
-          OK
-         </button>
-        </div>
+        {!tranId && (
+         <div className='col-span-2 flex items-center justify-center'>
+          <button type='submit' className='ok_button w-1/12'>
+           OK
+          </button>
+         </div>
+        )}
        </div>
       </Form>
      );
