@@ -1,7 +1,10 @@
-import { Button, Checkbox } from 'antd';
 import React from 'react';
+import { Button, Checkbox } from 'antd';
+import useApiRequests from '../../../../../services/useApiRequests';
 
 const ClaimDeductionBreakUp = () => {
+ const deductionGet = useApiRequests('getPreClaimDate', 'POST');
+
  const renderHeader = () => (
   <>
    <div className='col-span-3'></div>
@@ -40,10 +43,10 @@ const ClaimDeductionBreakUp = () => {
      </div>
     </div>
 
-    <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
+    {/* <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
      <p>Total Deduction</p>
      <div className='total_value'> </div>
-    </div>
+    </div> */}
     <div className='mt-5 flex items-center justify-end deduction_buttons'>
      <Button>Cancel</Button>
      <Button>Save</Button>

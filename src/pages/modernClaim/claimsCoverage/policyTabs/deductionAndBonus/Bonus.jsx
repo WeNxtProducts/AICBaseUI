@@ -29,10 +29,10 @@ const Bonus = () => {
      {renderRows()}
     </div>
 
-    <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
+    {/* <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
      <p>Total Bonus</p>
      <div className='total_value'> </div>
-    </div>
+    </div> */}
    </div>
   </div>
  );

@@ -59,13 +59,12 @@ const MRVClaim = ({
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
    const params = editMRVId ? { editMRVId } : { CLM_TRAN_ID };
-   console.log('params : ', params);
    const response = await addOrUpdate(payload, '', params);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
-    // setEditMRVId(response?.data?.Id);
+    // setEditMRVId(response?.data?.Id ?? editMRVId);
     showNotification.SUCCESS(response?.status_msg);
    }
    setLoader(false);
@@ -96,11 +95,11 @@ const MRVClaim = ({
   }
  };
 
- useEffect(() => {
-  if (rowData?.length > 0) {
-   handleEdit(rowData[0]);
-  }
- }, [rowData]);
+ //  useEffect(() => {
+ //   if (rowData?.length > 0) {
+ //    handleEdit(rowData[0]);
+ //   }
+ //  }, [rowData]);
 
  useEffect(() => {
   if (CLM_TRAN_ID) {
@@ -119,7 +118,6 @@ const MRVClaim = ({
  };
 
  const handleEdit = async item => {
-  console.log('id : ', item);
   try {
    const response = await mrvGetById('', {
     screenCode,
