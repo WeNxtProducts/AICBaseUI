@@ -15,11 +15,17 @@ const ClaimDetails = () => {
   selectedPolDetails,
   freeze,
   setFreeze,
+  setClaimLevelTotal,
  } = useContext(ClaimContext);
- const { CLM_FRZ_YN, CLM_TRAN_ID } = selectedPolDetails;
+ const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } =
+  selectedPolDetails;
  const getPolClaimDetails = useApiRequests('getPreClaimDate', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const getClaimFreezeOnDetails = useApiRequests('getPreClaimDate', 'POST');
+ const claimLevelDetailUpdate = useApiRequests(
+  'claimLevelDetailsUpdate',
+  'POST',
+ );
  const [approveOrRejectModal, setApproveOrRejectModal] = useState(false);
 
  const handlePolClaimDetails = async () => {
@@ -31,7 +37,8 @@ const ClaimDetails = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    setSelectedPolDetails(response?.Data);
+    console.log('Main : ', response?.Data);
+    setSelectedPolDetails(response?.Data[0]);
     setFreeze(response?.Data?.CLM_FRZ_YN === 'Y');
    }
   } catch (err) {
@@ -50,6 +57,25 @@ const ClaimDetails = () => {
   setApproveOrRejectModal(false);
  };
 
+ const handleClaimLevelUpdateDetails = async () => {
+  const queryParams = {
+   tranId: CLM_TRAN_ID,
+   CLM_STATUS: '',
+   CLM_STATUS_CODE: '',
+   FreezeFlag: '',
+  };
+  try {
+   const response = await claimLevelDetailUpdate('', queryParams);
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    handlePolClaimDetails();
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
  const handleClaimFreezeOnDetails = async () => {
   const payload = { queryParams: { tranId: CLM_TRAN_ID } };
   try {
@@ -59,7 +85,9 @@ const ClaimDetails = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    handlePolClaimDetails();
+    setClaimLevelTotal(response?.Data);
+    // handlePolClaimDetails();
+    handleClaimLevelUpdateDetails();
    }
   } catch (err) {
    console.log('err : ', err);

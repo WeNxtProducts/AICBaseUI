@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ClaimContext } from '../../ModernClaim';
 
 const ClaimLevelTotal = () => {
+ const { claimLevelTotal } = useContext(ClaimContext);
+
  const renderFields = (fieldName, fieldValue) => (
   <div className='col-span-1 grid grid-cols-3 items-center'>
    <div className='col-span-1 label_small_font'>{fieldName}</div>
@@ -13,6 +16,7 @@ const ClaimLevelTotal = () => {
  return (
   <div className='claim_level_total'>
    <p className='mrv_header'>Claim Details</p>
+   {JSON.stringify(claimLevelTotal)}
    <div className='grid grid-cols-2 items-center gap-3 mt-2'>
     {renderFields('Gross Amount', '20,000')}
     {renderFields('Total Deduction', '20,000')}

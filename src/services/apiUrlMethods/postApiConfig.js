@@ -176,5 +176,9 @@ const POST_API_URL = {
   url: '/ltclaim/claimHdrDelete',
   baseURL: 'CLAIMURL',
  },
+ claimLevelDetailsUpdate: {
+  url: '/ltclaim/saveClaimFlagDetails',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

@@ -534,9 +534,9 @@ export const appOrRej = [
 ];
 
 export const claim_check = [
- { value: 'Preclaim_No', label: 'Preclaim No' },
- { value: 'National_Id', label: 'National ID' },
- { value: 'Policy_No', label: 'Policy No' },
+ { value: 'PR', label: 'Preclaim No' },
+ { value: 'ID', label: 'National ID' },
+ { value: 'PO', label: 'Policy No' },
 ];
 
 export const CoverageTableData = [
