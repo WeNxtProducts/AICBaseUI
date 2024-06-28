@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { CloudUploadOutlined, UploadOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined } from '@ant-design/icons';
 import FileUpload from '../../../../fileUpload/FileUpload';
-import {
- CustomSelect,
- CustomTextArea,
-} from '../../../../../components/commonExportsFields/CommonExportsFields';
+import { CustomSelect } from '../../../../../components/commonExportsFields/CommonExportsFields';
 import { Checkbox } from 'antd';
+import { checkListValue } from '../../../../../components/tableComponents/sampleData';
+import './DetailsTable.scss';
 
-const DetailsTable = ({
- tableColumn = {},
- tableData = [],
- handleSelect,
- handleUpload,
-}) => {
+const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
  const [expandedRows, setExpandedRows] = useState('');
- const dropdownOptions = [
-  { label: 'Yes', value: 'Yes' },
-  { label: 'No', value: 'No' },
-  { label: 'Waived', value: 'Waived' },
- ];
 
  const scrollToView = id => {
   const panel = document.querySelector(`[data-id='claim-row-expanded-${id}']`);
@@ -33,18 +22,18 @@ const DetailsTable = ({
   const newExpandedRows = isRowCurrentlyExpanded ? [] : [rowId];
   setExpandedRows(newExpandedRows);
   setTimeout(() => {
-   scrollToView(rowId);
+   //    scrollToView(rowId);
   }, 200);
  };
 
  const renderRow = (item, index) => {
-  const clickCallback = () => handleRowClick(item.key);
+  const clickCallback = () => handleRowClick(item.DTLS_TRAN_ID);
 
   const itemRows = [
-   <tr key={`row-data-${item?.key}`}>
-    {/* <td>{item?.Sr_No}</td> */}
-    <td>{item?.ListItem_Description}</td>
-    <td>
+   <tr key={`row-data-${item?.DTLS_TRAN_ID}`}>
+    <td>{item?.DTLS_SR_NO}</td>
+    <td>{item?.DTLS_TODO_LIST_ITEM}</td>
+    {/* <td>
      <div className='table_textarea'>
       <CustomTextArea
        value={item?.Remarks}
@@ -54,19 +43,19 @@ const DetailsTable = ({
        }}
       />
      </div>
-    </td>
-    <td>{item?.Mandatory}</td>
+    </td> */}
+    <td>{item?.DTLS_MANDATORY_YN}</td>
     <td>
      <div className='table_lov'>
       <CustomSelect
-       options={dropdownOptions}
+       options={checkListValue}
        placeholder={'select'}
        size='medium'
        showSearch={false}
-       value={item?.Received}
+       value={item?.DTLS_APPR_STS}
        onChange={e => {
         console.log('e : ', e);
-        handleSelect(index, 'Received', e);
+        handleSelect(index, 'DTLS_APPR_STS', e);
        }}
       />
      </div>
@@ -88,11 +77,12 @@ const DetailsTable = ({
    </tr>,
   ];
 
-  if (expandedRows.includes(item.key)) {
+  if (expandedRows.includes(item.DTLS_TRAN_ID)) {
    itemRows.push(
     <tr
-     data-id={`claim-row-expanded-${item.key}`}
-     key={`claim-row-expanded-${item.key}`}>
+     className='expanded_row'
+     data-id={`claim-row-expanded-${item.DTLS_TRAN_ID}`}
+     key={`claim-row-expanded-${item.DTLS_TRAN_ID}`}>
      <td colSpan='6' className='claim_row_expand'>
       <div className='Upload_documents_claim_checklist mb-3'>
        <FileUpload />
@@ -106,9 +96,9 @@ const DetailsTable = ({
 
  const renderColumns = () => (
   <tr>
-   {/* <th>Sr.No</th> */}
+   <th>Sr.No</th>
    <th>List item Description</th>
-   <th>Remarks</th>
+   {/* <th>Remarks</th> */}
    <th>Mandatory Y/N</th>
    <th>
     <div>
@@ -120,7 +110,7 @@ const DetailsTable = ({
  );
 
  return (
-  <div className='status_table rounded-lg'>
+  <div className='checklist_table rounded-lg'>
    <table className='status_main_table'>
     <thead>{renderColumns()}</thead>
     <tbody>{tableData?.map((item, index) => renderRow(item, index))}</tbody>

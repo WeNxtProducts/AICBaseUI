@@ -10,6 +10,7 @@ const CustomNumberField = ({
  name,
  firstFieldRef = null,
  disabled = false,
+ readOnly = false,
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -31,6 +32,7 @@ const CustomNumberField = ({
     type='number'
     className='custom-form-fields number-field'
     placeholder={placeholder}
+    readOnly={readOnly}
     value={value}
     onChange={onChange}
     disabled={disabled}

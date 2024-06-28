@@ -76,6 +76,9 @@ const GET_API_URL = {
   url: '/ltclaim/claimHdrGet',
   baseURL: 'CLAIMURL',
  },
+ claimListSearch: {
+  url: '/common/claimListSearch',
+ },
 };
 
 export default GET_API_URL;

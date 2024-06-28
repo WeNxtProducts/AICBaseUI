@@ -16,6 +16,7 @@ const ClaimDetails = () => {
   freeze,
   setFreeze,
   setClaimLevelTotal,
+  setTotalSummaryValues,
  } = useContext(ClaimContext);
  const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } =
   selectedPolDetails;
@@ -37,9 +38,11 @@ const ClaimDetails = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    console.log('Main : ', response?.Data);
     setSelectedPolDetails(response?.Data[0]);
-    setFreeze(response?.Data?.CLM_FRZ_YN === 'Y');
+    setFreeze(response?.Data[0]?.CLM_FRZ_YN === 'Y');
+    if (response?.Data[0]?.CLM_FRZ_YN === 'Y') {
+     handleClaimFreezeOnDetails(true, response?.Data[0]?.CLM_TRAN_ID);
+    }
    }
   } catch (err) {
    console.log('err : ', err);
@@ -48,21 +51,40 @@ const ClaimDetails = () => {
 
  useEffect(() => {
   if (selectedPolicy) {
-   setActiveTab(0);
+  //  setActiveTab(0);
    handlePolClaimDetails();
   }
  }, [selectedPolicy]);
 
+ const getTotalSummary = async () => {
+  try {
+   const response = await getPolClaimDetails(
+    { queryParams: { tranId } },
+    { queryId: 125 },
+   );
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    setTotalSummaryValues(response?.Data[0]);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
  const handleClose = () => {
   setApproveOrRejectModal(false);
+  if (CLM_STATUS === 'A') {
+   getTotalSummary();
+  }
  };
 
  const handleClaimLevelUpdateDetails = async () => {
   const queryParams = {
    tranId: CLM_TRAN_ID,
-   CLM_STATUS: '',
-   CLM_STATUS_CODE: '',
-   FreezeFlag: '',
+   CLM_STATUS: CLM_STATUS ?? '',
+   CLM_STATUS_CODE: CLM_STATUS_CODE ?? '',
+   FreezeFlag: CLM_FRZ_YN === 'N' ? 'Y' : 'N',
   };
   try {
    const response = await claimLevelDetailUpdate('', queryParams);
@@ -76,8 +98,8 @@ const ClaimDetails = () => {
   }
  };
 
- const handleClaimFreezeOnDetails = async () => {
-  const payload = { queryParams: { tranId: CLM_TRAN_ID } };
+ const handleClaimFreezeOnDetails = async (status, claim_Id) => {
+  const payload = { queryParams: { tranId: claim_Id } };
   try {
    const response = await getClaimFreezeOnDetails(payload, {
     queryId: 126,
@@ -85,9 +107,10 @@ const ClaimDetails = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    setClaimLevelTotal(response?.Data);
-    // handlePolClaimDetails();
-    handleClaimLevelUpdateDetails();
+    setClaimLevelTotal(response?.Data[0]);
+    if (!status) {
+     handleClaimLevelUpdateDetails();
+    }
    }
   } catch (err) {
    console.log('err : ', err);
@@ -108,8 +131,7 @@ const ClaimDetails = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    console.log('CLM_TRAN_ID');
-    handleClaimFreezeOnDetails();
+    handleClaimFreezeOnDetails(false, CLM_TRAN_ID);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -142,18 +164,6 @@ const ClaimDetails = () => {
      </Button>
     </div>
 
-    {/* <div className='flex items-center'>
-     <div className='check_box_label_select'>Reason to reject</div>
-     <Select className='reason_select_box' placeholder='Reason'>
-      {notification_options?.map(item => (
-       <Select.Option key={item.value} value={item.value}>
-        {`${item?.value}${
-         item?.value !== item?.label ? ` - ${item?.label}` : ''
-        }`}
-       </Select.Option>
-      ))}
-     </Select>
-    </div> */}
     <div className='print_Setup'>
      <span className='printer_font'>Print</span>
      <PrinterOutlined className='printer_icon' />
@@ -163,7 +173,11 @@ const ClaimDetails = () => {
     <ApproveOrRejectModal
      open={approveOrRejectModal}
      handleClose={handleClose}
-     CLM_TRAN_ID={CLM_TRAN_ID}
+     selectedPolDetails={selectedPolDetails}
+     setSelectedPolDetails={setSelectedPolDetails}
+     setFreeze={setFreeze}
+     selectedPolicy={selectedPolicy}
+     tranId={tranId}
     />
    )}
   </div>

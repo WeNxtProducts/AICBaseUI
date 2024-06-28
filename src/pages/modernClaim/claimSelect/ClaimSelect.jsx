@@ -14,7 +14,10 @@ import { Form, Formik } from 'formik';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { ClaimContext } from '../ModernClaim';
-import { setCurrentID } from '../../../globalStore/slices/IdSlices';
+import {
+ setCurrentID,
+ setFormValues,
+} from '../../../globalStore/slices/IdSlices';
 import { debounce } from 'lodash';
 import dayjs from 'dayjs';
 
@@ -44,18 +47,18 @@ const ClaimSelect = () => {
   CH_REF_NO: '',
   CH_LOSS_DT: '',
   CH_INTIM_DT: '',
-  ASSURED_CODE: '',
+  CH_ASSR_CODE: '',
  });
  const [selectDropDown, setSelectDropDown] = useState({
   CH_CLAIM_BAS_VAL: [],
-  ASSURED_CODE: [],
+  CH_ASSR_CODE: [],
  });
 
  const handleGetClaim = async () => {
   try {
    const response = await getClaimDetails('', { tranId });
-   console.log('response : ', response);
    setInitialValues(response?.Data);
+   dispatch(setFormValues(response?.Data));
    handleGetPolicyList(response?.Data?.CH_TRAN_ID);
    //  handleGetPolicyList(55);
   } catch (err) {
@@ -66,7 +69,6 @@ const ClaimSelect = () => {
  useEffect(() => {
   if (tranId) {
    handleGetClaim();
-   console.log('tranId :  ', tranId);
   }
  }, []);
 
@@ -110,7 +112,7 @@ const ClaimSelect = () => {
    CH_CLAIM_BAS,
    CH_CLAIM_BAS_VAL,
    CH_LOSS_DT,
-   ASSURED_CODE,
+   CH_ASSR_CODE,
   } = values;
   const payload = {
    inParams: {
@@ -118,7 +120,7 @@ const ClaimSelect = () => {
     P_CLAIM_BAS: CH_CLAIM_BAS,
     P_CLAIM_BAS_VAL: CH_CLAIM_BAS_VAL,
     P_LOSS_DT: CH_LOSS_DT,
-    P_ASSR_CODE: ASSURED_CODE,
+    P_ASSR_CODE: CH_ASSR_CODE,
    },
   };
   try {
@@ -146,7 +148,7 @@ const ClaimSelect = () => {
     queryId: CH_CLAIM_BAS === 'ID' ? 88 : 89,
     ...(CH_CLAIM_BAS && { [CH_CLAIM_BAS]: CH_CLAIM_BAS_VAL }),
    };
-   handleGetSelectValue(queryParams, 'ASSURED_CODE', setFieldValue);
+   handleGetSelectValue(queryParams, 'CH_ASSR_CODE', setFieldValue);
   }
  };
 
@@ -157,10 +159,10 @@ const ClaimSelect = () => {
     { queryId: 87 },
    );
    if (response?.status === 'SUCCESS') {
-    const { CH_INTIM_DT, CH_LOSS_DT, ASSURED_CODE } = response.Data[0];
+    const { CH_INTIM_DT, CH_LOSS_DT, CH_ASSR_CODE } = response.Data[0];
     setFieldValue('CH_INTIM_DT', CH_INTIM_DT);
     setFieldValue('CH_LOSS_DT', CH_LOSS_DT);
-    setFieldValue('ASSURED_CODE', ASSURED_CODE);
+    setFieldValue('CH_ASSR_CODE', CH_ASSR_CODE);
    }
   } catch (err) {
    console.error('err : ', err);
@@ -172,11 +174,11 @@ const ClaimSelect = () => {
    const response = await getParamLov({}, queryParams);
    if (response?.status === 'SUCCESS') {
     const list =
-     key === 'ASSURED_CODE'
-      ? response?.Data['ASSURED_CODE']
+     key === 'CH_ASSR_CODE'
+      ? response?.Data['CH_ASSR_CODE']
       : response?.Data[formRef?.current?.values?.CH_CLAIM_BAS];
     if (setFieldValue && list?.length === 1) {
-     setFieldValue('ASSURED_CODE', list[0]?.value);
+     setFieldValue('CH_ASSR_CODE', list[0]?.value);
     }
     setSelectDropDown(pre => ({
      ...pre,
@@ -216,7 +218,8 @@ const ClaimSelect = () => {
        C/008/8987 <span className='status_notify pending'>Not Submitted</span>
       </p> */}
       <p className='ref_no_val'>
-       C/008/8987 <span className='status_notify approved'>Submitted</span>
+       {initialValues?.CH_REF_NO}{' '}
+       <span className='status_notify approved'>Submitted</span>
       </p>
      </div>
     </div>
@@ -259,7 +262,7 @@ const ClaimSelect = () => {
            onSelectionChange={val => {
             if (!tranId) {
              setFieldValue('CH_CLAIM_BAS_VAL', '');
-             setFieldValue('ASSURED_CODE', '');
+             setFieldValue('CH_ASSR_CODE', '');
              setFieldName(val?.label);
              setFieldValue('CH_CLAIM_BAS', val?.value);
              setFieldValue('CH_LOSS_DT', '');
@@ -269,7 +272,7 @@ const ClaimSelect = () => {
              );
              setSelectDropDown({
               CH_CLAIM_BAS_VAL: [],
-              ASSURED_CODE: [],
+              CH_ASSR_CODE: [],
              });
             }
            }}
@@ -381,16 +384,16 @@ const ClaimSelect = () => {
          <div className='col-span-4'>
           {tranId ? (
            <div className='flex items-center justify-between min-h-8 key_value_form'>
-            <p className=''>{values?.ASSURED_CODE}</p>
+            <p className=''>{values?.CH_ASSR_CODE}</p>
            </div>
           ) : (
            <CustomSelect
-            name={'assured_code'}
-            options={selectDropDown?.ASSURED_CODE}
+            name={'CH_ASSR_CODE'}
+            options={selectDropDown?.CH_ASSR_CODE}
             placeholder='select'
-            value={values?.ASSURED_CODE || undefined}
+            value={values?.CH_ASSR_CODE || undefined}
             onChange={e => {
-             setFieldValue('ASSURED_CODE', e);
+             setFieldValue('CH_ASSR_CODE', e);
             }}
            />
           )}

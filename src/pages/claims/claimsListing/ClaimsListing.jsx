@@ -12,6 +12,7 @@ import {
 } from '../../../globalStore/slices/IdSlices';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 import showNotification from '../../../components/notification/Notification';
+import { debounce } from 'lodash';
 
 const ClaimListing = () => {
  const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const ClaimListing = () => {
   state => state?.tokenAndMenuList?.currentMenuId,
  );
  const deleteClaim = useApiRequests('modernClaimDelete', 'POST');
+ const claimSearch = useApiRequests('claimListSearch', 'GET');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
  const [loader, setLoader] = useState(false);
@@ -29,11 +31,8 @@ const ClaimListing = () => {
  const [count, setCount] = useState(10);
  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
  const [deleteId, setDeleteId] = useState(null);
+ const [search, setSearch] = useState('');
  const limit = 20;
-
- const handleInputChange = value => {
-  console.log('Input value:', value);
- };
 
  const handleNavigate = () => {
   dispatch(setFormValues(null));
@@ -111,6 +110,30 @@ const ClaimListing = () => {
   handleListingApi(calculateOffset(page) + 1);
  };
 
+ const handleUsesearch = async (searchText, offset, page) => {
+  setLoader(true);
+  try {
+   const response = await claimSearch('', {
+    searchText,
+    limit,
+    offset,
+    queryId: currentMenuId?.listingQueryId,
+   });
+   setCurrent(page);
+   setCount(response?.count);
+   setRowData(response?.Data);
+   setLoader(false);
+  } catch (err) {
+   console.log('err  : ', err);
+  }
+ };
+
+ const onSearch = debounce(searchTerm => {
+  setSearch(searchTerm);
+  if (searchTerm?.length > 1) handleUsesearch(searchTerm, 1, 1);
+  else if (searchTerm?.length === 0) handleListingApi(0, 1);
+ }, 100);
+
  return (
   <div className='common-listing-screen mt-2'>
    {loader && <Loader />}
@@ -120,7 +143,8 @@ const ClaimListing = () => {
      <div className='search-bar mt-2'>
       <TextInputWithSearchIcon
        placeholder='Search'
-       onChange={handleInputChange}
+       value={search}
+       onChange={value => onSearch(value)}
       />
      </div>
     </div>

@@ -8,7 +8,8 @@
   { "queryName": "ClaimRIDetailList", "queryId": "118" },
   { "queryName": "ClaimChargeDetailsList", "queryId": "112" },
   { "queryName": "ClaimCoverDetailsList", "queryId": "120" },
-  { "queryName": "getBonusDetailsList", "queryId": "122" }
+  { "queryName": "getBonusDetailsList", "queryId": "122" },
+  { "queryName": "ClaimCheckList", "queryId": "128" }
  ],
  "ClaimCharges": {
   "Label": "ClaimCharges",

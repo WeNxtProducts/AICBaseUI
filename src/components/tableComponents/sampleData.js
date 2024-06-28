@@ -539,6 +539,12 @@ export const claim_check = [
  { value: 'PO', label: 'Policy No' },
 ];
 
+export const checkListValue = [
+ { label: 'Yes', value: 'Y' },
+ { label: 'No', value: 'N' },
+ { label: 'Waived', value: 'W' },
+];
+
 export const CoverageTableData = [
  {
   key: 1,

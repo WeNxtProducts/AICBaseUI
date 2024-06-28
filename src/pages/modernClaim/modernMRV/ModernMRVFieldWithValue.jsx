@@ -34,6 +34,7 @@ const ModernMRVFieldWithValue = ({
  lovData = [],
  handleOnBlur,
  smallFont = false,
+ freeze = false,
 }) => {
  const {
   PFD_FLD_NAME,
@@ -78,6 +79,7 @@ const ModernMRVFieldWithValue = ({
          placeholder={PFD_HINT}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
+         readOnly={freeze}
          onBlur={() => onBlurHandler(currentData, values)}
          onChange={e => {
           handleChangeValue(
@@ -103,6 +105,7 @@ const ModernMRVFieldWithValue = ({
          size='medium'
          onBlur={() => onBlurHandler(currentData, values)}
          disabled={!PFD_EDIT_YN}
+         readOnly={freeze}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
          value={value?.PFD_FLD_VALUE || undefined}
          onChange={e => {
@@ -125,6 +128,7 @@ const ModernMRVFieldWithValue = ({
          placeholder={PFD_HINT}
          size='medium'
          value={value?.PFD_FLD_VALUE}
+         readOnly={freeze}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
           handleChangeValue(

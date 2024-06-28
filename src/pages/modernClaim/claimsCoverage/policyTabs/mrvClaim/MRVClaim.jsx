@@ -41,6 +41,7 @@ const MRVClaim = ({
   setDropDown,
   dropDown,
   selectedPolDetails,
+  selectedPolicy,
   freeze,
  } = useContext(ClaimContext);
  const { CLM_TRAN_ID } = selectedPolDetails;
@@ -78,7 +79,6 @@ const MRVClaim = ({
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
-  console.log('payload : ', payload);
   addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
  };
 
@@ -108,6 +108,20 @@ const MRVClaim = ({
    MRVListing();
   }
  }, [CLM_TRAN_ID]);
+
+ useEffect(() => {
+  if (title === 'Claim Cover' && formValues !== null) {
+   if (!Object.prototype.hasOwnProperty.call(dropDown, 'CE_COVER_CODE')) {
+    const PFD_PARAM_2 = ['CE_COVER_CODE'];
+    const valueKey = {
+     PEMP_ID: formValues?.CH_ASSR_CODE,
+     POL_NO: selectedPolicy,
+    };
+    const valueQueryId = { CE_COVER_CODE: 127 };
+    apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
+   }
+  }
+ }, []);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);
@@ -222,6 +236,7 @@ const MRVClaim = ({
        smallFont={true}
        title={title}
        action={action}
+       freeze={freeze}
       />
      )}
     </div>
@@ -238,6 +253,7 @@ const MRVClaim = ({
        isView={isView}
        isEdit={isEdit}
        isDelete={isDelete}
+       freeze={freeze}
       />
      )}
     </div>

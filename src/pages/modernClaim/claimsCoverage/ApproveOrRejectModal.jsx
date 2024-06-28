@@ -8,12 +8,30 @@ const MessageTitle = () => (
  <p className='modal_msg_delete select-none'>Approve/Reject</p>
 );
 
-const ApproveOrRejectModal = ({ open, handleClose, CLM_TRAN_ID }) => {
+const ApproveOrRejectModal = ({
+ open,
+ handleClose,
+ selectedPolDetails,
+ setSelectedPolDetails,
+ setFreeze,
+ selectedPolicy,
+ tranId,
+}) => {
+ const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } =
+  selectedPolDetails;
  const getLovList = useApiRequests('getLovList', 'GET');
  const getParamLov = useApiRequests('getParamLov', 'GET');
- const processApproveOrReject = useApiRequests('getParamLov', 'POST');
+ const getPolClaimDetails = useApiRequests('getPreClaimDate', 'POST');
+ const processApproveOrReject = useApiRequests(
+  'claimLevelDetailsUpdate',
+  'POST',
+ );
+ const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [Open, setOpen] = useState(false);
- const [values, setValues] = useState({ CLM_STATUS: '', CLM_STATUS_CODE: '' });
+ const [values, setValues] = useState({
+  CLM_STATUS: CLM_STATUS ?? '',
+  CLM_STATUS_CODE: CLM_STATUS_CODE ?? '',
+ });
  const [reasonDropDown, setReasonDropDown] = useState({
   decision: [],
   reason: [],
@@ -53,21 +71,67 @@ const ApproveOrRejectModal = ({ open, handleClose, CLM_TRAN_ID }) => {
   }));
  };
 
- const submit = async () => {
-  const queryParam = {
-   tranId: CLM_TRAN_ID,
-   ...values,
-   FreezeFlag: 'Y',
-  };
+ const handlePolClaimDetails = async () => {
   try {
-   const response = await processApproveOrReject({}, queryParam);
+   const response = await getPolClaimDetails(
+    { queryParams: { tranId, CLM_POL_NO: selectedPolicy } },
+    { queryId: 119 },
+   );
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    console.log('res');
+    setSelectedPolDetails(response?.Data[0]);
+    setFreeze(response?.Data[0]?.CLM_FRZ_YN === 'Y');
+    handleClose();
    }
   } catch (err) {
    console.log('err : ', err);
+  }
+ };
+
+ const onSave = async () => {
+  const queryParams = {
+   tranId: CLM_TRAN_ID,
+   CLM_STATUS: values?.CLM_STATUS,
+   CLM_STATUS_CODE: values?.CLM_STATUS, // CLM_STATUS_CODE
+   FreezeFlag: CLM_FRZ_YN,
+  };
+  try {
+   const response = await processApproveOrReject('', queryParams);
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    handlePolClaimDetails();
+    showNotification.SUCCESS(response?.status_msg);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+ const callProcedure = async () => {
+  const payload = {
+   inParams: { P_CLM_TRAN_ID: CLM_TRAN_ID, P_CH_TRAN_ID: tranId },
+  };
+  try {
+   const response = await invokeClaimsProcedure(payload, {
+    procedureName: 'P_CLM_APPRV_PRCSS',
+    packageName: 'WNPKG_CLAIM',
+   });
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    onSave();
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
+ const submit = async () => {
+  if (values?.CLM_STATUS === 'A') {
+   callProcedure();
+  } else {
+   onSave();
   }
  };
 

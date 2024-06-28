@@ -19,6 +19,7 @@ const ModernClaim = () => {
  const [selectedPolDetails, setSelectedPolDetails] = useState({});
  const [freeze, setFreeze] = useState(false);
  const [claimLevelTotal, setClaimLevelTotal] = useState(null);
+ const [totalSummaryValues, setTotalSummaryValues] = useState(null);
 
  const data = {
   ClaimsJson,
@@ -39,6 +40,8 @@ const ModernClaim = () => {
   setFreeze,
   claimLevelTotal,
   setClaimLevelTotal,
+  totalSummaryValues,
+  setTotalSummaryValues,
  };
 
  return (

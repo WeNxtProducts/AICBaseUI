@@ -12,6 +12,8 @@ const MRVListingScreen = ({
  isView = true,
  isEdit = true,
  isDelete = true,
+ freeze = false,
+ highlightKey = 'ID',
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
  return (
@@ -20,10 +22,15 @@ const MRVListingScreen = ({
     <div
      key={item?.value}
      className={
-      selectedRow == item?.ID ? 'list_card_highlighted_row' : 'list_card'
+      selectedRow == item?.[highlightKey]
+       ? 'list_card_highlighted_row'
+       : 'list_card'
      }>
-     <div className={`flex item-center justify-${action ? 'between' : 'end'}`}>
-      {action && (
+     <div
+      className={`flex item-center justify-${
+       action && !freeze ? 'between' : 'end'
+      }`}>
+      {action && !freeze && (
        <div>
         <Checkbox
          checked={item?.isSelected === 'Y'}
@@ -37,12 +44,12 @@ const MRVListingScreen = ({
          <EyeOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
         </Tooltip>
        )}
-       {isEdit && (
+       {isEdit && !freeze && (
         <Tooltip title='Edit'>
          <EditOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
         </Tooltip>
        )}
-       {isDelete && (
+       {isDelete && !freeze && (
         <Tooltip title='Delete'>
          <DeleteOutlined
           onClick={() => handleDelete(item)}

@@ -19,6 +19,7 @@ const ModernMRV = ({
  handleOnBlur,
  smallFont = false,
  title = '',
+ freeze = false,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -47,7 +48,7 @@ const ModernMRV = ({
        <Form onSubmit={handleSubmit}>
         <div className='mb-4 flex items-center justify-between'>
          <p className='mrv_header'>{title}</p>
-         {action && (
+         {action && !freeze && (
           <Button
            className='add-buttons me-5'
            type='primary'
@@ -92,6 +93,7 @@ const ModernMRV = ({
                 handleChangeValue={handleChangeValue}
                 parent={root}
                 smallFont={smallFont}
+                freeze={freeze}
                />
               </div>
              )}
@@ -113,9 +115,11 @@ const ModernMRV = ({
             Reset
            </button>
           )} */}
-          <button type='submit' className='save ml-9'>
-           {addOrUpdate ? 'Update' : 'Submit'}
-          </button>
+          {!freeze && (
+           <button disabled={freeze} type='submit' className='save ml-9'>
+            {addOrUpdate ? 'Update' : 'Submit'}
+           </button>
+          )}
          </div>
         )}
        </Form>
