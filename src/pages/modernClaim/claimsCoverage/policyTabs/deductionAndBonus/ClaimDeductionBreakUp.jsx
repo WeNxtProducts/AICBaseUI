@@ -20,7 +20,7 @@ const ClaimDeductionBreakUp = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    setCalculatedValue(response?.Data);
+    setCalculatedValue(response?.Data[0]);
    }
   } catch (err) {
    console.log('err : ', err);

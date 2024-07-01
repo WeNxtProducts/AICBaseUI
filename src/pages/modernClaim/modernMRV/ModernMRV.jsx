@@ -48,17 +48,21 @@ const ModernMRV = ({
        <Form onSubmit={handleSubmit}>
         <div className='mb-4 flex items-center justify-between'>
          <p className='mrv_header'>{title}</p>
-         {action && !freeze && (
-          <Button
-           className='add-buttons me-5'
-           type='primary'
-           onClick={() => {
-            if (addOrUpdate) formReset();
-            else resetForm();
-           }}
-           icon={<i className='bi bi-plus icon-style' />}>
-           Add New
-          </Button>
+         {addOrUpdate && (
+          <>
+           {action && !freeze && (
+            <Button
+             className='add-buttons me-5'
+             type='primary'
+             onClick={() => {
+              if (addOrUpdate) formReset();
+              else resetForm();
+             }}
+             icon={<i className='bi bi-plus icon-style' />}>
+             Add New
+            </Button>
+           )}
+          </>
          )}
         </div>
 

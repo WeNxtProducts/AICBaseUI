@@ -118,6 +118,13 @@
     background-color: #6c778b;
    }
   }
+  .partial {
+   background-color: #fffbe6;
+   color: #ffc53d;
+   &::before {
+    background-color: #ffc53d;
+   }
+  }
  }
 
  .key_value_form {

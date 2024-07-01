@@ -51,7 +51,7 @@ const ClaimDetails = () => {
 
  useEffect(() => {
   if (selectedPolicy) {
-  //  setActiveTab(0);
+   //  setActiveTab(0);
    handlePolClaimDetails();
   }
  }, [selectedPolicy]);
@@ -79,7 +79,7 @@ const ClaimDetails = () => {
   }
  };
 
- const handleClaimLevelUpdateDetails = async () => {
+ const handleClaimLevelUpdateDetails = async status => {
   const queryParams = {
    tranId: CLM_TRAN_ID,
    CLM_STATUS: CLM_STATUS ?? '',
@@ -91,7 +91,7 @@ const ClaimDetails = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    handlePolClaimDetails();
+    handleFreeze(status);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -108,9 +108,7 @@ const ClaimDetails = () => {
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setClaimLevelTotal(response?.Data[0]);
-    if (!status) {
-     handleClaimLevelUpdateDetails();
-    }
+    if (!status) handlePolClaimDetails();
    }
   } catch (err) {
    console.log('err : ', err);
@@ -150,7 +148,7 @@ const ClaimDetails = () => {
      <div>
       <Checkbox
        checked={freeze}
-       onChange={e => handleFreeze(e.target.checked)}
+       onChange={e => handleClaimLevelUpdateDetails(e.target.checked)}
       />
      </div>
     </div>

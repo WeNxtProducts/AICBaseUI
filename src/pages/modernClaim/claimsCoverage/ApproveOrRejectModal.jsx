@@ -37,6 +37,15 @@ const ApproveOrRejectModal = ({
   reason: [],
  });
 
+ const filteredData = (data, flag) => {
+  return data.filter(item => {
+   if (flag === 'A' || flag === 'R') {
+    return item.value !== 'A' && item.value !== 'R';
+   }
+   return true;
+  });
+ };
+
  const handleGetLovList = async (queryParams, key, apiCalls) => {
   try {
    const response = await apiCalls({}, queryParams);
@@ -45,7 +54,10 @@ const ApproveOrRejectModal = ({
    if (response?.status === 'SUCCESS') {
     setReasonDropDown(pre => ({
      ...pre,
-     [key]: key === 'reason' ? response?.Data?.getReasonList : response?.Data,
+     [key]:
+      key === 'reason'
+       ? response?.Data?.getReasonList
+       : filteredData(response?.Data, CLM_STATUS ?? ''),
     }));
    }
   } catch (err) {
@@ -101,7 +113,8 @@ const ApproveOrRejectModal = ({
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    handlePolClaimDetails();
+    if (values?.CLM_STATUS === 'A') callProcedure();
+    else if (values?.CLM_STATUS !== 'A') handlePolClaimDetails();
     showNotification.SUCCESS(response?.status_msg);
    }
   } catch (err) {
@@ -120,7 +133,8 @@ const ApproveOrRejectModal = ({
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    onSave();
+    handlePolClaimDetails();
+    // onSave();
    }
   } catch (err) {
    console.log('err : ', err);
@@ -128,11 +142,12 @@ const ApproveOrRejectModal = ({
  };
 
  const submit = async () => {
-  if (values?.CLM_STATUS === 'A') {
-   callProcedure();
-  } else {
-   onSave();
-  }
+  onSave();
+  //   if (values?.CLM_STATUS === 'A') {
+  //    callProcedure();
+  //   } else {
+  //    onSave();
+  //   }
  };
 
  return (

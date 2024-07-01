@@ -53,6 +53,13 @@ const ClaimSelect = () => {
   CH_CLAIM_BAS_VAL: [],
   CH_ASSR_CODE: [],
  });
+ const statusMap = {
+  S: { class: 'approved', text: 'Submitted' },
+  P: { class: 'partial', text: 'Partially Submitted' },
+  N: { class: 'pending', text: 'Not Submitted' },
+ };
+ const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
+  statusMap[initialValues?.CH_STATUS] || {};
 
  const handleGetClaim = async () => {
   try {
@@ -95,9 +102,12 @@ const ClaimSelect = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    // handleGetPolicyList(response?.Data?.Id);
+    setInitialValues(pre => ({
+     ...formRef.current.values,
+     CH_REF_NO: response?.Data?.CH_REF_NO,
+    }));
     handleGetPolicyList(response?.Data?.Id);
-    // response?.Data?.Id
+    dispatch(setFormValues(values));
     if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
     showNotification.SUCCESS(response?.status_msg);
    }
@@ -210,18 +220,19 @@ const ClaimSelect = () => {
      </div>
     </div>
     <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-     <div className='col-span-2'>
-      <p className='ref_no'>Reference No</p>
-     </div>
-     <div className='col-span-4'>
-      {/* <p className='ref_no_val'>
-       C/008/8987 <span className='status_notify pending'>Not Submitted</span>
-      </p> */}
-      <p className='ref_no_val'>
-       {initialValues?.CH_REF_NO}{' '}
-       <span className='status_notify approved'>Submitted</span>
-      </p>
-     </div>
+     {initialValues?.CH_REF_NO && (
+      <>
+       <div className='col-span-2'>
+        <p className='ref_no'>Reference No</p>
+       </div>
+       <div className='col-span-4'>
+        <p className='ref_no_val'>
+         {initialValues?.CH_REF_NO}{' '}
+         <span className={`status_notify ${statusClass}`}>{statusText}</span>
+        </p>
+       </div>
+      </>
+     )}
     </div>
    </div>
 

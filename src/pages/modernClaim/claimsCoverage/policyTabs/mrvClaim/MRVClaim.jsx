@@ -96,11 +96,11 @@ const MRVClaim = ({
   }
  };
 
- //  useEffect(() => {
- //   if (rowData?.length > 0) {
- //    handleEdit(rowData[0]);
- //   }
- //  }, [rowData]);
+ useEffect(() => {
+  if (rowData?.length > 0 && !editMRVId) {
+   handleEdit(rowData[0]);
+  }
+ }, [rowData]);
 
  useEffect(() => {
   if (CLM_TRAN_ID) {
@@ -121,7 +121,7 @@ const MRVClaim = ({
     apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
    }
   }
- }, []);
+ }, [formValues]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);

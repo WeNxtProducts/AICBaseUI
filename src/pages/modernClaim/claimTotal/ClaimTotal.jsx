@@ -26,24 +26,30 @@ const ClaimTotal = () => {
   }
  }, [tranId]);
 
- const handleTotalClaimProcess = async () => {
+ const handleTotalClaimProcess = async key => {
   const payload = {
    inParams: { P_CH_TRAN_ID: tranId },
   };
   try {
    const response = await invokeClaimsProcedure(payload, {
-    procedureName: 'P_POPULATE_SETTLE_DATA',
+    procedureName: key,
     packageName: 'WNPKG_CLAIM',
    });
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    console.log('total Summary');
-    showNotification.SUCCESS(response?.status_msg);
+    key === 'P_POPULATE_SETTLE_DATA' &&
+     showNotification.SUCCESS(response?.status_msg);
+    if (key !== 'P_POPULATE_SETTLE_DATA')
+     handleTotalClaimProcess('P_POPULATE_SETTLE_DATA');
    }
   } catch (err) {
    console.log('err : ', err);
   }
+ };
+
+ const inVokeProcedure = () => {
+  handleTotalClaimProcess('P_VAL_BEF_SETTLE');
  };
 
  const getTotalSummary = async () => {
@@ -97,7 +103,7 @@ const ClaimTotal = () => {
       {renderPairs('Excess Amount', claimValues?.CH_TOT_LC_BON ?? 0)}
      </div>
      <div className='flex justify-center mt-10'>
-      <Button onClick={() => handleTotalClaimProcess()} className='pro_btn'>
+      <Button onClick={() => inVokeProcedure()} className='pro_btn'>
        Process
       </Button>
      </div>

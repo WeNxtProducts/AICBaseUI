@@ -5,6 +5,7 @@ import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() =>
  import('../pages/autoDispatchSetUp/AutoDispatchSetUp'),
 );
@@ -82,6 +83,15 @@ const AppRouter = () => {
      element={
       <Suspense fallback={<div>Loading...</div>}>
        <ResetPassword />
+      </Suspense>
+     }
+    />
+
+    <Route
+     path='/reports'
+     element={
+      <Suspense fallback={<div>Report...</div>}>
+       <ReportList />
       </Suspense>
      }
     />
