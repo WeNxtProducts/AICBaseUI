@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ClaimContext } from '../../ModernClaim';
+import { formatNumber } from '../../../../components/commonHelper/CurrentFormatter';
 
 const ClaimLevelTotal = () => {
  const { claimLevelTotal = {} } = useContext(ClaimContext);
@@ -15,7 +16,7 @@ const ClaimLevelTotal = () => {
   <div className='col-span-1 grid grid-cols-3 items-center'>
    <div className='col-span-1 label_small_font'>{fieldName}</div>
    <div className='col-span-2 amount_field_curr'>
-    <p>{fieldValue}</p>
+    <p>{formatNumber(fieldValue)}</p>
    </div>
   </div>
  );

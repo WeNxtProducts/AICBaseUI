@@ -66,9 +66,15 @@ const ClaimSelect = () => {
   setLoader(true);
   try {
    const response = await getClaimDetails('', { tranId: id });
-   setInitialValues(response?.Data);
-   dispatch(setFormValues(response?.Data));
-   handleGetPolicyList(response?.Data?.CH_TRAN_ID);
+   if (response?.status === 'FAILURE') {
+    setLoader(false);
+    showNotification.ERROR(response?.status_msg);
+   }
+   if (response?.status === 'SUCCESS') {
+    setInitialValues(response?.Data);
+    dispatch(setFormValues(response?.Data));
+    handleGetPolicyList(response?.Data?.CH_TRAN_ID);
+   }
   } catch (err) {
    setLoader(false);
   }
@@ -86,8 +92,10 @@ const ClaimSelect = () => {
     { queryParams: { tranId } },
     { queryId: 117 },
    );
-   if (response?.status === 'FAILURE')
+   if (response?.status === 'FAILURE') {
+    setLoader(false);
     showNotification.ERROR(response?.status_msg);
+   }
    if (response?.status === 'SUCCESS') {
     setLoader(false);
     setPolicyList(response?.Data);
@@ -142,8 +150,10 @@ const ClaimSelect = () => {
    const response = await invokeClaimsProcedure(payload, {
     procedureName: 'P_VAL_ELIGIBLE_POL',
    });
-   if (response?.status === 'FAILURE')
+   if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
+    setLoader(false);
+   }
    if (response?.status === 'SUCCESS') {
     claimSave(values);
    }

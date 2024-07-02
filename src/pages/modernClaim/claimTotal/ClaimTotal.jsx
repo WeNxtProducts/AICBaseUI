@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { ClaimContext } from '../ModernClaim';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
+import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 
 const ClaimTotal = () => {
  const {
@@ -75,7 +76,7 @@ const ClaimTotal = () => {
    </div>
    <div className='col-span-2'>
     <div className='flex items-center justify-between min-h-8 amount_field_curr'>
-     <p>{val}</p>
+     <p>{formatNumber(val)}</p>
     </div>
    </div>
   </div>
@@ -102,11 +103,11 @@ const ClaimTotal = () => {
       )}
       {renderPairs('Excess Amount', claimValues?.CH_TOT_LC_BON ?? 0)}
      </div>
-     <div className='flex justify-center mt-10'>
+     {/* <div className='flex justify-center mt-10'>
       <Button onClick={() => inVokeProcedure()} className='pro_btn'>
        Process
       </Button>
-     </div>
+     </div> */}
     </>
    )}
   </div>

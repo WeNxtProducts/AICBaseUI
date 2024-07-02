@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Formik, Form } from 'formik';
 import ModernMRVFieldWithValue from './ModernMRVFieldWithValue';
 import { createYupSchema } from '../../../components/commonHelper/SchemaGenerator';
@@ -20,12 +20,21 @@ const ModernMRV = ({
  smallFont = false,
  title = '',
  freeze = false,
+ formInit = false,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
  const [loader, setLoader] = useState(false);
+ const formikRef = useRef(null);
 
  useEffect(() => {
+  if (formikRef.current) {
+   formikRef.current.resetForm();
+  }
+ }, [formInit]);
+
+ useEffect(() => {
+  console.log('uuuuu');
   const validationSchema = createYupSchema({
    [root]: formRender[root],
   });
@@ -39,9 +48,10 @@ const ModernMRV = ({
     <Formik
      initialValues={initValues}
      values={initValues}
-     //validationSchema={validation}
+     validationSchema={validation}
      onSubmit={onSubmit}
-     enableReinitialize={true}>
+     enableReinitialize={true}
+     innerRef={formikRef}>
      {({ handleSubmit, values, setFieldValue, resetForm }) => {
       //   console.log('values : ', values);
       return (
@@ -67,19 +77,6 @@ const ModernMRV = ({
         </div>
 
         <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
-         {title === 'Claim Covers' && (
-          <>
-           <div className='col-span-1 grid grid-cols-3 items-center mb-2'>
-            <div className='col-span-1'>
-             <p className={`label_small_font select-none`}>Cover Code</p>
-            </div>
-            <div className='col-span-2 pe-3'>
-             <p className='cover_code_number'>A34R45T565R</p>
-            </div>
-           </div>
-           <div className='col-span-1' />
-          </>
-         )}
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
@@ -108,17 +105,6 @@ const ModernMRV = ({
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          {/* {addOrUpdate && (
-           <button
-            type='button'
-            onClick={() => {
-             // setInitValues(null);
-             resetForm();
-            }}
-            className='reset'>
-            Reset
-           </button>
-          )} */}
           {!freeze && (
            <button disabled={freeze} type='submit' className='save ml-9'>
             {addOrUpdate ? 'Update' : 'Submit'}

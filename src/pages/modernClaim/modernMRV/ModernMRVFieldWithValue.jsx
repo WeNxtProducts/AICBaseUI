@@ -65,7 +65,7 @@ const ModernMRVFieldWithValue = ({
      {PFD_MANDATORY_YN && <span className='mandatory-symbol'>*</span>}
     </p>
    </div>
-   <div className='col-span-2 pe-3'>
+   <div className='col-span-2 input-container fields-error pe-3'>
     {(() => {
      const mainPath = `${parent}.formFields.${PFD_COLUMN_NAME}`;
      const value = memoizedGetNestedValue(values, mainPath);

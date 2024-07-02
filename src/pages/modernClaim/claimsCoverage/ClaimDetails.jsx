@@ -163,7 +163,9 @@ const ClaimDetails = () => {
       className='app_rej_btn'
       disabled={!freeze}
       onClick={() => setApproveOrRejectModal(true)}>
-      Approve / Reject
+      {CLM_STATUS === 'A' || CLM_STATUS === 'R'
+       ? 'Re-Open / Close'
+       : 'Approve / Reject'}
      </Button>
     </div>
 

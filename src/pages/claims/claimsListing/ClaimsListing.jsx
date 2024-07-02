@@ -130,7 +130,7 @@ const ClaimListing = () => {
 
  const onSearch = debounce(searchTerm => {
   setSearch(searchTerm);
-  if (searchTerm?.length > 1) handleUsesearch(searchTerm, 1, 1);
+  if (searchTerm?.length > 0) handleUsesearch(searchTerm, 1, 1);
   else if (searchTerm?.length === 0) handleListingApi(0, 1);
  }, 100);
 

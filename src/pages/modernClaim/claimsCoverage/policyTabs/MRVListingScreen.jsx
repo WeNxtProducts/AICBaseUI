@@ -1,5 +1,5 @@
-import React from 'react';
-import { Checkbox, Tooltip } from 'antd';
+import React, { useEffect } from 'react';
+import { Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 
 const MRVListingScreen = ({
@@ -16,29 +16,51 @@ const MRVListingScreen = ({
  highlightKey = 'ID',
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
+
+ //  useEffect(() => {
+ //   scrollToView(selectedRow);
+ //  }, [selectedRow,tableData]);
+
+ const scrollToView = id => {
+  const panel = document.querySelector(`[data-id='${id}']`);
+  console.log('panel : ', panel);
+  if (panel) {
+   panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+ };
+
  return (
   <div className='MRV_card pe-2'>
-   {tableData?.map(item => (
+   {tableData?.map((item, index) => (
     <div
-     key={item?.value}
+     data-id={item?.[highlightKey]}
+     key={item?.[highlightKey]}
      className={
       selectedRow == item?.[highlightKey]
        ? 'list_card_highlighted_row'
        : 'list_card'
      }>
      <div
-      className={`flex item-center justify-${
+      className={`action_header flex item-center justify-${
        action && !freeze ? 'between' : 'end'
       }`}>
       {action && !freeze && (
-       <div>
-        <Checkbox
+       <div
+        onClick={e => {
+         handleDelete(item);
+        }}
+        className='pl-2'>
+        {/* <Checkbox
          checked={item?.isSelected === 'Y'}
          onChange={e => handleDelete(item)}
-        />
+        /> */}
+        <div className='mrv_checkbox'>
+         <input checked={item?.isSelected === 'Y'} id={index} type='checkbox' />
+         <label />
+        </div>
        </div>
       )}
-      <div className='flex gap-2'>
+      <div className='flex gap-2 pe-3 p-1'>
        {isView && (
         <Tooltip title='View'>
          <EyeOutlined onClick={() => handleEdit(item)} className='mrv_icons' />

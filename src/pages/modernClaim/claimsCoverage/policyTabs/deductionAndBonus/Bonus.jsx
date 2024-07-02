@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import useMRVListing from '../../../../../components/mrvListing/useMRVListing';
 import { ClaimContext } from '../../../ModernClaim';
 
-const Bonus = () => {
+const Bonus = ({ listingId, page }) => {
  const {
   selectedPolDetails: { CLM_TRAN_ID },
  } = useContext(ClaimContext);
@@ -10,7 +10,7 @@ const Bonus = () => {
  const [column, setColumn] = useState(null);
 
  useEffect(() => {
-  handleMRVListing(122, CLM_TRAN_ID);
+  handleMRVListing(listingId, CLM_TRAN_ID);
  }, []);
 
  useEffect(() => {
@@ -27,35 +27,21 @@ const Bonus = () => {
      <p className='col-span-6 value_font'>{item[key]}</p>
     </div>
    ))}
-   {/* <div className='grid grid-cols-7'>
-    <p className='col-span-3 bonus_key'>Code</p>
-    <p className='col-span-4 bonus_val'>AAAAAA</p>
-   </div>
-   <div className='grid grid-cols-7'>
-    <p className='col-span-3 bonus_key'>Amount FC</p>
-    <p className='col-span-4 bonus_val'>10,000</p>
-   </div>
-   <div className='grid grid-cols-7'>
-    <p className='col-span-3 bonus_key'>Amount LC</p>
-    <p className='col-span-4 bonus_val'>10,000</p>
-   </div> */}
   </div>
  );
 
  return (
-  <div className='pl-4'>
-   <p className='breakup_title'>Bonus</p>
-   <div className='breakUpContent p-1'>
-    {rowData?.length > 0 && column !== null && (
-     <div className='grid grid-cols-10 items-center gap-y-3 gap-x-3'>
-      {rowData?.map((item, index) => renderRows(item, index))}
-     </div>
-    )}
-
-    {/* <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
-     <p>Total Bonus</p>
-     <div className='total_value'> </div>
-    </div> */}
+  <div className={`pl-${page === 'Bonus' ? '4' : '0'}`}>
+   <p className='breakup_title'>{page}</p>
+   <div className='breakUpContent p-1 mt-2'>
+    {rowData &&
+     rowData.length > 0 &&
+     Object.keys(rowData[0]).length > 0 &&
+     column !== null && (
+      <div className='grid grid-cols-10 items-center gap-y-3 gap-x-3'>
+       {rowData?.map((item, index) => renderRows(item, index))}
+      </div>
+     )}
    </div>
   </div>
  );

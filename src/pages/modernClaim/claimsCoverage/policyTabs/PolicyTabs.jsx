@@ -6,9 +6,10 @@ import Checklist from './checklist/Checklist';
 import DeductionAndBonus from './deductionAndBonus/DeductionAndBonus';
 import ReInsurance from './reInsurance/ReInsurance';
 import { ClaimContext } from '../../ModernClaim';
+import Bonus from './deductionAndBonus/Bonus';
 
 const PolicyTabs = () => {
- const { activeTab, setActiveTab } = useContext(ClaimContext);
+ const { activeTab, setActiveTab, formValues } = useContext(ClaimContext);
 
  const handleTabClick = index => {
   setActiveTab(index);
@@ -26,9 +27,13 @@ const PolicyTabs = () => {
    <Tabs activeTab={activeTab} onTabClick={handleTabClick}>
     <Tab label='Claim Details'>
      {/* <PolicyDetails /> */}
-     <MRVClaim
-      queryID='ClaimCoverDetailsList'
-      root='ClaimCover'
+     <MRVClaim // getClaimCoverDis ClaimCoverDetailsList
+      queryID={`${
+       formValues?.CH_CLAIM_TYPE !== 'O' ? 'getClaimCoverDis' : 'ClaimCoverDetailsList'
+      }`}
+      root={`${
+       formValues?.CH_CLAIM_TYPE !== 'O' ? 'ClaimCoverDis' : 'ClaimCover'
+      }`}
       mrvGet='getClaimCoverDetailsEdit'
       screenCode='CLAIMENTRY'
       screenName='CLAIMENTRY'
@@ -74,7 +79,7 @@ const PolicyTabs = () => {
      <ReInsurance />
     </Tab>
     <Tab label='History'>
-     <MRVClaim
+     {/* <MRVClaim
       queryID='ClaimHistoryDetailsList'
       root='ClaimHistory'
       mrvGet='getClaimHistoryDetailsEdit'
@@ -88,7 +93,8 @@ const PolicyTabs = () => {
       isView={true}
       isEdit={false}
       isDelete={false}
-     />
+     /> */}
+     <Bonus listingId={114} page='History' />
     </Tab>
    </Tabs>
   </div>

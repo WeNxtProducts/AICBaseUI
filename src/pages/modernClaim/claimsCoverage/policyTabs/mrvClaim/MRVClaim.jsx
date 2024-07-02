@@ -57,6 +57,8 @@ const MRVClaim = ({
  const [editMRVId, setEditMRVId] = useState('');
  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
  const [loader, setLoader] = useState(false);
+ const [first, setFirst] = useState(false);
+ const [formInit, setFormInit] = useState(false);
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
@@ -66,6 +68,7 @@ const MRVClaim = ({
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
+    if (!editMRVId) setFormInit(!formInit);
     // setEditMRVId(response?.data?.Id ?? editMRVId);
     showNotification.SUCCESS(response?.status_msg);
    }
@@ -79,7 +82,24 @@ const MRVClaim = ({
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
-  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
+
+  if (title === 'Pay To') {
+   const percentage = payload[root]?.formFields?.CBEN_PERC;
+   const totalPercentage =
+    rowData.reduce((sum, item) => {
+     if (item.ID === editMRVId) return sum;
+     return sum + (Number(item?.Percentage) || 0);
+    }, 0) + Number(percentage);
+   if (percentage > 100) {
+    showNotification.WARNING('Percentage should not exceed 100');
+    return;
+   } else if (totalPercentage > 100) {
+    showNotification.WARNING('Total percentage should not exceed 100');
+    return;
+   } else {
+    addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
+   }
+  } else addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
  };
 
  const handleInitData = response => {
@@ -97,9 +117,13 @@ const MRVClaim = ({
  };
 
  useEffect(() => {
-  if (rowData?.length > 0 && !editMRVId) {
+  if (rowData?.length > 0 && !editMRVId && !first) {
+   setFirst(true);
    handleEdit(rowData[0]);
   }
+  // else {
+  //  handleInitData(ClaimsJson);
+  // }
  }, [rowData]);
 
  useEffect(() => {
@@ -237,12 +261,13 @@ const MRVClaim = ({
        title={title}
        action={action}
        freeze={freeze}
+       formInit={formInit}
       />
      )}
     </div>
 
     <div className='col-span-2 p-2 border_left_divider'>
-     {rowData?.length > 0 && (
+     {rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0 && (
       <MRVListingScreen
        tableColumn={columnData}
        tableData={rowData}

@@ -3,6 +3,7 @@ import { Button, Checkbox } from 'antd';
 import useApiRequests from '../../../../../services/useApiRequests';
 import showNotification from '../../../../../components/notification/Notification';
 import { ClaimContext } from '../../../ModernClaim';
+import { formatNumber } from '../../../../../components/commonHelper/CurrentFormatter';
 
 const ClaimDeductionBreakUp = () => {
  const { selectedPolDetails, freeze } = useContext(ClaimContext);
@@ -59,7 +60,7 @@ const ClaimDeductionBreakUp = () => {
  const renderRows = (fieldName, amount) => (
   <>
    <div className='col-span-3 field_name_style'>{fieldName}</div>
-   <div className='col-span-4 field_val_style'>{amount}</div>
+   <div className='col-span-4 field_val_style'>{formatNumber(amount)}</div>
    <div className='col-span-2'></div>
   </>
  );

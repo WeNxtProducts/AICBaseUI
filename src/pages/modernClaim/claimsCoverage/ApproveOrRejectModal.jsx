@@ -4,8 +4,10 @@ import { CustomSelect } from '../../../components/commonExportsFields/CommonExpo
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 
-const MessageTitle = () => (
- <p className='modal_msg_delete select-none'>Approve/Reject</p>
+const MessageTitle = ({ CLM_STATUS }) => (
+ <p className='modal_msg_delete select-none'>
+  {CLM_STATUS === 'A' || CLM_STATUS === 'R' ? 'ReOpen/Close' : 'Approve/Reject'}
+ </p>
 );
 
 const ApproveOrRejectModal = ({
@@ -29,8 +31,8 @@ const ApproveOrRejectModal = ({
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [Open, setOpen] = useState(false);
  const [values, setValues] = useState({
-  CLM_STATUS: CLM_STATUS ?? '',
-  CLM_STATUS_CODE: CLM_STATUS_CODE ?? '',
+  CLM_STATUS: '',
+  CLM_STATUS_CODE: '',
  });
  const [reasonDropDown, setReasonDropDown] = useState({
   decision: [],
@@ -152,7 +154,7 @@ const ApproveOrRejectModal = ({
 
  return (
   <Modal
-   title={<MessageTitle />}
+   title={<MessageTitle CLM_STATUS={CLM_STATUS} />}
    open={Open}
    width={500}
    className='approve_reject_modal'
