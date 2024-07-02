@@ -72,9 +72,9 @@ const ClaimDetails = () => {
   }
  };
 
- const handleClose = () => {
+ const handleClose = claim_status => {
   setApproveOrRejectModal(false);
-  if (CLM_STATUS === 'A') {
+  if (claim_status === 'A') {
    getTotalSummary();
   }
  };

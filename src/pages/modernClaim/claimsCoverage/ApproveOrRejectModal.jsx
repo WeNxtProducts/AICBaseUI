@@ -73,7 +73,7 @@ const ApproveOrRejectModal = ({
 
  const onClose = () => {
   setOpen(false);
-  handleClose();
+  handleClose('');
  };
 
  const handleOnChange = (val, key) => {
@@ -94,7 +94,7 @@ const ApproveOrRejectModal = ({
    if (response?.status === 'SUCCESS') {
     setSelectedPolDetails(response?.Data[0]);
     setFreeze(response?.Data[0]?.CLM_FRZ_YN === 'Y');
-    handleClose();
+    handleClose(values?.CLM_STATUS);
    }
   } catch (err) {
    console.log('err : ', err);

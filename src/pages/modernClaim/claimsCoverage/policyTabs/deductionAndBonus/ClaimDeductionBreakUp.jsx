@@ -5,7 +5,7 @@ import showNotification from '../../../../../components/notification/Notificatio
 import { ClaimContext } from '../../../ModernClaim';
 
 const ClaimDeductionBreakUp = () => {
- const { selectedPolDetails } = useContext(ClaimContext);
+ const { selectedPolDetails, freeze } = useContext(ClaimContext);
  const { CLM_TRAN_ID } = selectedPolDetails;
  const deductionGet = useApiRequests('getPreClaimDate', 'POST');
  const deductionUpdate = useApiRequests('claimDeductionUpdate', 'POST');
@@ -77,6 +77,7 @@ const ClaimDeductionBreakUp = () => {
       <div className='col-span-6 flex items-center'>
        <Checkbox
         checked={calculatedValue?.CD_WAIVE_PREM_INT === 'Y'}
+        disabled={freeze}
         onChange={e =>
          setCalculatedValue(pre => ({
           ...pre,
@@ -92,6 +93,7 @@ const ClaimDeductionBreakUp = () => {
       <div className='col-span-6 flex items-center'>
        <Checkbox
         checked={calculatedValue?.CD_WAIVE_LOAN_INT === 'Y'}
+        disabled={freeze}
         onChange={e =>
          setCalculatedValue(pre => ({
           ...pre,

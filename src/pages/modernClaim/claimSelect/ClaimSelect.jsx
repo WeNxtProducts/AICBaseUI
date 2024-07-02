@@ -61,13 +61,12 @@ const ClaimSelect = () => {
  const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
   statusMap[initialValues?.CH_STATUS] || {};
 
- const handleGetClaim = async () => {
+ const handleGetClaim = async id => {
   try {
-   const response = await getClaimDetails('', { tranId });
+   const response = await getClaimDetails('', { tranId: id });
    setInitialValues(response?.Data);
    dispatch(setFormValues(response?.Data));
    handleGetPolicyList(response?.Data?.CH_TRAN_ID);
-   //  handleGetPolicyList(55);
   } catch (err) {
    console.log('err');
   }
@@ -75,7 +74,7 @@ const ClaimSelect = () => {
 
  useEffect(() => {
   if (tranId) {
-   handleGetClaim();
+   handleGetClaim(tranId);
   }
  }, []);
 
@@ -102,12 +101,13 @@ const ClaimSelect = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    setInitialValues(pre => ({
-     ...formRef.current.values,
-     CH_REF_NO: response?.Data?.CH_REF_NO,
-    }));
-    handleGetPolicyList(response?.Data?.Id);
-    dispatch(setFormValues(values));
+    // setInitialValues(pre => ({
+    //  ...formRef.current.values,
+    //  CH_REF_NO: response?.Data?.CH_REF_NO,
+    // }));
+    handleGetClaim(response?.Data?.Id);
+    // handleGetPolicyList(response?.Data?.Id);
+    // dispatch(setFormValues(values));
     if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
     showNotification.SUCCESS(response?.status_msg);
    }
