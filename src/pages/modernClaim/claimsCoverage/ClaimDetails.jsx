@@ -17,6 +17,7 @@ const ClaimDetails = () => {
   setFreeze,
   setClaimLevelTotal,
   setTotalSummaryValues,
+  setLoader,
  } = useContext(ClaimContext);
  const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } =
   selectedPolDetails;
@@ -30,6 +31,7 @@ const ClaimDetails = () => {
  const [approveOrRejectModal, setApproveOrRejectModal] = useState(false);
 
  const handlePolClaimDetails = async () => {
+  // setLoader(true);
   try {
    const response = await getPolClaimDetails(
     { queryParams: { tranId, CLM_POL_NO: selectedPolicy } },
@@ -43,9 +45,11 @@ const ClaimDetails = () => {
     if (response?.Data[0]?.CLM_FRZ_YN === 'Y') {
      handleClaimFreezeOnDetails(true, response?.Data[0]?.CLM_TRAN_ID);
     }
+    setLoader(false);
    }
   } catch (err) {
-   console.log('err : ', err);
+   showNotification.ERROR('Error');
+   setLoader(false);
   }
  };
 
@@ -80,6 +84,7 @@ const ClaimDetails = () => {
  };
 
  const handleClaimLevelUpdateDetails = async status => {
+  // setLoader(true);
   const queryParams = {
    tranId: CLM_TRAN_ID,
    CLM_STATUS: CLM_STATUS ?? '',
@@ -94,7 +99,7 @@ const ClaimDetails = () => {
     handleFreeze(status);
    }
   } catch (err) {
-   console.log('err : ', err);
+   setLoader(false);
   }
  };
 

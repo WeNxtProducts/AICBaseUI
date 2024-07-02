@@ -26,6 +26,7 @@ const ClaimSelect = () => {
   id: tranId,
   setPolicyList,
   setelectedPolicy,
+  setLoader,
  } = useContext(ClaimContext);
  const dispatch = useDispatch();
  const formRef = useRef(null);
@@ -62,13 +63,14 @@ const ClaimSelect = () => {
   statusMap[initialValues?.CH_STATUS] || {};
 
  const handleGetClaim = async id => {
+  setLoader(true);
   try {
    const response = await getClaimDetails('', { tranId: id });
    setInitialValues(response?.Data);
    dispatch(setFormValues(response?.Data));
    handleGetPolicyList(response?.Data?.CH_TRAN_ID);
   } catch (err) {
-   console.log('err');
+   setLoader(false);
   }
  };
 
@@ -87,6 +89,7 @@ const ClaimSelect = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
+    setLoader(false);
     setPolicyList(response?.Data);
     setelectedPolicy(response?.Data[0]?.CLM_POL_NO);
    }
@@ -112,11 +115,13 @@ const ClaimSelect = () => {
     showNotification.SUCCESS(response?.status_msg);
    }
   } catch (err) {
+   setLoader(false);
    console.error('err : ', err);
   }
  };
 
  const onSubmit = async values => {
+  setLoader(true);
   const {
    CH_CLAIM_TYPE,
    CH_CLAIM_BAS,
@@ -143,7 +148,7 @@ const ClaimSelect = () => {
     claimSave(values);
    }
   } catch (err) {
-   console.error('err : ', err);
+   setLoader(false);
   }
  };
 

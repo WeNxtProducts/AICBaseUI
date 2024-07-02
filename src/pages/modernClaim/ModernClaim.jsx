@@ -6,6 +6,7 @@ import ClaimSelect from './claimSelect/ClaimSelect';
 import ClaimsCoverage from './claimsCoverage/ClaimsCoverage';
 import ClaimTotal from './claimTotal/ClaimTotal';
 import './ModernClaim.scss';
+import Loader from '../../components/loader/Loader';
 
 export const ClaimContext = createContext();
 
@@ -18,6 +19,7 @@ const ModernClaim = () => {
  const [activeTab, setActiveTab] = useState(0);
  const [selectedPolDetails, setSelectedPolDetails] = useState({});
  const [freeze, setFreeze] = useState(false);
+ const [loader, setLoader] = useState(false);
  const [claimLevelTotal, setClaimLevelTotal] = useState(null);
  const [totalSummaryValues, setTotalSummaryValues] = useState(null);
 
@@ -42,10 +44,13 @@ const ModernClaim = () => {
   setClaimLevelTotal,
   totalSummaryValues,
   setTotalSummaryValues,
+  loader,
+  setLoader,
  };
 
  return (
   <ClaimContext.Provider value={data}>
+   {loader && <Loader />}
    <div className='modern_claim'>
     <div className='main-screen p-3'>
      <ClaimSelect />
