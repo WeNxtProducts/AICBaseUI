@@ -34,7 +34,6 @@ const ModernMRV = ({
  }, [formInit]);
 
  useEffect(() => {
-  console.log('uuuuu');
   const validationSchema = createYupSchema({
    [root]: formRender[root],
   });

@@ -1,29 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Input } from 'antd';
+import React, { useEffect, useState } from 'react';
 import '../customInput/CustomInput.scss';
+import { Input } from 'antd';
 
 // Utility function for formatting numbers as currency
-const formatCurrency = (value = '', locale = 'en-US') => {
- // Check if the value ends with a dot
- const endsWithDot = value.endsWith('.');
-
- // Remove commas and parse the number
- const number = parseFloat(value.replace(/,/g, ''));
-
+const formatCurrency = (value, locale = 'en-US') => {
+ const number = parseFloat(value?.replace(/,/g, ''));
  if (isNaN(number)) return '';
-
- // Format the number
- let formatted = number.toLocaleString(locale, {
+ return number.toLocaleString(locale, {
   minimumFractionDigits: 0,
-  maximumFractionDigits: 3,
+  maximumFractionDigits: 2,
  });
-
- // If the original value ended with a dot, append it to the formatted result
- if (endsWithDot) {
-  formatted += '.';
- }
-
- return formatted;
 };
 
 const CustomNumberField = ({
@@ -36,8 +22,7 @@ const CustomNumberField = ({
  disabled = false,
  readOnly = false,
 }) => {
- const [formattedValue, setFormattedValue] = useState(value?.toString() || '');
- const inputRef = useRef(null);
+ const [formattedValue, setFormattedValue] = useState(value);
 
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -52,9 +37,7 @@ const CustomNumberField = ({
  }, [firstFieldRef]);
 
  useEffect(() => {
-  const mainVal = formatCurrency(value?.toString());
-  setFormattedValue(mainVal);
-  console.log('mainVal : ', mainVal);
+  setFormattedValue(formatCurrency(value));
  }, [value]);
 
  const handleInputChange = e => {
@@ -75,8 +58,6 @@ const CustomNumberField = ({
 
    setFormattedValue(formatted);
 
-   console.log('rawValue : ', rawValue, formatted);
-
    if (onChange) {
     onChange({
      ...e,
@@ -93,12 +74,7 @@ const CustomNumberField = ({
   <div className={`w-${fieldSize[size].main}`}>
    <Input
     name={name}
-    ref={el => {
-     inputRef.current = el;
-     if (firstFieldRef) {
-      firstFieldRef.current = el;
-     }
-    }}
+    ref={firstFieldRef}
     type='text'
     className='custom-form-fields number-field'
     placeholder={placeholder}

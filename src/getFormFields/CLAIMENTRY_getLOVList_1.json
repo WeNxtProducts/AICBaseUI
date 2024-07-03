@@ -30,5 +30,9 @@
   { "label": "Banks", "value": "B" },
   { "label": "Nominee", "value": "N" },
   { "label": "Legal heir", "value": "S" }
+ ],
+ "CBEN_PYMT_MTHD": [
+  { "label": "Cash", "value": "C" },
+  { "label": "Chekque", "value": "CQ" }
  ]
 }

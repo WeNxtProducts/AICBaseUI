@@ -5,6 +5,7 @@ import { ClaimContext } from '../ModernClaim';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import ApproveOrRejectModal from './ApproveOrRejectModal';
+import settleIcon from '../../../assets/Vector.svg';
 
 const ClaimDetails = () => {
  const {
@@ -160,12 +161,23 @@ const ClaimDetails = () => {
 
     <div className='flex items-center gap-1'>
      <Button
-      className='app_rej_btn'
+      className='app_rej_reopen_close_btn'
       disabled={!freeze}
       onClick={() => setApproveOrRejectModal(true)}>
       {CLM_STATUS === 'A' || CLM_STATUS === 'R'
        ? 'Re-Open / Close'
        : 'Approve / Reject'}
+     </Button>
+    </div>
+
+    <div className='flex items-center gap-1'>
+     <Button
+      className='settlement_btn'
+      onClick={() => setApproveOrRejectModal(true)}>
+      <div className='flex justify-between items-center'>
+       <p>Settlement</p>
+       <img src={settleIcon} className='settle_icon' />
+      </div>
      </Button>
     </div>
 

@@ -106,7 +106,7 @@ const MRVClaim = ({
   const orderedData = sortObjectByPFDSeqNo(response);
   setClaimMRV({ [root]: orderedData[root] });
   setClaimMRVInitialValues({ [root]: orderedData[root] });
-  //console.log('orderedData : ', { [root]: orderedData[root] });
+  // console.log('orderedData : ', { [root]: orderedData[root] });
  };
 
  const MRVListing = () => {
@@ -180,6 +180,7 @@ const MRVClaim = ({
    const response = await deleteMRV('', {}, { id });
    if (response?.status === 'SUCCESS') {
     MRVListing();
+    if (id === editMRVId) resetForm();
     showNotification.SUCCESS(response?.status_msg);
    } else if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
@@ -194,7 +195,7 @@ const MRVClaim = ({
 
  const handleClose = status => {
   const deleteId = editMRVId;
-  setEditMRVId('');
+  // setEditMRVId('');
   if (status) handleDeleteConfirm(deleteId);
   else if (!status) setDeleteConfirmation(false);
  };

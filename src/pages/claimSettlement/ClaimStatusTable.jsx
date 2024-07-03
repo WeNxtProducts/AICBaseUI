@@ -7,7 +7,6 @@ const ClaimStatusTable = () => {
     <thead>
      <tr>
       <th>Cover Code</th>
-      <th>Acc Pay Code</th>
       <th>LC Amount</th>
       <th>Status</th>
      </tr>
@@ -15,31 +14,28 @@ const ClaimStatusTable = () => {
     <tbody>
      <tr>
       <td>1000</td>
-      <td>230192</td>
       <td>2,00,000</td>
       <td>
        <div>
-        <p className='status_notify approved'>Approved</p>
+        <p className='status_notify approved'>Paid</p>
        </div>
       </td>
      </tr>
      <tr>
       <td>1000</td>
-      <td>230192</td>
       <td>2,00,000</td>
       <td>
        <div>
-        <p className='status_notify pending'>Pending</p>
+        <p className='status_notify pending'>Unpaid</p>
        </div>
       </td>
      </tr>
      <tr>
       <td>1000</td>
-      <td>230192</td>
       <td>2,00,000</td>
       <td>
        <div>
-        <p className='status_notify rejected'>Rejected</p>
+        <p className='status_notify pending'>Unpaid</p>
        </div>
       </td>
      </tr>

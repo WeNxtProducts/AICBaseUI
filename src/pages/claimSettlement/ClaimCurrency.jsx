@@ -10,17 +10,17 @@ const ClaimCurrency = () => {
 
  const renderRow = (title, value) => (
   <div className='flex items-center'>
-   <div className='w-1/4'>
+   <div className='w-4/12'>
     <p className='label-font'>{title}</p>
    </div>
-   <div className='w-3/4 ml-4 pl-3 currency_values'>
+   <div className='w-3/5 ml-4 pl-3 currency_values'>
     <p className='pl-2'>{value}</p>
    </div>
   </div>
  );
 
  return (
-  <div className='mt-4 grid grid-cols-12'>
+  <div className='mt-4 grid grid-cols-12 mb-7'>
    <div className='claim_currency col-span-10 p-5'>
     <div className='grid grid-cols-2 gap-3'>
      {renderRowHeader('Foreign Currency')}

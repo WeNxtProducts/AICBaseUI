@@ -1,11 +1,12 @@
 import React, { createContext } from 'react';
 import ClaimSettlementHeader from './ClaimSettlementHeader';
-import ClaimStatusTable from './ClaimStatusTable';
-import './ClaimSettlement.scss';
-import ClaimSummary from './claimSummary/ClaimSummary';
+import ClaimSummary from './ClaimSummary';
 import claimSettlementJSON from '../../getFormFields/claimSettlement.json';
 import ClaimCurrency from './ClaimCurrency';
 import PaymentDetails from './PaymentDetails';
+import SettlementFromClaim from './SettlementFromClaim';
+import ClaimLevelDetails from './ClaimLevelDetails';
+import './ClaimSettlement.scss';
 
 export const ClaimSettlementContext = createContext();
 
@@ -17,16 +18,16 @@ const ClaimSettlement = () => {
  return (
   <ClaimSettlementContext.Provider value={data}>
    <div className='claim_settlement'>
-    <div className='header_nav flex items-center'>
-     <i class='bi bi-arrow-left back_icon mr-2' />
-     <p>Claim Settlement</p>
+    <div className='header_nav flex items-center mt-3'>
+     <i className='bi bi-arrow-left back_icon' />
+     <p className='pl-2'>Claim Settlement</p>
     </div>
-
-    <ClaimSettlementHeader />
-    <ClaimStatusTable />
+    <SettlementFromClaim />
+    {/* <ClaimSettlementHeader /> */}
+    <ClaimLevelDetails />
     <ClaimSummary />
     <ClaimCurrency />
-    <PaymentDetails />
+    {/* <PaymentDetails /> */}
    </div>
   </ClaimSettlementContext.Provider>
  );

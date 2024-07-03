@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Input } from 'antd';
 import '../customInput/CustomInput.scss';
+import { Input } from 'antd';
 
 // Utility function for formatting numbers as currency
 const formatCurrency = (value = '', locale = 'en-US') => {
