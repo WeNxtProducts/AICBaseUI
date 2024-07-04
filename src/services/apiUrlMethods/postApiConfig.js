@@ -180,5 +180,9 @@ const POST_API_URL = {
   url: '/ltclaim/saveClaimFlagDetails',
   baseURL: 'CLAIMURL',
  },
+ updateCoverAmount: {
+  url: '/claimPaid/save',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

@@ -102,7 +102,7 @@ const ClaimSelect = () => {
     setelectedPolicy(response?.Data[0]?.CLM_POL_NO);
    }
   } catch (err) {
-   console.log('err : ', err);
+   setLoader(false);
   }
  };
 

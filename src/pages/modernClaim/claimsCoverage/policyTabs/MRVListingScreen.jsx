@@ -55,7 +55,12 @@ const MRVListingScreen = ({
          onChange={e => handleDelete(item)}
         /> */}
         <div className='mrv_checkbox'>
-         <input checked={item?.isSelected === 'Y'} id={index} type='checkbox' />
+         <input
+          readOnly
+          checked={item?.isSelected === 'Y'}
+          id={index}
+          type='checkbox'
+         />
          <label />
         </div>
        </div>

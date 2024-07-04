@@ -16,7 +16,6 @@ const ModernClaim = () => {
  const [dropDown, setDropDown] = useState(ClaimsLOVJson);
  const [policyList, setPolicyList] = useState([]);
  const [selectedPolicy, setelectedPolicy] = useState('');
- const [activeTab, setActiveTab] = useState(0);
  const [selectedPolDetails, setSelectedPolDetails] = useState({});
  const [freeze, setFreeze] = useState(false);
  const [loader, setLoader] = useState(false);
@@ -34,8 +33,6 @@ const ModernClaim = () => {
   policyList,
   selectedPolicy,
   setelectedPolicy,
-  activeTab,
-  setActiveTab,
   selectedPolDetails,
   setSelectedPolDetails,
   freeze,

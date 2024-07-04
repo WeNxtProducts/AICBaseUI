@@ -54,7 +54,6 @@ const CustomNumberField = ({
  useEffect(() => {
   const mainVal = formatCurrency(value?.toString());
   setFormattedValue(mainVal);
-  console.log('mainVal : ', mainVal);
  }, [value]);
 
  const handleInputChange = e => {
@@ -74,8 +73,6 @@ const CustomNumberField = ({
     : formatCurrency(rawValue);
 
    setFormattedValue(formatted);
-
-   console.log('rawValue : ', rawValue, formatted);
 
    if (onChange) {
     onChange({

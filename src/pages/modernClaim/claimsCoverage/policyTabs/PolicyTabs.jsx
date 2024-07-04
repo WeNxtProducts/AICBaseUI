@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Tab, Tabs } from '../../../../components/customTabs/Tabs';
 import PolicyDetails from './policyDetails/PolicyDetails';
 import MRVClaim from './mrvClaim/MRVClaim';
@@ -9,7 +9,8 @@ import { ClaimContext } from '../../ModernClaim';
 import Bonus from './deductionAndBonus/Bonus';
 
 const PolicyTabs = () => {
- const { activeTab, setActiveTab, formValues } = useContext(ClaimContext);
+ const { formValues } = useContext(ClaimContext);
+ const [activeTab, setActiveTab] = useState(0);
 
  const handleTabClick = index => {
   setActiveTab(index);
@@ -29,7 +30,9 @@ const PolicyTabs = () => {
      {/* <PolicyDetails /> */}
      <MRVClaim // getClaimCoverDis ClaimCoverDetailsList
       queryID={`${
-       formValues?.CH_CLAIM_TYPE !== 'O' ? 'getClaimCoverDis' : 'ClaimCoverDetailsList'
+       formValues?.CH_CLAIM_TYPE !== 'O'
+        ? 'getClaimCoverDis'
+        : 'ClaimCoverDetailsList'
       }`}
       root={`${
        formValues?.CH_CLAIM_TYPE !== 'O' ? 'ClaimCoverDis' : 'ClaimCover'

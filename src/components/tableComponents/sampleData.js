@@ -539,6 +539,11 @@ export const claim_check = [
  { value: 'PO', label: 'Policy No' },
 ];
 
+export const settlementStatus = [
+ { value: 'P', label: 'Yes' },
+ { value: 'N', label: 'No' },
+];
+
 export const checkListValue = [
  { label: 'Yes', value: 'Y' },
  { label: 'No', value: 'N' },

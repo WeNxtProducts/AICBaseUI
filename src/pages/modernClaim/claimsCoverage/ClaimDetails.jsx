@@ -6,11 +6,14 @@ import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import ApproveOrRejectModal from './ApproveOrRejectModal';
 import settleIcon from '../../../assets/Vector.svg';
+import { useNavigate } from 'react-router-dom';
 
 const ClaimDetails = () => {
+ const navigate = useNavigate();
  const {
   selectedPolicy,
-  setActiveTab,
+  // setActiveTab,
+  formValues,
   id: tranId,
   setSelectedPolDetails,
   selectedPolDetails,
@@ -173,7 +176,11 @@ const ClaimDetails = () => {
     <div className='flex items-center gap-1'>
      <Button
       className='settlement_btn'
-      onClick={() => setApproveOrRejectModal(true)}>
+      onClick={() => {
+       navigate(
+        `/claimSettlement?CLM_POL_NO=${selectedPolicy}&CH_REF_NO=${formValues?.CH_REF_NO}`,
+       );
+      }}>
       <div className='flex justify-between items-center'>
        <p>Settlement</p>
        <img src={settleIcon} className='settle_icon' />

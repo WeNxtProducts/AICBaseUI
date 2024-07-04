@@ -6,8 +6,12 @@ const useMRVListing = () => {
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
 
- const handleMRVListing = async (queryId, tranId) => {
+ const handleMRVListing = async (queryId, tranId, ...rest) => {
   const queryParams = { queryId, tranId };
+  rest.forEach((value) => {
+   queryParams[`cptranid`] = value;
+  });
+
   try {
    const response = await getMRVlisting('', queryParams);
    if (response?.status === 'SUCCESS') {

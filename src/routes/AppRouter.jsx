@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import ProtectedRoute from './PrivateRoute';
 import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
+import UnderWriterWorkBench from '../pages/underWriterWorkBench/UnderWriterWorkBench';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const ReportList = lazy(() => import('../pages/reportList/ReportList'));
@@ -99,6 +100,15 @@ const AppRouter = () => {
     {/* ProtectedRoute */}
 
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/underwriterworkbench'
+      element={
+       <Suspense fallback={<div>UnderWriterWorkBench...</div>}>
+        <UnderWriterWorkBench />
+       </Suspense>
+      }
+     />
+
      <Route
       path='/autoDispatchSetUp'
       element={
