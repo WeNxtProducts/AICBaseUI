@@ -8,8 +8,10 @@ const useMRVListing = () => {
 
  const handleMRVListing = async (queryId, tranId, ...rest) => {
   const queryParams = { queryId, tranId };
-  rest.forEach((value) => {
-   queryParams[`cptranid`] = value;
+  console.log('rest : ', rest);
+
+  rest.forEach(value => {
+   if (value !== undefined) queryParams[`cptranid`] = value;
   });
 
   try {

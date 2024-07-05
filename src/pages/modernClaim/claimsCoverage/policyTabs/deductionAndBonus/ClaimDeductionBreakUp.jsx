@@ -52,16 +52,16 @@ const ClaimDeductionBreakUp = () => {
  const renderHeader = () => (
   <>
    <div className='col-span-3'></div>
-   <div className='col-span-4 content_header'>Local Currency</div>
-   <div className='col-span-2'></div>
+   <div className='col-span-3 content_header'>Foreign Currency</div>
+   <div className='col-span-3 content_header'>Local Currency</div>
   </>
  );
 
- const renderRows = (fieldName, amount) => (
+ const renderRows = (fieldName, LcAmount, FcAmount) => (
   <>
    <div className='col-span-3 field_name_style'>{fieldName}</div>
-   <div className='col-span-4 field_val_style'>{formatNumber(amount)}</div>
-   <div className='col-span-2'></div>
+   <div className='col-span-3 field_val_style'>{formatNumber(FcAmount)}</div>
+   <div className='col-span-3 field_val_style'>{formatNumber(LcAmount)}</div>
   </>
  );
 
@@ -72,8 +72,16 @@ const ClaimDeductionBreakUp = () => {
     {calculatedValue && (
      <div className='grid grid-cols-10 items-center gap-y-2 gap-x-3'>
       {renderHeader()}
-      {renderRows('O/S Premium', calculatedValue?.CD_LC_PREM_OS)}
-      {renderRows('O/S Premium Interest', calculatedValue?.CD_LC_PREM_INT)}
+      {renderRows(
+       'O/S Premium',
+       calculatedValue?.CD_LC_PREM_OS,
+       calculatedValue?.CD_FC_PREM_OS,
+      )}
+      {renderRows(
+       'O/S Premium Interest',
+       calculatedValue?.CD_LC_PREM_INT,
+       calculatedValue?.CD_FC_PREM_INT,
+      )}
       <div className='col-span-3' />
       <div className='col-span-6 flex items-center'>
        <Checkbox
@@ -88,8 +96,16 @@ const ClaimDeductionBreakUp = () => {
        />
        <span className='total_intersect ml-2'>Waive O/S prem interest</span>
       </div>
-      {renderRows('O/S Loan', calculatedValue?.CD_LC_LOAN_OS)}
-      {renderRows('O/S Loan Interest', calculatedValue?.CD_LC_LOAN_INT)}
+      {renderRows(
+       'O/S Loan',
+       calculatedValue?.CD_LC_LOAN_OS,
+       calculatedValue?.CD_FC_LOAN_OS,
+      )}
+      {renderRows(
+       'O/S Loan Interest',
+       calculatedValue?.CD_LC_LOAN_INT,
+       calculatedValue?.CD_FC_LOAN_INT,
+      )}
       <div className='col-span-3' />
       <div className='col-span-6 flex items-center'>
        <Checkbox

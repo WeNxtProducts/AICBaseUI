@@ -7,7 +7,6 @@ import { ClaimSettlementContext } from './ClaimSettlement';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
 import ClaimSummary from './ClaimSummary';
-import ClaimCurrency from './ClaimCurrency';
 
 const ClaimLevelDetails = () => {
  const { selectedClaim } = useContext(ClaimSettlementContext);
@@ -89,7 +88,6 @@ const ClaimLevelDetails = () => {
      open={openTreaty}
      handleClose={handleClose}
      claimTranId={selectedClaim?.CLM_TRAN_ID}
-     coverId={selectedCover?.ID}
     />
    )}
   </div>

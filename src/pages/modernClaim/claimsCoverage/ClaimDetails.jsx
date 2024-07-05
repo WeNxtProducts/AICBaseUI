@@ -5,8 +5,8 @@ import { ClaimContext } from '../ModernClaim';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import ApproveOrRejectModal from './ApproveOrRejectModal';
-import settleIcon from '../../../assets/Vector.svg';
 import { useNavigate } from 'react-router-dom';
+import SettlementSVG from '../../../svg/SettlementSVG';
 
 const ClaimDetails = () => {
  const navigate = useNavigate();
@@ -175,7 +175,10 @@ const ClaimDetails = () => {
 
     <div className='flex items-center gap-1'>
      <Button
-      className='settlement_btn'
+      className={
+       CLM_STATUS !== 'A' ? `settlement_btn_disabled` : `settlement_btn`
+      }
+      disabled={CLM_STATUS !== 'A'}
       onClick={() => {
        navigate(
         `/claimSettlement?CLM_POL_NO=${selectedPolicy}&CH_REF_NO=${formValues?.CH_REF_NO}`,
@@ -183,7 +186,10 @@ const ClaimDetails = () => {
       }}>
       <div className='flex justify-between items-center'>
        <p>Settlement</p>
-       <img src={settleIcon} className='settle_icon' />
+       <SettlementSVG
+        className='custom_svg_settlement'
+        fill={CLM_STATUS !== 'A' ? `#a8a196` : '#0382c8'}
+       />
       </div>
      </Button>
     </div>
