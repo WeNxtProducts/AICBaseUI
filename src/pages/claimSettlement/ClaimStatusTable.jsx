@@ -23,7 +23,7 @@ const ClaimStatusTable = ({
    className={selectedCover?.ID === item?.ID ? 'selected_row' : ''}
    onClick={() => handleSelectCover(item)}>
    <td>{item?.Cover_Code}</td>
-   <td>{item?.Local_Currency_Amount}</td>
+   <td>{item?.Estimate_Amount}</td>
    <td>{item?.Foreign_Currency_Amount}</td>
    <td>{item?.Local_Currency_Amount}</td>
    <td>

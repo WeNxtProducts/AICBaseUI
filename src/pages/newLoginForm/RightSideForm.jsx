@@ -146,7 +146,15 @@ const RightSideForm = () => {
         />
        </div>
        <div className='main-forms'>
-        <p className='login-new-style'>Login</p>
+        <div className='flex justify-between items-center'>
+         <p className='login-new-style'>Login</p>
+         <button
+          type='button'
+          onClick={() => navigate('/quote')}
+          className='w-full get_quote_btn'>
+          Get Quote
+         </button>
+        </div>
         <div className='fields mt-5'>
          <Input
           variant='borderless'
