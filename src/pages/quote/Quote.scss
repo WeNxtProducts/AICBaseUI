@@ -1,4 +1,22 @@
 .Quote {
- background-color: #ffffff;
+ border: 1px solid green;
  min-height: 100lvh;
+
+ .quote_header {
+  background-color: #ffffff;
+
+  .img_head {
+   height: 55px;
+   .logo_img {
+    margin-left: 50px;
+    padding-top: 4px;
+    width: 63px;
+    height: 59px;
+   }
+  }
+  .sub_header {
+   background-color: #defff1;
+   height: 20px;
+  }
+ }
 }
