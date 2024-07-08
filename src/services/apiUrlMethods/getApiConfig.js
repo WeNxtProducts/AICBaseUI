@@ -12,7 +12,7 @@ const GET_API_URL = {
   url: '/common/lovtoJson',
  },
  getQuotation: {
-  url: '/common/quotationEdit',
+  url: '/common/policyEdit',
  },
  getUserMaster: {
   url: '/common/userEdit',

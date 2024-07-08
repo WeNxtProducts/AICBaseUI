@@ -1,0 +1,31 @@
+.stepper {
+ width: 100%;
+ max-width: 850px;
+ margin: 0 auto;
+ .custom_stepper {
+  user-select: none;
+  padding: 0;
+  button:hover {
+   background-color: #eff0f6;
+   cursor: default;
+  }
+  .custom_steps.completed {
+   background-color: #0382c8;
+   & > span {
+    color: #ffffff;
+   }
+  }
+  .custom_steps.active {
+   background-color: #ffbd13;
+   & > span {
+    color: #ffffff;
+   }
+  }
+  .custom_steps {
+   background-color: #eff0f6;
+   & > span {
+    color: #6f6c90;
+   }
+  }
+ }
+}

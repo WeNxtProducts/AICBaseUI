@@ -184,5 +184,13 @@ const POST_API_URL = {
   url: '/claimPaid/save',
   baseURL: 'CLAIMURL',
  },
+ saveProposalEntry: {
+  url: '/policy/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateProposalEntry: {
+  url: '/policy/save',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

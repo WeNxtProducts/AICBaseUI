@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useMemo, useState } from 'react';
-import { Formik, Form, useFormikContext } from 'formik';
-import FieldWithValue from '../fieldsWithValues/FieldWithValue';
-import { createYupSchema } from '../commonHelper/SchemaGenerator';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Formik, Form } from 'formik';
+import { createYupSchema } from '../../../../components/commonHelper/SchemaGenerator';
+import QuotationFieldWithValue from './QuotationFieldWithValue';
 
-const MainForm = ({
+const MRVQuotationForm = ({
  initialValues,
  formRender,
  root,
@@ -13,38 +13,52 @@ const MainForm = ({
  grid = '2',
  action = true,
  addOrUpdate,
+ resetForm: formReset,
  lovList,
  handleOnBlur,
+ smallFont = true,
+ title = '',
+ freeze = false,
+ formInit = false,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
+ const [loader, setLoader] = useState(false);
+ const formikRef = useRef(null);
+
+ useEffect(() => {
+  if (formikRef.current) {
+   formikRef.current.resetForm();
+  }
+ }, [formInit]);
 
  useEffect(() => {
   const validationSchema = createYupSchema({
    [root]: formRender[root],
   });
   setValidation(validationSchema);
-
-  if (addOrUpdate) {
-   setInitValues(initialValues);
-  } else {
-   setInitValues(formRender);
-  }
- }, [initValues]);
+  setInitValues(initialValues);
+ }, [formRender, initialValues, root]);
 
  return (
   <>
-   {initValues !== null && validation !== null && (
+   {validation !== null && (
     <Formik
      initialValues={initValues}
      values={initValues}
-    //  validationSchema={validation}
+     validationSchema={validation}
      onSubmit={onSubmit}
-     enableReinitialize={true}>
+     enableReinitialize={true}
+     innerRef={formikRef}>
      {({ handleSubmit, values, setFieldValue, resetForm }) => {
+      //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
-        <div className={`items-start grid grid-cols-${grid} gap-0`}>
+        <div className='mb-4 flex items-center justify-between'>
+         <p className='mrv_header'>{title}</p>
+        </div>
+
+        <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
@@ -53,14 +67,16 @@ const MainForm = ({
             <React.Fragment key={dataId}>
              {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
               <div data-id={dataId}>
-               <FieldWithValue
+               <QuotationFieldWithValue
                 currentData={formRender?.[root]?.formFields[fieldKey]}
                 values={values}
                 setFieldValue={setFieldValue}
-                lovData={lovList?.[dataId]}
                 handleOnBlur={handleOnBlur}
+                lovData={lovList?.[dataId]}
                 handleChangeValue={handleChangeValue}
                 parent={root}
+                smallFont={smallFont}
+                freeze={freeze}
                />
               </div>
              )}
@@ -71,17 +87,11 @@ const MainForm = ({
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          <button
-           type='button'
-           onClick={() => {
-            resetForm();
-           }}
-           className='reset'>
-           Reset
-          </button>
-          <button type='submit' className='save ml-9'>
-           {addOrUpdate ? 'Update' : 'Submit'}
-          </button>
+          {!freeze && (
+           <button disabled={freeze} type='submit' className='save ml-9'>
+            {addOrUpdate ? 'Update' : 'Submit'}
+           </button>
+          )}
          </div>
         )}
        </Form>
@@ -93,4 +103,4 @@ const MainForm = ({
  );
 };
 
-export default MainForm;
+export default MRVQuotationForm;

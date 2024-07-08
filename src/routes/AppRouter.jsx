@@ -6,6 +6,10 @@ import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 import UnderWriterWorkBench from '../pages/underWriterWorkBench/UnderWriterWorkBench';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const QuotationListing = lazy(() =>
+ import('../pages/quotation/quotationListing/QuotationListing'),
+);
+const Quotation = lazy(() => import('../pages/quotation/Quotation'));
 const Quote = lazy(() => import('../pages/quote/Quote'));
 const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() =>
@@ -109,6 +113,22 @@ const AppRouter = () => {
     {/* ProtectedRoute */}
 
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/quotationList'
+      element={
+       <Suspense fallback={<div>Listing...</div>}>
+        <QuotationListing />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/quotation'
+      element={
+       <Suspense fallback={<div>Quotation...</div>}>
+        <Quotation />
+       </Suspense>
+      }
+     />
      <Route
       path='/quote'
       element={
