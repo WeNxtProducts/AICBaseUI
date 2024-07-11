@@ -7,8 +7,8 @@ import { getQueryId } from '../../../../components/commonHelper/QueryIdFetch';
 import useMRVListing from '../../../../components/mrvListing/useMRVListing';
 
 const LifeAssuredDetails = () => {
- const { id: tranId, formData } = useContext(StepperContext);
- const { mrvListingId } = formData;
+ const { id: tranId, QuotationJSON } = useContext(StepperContext);
+ const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const [editData, setEditData] = useState(null);
 
@@ -25,17 +25,8 @@ const LifeAssuredDetails = () => {
  };
 
  return (
-  <div className='front-form life-assured-details grid grid-cols-8 gap-1'>
-   {rowData?.length > 0 && (
-    <div className='inline-table-details mb-1 col-span-8 mt-2'>
-     <CustomList
-      tableColumn={columnData}
-      tableData={rowData}
-      handleEdit={handleEdit}
-     />
-    </div>
-   )}
-   <div className='propasal-entry-form col-span-7'>
+  <div className='front-form life-assured-details grid grid-cols-5 gap-1'>
+   <div className='propasal-entry-form col-span-4'>
     <LifeAssuredDetailsForm initValues={editData} setInitValue={setEditData} />
    </div>
    <div className='col-span-1 mt-3'>

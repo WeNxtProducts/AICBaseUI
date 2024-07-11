@@ -19,8 +19,9 @@ const QuotationPanels = () => {
   handlePrevious,
   handleSkip,
   flag,
+  id: tranId,
  } = useContext(StepperContext);
- const [activePanal, setActivePanel] = useState(0);
+ const [activePanal, setActivePanel] = useState(1);
 
  const callback = key => {
   if (flag !== 'completed') {
@@ -47,7 +48,19 @@ const QuotationPanels = () => {
       />
      }
      key={1}>
-     <LifeAssuredDetails />
+     {/* <LifeAssuredDetails /> */}
+     <MrvQuotation
+      queryID='Life Assured Details'
+      root='life_assured_details'
+      mrvGet='getLifeAssuredDetails'
+      screenCode='QUOTATIONENTRY'
+      screenName='QUOTATIONENTRY'
+      saveRow='saveLifeAssuredDetails'
+      editRow='updateLifeAssuredDetails'
+      deleteRow='deleteLifeAssuredDetails'
+      title=''
+      tranId={tranId}
+     />
     </Panel>
     <Panel
      data-id='panel-2'

@@ -79,6 +79,9 @@ const GET_API_URL = {
  claimListSearch: {
   url: '/common/claimListSearch',
  },
+ getLifeAssuredDetails: {
+  url: '/common/polEmployeeEdit',
+ },
 };
 
 export default GET_API_URL;

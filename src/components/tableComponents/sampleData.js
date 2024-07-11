@@ -491,18 +491,18 @@ export const bankData = [
   account_number: '83901',
   ifsc_code: 'CC002',
  },
- {
-  bank_code: '1233',
-  bank_sort_code: '3',
-  account_number: '83901',
-  ifsc_code: 'CC003',
- },
- {
-  bank_code: '789',
-  bank_sort_code: '4',
-  account_number: '83901',
-  ifsc_code: 'CC004',
- },
+//  {
+//   bank_code: '1233',
+//   bank_sort_code: '3',
+//   account_number: '83901',
+//   ifsc_code: 'CC003',
+//  },
+//  {
+//   bank_code: '789',
+//   bank_sort_code: '4',
+//   account_number: '83901',
+//   ifsc_code: 'CC004',
+//  },
 ];
 
 export const listTable = [

@@ -17,8 +17,16 @@ import ConfirmationModal from '../../../components/confirmationModal/Confirmatio
 import { StepperContext } from '../Quotation';
 import MRVQuotationForm from './MRVHelper/MRVQuotationForm';
 import MRVListingQuotation from './MRVHelper/MRVListing';
+import {
+ bankColumn,
+ bankData,
+} from '../../../components/tableComponents/sampleData';
+import '../../../styles/components/MRV_Card.scss';
+import MRVModal from './MRVHelper/MRVInModal/MRVModal';
+import MRVMedical from './MRVHelper/MRVInModal/MRVMedical/MRVMedical';
 
 const MrvQuotation = ({
+ tranId,
  queryID,
  root,
  mrvGet,
@@ -35,7 +43,7 @@ const MrvQuotation = ({
 }) => {
  const {
   QuotationJSON,
-  id: tranId,
+  // id: tranId,
   formValues,
   setDropDown,
   dropDown,
@@ -56,6 +64,9 @@ const MrvQuotation = ({
  const [loader, setLoader] = useState(false);
  const [first, setFirst] = useState(false);
  const [formInit, setFormInit] = useState(false);
+ const [openModal, setOpenModal] = useState(false);
+ const [modalType, setModalType] = useState('');
+ const [openMedical, setOpenMedical] = useState(false);
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
@@ -79,24 +90,7 @@ const MrvQuotation = ({
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
-
-  if (title === 'Pay To') {
-   const percentage = payload[root]?.formFields?.CBEN_PERC;
-   const totalPercentage =
-    rowData.reduce((sum, item) => {
-     if (item.ID === editMRVId) return sum;
-     return sum + (Number(item?.Percentage) || 0);
-    }, 0) + Number(percentage);
-   if (percentage > 100) {
-    showNotification.WARNING('Percentage should not exceed 100');
-    return;
-   } else if (totalPercentage > 100) {
-    showNotification.WARNING('Total percentage should not exceed 100');
-    return;
-   } else {
-    addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
-   }
-  } else addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
+  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
  };
 
  const handleInitData = response => {
@@ -113,18 +107,22 @@ const MrvQuotation = ({
   }
  };
 
- useEffect(() => {
-  if (rowData?.length > 0 && !editMRVId && !first) {
-   setFirst(true);
-   handleEdit(rowData[0]);
-  }
- }, [rowData]);
+ //  useEffect(() => {
+ //   if (rowData?.length > 0 && !editMRVId && !first) {
+ //    setFirst(true);
+ //    handleEdit(rowData[0]);
+ //   }
+ //  }, [rowData]);
 
  useEffect(() => {
+  console.log('tranId : ', tranId);
   if (tranId) {
    handleInitData(QuotationJSON);
    MRVListing();
   }
+  // else {
+  //  handleInitData(QuotationJSON);
+  // }
  }, [tranId]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
@@ -216,12 +214,25 @@ const MrvQuotation = ({
   }
  };
 
+ const handleCloseModal = () => {
+  setOpenModal(false);
+  setOpenMedical(false);
+  setModalType('');
+ };
+
+ const handleCardActions = type => {
+  setModalType(type);
+  // setOpenModal(true);
+  setOpenMedical(true);
+  console.log('type : ', type);
+ };
+
  return (
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
    {loader && <Loader />}
 
-   <div className='propasal-entry-form col-span-8 grid grid-cols-7'>
-    <div className='col-span-5 mt-1'>
+   <div className='propasal-entry-form col-span-8 grid grid-cols-9'>
+    <div className='col-span-7 mt-1'>
      {quotationMRV &&
       Object.prototype.hasOwnProperty.call(quotationMRV, root) && (
        <MRVQuotationForm
@@ -243,9 +254,10 @@ const MrvQuotation = ({
       )}
     </div>
 
-    <div className='col-span-2 p-2 border_left_divider'>
+    <div className='col-span-2 p-3 border_left_divider'>
      {rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0 && (
       <MRVListingQuotation
+       root='life_assured_details'
        tableColumn={columnData}
        tableData={rowData}
        handleEdit={handleEdit}
@@ -256,12 +268,27 @@ const MrvQuotation = ({
        isEdit={isEdit}
        isDelete={isDelete}
        freeze={freeze}
+       handleCardActions={handleCardActions}
       />
      )}
     </div>
    </div>
    {deleteConfirmation && (
     <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
+   )}
+   {openModal && (
+    <MRVModal
+     open={openModal}
+     modalTitle={modalType}
+     handleClose={handleCloseModal}
+    />
+   )}
+   {openMedical && (
+    <MRVMedical
+     open={openMedical}
+     modalTitle={modalType}
+     handleClose={handleCloseModal}
+    />
    )}
   </div>
  );

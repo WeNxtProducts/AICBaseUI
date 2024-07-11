@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import React, { useContext, useEffect, useState } from 'react';
 import { StepperContext } from '../../Quotation';
 import MRVform from '../../../../components/mrvForm/MRVform';

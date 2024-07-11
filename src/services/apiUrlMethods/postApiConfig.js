@@ -192,5 +192,13 @@ const POST_API_URL = {
   url: '/policy/save',
   baseURL: 'CLAIMURL',
  },
+ saveLifeAssuredDetails: {
+  url: '/polEmployee/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateLifeAssuredDetails: {
+  url: '/polEmployee/polEmployeeUpdate',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

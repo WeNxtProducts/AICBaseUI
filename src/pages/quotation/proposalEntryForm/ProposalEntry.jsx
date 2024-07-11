@@ -8,7 +8,7 @@ const ProposalEntry = () => {
    <div className='propasal-entry-form col-span-7'>
     <ProposalEntryForm />
    </div>
-   <div className='col-span-1 mt-3'>
+   <div className='col-span-1 mt-3 page-divider'>
     <ActionButtons />
    </div>
   </div>

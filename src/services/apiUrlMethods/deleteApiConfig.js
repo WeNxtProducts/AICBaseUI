@@ -17,6 +17,10 @@ const DELETE_API_URL = {
   url: '/docprintsetup/deletexdocbyid',
   baseURL: 'DOCPRINT',
  },
+ deleteLifeAssuredDetails: {
+  url: '/polEmployee/deletePolEmployee',
+  baseURL: 'DOCPRINT',
+ },
 };
 
 export default DELETE_API_URL;

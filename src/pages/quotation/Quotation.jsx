@@ -10,7 +10,7 @@ import useApiRequests from '../../services/useApiRequests';
 import QuotationJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
 import UnderWriterWorkBench from '../underWriterWorkBench/UnderWriterWorkBench';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/components/Quotation.scss';
+import './Quotations.scss';
 
 export const StepperContext = createContext();
 

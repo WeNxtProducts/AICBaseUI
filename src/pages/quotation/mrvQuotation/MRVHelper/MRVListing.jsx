@@ -1,8 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import medicalBag from '../../../../assets/medical.png';
+import cycle from '../../../../assets/cycle.png';
+import groupPeople from '../../../../assets/group-people.png';
 
 const MRVListingQuotation = ({
+ root = '',
  tableColumn = '',
  tableData = [],
  handleEdit,
@@ -14,6 +18,7 @@ const MRVListingQuotation = ({
  isDelete = true,
  freeze = false,
  highlightKey = 'ID',
+ handleCardActions,
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
 
@@ -37,8 +42,12 @@ const MRVListingQuotation = ({
      key={item?.[highlightKey]}
      className={
       selectedRow == item?.[highlightKey]
-       ? 'list_card_highlighted_row'
-       : 'list_card'
+       ? `list_card_highlighted_row pb-${
+          root !== 'medical' && root !== 'life_assured_details' ? 2 : 0
+         }`
+       : `list_card pb-${
+          root !== 'medical' && root !== 'life_assured_details' ? 2 : 0
+         }`
      }>
      <div
       className={`action_header flex item-center justify-${
@@ -95,6 +104,26 @@ const MRVListingQuotation = ({
        <p className='col-span-6 value_font'>{item[key]}</p>
       </div>
      ))}
+     {root === 'life_assured_details' && (
+      <div className='card_action_buttons'>
+       <button onClick={() => handleCardActions('Riders')}>
+        <img src={cycle} />
+       </button>
+       <button onClick={() => handleCardActions('Family History')}>
+        <img src={groupPeople} />
+       </button>
+       <button onClick={() => handleCardActions('Medical')}>
+        <img src={medicalBag} />
+       </button>
+      </div>
+     )}
+     {root === 'medical' && (
+      <div className='card_action_buttons'>
+       <button onClick={() => handleCardActions('Riders')}>
+        Doctor fee Details
+       </button>
+      </div>
+     )}
     </div>
    ))}
   </div>

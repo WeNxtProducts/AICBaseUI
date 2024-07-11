@@ -23,12 +23,12 @@ const ActionButtons = () => {
  return (
   <div className='action-buttons'>
    <div className='section-1 flex flex-col items-center'>
-    <Button>Customer</Button>
-    <Button>Assured</Button>
-    <Button>File Upload</Button>
-    <Button>DMS</Button>
+    <Button>More Info</Button>
+    <Button>Copy</Button>
+    <Button>Prem Calc</Button>
+    <Button>Bus Rule</Button>
    </div>
-   <div className='section-2 mt-7 flex flex-col items-center'>
+   {/* <div className='section-2 mt-7 flex flex-col items-center'>
     <Button onClick={() => setBrokerOpen(true)}>Broker/Agent</Button>
     <Button onClick={() => setAddressOpen(true)}>Address</Button>
     <Button onClick={() => setBankDetailsOpen(true)}>Bank Dtls</Button>
@@ -39,7 +39,7 @@ const ActionButtons = () => {
     <Button>Convert</Button>
     <Button>Claim</Button>
     <Button onClick={() => setPremCalcOpen(true)}>Prem Calc</Button>
-   </div>
+   </div> */}
    {addressOpen && <Address open={addressOpen} handleClose={handleClose} />}
    {bankDetailsOpen && (
     <BankDetails open={bankDetailsOpen} handleClose={handleClose} />

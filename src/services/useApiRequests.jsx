@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 // import axios from "./apiInterceptors";
 import { API_CONFIG } from './apiUrlMethods/apiUrls';
 import useCustomAxios from './axiosHook/useCustomAxios';

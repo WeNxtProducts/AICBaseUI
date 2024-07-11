@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Formik, Form } from 'formik';
 import { createYupSchema } from '../../../../components/commonHelper/SchemaGenerator';
 import QuotationFieldWithValue from './QuotationFieldWithValue';
+import { Button } from 'antd';
 
 const MRVQuotationForm = ({
  initialValues,
@@ -26,11 +27,11 @@ const MRVQuotationForm = ({
  const [loader, setLoader] = useState(false);
  const formikRef = useRef(null);
 
- useEffect(() => {
-  if (formikRef.current) {
-   formikRef.current.resetForm();
-  }
- }, [formInit]);
+ //  useEffect(() => {
+ //   if (formikRef.current) {
+ //    formikRef.current.resetForm();
+ //   }
+ //  }, [formInit]);
 
  useEffect(() => {
   const validationSchema = createYupSchema({
@@ -46,7 +47,7 @@ const MRVQuotationForm = ({
     <Formik
      initialValues={initValues}
      values={initValues}
-     validationSchema={validation}
+     //validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}
      innerRef={formikRef}>
@@ -54,11 +55,27 @@ const MRVQuotationForm = ({
       //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
-        <div className='mb-4 flex items-center justify-between'>
-         <p className='mrv_header'>{title}</p>
+        <div className='mb-4 flex items-center justify-between px-2'>
+         <p className='form_title'>{title}</p>
+         {addOrUpdate && (
+          <>
+           {action && !freeze && (
+            <Button
+             className='add-buttons me-5'
+             type='primary'
+             onClick={() => {
+              if (addOrUpdate) formReset();
+              else resetForm();
+             }}
+             icon={<i className='bi bi-plus icon-style' />}>
+             Add New
+            </Button>
+           )}
+          </>
+         )}
         </div>
 
-        <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
+        <div className={`items-center grid grid-cols-${grid} gap-y-3 px-2`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
            formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
