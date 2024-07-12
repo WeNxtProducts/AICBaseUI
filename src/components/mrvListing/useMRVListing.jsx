@@ -10,7 +10,7 @@ const useMRVListing = () => {
   const queryParams = { queryId, tranId };
 
   rest.forEach(value => {
-   if (value !== undefined) queryParams[`cptranid`] = value;
+   if (value !== undefined) queryParams[`emptranId`] = value;
   });
 
   try {
@@ -21,7 +21,7 @@ const useMRVListing = () => {
     return true;
    }
   } catch (err) {
-   console.log(err);
+   console.error(err);
    return false;
   } finally {
    const panel = document.querySelector(`[data-id='dept-1']`);

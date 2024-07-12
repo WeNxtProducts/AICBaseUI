@@ -19,7 +19,15 @@ const DELETE_API_URL = {
  },
  deleteLifeAssuredDetails: {
   url: '/polEmployee/deletePolEmployee',
-  baseURL: 'DOCPRINT',
+  baseURL: 'CLAIMURL',
+ },
+ deleteRidersDetails: {
+  url: '/polEmpCover/deletePolEmpCover',
+  baseURL: 'CLAIMURL',
+ },
+ deleteMedicalDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
  },
 };
 

@@ -30,7 +30,7 @@ const Quotation = () => {
  };
 
  useEffect(() => {
-  console.log('id : ', id);
+  //   console.log('id : ', id);
   const panel = document.querySelector(`[data-id='panel-${currentStep}']`);
   if (panel) {
    setTimeout(() => {

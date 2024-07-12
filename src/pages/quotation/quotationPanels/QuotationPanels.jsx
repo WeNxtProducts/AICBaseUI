@@ -2,11 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Collapse } from 'antd';
 import CollapsePanelHeader from '../../../components/collapsePanelHeader/CollapsePanelHeader';
 import { StepperContext } from '../Quotation';
-import LifeAssuredDetails from './lifeAssuredDetails/LifeAssuredDetails';
-import Beneficiary from './beneficiary/Beneficiary';
 import ChargsDisLoadConditions from './chargs-DisLoad-Conditions/ChargsDisLoadConditions';
 import CheckList from './checkList/CheckList';
-import CommentsMaturityRemainderDispatchDetails from './comments-Maturity-Remainder-DispatchDetails/CommentsMaturityRemainderDispatchDetails';
 import MrvQuotation from '../mrvQuotation/MrvQuotation';
 
 const { Panel } = Collapse;
@@ -48,9 +45,8 @@ const QuotationPanels = () => {
       />
      }
      key={1}>
-     {/* <LifeAssuredDetails /> */}
      <MrvQuotation
-      queryID='Life Assured Details'
+      queryID='getLifeAssuredDetails'
       root='life_assured_details'
       mrvGet='getLifeAssuredDetails'
       screenCode='QUOTATIONENTRY'
@@ -72,17 +68,17 @@ const QuotationPanels = () => {
       />
      }
      key={2}>
-     {/* <Beneficiary /> */}
      <MrvQuotation
-      queryID='ClaimChargeDetailsList'
-      root='ClaimCharges'
+      queryID='Benificiary'
+      root='benificiary'
       mrvGet='getClaimChargesDetailsEdit'
-      screenCode='CLAIMENTRY'
-      screenName='CLAIMENTRY'
+      screenCode='QUOTATIONENTRY'
+      screenName='QUOTATIONENTRY'
       saveRow='claimChargeCreate'
       editRow='claimChargeUpdate'
       deleteRow='claimChargeDelete'
-      title='Beneficiary'
+      title=''
+      tranId={tranId}
      />
     </Panel>
     <Panel
@@ -90,12 +86,12 @@ const QuotationPanels = () => {
      header={
       <CollapsePanelHeader
        completed={flag}
-       name='Chargs/Dis-load/Conditions'
+       name='Chargs/Discount-loading/Conditions'
        saved={stepperData[3]}
       />
      }
      key={3}>
-     <ChargsDisLoadConditions />
+     <ChargsDisLoadConditions tranId={tranId} />
     </Panel>
     <Panel
      data-id='panel-4'
@@ -108,18 +104,6 @@ const QuotationPanels = () => {
      }
      key={4}>
      <CheckList />
-    </Panel>
-    <Panel
-     data-id='panel-5'
-     header={
-      <CollapsePanelHeader
-       completed={flag}
-       name='Comments/Maturity/Remainder/Dispatch details'
-       saved={stepperData[5]}
-      />
-     }
-     key={5}>
-     <CommentsMaturityRemainderDispatchDetails />
     </Panel>
    </Collapse>
   </div>

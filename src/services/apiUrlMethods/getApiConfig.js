@@ -82,6 +82,12 @@ const GET_API_URL = {
  getLifeAssuredDetails: {
   url: '/common/polEmployeeEdit',
  },
+ getRidersDetails: {
+  url: '/common/polEmpCoverEdit',
+ },
+ getMedicalDetails: {
+  url: '',
+ },
 };
 
 export default GET_API_URL;

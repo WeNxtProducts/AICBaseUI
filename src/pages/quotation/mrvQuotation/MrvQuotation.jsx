@@ -17,13 +17,8 @@ import ConfirmationModal from '../../../components/confirmationModal/Confirmatio
 import { StepperContext } from '../Quotation';
 import MRVQuotationForm from './MRVHelper/MRVQuotationForm';
 import MRVListingQuotation from './MRVHelper/MRVListing';
-import {
- bankColumn,
- bankData,
-} from '../../../components/tableComponents/sampleData';
-import '../../../styles/components/MRV_Card.scss';
 import MRVModal from './MRVHelper/MRVInModal/MRVModal';
-import MRVMedical from './MRVHelper/MRVInModal/MRVMedical/MRVMedical';
+import '../../../styles/components/MRV_Card.scss';
 
 const MrvQuotation = ({
  tranId,
@@ -40,6 +35,7 @@ const MrvQuotation = ({
  isView = true,
  isEdit = true,
  isDelete = true,
+ subId = '',
 }) => {
  const {
   QuotationJSON,
@@ -66,11 +62,10 @@ const MrvQuotation = ({
  const [formInit, setFormInit] = useState(false);
  const [openModal, setOpenModal] = useState(false);
  const [modalType, setModalType] = useState('');
- const [openMedical, setOpenMedical] = useState(false);
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
-   const params = editMRVId ? { editMRVId } : { tranId };
+   const params = editMRVId ? { editMRVId } : { tranId, subId };
    const response = await addOrUpdate(payload, '', params);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
@@ -103,7 +98,7 @@ const MrvQuotation = ({
  const MRVListing = () => {
   if (tranId) {
    const queryId = getQueryId(queryID, mrvListingId);
-   handleMRVListing(queryId, tranId);
+   handleMRVListing(queryId, tranId, subId);
   }
  };
 
@@ -116,6 +111,7 @@ const MrvQuotation = ({
 
  useEffect(() => {
   console.log('tranId : ', tranId);
+  console.log('subId : ', subId);
   if (tranId) {
    handleInitData(QuotationJSON);
    MRVListing();
@@ -140,6 +136,7 @@ const MrvQuotation = ({
     screenCode,
     screenName,
     tranId: item?.ID,
+    // ...(subId ? { emptranId: subId } : {}),
    });
    //  if (response?.status === 'SUCCESS') {
    setEditMRVId(item?.ID);
@@ -216,15 +213,18 @@ const MrvQuotation = ({
 
  const handleCloseModal = () => {
   setOpenModal(false);
-  setOpenMedical(false);
   setModalType('');
  };
 
- const handleCardActions = type => {
+ const handleCardActions = (type, item) => {
+  handleEdit(item);
+  setEditMRVId(item?.ID);
   setModalType(type);
-  // setOpenModal(true);
-  setOpenMedical(true);
-  console.log('type : ', type);
+  setOpenModal(true);
+ };
+
+ const hasValidRowData = rowData => {
+  return rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0;
  };
 
  return (
@@ -232,7 +232,7 @@ const MrvQuotation = ({
    {loader && <Loader />}
 
    <div className='propasal-entry-form col-span-8 grid grid-cols-9'>
-    <div className='col-span-7 mt-1'>
+    <div className={`col-span-${hasValidRowData(rowData) ? '7' : '8'} mt-1`}>
      {quotationMRV &&
       Object.prototype.hasOwnProperty.call(quotationMRV, root) && (
        <MRVQuotationForm
@@ -253,11 +253,10 @@ const MrvQuotation = ({
        />
       )}
     </div>
-
-    <div className='col-span-2 p-3 border_left_divider'>
-     {rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0 && (
+    {hasValidRowData(rowData) && (
+     <div className='col-span-2 p-3 border_left_divider'>
       <MRVListingQuotation
-       root='life_assured_details'
+       root={root}
        tableColumn={columnData}
        tableData={rowData}
        handleEdit={handleEdit}
@@ -270,22 +269,17 @@ const MrvQuotation = ({
        freeze={freeze}
        handleCardActions={handleCardActions}
       />
-     )}
-    </div>
+     </div>
+    )}
    </div>
    {deleteConfirmation && (
     <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
    )}
    {openModal && (
     <MRVModal
+     subId={editMRVId}
+     tranId={tranId}
      open={openModal}
-     modalTitle={modalType}
-     handleClose={handleCloseModal}
-    />
-   )}
-   {openMedical && (
-    <MRVMedical
-     open={openMedical}
      modalTitle={modalType}
      handleClose={handleCloseModal}
     />

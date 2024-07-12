@@ -200,5 +200,21 @@ const POST_API_URL = {
   url: '/polEmployee/polEmployeeUpdate',
   baseURL: 'CLAIMURL',
  },
+ saveRidersDetails: {
+  url: '/polEmpCover/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateRidersDetails: {
+  url: '/polEmpCover/polEmpCoverUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveMedicalDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
+ },
+ updateMedicalDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

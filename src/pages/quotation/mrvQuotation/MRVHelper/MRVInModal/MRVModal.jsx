@@ -7,11 +7,21 @@ const modalStyles = {
  topPosition: { top: 60 },
 };
 
-const MRVModal = ({ open, handleClose, modalTitle }) => {
+const MRVModal = ({ open, handleClose, modalTitle, subId, tranId }) => {
  const [Open, setOpen] = useState(false);
+ const [mrvProps, setMrvProps] = useState(null);
 
  useEffect(() => {
   setOpen(open);
+  const isRider = modalTitle === 'Riders';
+  setMrvProps({
+   queryID: isRider ? 'getRiderDetails' : 'medical_details',
+   root: isRider ? 'pol_riders' : 'medical_details',
+   mrvGet: isRider ? 'getRidersDetails' : 'getMedicalDetails',
+   saveRow: isRider ? 'saveRidersDetails' : 'saveMedicalDetails',
+   editRow: isRider ? 'updateRidersDetails' : 'updateMedicalDetails',
+   deleteRow: isRider ? 'deleteRidersDetails' : 'deleteMedicalDetails',
+  });
  }, []);
 
  const onClose = status => {
@@ -36,18 +46,16 @@ const MRVModal = ({ open, handleClose, modalTitle }) => {
     closeIcon={null}
     maskClosable={false}
     footer={null}>
-    <MrvQuotation
-     queryID='Life Assured Details'
-     root='life_assured_details'
-     mrvGet='getClaimChargesDetailsEdit'
-     screenCode='CLAIMENTRY'
-     screenName='CLAIMENTRY'
-     saveRow='claimChargeCreate'
-     editRow='claimChargeUpdate'
-     deleteRow='claimChargeDelete'
-     title={modalTitle}
-     tranId={1}
-    />
+    {mrvProps !== null && (
+     <MrvQuotation
+      {...mrvProps}
+      screenCode='QUOTATIONENTRY'
+      screenName='QUOTATIONENTRY'
+      title={modalTitle}
+      tranId={tranId}
+      subId={subId}
+     />
+    )}
    </Modal>
   </>
  );

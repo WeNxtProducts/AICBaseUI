@@ -106,24 +106,24 @@ const MRVListingQuotation = ({
      ))}
      {root === 'life_assured_details' && (
       <div className='card_action_buttons'>
-       <button onClick={() => handleCardActions('Riders')}>
+       <button onClick={() => handleCardActions('Riders', item)}>
         <img src={cycle} />
        </button>
-       <button onClick={() => handleCardActions('Family History')}>
+       {/* <button onClick={() => handleCardActions('Family History')}>
         <img src={groupPeople} />
-       </button>
-       <button onClick={() => handleCardActions('Medical')}>
+       </button> */}
+       <button onClick={() => handleCardActions('Medical', item)}>
         <img src={medicalBag} />
        </button>
       </div>
      )}
-     {root === 'medical' && (
+     {/* {root === 'medical' && (
       <div className='card_action_buttons'>
        <button onClick={() => handleCardActions('Riders')}>
         Doctor fee Details
        </button>
       </div>
-     )}
+     )} */}
     </div>
    ))}
   </div>
