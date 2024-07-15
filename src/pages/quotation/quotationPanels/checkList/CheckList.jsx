@@ -1,76 +1,71 @@
 import React, { useContext, useEffect, useState } from 'react';
-import CustomList from '../../../../components/customList/CustomList';
 import { StepperContext } from '../../Quotation';
 import useMRVListing from '../../../../components/mrvListing/useMRVListing';
+import useApiRequests from '../../../../services/useApiRequests';
 import { getQueryId } from '../../../../components/commonHelper/QueryIdFetch';
-import MRVform from '../../../../components/mrvForm/MRVform';
+import showNotification from '../../../../components/notification/Notification';
+import ListDetails from './ListDetails';
+import MRVListingQuotation from '../../mrvQuotation/MRVHelper/MRVListing';
 
-const CheckList = () => {
- const {
-  currentStep,
-  stepperData,
-  handleNext,
-  handlePrevious,
-  handleSkip,
-  QuotationJSON,
-  id: tranId,
-  formData,
- } = useContext(StepperContext);
- const { mrvListingId } = formData;
+const Checklist = ({ tranId }) => {
+ const { QuotationJSON } = useContext(StepperContext);
+ const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
- const [checklistDetails, setChecklistDetails] = useState(QuotationJSON);
- const [checklistInitialValues, setChecklistInitialValues] = useState(null);
+ const getChecklist = useApiRequests('getProposalChecklist', 'GET');
+ const [listItemData, setListItemData] = useState([]);
+ const [editMRVId, setEditMRVId] = useState('');
 
- const onSubmit = values => {
-  handleNext();
-  console.log('values : ', values);
- };
-
- const handleChangeValue = (value, path, setFieldValue, values) => {
-  setFieldValue(path, value);
- };
-
- useEffect(() => {
+ const MRVListing = () => {
   if (tranId) {
    const queryId = getQueryId('CheckList', mrvListingId);
    handleMRVListing(queryId, tranId);
   }
- }, []);
-
- const handleEdit = item => {
-  console.log('handleEdit : ', item);
-  setChecklistInitialValues(item);
  };
 
- const resetForm = () => {
-  setChecklistInitialValues(null);
+ useEffect(() => {
+  if (tranId) {
+   MRVListing();
+  }
+ }, [tranId]);
+
+ const handleEdit = async item => {
+  console.log('handleEdit :', item);
+  setEditMRVId(item?.ID);
+  try {
+   const response = await getChecklist('', {
+    screenCode: 'QUOTATIONENTRY',
+    screenName: 'QUOTATIONENTRY',
+    tranId: item?.ID,
+   });
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    setListItemData(response?.Data);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
  };
 
  return (
-  <div className='checklist front-form'>
-   {rowData?.length > 0 && (
-    <div className='inline-table-details mb-1 mt-2 col-span-8'>
-     <CustomList
+  <div className='grid grid-cols-9 py-1 pe-1'>
+   <div className='col-span-7 pe-2'>
+    <ListDetails listItemData={listItemData} />
+   </div>
+   <div className='col-span-2 p-2 border_left_divider'>
+    {rowData?.length > 0 && (
+     <MRVListingQuotation
       tableColumn={columnData}
       tableData={rowData}
       handleEdit={handleEdit}
+      //handleDelete={handleDelete}
+      //selectedRow={editMRVId}
+      selectedRow={editMRVId}
      />
-    </div>
-   )}
-   {checklistDetails?.hasOwnProperty('checklist') && (
-    <div className='propasal-entry-form col-span-8'>
-     <MRVform
-      initialValues={checklistInitialValues}
-      formRender={checklistDetails}
-      root='checklist'
-      onSubmit={onSubmit}
-      handleChangeValue={handleChangeValue}
-      resetForm={resetForm}
-     />
-    </div>
-   )}
+    )}
+   </div>
   </div>
  );
 };
 
-export default CheckList;
+export default Checklist;

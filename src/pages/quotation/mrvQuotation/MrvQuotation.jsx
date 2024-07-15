@@ -232,7 +232,7 @@ const MrvQuotation = ({
    {loader && <Loader />}
 
    <div className='propasal-entry-form col-span-8 grid grid-cols-9'>
-    <div className={`col-span-${hasValidRowData(rowData) ? '7' : '8'} mt-1`}>
+    <div className={`col-span-${hasValidRowData(rowData) ? '7' : '9'} mt-1`}>
      {quotationMRV &&
       Object.prototype.hasOwnProperty.call(quotationMRV, root) && (
        <MRVQuotationForm

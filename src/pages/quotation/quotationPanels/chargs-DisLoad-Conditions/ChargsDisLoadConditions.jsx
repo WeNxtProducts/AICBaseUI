@@ -27,12 +27,12 @@ const ChargsDisLoadConditions = ({ tranId }) => {
       <MrvQuotation
        queryID='Benificiary'
        root='Charges'
-       mrvGet='getClaimChargesDetailsEdit'
+       mrvGet='getChargesDetails'
        screenCode='QUOTATIONENTRY'
        screenName='QUOTATIONENTRY'
-       saveRow='claimChargeCreate'
-       editRow='claimChargeUpdate'
-       deleteRow='claimChargeDelete'
+       saveRow='saveChargesDetails'
+       editRow='updateChargesDetails'
+       deleteRow='deleteChargesDetails'
        title=''
        tranId={tranId}
       />
@@ -41,12 +41,12 @@ const ChargsDisLoadConditions = ({ tranId }) => {
       <MrvQuotation
        queryID='Benificiary'
        root='Discount_Loading'
-       mrvGet='getClaimChargesDetailsEdit'
+       mrvGet='getDisLoadDetails'
        screenCode='QUOTATIONENTRY'
        screenName='QUOTATIONENTRY'
-       saveRow='claimChargeCreate'
-       editRow='claimChargeUpdate'
-       deleteRow='claimChargeDelete'
+       saveRow='saveDisLoadDetails'
+       editRow='updateDisLoadDetails'
+       deleteRow='deleteDisLoadDetails'
        title=''
        tranId={tranId}
       />
@@ -55,12 +55,12 @@ const ChargsDisLoadConditions = ({ tranId }) => {
       <MrvQuotation
        queryID='Benificiary'
        root='Conditions'
-       mrvGet='getClaimChargesDetailsEdit'
+       mrvGet='getConditionsDetails'
        screenCode='QUOTATIONENTRY'
        screenName='QUOTATIONENTRY'
-       saveRow='claimChargeCreate'
-       editRow='claimChargeUpdate'
-       deleteRow='claimChargeDelete'
+       saveRow='saveConditionsDetails'
+       editRow='updateConditionsDetails'
+       deleteRow='deleteConditionsDetails'
        title=''
        tranId={tranId}
       />

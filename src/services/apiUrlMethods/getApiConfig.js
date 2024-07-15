@@ -86,7 +86,22 @@ const GET_API_URL = {
   url: '/common/polEmpCoverEdit',
  },
  getMedicalDetails: {
+  url: '/common/medicalDetailsEdit',
+ },
+ getChargesDetails: {
+  url: '/common/polChargeEdit',
+ },
+ getDisLoadDetails: {
+  url: '/common/polDiscLoadEdit',
+ },
+ getConditionsDetails: {
   url: '',
+ },
+ getBeneficiaryDetails: {
+  url: '/common/polBeneficiaryEdit',
+ },
+ getProposalChecklist: {
+  url: '/common/claimsDocToDoListEdit',
  },
 };
 

@@ -26,6 +26,22 @@ const DELETE_API_URL = {
   baseURL: 'CLAIMURL',
  },
  deleteMedicalDetails: {
+  url: '/medexFeeDtl/deleteMedDtl',
+  baseURL: 'CLAIMURL',
+ },
+ deleteBeneficiaryDetails: {
+  url: '/polBeneficiary/deletePolBeneficiary',
+  baseURL: 'CLAIMURL',
+ },
+ deleteChargesDetails: {
+  url: '/polCharge/deletePolCharge',
+  baseURL: 'CLAIMURL',
+ },
+ deleteDisLoadDetails: {
+  url: '/polDiscLoad/deletePolBroker',
+  baseURL: 'CLAIMURL',
+ },
+ deleteConditionsDetails: {
   url: '',
   baseURL: 'CLAIMURL',
  },

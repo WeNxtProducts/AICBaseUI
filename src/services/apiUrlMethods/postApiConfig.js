@@ -209,10 +209,43 @@ const POST_API_URL = {
   baseURL: 'CLAIMURL',
  },
  saveMedicalDetails: {
-  url: '',
+  url: '/medexFeeDtl/save',
   baseURL: 'CLAIMURL',
  },
  updateMedicalDetails: {
+  url: '/medexFeeDtl/updateMedExFeeDtl',
+  baseURL: 'CLAIMURL',
+ },
+
+ saveBeneficiaryDetails: {
+  url: '/polBeneficiary/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateBeneficiaryDetails: {
+  url: '/polBeneficiary/polBeneficiaryUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveChargesDetails: {
+  url: '/polCharge/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateChargesDetails: {
+  url: '/polCharge/polChargeUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveDisLoadDetails: {
+  url: '/polDiscLoad/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateDisLoadDetails: {
+  url: '/polDiscLoad/polDiscLoadUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveConditionsDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
+ },
+ updateConditionsDetails: {
   url: '',
   baseURL: 'CLAIMURL',
  },

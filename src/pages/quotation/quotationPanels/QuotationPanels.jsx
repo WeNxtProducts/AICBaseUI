@@ -18,7 +18,7 @@ const QuotationPanels = () => {
   flag,
   id: tranId,
  } = useContext(StepperContext);
- const [activePanal, setActivePanel] = useState(1);
+ const [activePanal, setActivePanel] = useState(4);
 
  const callback = key => {
   if (flag !== 'completed') {
@@ -71,12 +71,12 @@ const QuotationPanels = () => {
      <MrvQuotation
       queryID='Benificiary'
       root='benificiary'
-      mrvGet='getClaimChargesDetailsEdit'
+      mrvGet='getBeneficiaryDetails'
       screenCode='QUOTATIONENTRY'
       screenName='QUOTATIONENTRY'
-      saveRow='claimChargeCreate'
-      editRow='claimChargeUpdate'
-      deleteRow='claimChargeDelete'
+      saveRow='saveBeneficiaryDetails'
+      editRow='updateBeneficiaryDetails'
+      deleteRow='deleteBeneficiaryDetails'
       title=''
       tranId={tranId}
      />
@@ -103,7 +103,7 @@ const QuotationPanels = () => {
       />
      }
      key={4}>
-     <CheckList />
+     <CheckList tranId={tranId} />
     </Panel>
    </Collapse>
   </div>
