@@ -1,3 +1,16 @@
+@mixin custom-steps($bg-color, $step-color, $text-color) {
+ background-color: $bg-color;
+ & > span {
+  color: $text-color;
+ }
+ + div {
+  span {
+   margin-top: 8px;
+   color: $step-color;
+  }
+ }
+}
+
 .stepper {
  width: 100%;
  max-width: 850px;
@@ -9,22 +22,13 @@
    background-color: #eff0f6;
    cursor: default;
   }
-  .custom_steps.completed {
-   background-color: #0382c8;
-   & > span {
-    color: #ffffff;
-   }
-  }
-  .custom_steps.active {
-   background-color: #ffbd13;
-   & > span {
-    color: #ffffff;
-   }
-  }
   .custom_steps {
-   background-color: #eff0f6;
-   & > span {
-    color: #6f6c90;
+   @include custom-steps(#eff0f6, #6f6c90, #6f6c90);
+   &.completed {
+    @include custom-steps(#0382c8, #0382c8, #ffffff);
+   }
+   &.active {
+    @include custom-steps(#ffbd13, #ffbd13, #ffffff);
    }
   }
  }
