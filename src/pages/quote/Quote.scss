@@ -1,6 +1,13 @@
 .Quote {
- border: 1px solid green;
+ //   border: 1px solid green;
  min-height: 100lvh;
+
+ .process_button {
+  background-color: #0382c8;
+  padding: 4px 15px;
+  color: #ffffff;
+  border-radius: 5px;
+ }
 
  .quote_header {
   background-color: #ffffff;
@@ -20,12 +27,37 @@
   }
  }
  .content_box {
-  border: 1px solid red;
+  //   border: 1px solid red;
   background-color: #ffffff;
   border-radius: 10px;
   margin: auto;
   margin-top: 10px;
   width: calc(100% * 0.82);
   min-height: 80lvh;
+ }
+
+ .stepper_1 {
+  border: 1px solid red;
+  .basic_information {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   > p:first-of-type {
+    margin: 0 auto;
+    color: #4d5e80;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+   }
+   .basic_form {
+    // border: 1px solid red;
+    margin-top: 10px !important;
+    width: calc(100% * 0.92);
+    margin: auto;
+   }
+  }
+
+  .list_of_benefits {
+  }
  }
 }

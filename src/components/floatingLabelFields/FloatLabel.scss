@@ -1,11 +1,11 @@
 .float-label {
  position: relative;
- padding-top: 3.2px;
+ padding-top: 4px;
 
  .ant-input,
  .ant-picker {
   width: 100% !important;
-  height: 40px;
+  height: 35px;
   padding: 0.6rem 0.6rem 0.6rem 12px; // Add padding-left
   border: 1px solid #4d5e80;
   border-radius: 6px !important; // Add border-radius
@@ -21,7 +21,7 @@
 
  .ant-select {
   width: 100% !important;
-  height: 40px;
+  height: 35px;
 
   .ant-select-selector {
    box-shadow: none !important;
@@ -45,11 +45,11 @@
  top: 12px;
  transition: 0.2s ease all;
  color: #878787;
- font-size: 0.9rem;
+ font-size: 0.85rem;
 }
 
 .label-float {
- top: -6px;
+ top: -3px;
  left: 12px;
  background: #fff; // Add background color to match the input's background
  padding: 0 4px; // Add padding to create space around the label

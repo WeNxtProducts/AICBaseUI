@@ -3,7 +3,7 @@ import { Step, Stepper } from 'react-form-stepper';
 import './Stepper.scss';
 
 const QuoteStepper = () => {
- const [activeStep, setActiveStep] = useState(3);
+ const [activeStep, setActiveStep] = useState(2);
  const quoteStep = [
   { label: 'Benefit Details' },
   { label: 'Assured/Cust Details' },
@@ -21,10 +21,10 @@ const QuoteStepper = () => {
      activeColor: '#ffbd13',
      disabledColor: '#eee',
      stepSize: '2.1em',
-     size: 5,
+     size: 4,
     }}
     styleConfig={{
-     labelFontSize: '.8rem',
+     labelFontSize: '.75rem',
      borderRadius: '50%',
      fontWeight: 600,
     }}
@@ -34,8 +34,8 @@ const QuoteStepper = () => {
      <Step className='custom_steps' key={item?.label} label={item?.label} />
     ))}
    </Stepper>
-   <button onClick={() => setActiveStep(activeStep - 1)}>-</button>
-   <button onClick={() => setActiveStep(activeStep + 1)}>+</button>
+   {/* <button onClick={() => setActiveStep(activeStep - 1)}>-</button>
+   <button onClick={() => setActiveStep(activeStep + 1)}>+</button> */}
   </div>
  );
 };
