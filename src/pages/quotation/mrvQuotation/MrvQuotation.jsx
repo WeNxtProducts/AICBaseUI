@@ -65,7 +65,9 @@ const MrvQuotation = ({
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
-   const params = editMRVId ? { editMRVId } : { tranId, subId };
+   const params = editMRVId
+    ? { editMRVId }
+    : { tranId, ...(subId && { subId }) };
    const response = await addOrUpdate(payload, '', params);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
@@ -110,15 +112,12 @@ const MrvQuotation = ({
  //  }, [rowData]);
 
  useEffect(() => {
-  console.log('tranId : ', tranId);
-  console.log('subId : ', subId);
   if (tranId) {
    handleInitData(QuotationJSON);
    MRVListing();
+  } else {
+   handleInitData(QuotationJSON);
   }
-  // else {
-  //  handleInitData(QuotationJSON);
-  // }
  }, [tranId]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
@@ -230,7 +229,6 @@ const MrvQuotation = ({
  return (
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
    {loader && <Loader />}
-
    <div className='propasal-entry-form col-span-8 grid grid-cols-9'>
     <div className={`col-span-${hasValidRowData(rowData) ? '7' : '9'} mt-1`}>
      {quotationMRV &&

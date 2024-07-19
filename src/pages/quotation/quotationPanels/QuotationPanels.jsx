@@ -18,7 +18,7 @@ const QuotationPanels = () => {
   flag,
   id: tranId,
  } = useContext(StepperContext);
- const [activePanal, setActivePanel] = useState(4);
+ const [activePanal, setActivePanel] = useState(1);
 
  const callback = key => {
   if (flag !== 'completed') {
@@ -69,7 +69,7 @@ const QuotationPanels = () => {
      }
      key={2}>
      <MrvQuotation
-      queryID='Benificiary'
+      queryID='getBeneficiaryList'
       root='benificiary'
       mrvGet='getBeneficiaryDetails'
       screenCode='QUOTATIONENTRY'

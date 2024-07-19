@@ -112,7 +112,7 @@ const ProposalEntryForm = () => {
       onSubmit={onSubmit}
       handleChangeValue={handleChangeValue}
       addOrUpdate={!!tranId}
-      //lovList={dropDown}
+      lovList={dropDown}
       //handleOnBlur={handleOnBlur}
      />
     </div>

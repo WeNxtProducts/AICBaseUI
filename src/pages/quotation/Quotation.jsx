@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ProposalEntry from './proposalEntryForm/ProposalEntry';
 import QuotationPanels from './quotationPanels/QuotationPanels';
 import useStepper from '../../components/customStepper/useStepper';
 import CustomStepper from '../../components/customStepper/CustomStepper';
 import { proposalStepper } from '../../components/tableComponents/sampleData';
-import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../components/loader/Loader';
-import useApiRequests from '../../services/useApiRequests';
 import QuotationJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
+import QuotationLov from '../../getFormFields/QUOTATIONENTRY_getLOVList.json';
 import UnderWriterWorkBench from '../underWriterWorkBench/UnderWriterWorkBench';
-import { useNavigate } from 'react-router-dom';
 import './Quotations.scss';
 
 export const StepperContext = createContext();
@@ -22,7 +22,7 @@ const Quotation = () => {
  const id = useSelector(state => state?.id?.id);
  const [loader, setLoader] = useState(false);
  const [showUnderWriter, setShowUnderWriter] = useState(false);
- const [dropDown, setDropDown] = useState(null);
+ const [dropDown, setDropDown] = useState(QuotationLov);
  const flag = 'completed';
 
  const handleSkipStep = index => {

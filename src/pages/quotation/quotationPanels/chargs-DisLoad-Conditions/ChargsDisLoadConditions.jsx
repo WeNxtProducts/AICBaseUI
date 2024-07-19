@@ -25,7 +25,7 @@ const ChargsDisLoadConditions = ({ tranId }) => {
      onChange={handleTabChange}>
      <TabPane key='1' tab={<TabPanelHeader name='Charges' />}>
       <MrvQuotation
-       queryID='Benificiary'
+       queryID='getChargesList'
        root='Charges'
        mrvGet='getChargesDetails'
        screenCode='QUOTATIONENTRY'
@@ -39,7 +39,7 @@ const ChargsDisLoadConditions = ({ tranId }) => {
      </TabPane>
      <TabPane key='2' tab={<TabPanelHeader name='Discount/Loading' />}>
       <MrvQuotation
-       queryID='Benificiary'
+       queryID='getDiscLoadList'
        root='Discount_Loading'
        mrvGet='getDisLoadDetails'
        screenCode='QUOTATIONENTRY'
@@ -53,7 +53,7 @@ const ChargsDisLoadConditions = ({ tranId }) => {
      </TabPane>
      <TabPane key='3' tab={<TabPanelHeader name='Conditions' />}>
       <MrvQuotation
-       queryID='Benificiary'
+       queryID='getConditionsList'
        root='Conditions'
        mrvGet='getConditionsDetails'
        screenCode='QUOTATIONENTRY'

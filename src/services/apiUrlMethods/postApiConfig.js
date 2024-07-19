@@ -189,7 +189,7 @@ const POST_API_URL = {
   baseURL: 'CLAIMURL',
  },
  updateProposalEntry: {
-  url: '/policy/save',
+  url: '/policy/policyUpdate',
   baseURL: 'CLAIMURL',
  },
  saveLifeAssuredDetails: {
