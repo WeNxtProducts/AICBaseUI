@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Tabs } from 'antd';
 import TabPanelHeader from '../../../../components/collapsePanelHeader/TabPanelHeader';
-import Charges from './charges/Charges';
-import DiscountLoading from './discountLoading/DiscountLoading';
-import Conditions from './conditions/Conditions';
 import MrvQuotation from '../../mrvQuotation/MrvQuotation';
 
 const { TabPane } = Tabs;

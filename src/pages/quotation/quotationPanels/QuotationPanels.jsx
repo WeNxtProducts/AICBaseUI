@@ -5,6 +5,8 @@ import { StepperContext } from '../Quotation';
 import ChargsDisLoadConditions from './chargs-DisLoad-Conditions/ChargsDisLoadConditions';
 import CheckList from './checkList/CheckList';
 import MrvQuotation from '../mrvQuotation/MrvQuotation';
+import showNotification from '../../../components/notification/Notification';
+import useApiRequests from '../../../services/useApiRequests';
 
 const { Panel } = Collapse;
 
@@ -18,7 +20,33 @@ const QuotationPanels = () => {
   flag,
   id: tranId,
  } = useContext(StepperContext);
+ const getPrimaryLifeAssuredId = useApiRequests('getPreClaimDate', 'POST');
  const [activePanal, setActivePanel] = useState(1);
+ const [primaryLifeAssuredId, setPrimaryLifeAssuredId] = useState('');
+
+ const handleGetPrimaryId = async () => {
+  try {
+   const payloadBene = {
+    queryParams: {
+     PEMP_POL_TRAN_ID: tranId,
+    },
+   };
+   const response = await getPrimaryLifeAssuredId(payloadBene, {
+    queryId: 200,
+   });
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    setPrimaryLifeAssuredId(response?.Data[0]?.PEMP_TRAN_ID || '');
+   }
+  } catch (err) {
+   console.log(err);
+  }
+ };
+
+ useEffect(() => {
+  handleGetPrimaryId();
+ }, []);
 
  const callback = key => {
   if (flag !== 'completed') {
@@ -79,6 +107,7 @@ const QuotationPanels = () => {
       deleteRow='deleteBeneficiaryDetails'
       title=''
       tranId={tranId}
+      subId={primaryLifeAssuredId}
      />
     </Panel>
     <Panel

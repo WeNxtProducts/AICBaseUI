@@ -27,11 +27,11 @@ const MRVQuotationForm = ({
  const [loader, setLoader] = useState(false);
  const formikRef = useRef(null);
 
- //  useEffect(() => {
- //   if (formikRef.current) {
- //    formikRef.current.resetForm();
- //   }
- //  }, [formInit]);
+ useEffect(() => {
+  if (formikRef.current) {
+   formikRef.current.resetForm();
+  }
+ }, [formInit]);
 
  useEffect(() => {
   const validationSchema = createYupSchema({

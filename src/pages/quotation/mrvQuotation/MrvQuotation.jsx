@@ -37,14 +37,8 @@ const MrvQuotation = ({
  isDelete = true,
  subId = '',
 }) => {
- const {
-  QuotationJSON,
-  // id: tranId,
-  formValues,
-  setDropDown,
-  dropDown,
-  freeze,
- } = useContext(StepperContext);
+ const { QuotationJSON, formValues, setDropDown, dropDown, freeze } =
+  useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
@@ -63,11 +57,11 @@ const MrvQuotation = ({
  const [openModal, setOpenModal] = useState(false);
  const [modalType, setModalType] = useState('');
 
- const addOrUpdateMRV = async (payload, addOrUpdate) => {
+ const addOrUpdateMRV = async (payload, addOrUpdate, lifeId) => {
   try {
    const params = editMRVId
     ? { editMRVId }
-    : { tranId, ...(subId && { subId }) };
+    : { tranId, ...(lifeId && { lifeId }) };
    const response = await addOrUpdate(payload, '', params);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
@@ -87,7 +81,7 @@ const MrvQuotation = ({
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
-  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
+  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV, subId || '');
  };
 
  const handleInitData = response => {
@@ -135,14 +129,9 @@ const MrvQuotation = ({
     screenCode,
     screenName,
     tranId: item?.ID,
-    // ...(subId ? { emptranId: subId } : {}),
    });
-   //  if (response?.status === 'SUCCESS') {
    setEditMRVId(item?.ID);
    handleInitData(response?.Data);
-   //  } else if (response?.status === 'FAILURE') {
-   //   showNotification.ERROR(response?.status_msg);
-   //  }
   } catch (err) {
    console.log('err : ', err);
   }

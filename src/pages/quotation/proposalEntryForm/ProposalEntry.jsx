@@ -1,6 +1,5 @@
 import React from 'react';
 import ProposalEntryForm from './ProposalEntryForm';
-import ActionButtons from './actionButtons/ActionButtons';
 
 const ProposalEntry = () => {
  return (
@@ -8,9 +7,6 @@ const ProposalEntry = () => {
    <div className='propasal-entry-form col-span-8'>
     <ProposalEntryForm />
    </div>
-   {/* <div className='col-span-1 mt-3 page-divider'>
-    <ActionButtons />
-   </div> */}
   </div>
  );
 };

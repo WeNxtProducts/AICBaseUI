@@ -40,6 +40,7 @@ const CustomDropDown = ({
    return item?.value == check;
   });
   if (currentValueObj !== undefined) setSelected(currentValueObj);
+  else if (currentValueObj === undefined) setSelected({});
  };
 
  useEffect(() => {
