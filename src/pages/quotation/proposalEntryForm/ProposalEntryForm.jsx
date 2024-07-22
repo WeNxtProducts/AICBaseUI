@@ -77,7 +77,7 @@ const ProposalEntryForm = () => {
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    // handleNext();
+    handleNext();
     if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
     showNotification.SUCCESS(response?.status_msg);
    }

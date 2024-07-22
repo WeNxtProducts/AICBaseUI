@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
 import './collapsePanelHeader.scss';
 
-const CollapsePanelHeader = ({ name, saved, completed, color = '#ffffff' }) => {
+const CollapsePanelHeader = ({
+ name,
+ saved,
+ completed,
+ color = '#ffffff',
+ isAccess,
+}) => {
  useEffect(() => {
-  document.documentElement.style.setProperty('--accordion-color', color);
+  //   document.documentElement.style.setProperty('--accordion-color', color);
  }, []);
 
  return (

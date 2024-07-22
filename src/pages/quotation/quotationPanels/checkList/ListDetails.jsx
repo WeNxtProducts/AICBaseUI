@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import DetailsTable from './DetailsTable';
+import useApiRequests from '../../../../services/useApiRequests';
+import showNotification from '../../../../components/notification/Notification';
 
-const ListDetails = ({ listItemData }) => {
+const ListDetails = ({ listItemData, refreshData, tranId, selectedRow }) => {
+ const updateFlag = useApiRequests('updateProposalChecklistFlag', 'POST');
+ const updateFlagBulk = useApiRequests(
+  'updateProposalChecklistFlagBulk',
+  'POST',
+ );
  const [rowData, setRowData] = useState([]);
  const [openUpload, setOpenUpload] = useState(false);
 
@@ -9,12 +16,42 @@ const ListDetails = ({ listItemData }) => {
   setRowData(listItemData);
  }, [listItemData]);
 
- const handleSelect = (index, field, value) => {
-  setRowData(prevData => {
-   const newData = [...prevData];
-   newData[index] = { ...newData[index], [field]: value };
-   return newData;
-  });
+ const handleSelect = async (index, field, value, item) => {
+  //   setRowData(prevData => {
+  //    const newData = [...prevData];
+  //    newData[index] = { ...newData[index], [field]: value };
+  //    return newData;
+  //   });
+
+  try {
+   const response = await updateFlag('', {}, { id: item?.ID, flag: value });
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    refreshData();
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
+ const handleBulkFlag = async status => {
+  const pathParams = {
+   id: tranId,
+   groupCode: selectedRow,
+   flag: status ? 'Y' : 'N',
+  };
+  try {
+   const response = await updateFlagBulk('', {}, pathParams);
+   if (response?.status === 'FAILURE')
+    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.status_msg);
+    refreshData();
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
  };
 
  const handleUpload = item => {
@@ -33,6 +70,7 @@ const ListDetails = ({ listItemData }) => {
      <DetailsTable
       tableData={rowData}
       handleSelect={handleSelect}
+      handleBulkFlag={handleBulkFlag}
       handleUpload={handleUpload}
      />
     )}

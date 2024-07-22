@@ -8,16 +8,16 @@ import ListDetails from './ListDetails';
 import MRVListingQuotation from '../../mrvQuotation/MRVHelper/MRVListing';
 
 const Checklist = ({ tranId }) => {
- const { QuotationJSON } = useContext(StepperContext);
+ const { QuotationJSON, handleNext } = useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
- const getChecklist = useApiRequests('getProposalChecklist', 'GET');
+ const getChecklistDetails = useApiRequests('getPreClaimDate', 'POST');
  const [listItemData, setListItemData] = useState([]);
  const [editMRVId, setEditMRVId] = useState('');
 
  const MRVListing = () => {
   if (tranId) {
-   const queryId = getQueryId('CheckList', mrvListingId);
+   const queryId = getQueryId('getCheckListList', mrvListingId);
    handleMRVListing(queryId, tranId);
   }
  };
@@ -29,14 +29,12 @@ const Checklist = ({ tranId }) => {
  }, [tranId]);
 
  const handleEdit = async item => {
-  console.log('handleEdit :', item);
-  setEditMRVId(item?.ID);
+  setEditMRVId(item?.Group_Code);
   try {
-   const response = await getChecklist('', {
-    screenCode: 'QUOTATIONENTRY',
-    screenName: 'QUOTATIONENTRY',
-    tranId: item?.ID,
-   });
+   const response = await getChecklistDetails(
+    { queryParams: { tranId, groupCode: item?.Group_Code } },
+    { queryId: 155 },
+   );
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
@@ -47,10 +45,20 @@ const Checklist = ({ tranId }) => {
   }
  };
 
+ const refreshData = () => {
+  const payload = { Group_Code: editMRVId };
+  handleEdit(payload);
+ };
+
  return (
-  <div className='grid grid-cols-9 py-1 pe-1'>
+  <div className='grid grid-cols-9 py-1 pe-1 pl-2'>
    <div className='col-span-7 pe-2'>
-    <ListDetails listItemData={listItemData} />
+    <ListDetails
+     listItemData={listItemData}
+     tranId={tranId}
+     refreshData={refreshData}
+     selectedRow={editMRVId}
+    />
    </div>
    <div className='col-span-2 p-2 border_left_divider'>
     {rowData?.length > 0 && (
@@ -61,9 +69,11 @@ const Checklist = ({ tranId }) => {
       //handleDelete={handleDelete}
       //selectedRow={editMRVId}
       selectedRow={editMRVId}
+      highlightKey='Group_Code'
      />
     )}
    </div>
+   <button onClick={() => handleNext()}>handleNext</button>
   </div>
  );
 };

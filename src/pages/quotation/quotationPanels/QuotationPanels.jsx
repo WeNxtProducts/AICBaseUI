@@ -21,18 +21,36 @@ const QuotationPanels = () => {
   id: tranId,
  } = useContext(StepperContext);
  const getPrimaryLifeAssuredId = useApiRequests('getPreClaimDate', 'POST');
- const [activePanal, setActivePanel] = useState(1);
+ const [activePanal, setActivePanel] = useState(['0']);
  const [primaryLifeAssuredId, setPrimaryLifeAssuredId] = useState('');
+ const [isAllCompleted, setIsAllCompleted] = useState(false);
+
+ useEffect(() => {
+  const panel = document.querySelector(`[data-id='panel-${currentStep}']`);
+  if (panel) {
+   setTimeout(() => {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+   }, 300);
+  }
+  if (isAllCompleted) {
+   if (activePanal.includes(currentStep.toString())) {
+    const arr = [
+     ...activePanal.filter(step => step !== currentStep.toString()),
+     currentStep.toString(),
+    ];
+    callback(arr);
+   } else {
+    const arr = [...activePanal, currentStep.toString()];
+    callback(arr);
+   }
+  }
+ }, [currentStep]);
 
  const handleGetPrimaryId = async () => {
   try {
-   const payloadBene = {
-    queryParams: {
-     PEMP_POL_TRAN_ID: tranId,
-    },
-   };
+   const payloadBene = { queryParams: { PEMP_POL_TRAN_ID: tranId } };
    const response = await getPrimaryLifeAssuredId(payloadBene, {
-    queryId: 200,
+    queryId: 156,
    });
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
@@ -45,31 +63,59 @@ const QuotationPanels = () => {
  };
 
  useEffect(() => {
-  handleGetPrimaryId();
- }, []);
+  if (tranId) handleGetPrimaryId();
+ }, [tranId]);
+
+ useEffect(() => {
+  if (!isAllCompleted) {
+   const condition = allStepsCompleted();
+   setIsAllCompleted(condition);
+  }
+ }, [currentStep]);
+
+ const allStepsCompleted = () =>
+  stepperData.every(item => item.status === 'completed');
 
  const callback = key => {
-  if (flag !== 'completed') {
-   const lastElement = key[key.length - 1];
-   const lastElementAsNumber = parseInt(lastElement, 10);
+  const lastElement = key[key.length - 1];
+  const lastElementAsNumber = parseInt(lastElement, 10);
+  if (!isAllCompleted) {
    handleSkip(lastElementAsNumber);
-  } else setActivePanel(key);
+  } else {
+   setActivePanel(key);
+   handleSkip(lastElementAsNumber);
+  }
+ };
+
+ const determinePanelClassName = index => {
+  if (isAllCompleted) {
+   return 'active-panel';
+  } else if (
+   stepperData[index]?.status === 'completed' ||
+   stepperData[index]?.status === 'inprogress'
+  ) {
+   return 'active-panel';
+  } else {
+   return 'inactive-panel';
+  }
  };
 
  return (
   <div className='quotation-panels'>
    <Collapse
     expandIconPosition='end'
-    activeKey={flag !== 'completed' ? currentStep : activePanal}
+    activeKey={!isAllCompleted ? currentStep : activePanal}
     onChange={callback}
     size='small'>
     <Panel
+     className={determinePanelClassName(1)}
      data-id='panel-1'
      header={
       <CollapsePanelHeader
        completed={flag}
        name='Life Assured Details'
        saved={stepperData[1]}
+       isAccess={isAllCompleted}
       />
      }
      key={1}>
@@ -87,12 +133,14 @@ const QuotationPanels = () => {
      />
     </Panel>
     <Panel
+     className={determinePanelClassName(2)}
      data-id='panel-2'
      header={
       <CollapsePanelHeader
        completed={flag}
        name='Beneficiary'
        saved={stepperData[2]}
+       isAccess={isAllCompleted}
       />
      }
      key={2}>
@@ -111,24 +159,28 @@ const QuotationPanels = () => {
      />
     </Panel>
     <Panel
+     className={determinePanelClassName(3)}
      data-id='panel-3'
      header={
       <CollapsePanelHeader
        completed={flag}
        name='Chargs/Discount-loading/Conditions'
        saved={stepperData[3]}
+       isAccess={isAllCompleted}
       />
      }
      key={3}>
      <ChargsDisLoadConditions tranId={tranId} />
     </Panel>
     <Panel
+     className={determinePanelClassName(4)}
      data-id='panel-4'
      header={
       <CollapsePanelHeader
        completed={flag}
        name='Checklist'
        saved={stepperData[4]}
+       isAccess={isAllCompleted}
       />
      }
      key={4}>

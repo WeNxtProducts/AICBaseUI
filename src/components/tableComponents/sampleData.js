@@ -491,18 +491,18 @@ export const bankData = [
   account_number: '83901',
   ifsc_code: 'CC002',
  },
-//  {
-//   bank_code: '1233',
-//   bank_sort_code: '3',
-//   account_number: '83901',
-//   ifsc_code: 'CC003',
-//  },
-//  {
-//   bank_code: '789',
-//   bank_sort_code: '4',
-//   account_number: '83901',
-//   ifsc_code: 'CC004',
-//  },
+ //  {
+ //   bank_code: '1233',
+ //   bank_sort_code: '3',
+ //   account_number: '83901',
+ //   ifsc_code: 'CC003',
+ //  },
+ //  {
+ //   bank_code: '789',
+ //   bank_sort_code: '4',
+ //   account_number: '83901',
+ //   ifsc_code: 'CC004',
+ //  },
 ];
 
 export const listTable = [
@@ -580,16 +580,23 @@ export const proposalStepper = [
  { key: 2, title: 'Beneficiary', status: 'todo' },
  { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
  { key: 4, title: 'Checklist', status: 'todo' },
- { key: 5, title: 'Cmts/Mat/Remindr', status: 'todo' },
 ];
+
+// export const proposalStepper = [
+//  { key: 0, title: 'Propposal Entry', status: 'completed' },
+//  { key: 1, title: 'Life Assured Details', status: 'completed' },
+//  { key: 2, title: 'Beneficiary', status: 'completed' },
+//  { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'completed' },
+//  { key: 4, title: 'Checklist', status: 'inprogress' },
+// ];
 
 export const claimsStepper = [
  { key: 0, title: 'Claim Entry', status: 'completed' },
  { key: 1, title: 'Claim Estimate', status: 'completed' },
  { key: 2, title: 'Claim Charges', status: 'completed' },
- //  { key: 3, title: 'Claim Estimate', status: 'todo' },
+ //{ key: 3, title: 'Claim Estimate', status: 'todo' },
  { key: 3, title: 'Checklist', status: 'inprogress' },
- //  { key: 5, title: 'Claim Decision', status: 'todo' },
+ //{ key: 5, title: 'Claim Decision', status: 'todo' },
 ];
 
 export const checklistColumn = {

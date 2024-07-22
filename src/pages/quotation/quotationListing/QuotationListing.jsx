@@ -88,7 +88,7 @@ const QuotationListing = () => {
    {loader && <Loader />}
    <div className='custmer-search flex items-end justify-between'>
     <div className='w-full'>
-     <p className='search-title'>Quotation List</p>
+     <p className='search-title'>Proposal List</p>
      <div className='search-bar mt-2'>
       <TextInputWithSearchIcon
        placeholder='Search'

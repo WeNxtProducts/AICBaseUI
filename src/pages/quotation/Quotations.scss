@@ -2,7 +2,7 @@
 
 .quotation {
  .stepper {
-  height: 50px;
+  height: 45px;
  }
  .main-screen {
   min-height: 75vh;
@@ -63,6 +63,16 @@
   .icon-style {
    font-size: 16px;
   }
+ }
+ .next-button {
+  width: 15%;
+  border: 1px solid $save-button-forms;
+  padding: 7px 10px 7px 10px;
+  color: $save-button-forms;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  border-radius: 6px;
  }
 }
 // .submit-button-MRV {

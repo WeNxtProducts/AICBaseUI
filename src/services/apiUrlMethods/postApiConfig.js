@@ -249,5 +249,13 @@ const POST_API_URL = {
   url: '',
   baseURL: 'CLAIMURL',
  },
+ updateProposalChecklistFlag: {
+  url: 'docToDoList/statusFlagUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ updateProposalChecklistFlagBulk: {
+  url: 'docToDoList/statusFlagBulkUpdate',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

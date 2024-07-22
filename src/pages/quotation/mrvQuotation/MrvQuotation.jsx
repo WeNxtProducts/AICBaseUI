@@ -37,8 +37,14 @@ const MrvQuotation = ({
  isDelete = true,
  subId = '',
 }) => {
- const { QuotationJSON, formValues, setDropDown, dropDown, freeze } =
-  useContext(StepperContext);
+ const {
+  QuotationJSON,
+  formValues,
+  setDropDown,
+  dropDown,
+  freeze,
+  handleNext,
+ } = useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
@@ -56,6 +62,10 @@ const MrvQuotation = ({
  const [formInit, setFormInit] = useState(false);
  const [openModal, setOpenModal] = useState(false);
  const [modalType, setModalType] = useState('');
+
+ const nextStep = () => {
+  handleNext();
+ };
 
  const addOrUpdateMRV = async (payload, addOrUpdate, lifeId) => {
   try {
@@ -237,6 +247,7 @@ const MrvQuotation = ({
         action={action}
         freeze={freeze}
         formInit={formInit}
+        nextStep={nextStep}
        />
       )}
     </div>

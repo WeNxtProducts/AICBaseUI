@@ -6,7 +6,12 @@ import { checkListValue } from '../../../../components/tableComponents/sampleDat
 import FileUpload from './../../../fileUpload/FileUpload';
 import './DetailsTable.scss';
 
-const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
+const DetailsTable = ({
+ tableData = [],
+ handleSelect,
+ handleBulkFlag,
+ handleUpload,
+}) => {
  const [expandedRows, setExpandedRows] = useState('');
 
  const scrollToView = id => {
@@ -27,24 +32,13 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
  };
 
  const renderRow = (item, index) => {
-  const clickCallback = () => handleRowClick(item.DTLS_TRAN_ID);
+  const clickCallback = () => handleRowClick(item.ID);
 
   const itemRows = [
    <tr key={`row-data-${item?.DTLS_TRAN_ID}`}>
-    <td>{item?.DTLS_SR_NO}</td>
-    <td>{item?.DTLS_TODO_LIST_ITEM}</td>
-    {/* <td>
-     <div className='table_textarea'>
-      <CustomTextArea
-       value={item?.Remarks}
-       placeholder={'remarks'}
-       onChange={e => {
-        handleSelect(index, 'Remarks', e.target.value);
-       }}
-      />
-     </div>
-    </td> */}
-    <td>{item?.DTLS_MANDATORY_YN}</td>
+    <td>{item?.SNO}</td>
+    <td>{item?.DESCRPTION}</td>
+    <td>{item?.Mandatory_YN}</td>
     <td>
      <div className='table_lov'>
       <CustomSelect
@@ -52,10 +46,10 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
        placeholder={'select'}
        size='medium'
        showSearch={false}
-       value={item?.DTLS_APPR_STS}
+       value={item?.RECEIVED_STATUS}
        onChange={e => {
         console.log('e : ', e);
-        handleSelect(index, 'DTLS_APPR_STS', e);
+        handleSelect(index, 'RECEIVED_STATUS', e, item);
        }}
       />
      </div>
@@ -77,7 +71,7 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
    </tr>,
   ];
 
-  if (expandedRows.includes(item.DTLS_TRAN_ID)) {
+  if (expandedRows.includes(item.ID)) {
    itemRows.push(
     <tr
      className='expanded_row'
@@ -102,7 +96,8 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
    <th>Mandatory Y/N</th>
    <th>
     <div>
-     <span>Status</span> <Checkbox />
+     <span>Status</span>
+     <Checkbox onClick={e => handleBulkFlag(e.target.checked)} />
     </div>
    </th>
    <th>Upload</th>

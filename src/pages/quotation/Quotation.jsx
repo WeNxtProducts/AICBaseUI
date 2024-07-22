@@ -23,21 +23,11 @@ const Quotation = () => {
  const [loader, setLoader] = useState(false);
  const [showUnderWriter, setShowUnderWriter] = useState(false);
  const [dropDown, setDropDown] = useState(QuotationLov);
- const flag = 'completed';
+ const flag = 'completeds';
 
  const handleSkipStep = index => {
   handleSkip(index);
  };
-
- useEffect(() => {
-  //   console.log('id : ', id);
-  const panel = document.querySelector(`[data-id='panel-${currentStep}']`);
-  if (panel) {
-   setTimeout(() => {
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-   }, 300);
-  }
- }, [currentStep]);
 
  const data = {
   currentStep,
@@ -73,11 +63,11 @@ const Quotation = () => {
       </div>
       <div
        onClick={() => navigate('/quotationList')}
-       className='flex items-center mb-2 back-button-usercreation-decision'>
+       className='flex items-center mb-1 back-button-usercreation-decision'>
        <i className='bi bi-arrow-left-short' />
        <p>Back</p>
       </div>
-      <div className='main-screen mt-4'>
+      <div className='main-screen mt-0'>
        <ProposalEntry />
        <div className='mt-3'>
         <QuotationPanels />

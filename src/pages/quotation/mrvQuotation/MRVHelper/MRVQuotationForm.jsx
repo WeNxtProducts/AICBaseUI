@@ -21,6 +21,7 @@ const MRVQuotationForm = ({
  title = '',
  freeze = false,
  formInit = false,
+ nextStep,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -109,6 +110,12 @@ const MRVQuotationForm = ({
             {addOrUpdate ? 'Update' : 'Submit'}
            </button>
           )}
+          <button
+           onClick={() => nextStep()}
+           type='button'
+           className='next-button ml-9'>
+           Next
+          </button>
          </div>
         )}
        </Form>

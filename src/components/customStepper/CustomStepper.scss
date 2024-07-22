@@ -32,6 +32,10 @@
    border: 2px solid $save-button-forms;
   }
 
+  .all-completed {
+   border: 2px solid #22A06B;
+  }
+
   .step-name {
    cursor: pointer;
    position: absolute;
@@ -50,14 +54,19 @@
 
  .inprogress,
  .todo,
- .disabled {
+ .disabled,
+ .step-completed-progress {
   width: 15px;
   height: 15px;
   border: 5px solid $save-button-forms;
   border-radius: 50%;
  }
+
  .inprogress {
   border: 5px solid #f7ba1e;
+ }
+ .step-completed-progress {
+  border: 5px solid #22A06B;
  }
  .todo,
  .disabled {
@@ -66,15 +75,22 @@
  .disabled {
   pointer-events: none;
  }
- .completed {
+ .completed,
+ .step-completed {
   position: relative;
   cursor: pointer;
   width: 15px;
   height: 15px;
-  background-color: $save-button-forms;
   border-radius: 50%;
  }
- .completed::after {
+ .completed {
+  background-color: $save-button-forms;
+ }
+ .step-completed {
+  background-color: #22A06B;
+ }
+ .completed::after,
+ .step-completed::after {
   content: '';
   position: absolute;
   top: -5%;
