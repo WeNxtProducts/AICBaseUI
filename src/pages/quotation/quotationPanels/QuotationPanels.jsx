@@ -17,7 +17,6 @@ const QuotationPanels = () => {
   handleNext,
   handlePrevious,
   handleSkip,
-  flag,
   id: tranId,
  } = useContext(StepperContext);
  const getPrimaryLifeAssuredId = useApiRequests('getPreClaimDate', 'POST');
@@ -63,8 +62,8 @@ const QuotationPanels = () => {
  };
 
  useEffect(() => {
-  if (tranId) handleGetPrimaryId();
- }, [tranId]);
+  if (tranId && currentStep == 2 && !primaryLifeAssuredId) handleGetPrimaryId();
+ }, [tranId, currentStep]);
 
  useEffect(() => {
   if (!isAllCompleted) {
@@ -80,7 +79,8 @@ const QuotationPanels = () => {
   const lastElement = key[key.length - 1];
   const lastElementAsNumber = parseInt(lastElement, 10);
   if (!isAllCompleted) {
-   handleSkip(lastElementAsNumber);
+   if (stepperData[lastElement]?.status === 'completed')
+    handleSkip(lastElementAsNumber);
   } else {
    setActivePanel(key);
    handleSkip(lastElementAsNumber);
@@ -111,12 +111,7 @@ const QuotationPanels = () => {
      className={determinePanelClassName(1)}
      data-id='panel-1'
      header={
-      <CollapsePanelHeader
-       completed={flag}
-       name='Life Assured Details'
-       saved={stepperData[1]}
-       isAccess={isAllCompleted}
-      />
+      <CollapsePanelHeader name='Life Assured Details' saved={stepperData[1]} />
      }
      key={1}>
      <MrvQuotation
@@ -135,14 +130,7 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(2)}
      data-id='panel-2'
-     header={
-      <CollapsePanelHeader
-       completed={flag}
-       name='Beneficiary'
-       saved={stepperData[2]}
-       isAccess={isAllCompleted}
-      />
-     }
+     header={<CollapsePanelHeader name='Beneficiary' saved={stepperData[2]} />}
      key={2}>
      <MrvQuotation
       queryID='getBeneficiaryList'
@@ -163,10 +151,8 @@ const QuotationPanels = () => {
      data-id='panel-3'
      header={
       <CollapsePanelHeader
-       completed={flag}
        name='Chargs/Discount-loading/Conditions'
        saved={stepperData[3]}
-       isAccess={isAllCompleted}
       />
      }
      key={3}>
@@ -175,14 +161,7 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(4)}
      data-id='panel-4'
-     header={
-      <CollapsePanelHeader
-       completed={flag}
-       name='Checklist'
-       saved={stepperData[4]}
-       isAccess={isAllCompleted}
-      />
-     }
+     header={<CollapsePanelHeader name='Checklist' saved={stepperData[4]} />}
      key={4}>
      <CheckList tranId={tranId} />
     </Panel>

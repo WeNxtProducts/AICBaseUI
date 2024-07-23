@@ -64,7 +64,16 @@ const MrvQuotation = ({
  const [modalType, setModalType] = useState('');
 
  const nextStep = () => {
-  handleNext();
+  if (root !== 'life_assured_details') handleNext();
+  else if (root === 'life_assured_details') {
+   if (hasValidRowData(rowData)) {
+    const hasMemberTypeP = rowData.some(item => item.Member_Type === 'P');
+    if (hasMemberTypeP) handleNext();
+    else showNotification.WARNING('Add Primary Life Assured Details');
+   } else {
+    showNotification.WARNING('Add atleast 1 Life Assured Details');
+   }
+  }
  };
 
  const addOrUpdateMRV = async (payload, addOrUpdate, lifeId) => {
@@ -116,13 +125,13 @@ const MrvQuotation = ({
  //  }, [rowData]);
 
  useEffect(() => {
-  if (tranId) {
+  if ((root !== 'benificiary' && tranId) || (root === 'benificiary' && subId)) {
    handleInitData(QuotationJSON);
    MRVListing();
   } else {
    handleInitData(QuotationJSON);
   }
- }, [tranId]);
+ }, [tranId, subId]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);

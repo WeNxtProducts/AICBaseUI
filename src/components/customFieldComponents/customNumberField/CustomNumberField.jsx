@@ -35,6 +35,7 @@ const CustomNumberField = ({
  firstFieldRef = null,
  disabled = false,
  readOnly = false,
+ format = 'amount',
 }) => {
  const [formattedValue, setFormattedValue] = useState(value?.toString() || '');
  const inputRef = useRef(null);
@@ -52,36 +53,44 @@ const CustomNumberField = ({
  }, [firstFieldRef]);
 
  useEffect(() => {
-  const mainVal = formatCurrency(value?.toString());
-  setFormattedValue(mainVal);
+  if (format === 'number') {
+   setFormattedValue(value);
+  } else if (format === 'amount') {
+   const mainVal = formatCurrency(value?.toString());
+   setFormattedValue(mainVal);
+  }
  }, [value]);
 
  const handleInputChange = e => {
-  let inputValue = e.target.value;
+  if (format === 'number') {
+   onChange(e);
+  } else if (format === 'amount') {
+   let inputValue = e.target.value;
 
-  // Remove commas for processing
-  const rawValue = inputValue.replace(/,/g, '');
+   // Remove commas for processing
+   const rawValue = inputValue.replace(/,/g, '');
 
-  // Check if the value is a valid number or a valid decimal number
-  if (/^\d*\.?\d*$/.test(rawValue)) {
-   // If the raw value ends with a decimal or contains decimal with trailing zeros
-   const isDecimal = rawValue.includes('.');
-   const parts = rawValue.split('.');
-   const formatted = isDecimal
-    ? parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
-      (parts[1] !== undefined ? `.${parts[1]}` : '.')
-    : formatCurrency(rawValue);
+   // Check if the value is a valid number or a valid decimal number
+   if (/^\d*\.?\d*$/.test(rawValue)) {
+    // If the raw value ends with a decimal or contains decimal with trailing zeros
+    const isDecimal = rawValue.includes('.');
+    const parts = rawValue.split('.');
+    const formatted = isDecimal
+     ? parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',') +
+       (parts[1] !== undefined ? `.${parts[1]}` : '.')
+     : formatCurrency(rawValue);
 
-   setFormattedValue(formatted);
+    setFormattedValue(formatted);
 
-   if (onChange) {
-    onChange({
-     ...e,
-     target: {
-      ...e.target,
-      value: rawValue,
-     },
-    });
+    if (onChange) {
+     onChange({
+      ...e,
+      target: {
+       ...e.target,
+       value: rawValue,
+      },
+     });
+    }
    }
   }
  };

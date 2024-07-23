@@ -17,17 +17,21 @@ export const StepperContext = createContext();
 const Quotation = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
+ const [stepperIndex, setStepperIndex] = useState(3);
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
-  useStepper(proposalStepper);
+  useStepper(proposalStepper, stepperIndex);
  const id = useSelector(state => state?.id?.id);
  const [loader, setLoader] = useState(false);
  const [showUnderWriter, setShowUnderWriter] = useState(false);
  const [dropDown, setDropDown] = useState(QuotationLov);
- const flag = 'completeds';
 
  const handleSkipStep = index => {
   handleSkip(index);
  };
+
+ useEffect(() => {
+  console.log('stepperData : ', stepperData);
+ }, [stepperData]);
 
  const data = {
   currentStep,
@@ -38,7 +42,6 @@ const Quotation = () => {
   id,
   QuotationJSON,
   setShowUnderWriter,
-  flag,
   setDropDown,
   dropDown,
  };
@@ -61,6 +64,7 @@ const Quotation = () => {
         handleSkip={handleSkipStep}
        />
       </div>
+
       <div
        onClick={() => navigate('/quotationList')}
        className='flex items-center mb-1 back-button-usercreation-decision'>
@@ -72,6 +76,7 @@ const Quotation = () => {
        <div className='mt-3'>
         <QuotationPanels />
        </div>
+       <div className='mt-5'>hello</div>
       </div>
      </>
     )}

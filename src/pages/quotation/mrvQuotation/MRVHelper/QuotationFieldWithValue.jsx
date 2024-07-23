@@ -43,7 +43,6 @@ const QuotationFieldWithValue = ({
   PFD_MANDATORY_YN,
   PFD_HINT,
   PFD_EDIT_YN,
-  PFD_HIDE_YN,
  } = currentData;
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
@@ -121,12 +120,14 @@ const QuotationFieldWithValue = ({
         />
        );
       case 'number':
+      case 'amount':
        return (
         <CustomNumberField
          firstFieldRef={firstFieldRef}
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
+         format={PFD_DATA_TYPE}
          value={value?.PFD_FLD_VALUE}
          readOnly={freeze}
          disabled={!PFD_EDIT_YN}

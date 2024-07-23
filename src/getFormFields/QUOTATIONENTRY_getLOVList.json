@@ -29,17 +29,6 @@
   { "label": "FINANCIAL INSTITUTIONS", "value": "17" },
   { "label": "BANKS", "value": "18" }
  ],
- "PEMP_OCC_CATG": [
-  { "label": "CLASS 4", "value": "OCLS004" },
-  { "label": "CLASS 5", "value": "OCLS005" },
-  { "label": "CLASS 2", "value": "OCLS002" },
-  { "label": "CLASS 3", "value": "OCLS003" },
-  { "label": "CLASS 1", "value": "OCLS001" }
- ],
- "PEMP_CATG_CODE": [
-  { "label": "Male", "value": "1" },
-  { "label": "Female", "value": "2" }
- ],
  "PEMP_OCC_CODE": [
   { "label": "Chief engineer - radio and tel", "value": "C033" },
   { "label": "chipper - hull construction-sh", "value": "C034" },
@@ -902,6 +891,21 @@
   { "label": "Mechanic - off-shore drilling ", "value": "M035" },
   { "label": "Derrickman - off-shore drillin", "value": "D018" },
   { "label": "dhoby", "value": "D020" }
+ ],
+ "PEMP_MEMBER_TYPE": [
+  { "label": "PRIMARY", "value": "P" },
+  { "label": "SECONDARY", "value": "S" }
+ ],
+ "PEMP_OCC_CATG": [
+  { "label": "CLASS 4", "value": "OCLS004" },
+  { "label": "CLASS 5", "value": "OCLS005" },
+  { "label": "CLASS 2", "value": "OCLS002" },
+  { "label": "CLASS 3", "value": "OCLS003" },
+  { "label": "CLASS 1", "value": "OCLS001" }
+ ],
+ "PEMP_CATG_CODE": [
+  { "label": "Male", "value": "1" },
+  { "label": "Female", "value": "2" }
  ],
  "PGBEN_BNF_TYPE": [
   { "label": "Assignee", "value": "A" },
