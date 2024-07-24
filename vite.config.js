@@ -26,14 +26,22 @@ export default defineConfig({
  },
  build: {
   minify: 'esbuild', // Use esbuild for minification
+  //   treeShaking: true, Vite have this feature as default
+  sourcemap: true,
   rollupOptions: {
    output: {
     chunkFileNames: 'chunks/[name]-[hash].js',
-    manualChunks: {
-     vendor: ['react', 'react-dom'],
+    manualChunks: id => {
+     if (id.includes('node_modules')) {
+      return 'vendor';
+     }
     },
    },
   },
   cacheDir: 'node_modules/.vite_cache', // Set a custom cache directory
+ },
+ optimizeDeps: {
+  include: ['react', 'react-dom'],
+  // exclude: ['some-large-package'] // Exclude large packages if needed
  },
 });

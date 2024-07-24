@@ -10,7 +10,7 @@ import './App.scss';
 // 107017
 
 const App = () => {
- const ignorePaths = ['/', '/login', '/newlogin', '/resetpassword','/quote'];
+ const ignorePaths = ['/', '/login', '/newlogin', '/resetpassword', '/quote'];
  const location = useLocation();
  const [currentPath, setCurrentPath] = useState(true);
 
@@ -27,7 +27,7 @@ const App = () => {
      <Header />
     </div>
    )}
-   <div className={!currentPath && `app-content`}>
+   <div className={!currentPath ? `app-content` : ''}>
     <AppRouter />
    </div>
   </div>

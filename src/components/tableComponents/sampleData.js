@@ -582,6 +582,15 @@ export const proposalStepper = [
  { key: 4, title: 'Checklist', status: 'todo' },
 ];
 
+export const PDFdata = [
+ { name: 'John', age: 25, city: 'New York' },
+ { name: 'Peter', age: 30, city: 'Paris' },
+ { name: 'Steve', age: 32, city: 'London' },
+ { name: 'Mary', age: 22, city: 'Rome' },
+ { name: 'Steve', age: 25, city: 'Berlin' },
+ { name: 'Steve', age: 30, city: 'Madrid' },
+];
+
 // export const proposalStepper = [
 //  { key: 0, title: 'Propposal Entry', status: 'completed' },
 //  { key: 1, title: 'Life Assured Details', status: 'completed' },

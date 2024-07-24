@@ -1,0 +1,122 @@
+.grouped-table-container {
+ width: 80%;
+ margin: 20px auto;
+ border: 1px solid #ddd;
+ border-radius: 8px;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 10px;
+ background-color: #f9f9f9;
+ border-bottom: 1px solid #ddd;
+}
+
+.controls label {
+ margin-right: 10px;
+}
+
+.export-button {
+ border: 1px solid green;
+ padding: 10px;
+}
+
+.controls select {
+ padding: 5px;
+ border: 1px solid #ddd;
+ border-radius: 4px;
+}
+
+.cancel-button {
+ padding: 5px 10px;
+ background-color: #f44336;
+ color: white;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
+}
+
+.cancel-button:hover {
+ background-color: #d32f2f;
+}
+
+.grouped-table {
+ width: 100%;
+ table-layout: fixed;
+ border-collapse: collapse;
+}
+
+.grouped-table th,
+.grouped-table td {
+ padding: 10px;
+ text-align: left;
+ border-bottom: 1px solid #ddd;
+}
+
+.group-header {
+ background-color: #f1f1f1;
+ cursor: pointer;
+}
+
+.group-item:nth-child(even) {
+ background-color: #f9f9f9;
+}
+
+.group-item:hover {
+ background-color: #f1f1f1;
+}
+
+/* const exportToPdf = () => {
+    const doc = new jsPDF();
+    doc.text("Grouped Table Export", 14, 16);
+  
+    const tableColumns = Object.keys(data[0]);
+    let currentY = 30; // Initial Y position for the content
+  
+    // Helper function to add nested data
+    const addGroupToPdf = (group, level = 0) => {
+      Object.entries(group).forEach(([key, items]) => {
+        // Add group header
+        doc.autoTable({
+          head: [[`${" ".repeat(level * 4)}${key}`]],
+          body: [],
+          startY: currentY,
+          margin: { left: 10 },
+          theme: "grid", // Optional: to highlight headers
+          styles: { fontStyle: "bold" }, // Optional: to differentiate group headers
+          columnStyles: { 0: { cellWidth: "auto" } }, // Adjust column width as needed
+        });
+  
+        // Update currentY after adding the group header
+        currentY = doc.autoTable.previous.finalY + 5;
+  
+        // Add group items
+        doc.autoTable({
+          head: [tableColumns.map((col) => `${" ".repeat(level * 4)}${col}`)],
+          body: items.map((item) => tableColumns.map((col) => item[col])),
+          startY: currentY,
+          margin: { left: 10 },
+          theme: "striped", // Optional: different theme for data rows
+        });
+  
+        // Update currentY after adding group items
+        currentY = doc.autoTable.previous.finalY + 10;
+      });
+    };
+  
+    // Start adding grouped data
+    if (groupBy) {
+      addGroupToPdf(groupedData);
+    } else {
+      doc.autoTable({
+        head: [tableColumns],
+        body: data.map((item) => tableColumns.map((col) => item[col])),
+        startY: currentY,
+      });
+    }
+  
+    doc.save("grouped_table.pdf");
+  }; */
