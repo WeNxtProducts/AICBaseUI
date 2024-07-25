@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PDFdata as data } from '../../components/tableComponents/sampleData';
 import ExcelJS from 'exceljs';
 import './PdfSample.scss';
+import CustomTable from './CustomTable/CustomTable ';
+import TableComponent from './CustomTable/OwnTable';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -11,11 +13,71 @@ const PdfSample = () => {
  const [groupBy, setGroupBy] = useState('');
  const [groupedData, setGroupedData] = useState({});
  const [expandedGroups, setExpandedGroups] = useState([]);
+ const columns = [
+  { id: 'id', title: 'ID', field: 'id' },
+  { id: 'name', title: 'Name', field: 'name' },
+  { id: 'age', title: 'Age', field: 'age' },
+  { id: 'city', title: 'City', field: 'city' },
+  { id: 'occupation', title: 'Occupation', field: 'occupation' },
+ ];
+
+ const data = [
+  {
+   id: 1,
+   name: 'John Doe',
+   age: 30,
+   city: 'New York',
+   occupation: 'Developer',
+  },
+  {
+   id: 10,
+   name: 'Tim',
+   age: 30,
+   city: 'New York',
+   occupation: 'Developer',
+  },
+  {
+   id: 11,
+   name: 'Tim',
+   age: 30,
+   city: 'New York',
+   occupation: 'Developer',
+  },
+  {
+   id: 2,
+   name: 'Jane Smith',
+   age: 28,
+   city: 'San Francisco',
+   occupation: 'Designer',
+  },
+  {
+   id: 3,
+   name: 'Bob Johnson',
+   age: 35,
+   city: 'Chicago',
+   occupation: 'Manager',
+  },
+  {
+   id: 4,
+   name: 'Alice Brown',
+   age: 32,
+   city: 'New York',
+   occupation: 'Developer',
+  },
+  {
+   id: 5,
+   name: 'Charlie Wilson',
+   age: 40,
+   city: 'San Francisco',
+   occupation: 'Designer',
+  },
+  { id: 6, name: 'Eve Davis', age: 27, city: 'Chicago', occupation: 'Manager' },
+ ];
 
  const exportToPdf = () => {
   const tableColumns = Object.keys(data[0]);
 
-  const createTableBody = (group, level) => {
+  const createTableBody = (group, level = 0) => {
    let body = [];
 
    Object.entries(group).forEach(([key, items]) => {
@@ -113,7 +175,7 @@ const PdfSample = () => {
           ),
          ],
      },
-     layout: 'lightHorizontalLines',
+     //  layout: 'lightHorizontalLines',
     },
    ],
    styles: {
@@ -269,12 +331,12 @@ const PdfSample = () => {
 
  return (
   <div className='grouped-table-container'>
-   <div className='controls'>
+   {/* <div className='controls'>
     <label htmlFor='groupBy'>Group By: </label>
     <button onClick={exportToPdf} className='export-button'>
      Export to PDF
     </button>
-    {/* <button onClick={exportToExcel}>Export to CSV</button> */}
+    <button onClick={exportToExcel}>Export to CSV</button>
     <select id='groupBy' value={groupBy} onChange={handleGroupByChange}>
      <option value=''>None</option>
      {Object.keys(data[0]).map((col, index) => (
@@ -286,8 +348,8 @@ const PdfSample = () => {
     <button onClick={handleCancel} className='cancel-button'>
      Cancel
     </button>
-   </div>
-   <table id='my-table' className='grouped-table'>
+   </div> */}
+   {/* <table id='my-table' className='grouped-table'>
     <thead>
      <tr>
       {Object.keys(data[0]).map((col, index) => (
@@ -296,7 +358,9 @@ const PdfSample = () => {
      </tr>
     </thead>
     <tbody>{renderTableRows()}</tbody>
-   </table>
+   </table> */}
+   {/* <CustomTable columns={columns} data={data} /> */}
+   <TableComponent />
   </div>
  );
 };
