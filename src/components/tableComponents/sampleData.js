@@ -1,3 +1,96 @@
+export const reportData = {
+ Check: {
+  20: {
+   Chennai: [
+    { name: 'Check', age: '20', city: 'Chennai' },
+    { name: 'Check', age: '20', city: 'Chennai' },
+   ],
+  },
+  30: {
+   Karur: [
+    { name: 'Check', age: '30', city: 'Karur' },
+    { name: 'Check', age: '30', city: 'Karur' },
+   ],
+  },
+  40: {
+   Coimbatore: [{ name: 'Check', age: '40', city: 'Coimbatore' }],
+   Trichy: [{ name: 'Check', age: '40', city: 'Trichy' }],
+  },
+ },
+ John: {
+  25: {
+   Bangalore: [
+    { name: 'John', age: '25', city: 'Bangalore' },
+    { name: 'John', age: '25', city: 'Bangalore' },
+   ],
+  },
+ },
+ Alice: {
+  30: {
+   Hyderabad: [
+    { name: 'Alice', age: '30', city: 'Hyderabad' },
+    { name: 'Alice', age: '30', city: 'Hyderabad' },
+   ],
+  },
+ },
+ Bob: {
+  35: {
+   Mumbai: [
+    { name: 'Bob', age: '35', city: 'Mumbai' },
+    { name: 'Bob', age: '35', city: 'Mumbai' },
+   ],
+  },
+ },
+ Eve: {
+  28: {
+   Delhi: [
+    { name: 'Eve', age: '28', city: 'Delhi' },
+    { name: 'Eve', age: '28', city: 'Delhi' },
+   ],
+  },
+ },
+ Frank: {
+  32: {
+   Pune: [
+    { name: 'Frank', age: '32', city: 'Pune' },
+    { name: 'Frank', age: '32', city: 'Pune' },
+   ],
+  },
+ },
+ Grace: {
+  27: {
+   Kolkata: [
+    { name: 'Grace', age: '27', city: 'Kolkata' },
+    { name: 'Grace', age: '27', city: 'Kolkata' },
+   ],
+  },
+ },
+ Henry: {
+  29: {
+   Ahmedabad: [
+    { name: 'Henry', age: '29', city: 'Ahmedabad' },
+    { name: 'Henry', age: '29', city: 'Ahmedabad' },
+   ],
+  },
+ },
+ Ivy: {
+  24: {
+   Jaipur: [
+    { name: 'Ivy', age: '24', city: 'Jaipur' },
+    { name: 'Ivy', age: '24', city: 'Jaipur' },
+   ],
+  },
+ },
+ Jack: {
+  26: {
+   Surat: [
+    { name: 'Jack', age: '26', city: 'Surat' },
+    { name: 'Jack', age: '26', city: 'Surat' },
+   ],
+  },
+ },
+};
+
 export const tableData = [
  {
   accType: 'savings',

@@ -74,54 +74,62 @@
  background-color: #f1f1f1;
 }
 
-/* const exportToPdf = () => {
-    const doc = new jsPDF();
-    doc.text("Grouped Table Export", 14, 16);
-  
-    const tableColumns = Object.keys(data[0]);
-    let currentY = 30; // Initial Y position for the content
-  
-    // Helper function to add nested data
-    const addGroupToPdf = (group, level = 0) => {
-      Object.entries(group).forEach(([key, items]) => {
-        // Add group header
-        doc.autoTable({
-          head: [[`${" ".repeat(level * 4)}${key}`]],
-          body: [],
-          startY: currentY,
-          margin: { left: 10 },
-          theme: "grid", // Optional: to highlight headers
-          styles: { fontStyle: "bold" }, // Optional: to differentiate group headers
-          columnStyles: { 0: { cellWidth: "auto" } }, // Adjust column width as needed
-        });
-  
-        // Update currentY after adding the group header
-        currentY = doc.autoTable.previous.finalY + 5;
-  
-        // Add group items
-        doc.autoTable({
-          head: [tableColumns.map((col) => `${" ".repeat(level * 4)}${col}`)],
-          body: items.map((item) => tableColumns.map((col) => item[col])),
-          startY: currentY,
-          margin: { left: 10 },
-          theme: "striped", // Optional: different theme for data rows
-        });
-  
-        // Update currentY after adding group items
-        currentY = doc.autoTable.previous.finalY + 10;
-      });
-    };
-  
-    // Start adding grouped data
-    if (groupBy) {
-      addGroupToPdf(groupedData);
-    } else {
-      doc.autoTable({
-        head: [tableColumns],
-        body: data.map((item) => tableColumns.map((col) => item[col])),
-        startY: currentY,
-      });
-    }
-  
-    doc.save("grouped_table.pdf");
-  }; */
+.own-table {
+ table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+ }
+
+ td,
+ th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+ }
+
+ .own_table tr {
+  display: table-row;
+ }
+
+ /* Hide rows under collapsed parent rows */
+ .own_table tr.collapsed + tr {
+  display: none;
+ }
+
+ /* Hide rows under collapsed parent rows recursively */
+ .own_table tr.collapsed + tr ~ tr.level-1,
+ .own_table tr.collapsed + tr ~ tr.level-2,
+ .own_table tr.collapsed + tr ~ tr.level-3 {
+  display: none;
+ }
+}
+
+// const renderTableOwn = (data, level = 0) => {
+//   return Object.entries(data).map(([key, value]) => (
+//    <React.Fragment key={key}>
+//     <tr>
+//      <td style={{ padding: `${level + 1 * 10}px` }}>
+//       <span style={{ paddingLeft: `${level * 20}px` }}>-</span>
+//      </td>
+//      <td colSpan={3} style={{ fontWeight: 'bold', backgroundColor: '#f0f0f0' }}>
+//       {`${groupBy[level]} : ${key}`}
+//      </td>
+//     </tr>
+//     {typeof value === 'object' && !Array.isArray(value)
+//      ? renderTableOwn(value, level + 1)
+//      : Array.isArray(value)
+//      ? value.map((item, index) => (
+//         <tr key={index}>
+//          <td style={{ width: '10px', padding: '0' }}>
+//           <span></span>
+//          </td>
+//          <td>{item.name}</td>
+//          <td>{item.age}</td>
+//          <td>{item.city}</td>
+//         </tr>
+//        ))
+//      : null}
+//    </React.Fragment>
+//   ));
+//  };
