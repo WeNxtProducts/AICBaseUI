@@ -122,7 +122,8 @@ const TableComponent = () => {
   ) {
    const column = columns[source.index];
    if (!groupBy.some(item => item.id === column.id)) {
-    setGroupBy([...groupBy, column?.id]);
+    console.log('[...groupBy, column?.id] : ', [...groupBy, column?.id]);
+    setGroupBy([...groupBy, column?.label]);
    }
   }
  };
@@ -174,26 +175,33 @@ const TableComponent = () => {
        {provided => (
         <tr ref={provided.innerRef} {...provided.droppableProps}>
          <th></th>
-         {columns.map((column, index) => (
-          <Draggable key={column.id} draggableId={column.id} index={index}>
-           {(provided, snapshot) => (
-            <th
-             ref={provided.innerRef}
-             {...provided.draggableProps}
-             {...provided.dragHandleProps}
-             style={{
-              padding: '10px',
-              border: '1px solid #ddd',
-              cursor: 'grab',
-              background: snapshot.isDragging ? 'lightblue' : 'inherit',
-              opacity: snapshot.isDragging ? 0.5 : 1,
-              ...provided.draggableProps.style,
-             }}>
-             {column.label}
-            </th>
-           )}
-          </Draggable>
-         ))}
+         {columns.map((column, index) => {
+          const isGrouped = groupBy.includes(column.label);
+          return (
+           <Draggable
+            key={column.id}
+            draggableId={column.id}
+            index={index}
+            isDragDisabled={isGrouped}>
+            {(provided, snapshot) => (
+             <th
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              style={{
+               padding: '10px',
+               border: '1px solid #ddd',
+               cursor: 'grab',
+               background: snapshot.isDragging ? 'lightblue' : 'inherit',
+               opacity: snapshot.isDragging ? 0.5 : 1,
+               ...provided.draggableProps.style,
+              }}>
+              {column.label}
+             </th>
+            )}
+           </Draggable>
+          );
+         })}
          {provided.placeholder}
         </tr>
        )}

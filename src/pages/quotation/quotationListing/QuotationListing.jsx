@@ -59,7 +59,7 @@ const QuotationListing = () => {
 
  const handleNavigate = () => {
   dispatch(setCurrentID(''));
-  navigate('/quotation');
+  navigate('/productList');
  };
 
  const handleEdit = item => {

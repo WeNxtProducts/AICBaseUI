@@ -4,6 +4,8 @@ import ProtectedRoute from './PrivateRoute';
 import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 import UnderWriterWorkBench from '../pages/underWriterWorkBench/UnderWriterWorkBench';
+import ProductList from '../pages/quotation/quotationListing/productList/ProductList';
+import Loader from '../components/loader/Loader';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const QuotationListing = lazy(() =>
@@ -114,6 +116,14 @@ const AppRouter = () => {
 
     <Route element={<ProtectedRoute />}>
      <Route
+      path='/productList'
+      element={
+       <Suspense fallback={<Loader />}>
+        <ProductList />
+       </Suspense>
+      }
+     />
+     <Route
       path='/quotationList'
       element={
        <Suspense fallback={<div>Listing...</div>}>
@@ -124,7 +134,7 @@ const AppRouter = () => {
      <Route
       path='/quotation'
       element={
-       <Suspense fallback={<div>Quotation...</div>}>
+       <Suspense fallback={<Loader />}>
         <Quotation />
        </Suspense>
       }
