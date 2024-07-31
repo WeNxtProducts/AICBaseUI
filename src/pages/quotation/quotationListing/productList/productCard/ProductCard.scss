@@ -126,40 +126,58 @@
 }
 
 .plan_card {
+ cursor: pointer;
  position: relative;
- width: 300px; /* Adjust width as needed */
- height: 200px; /* Adjust height as needed */
+//  width: 300px; // Adjust width as needed
+ height: 200px; // Adjust height as needed
  overflow: hidden;
  border-radius: 8px;
  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
-.plan_card-image {
- position: absolute;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- object-fit: cover;
- z-index: -1;
-}
+ .plan_card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+ }
 
-.plan_card-content {
- position: absolute;
- bottom: 0;
- left: 0;
- width: 100%;
- background: rgba(
-  0,
-  0,
-  0,
-  0.5
- ); /* Optional: semi-transparent background for better readability */
- color: #fff;
- text-align: center;
- padding: 10px;
-}
+ .plan_card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%; // Initially cover 20% of the card
+  background: rgba(3, 130, 200, 0.7); // Adjust opacity for readability
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: height 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; // Center content horizontally
+ }
 
-.plan_card-title {
- margin: 0;
+ &:hover .plan_card-content {
+  height: 100%; // Expand to cover 100% on hover
+ }
+
+ .plan_card-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+ }
+
+ .plan_card-description {
+  position: absolute;
+  bottom: 10px; // Position at the bottom inside the content area
+  opacity: 0; // Initially hidden
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none; // Prevent interaction when not visible
+ }
+
+ &:hover .plan_card-description {
+  opacity: 1; // Show description on hover
+  pointer-events: auto; // Enable interaction on hover
+ }
 }

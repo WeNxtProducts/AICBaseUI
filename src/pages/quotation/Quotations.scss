@@ -1,5 +1,13 @@
 @import '../../styles/variable';
 
+@mixin btn-style($bg-color, $text-color, $border-color, $side) {
+ background-color: $bg-color;
+ color: $text-color;
+ border: 1px solid $border-color;
+ width: 14%;
+ margin-#{$side}: 15px;
+}
+
 .quotation {
  .stepper {
   height: 45px;
@@ -20,6 +28,10 @@
      font-size: 17px;
      line-height: 30px;
      font-weight: 700;
+    }
+    .pol-number {
+     font-size: 14px;
+     font-weight: 600;
     }
     .freeze-font {
      color: #272e3b;
@@ -73,6 +85,13 @@
   font-weight: 500;
   line-height: 20px;
   border-radius: 6px;
+ }
+
+ .prem_btn {
+  @include btn-style(#ffffff, #0382c8, #0382c8, 'right');
+ }
+ .sub_btn {
+  @include btn-style(#0382c8, #ffffff, #0382c8, 'left');
  }
 }
 .broker_agent {
@@ -162,4 +181,16 @@
  }
 }
 .product_listing {
+ .breadcrumb-title {
+  cursor: pointer;
+  font-weight: 600;
+  color: #888888;
+
+  &:hover {
+   text-decoration: underline;
+  }
+ }
+ .highlight {
+  color: #0382c8;
+ }
 }
