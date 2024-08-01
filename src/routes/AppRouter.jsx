@@ -1,13 +1,20 @@
-import { Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './PrivateRoute';
-import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
-import UnderWriterWorkBench from '../pages/underWriterWorkBench/UnderWriterWorkBench';
-import ProductList from '../pages/quotation/quotationListing/productList/ProductList';
 import Loader from '../components/loader/Loader';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const ClaimListing = lazy(() =>
+ import('../pages/claims/claimsListing/ClaimsListing'),
+);
+const UnderWriterWorkBench = lazy(() =>
+ import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
+);
+const ProductList = lazy(() =>
+ import('../pages/quotation/quotationListing/productList/ProductList'),
+);
+const Receipt = lazy(() => import('../pages/receipt/Receipt'));
 const QuotationListing = lazy(() =>
  import('../pages/quotation/quotationListing/QuotationListing'),
 );
@@ -115,6 +122,14 @@ const AppRouter = () => {
     {/* ProtectedRoute */}
 
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/receipt'
+      element={
+       <Suspense fallback={<Loader />}>
+        <Receipt />
+       </Suspense>
+      }
+     />
      <Route
       path='/productList'
       element={

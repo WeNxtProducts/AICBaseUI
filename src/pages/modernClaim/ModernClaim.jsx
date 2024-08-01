@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import ClaimSelect from './claimSelect/ClaimSelect';
 import ClaimsCoverage from './claimsCoverage/ClaimsCoverage';
 import ClaimTotal from './claimTotal/ClaimTotal';
-import './ModernClaim.scss';
 import Loader from '../../components/loader/Loader';
+import './ModernClaim.scss';
 
 export const ClaimContext = createContext();
 

@@ -1269,3 +1269,96 @@ export const olympics = [
   total: 1,
  },
 ];
+
+export const policyList = [
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9877',
+ },
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9878',
+ },
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9879',
+ },
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9880',
+ },
+];
+
+export const colHeader =
+ '{"dueDats":"Due Dates","code":"Code","amount":"Amount"}';
+
+export const dueDates = [
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 1,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 2,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 3,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 4,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 5,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 6,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 7,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 8,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 9,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 10,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 11,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 12,
+ },
+];
