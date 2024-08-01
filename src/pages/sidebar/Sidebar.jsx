@@ -34,7 +34,7 @@ export default function Sidebar() {
 
  return (
   <div
-   className={`sidebar ${isExpanded && 'sideBar_hovered'}`}
+   className={`sidebar ${isExpanded ? 'sideBar_hovered' : ''}`}
    style={{
     width: isExpanded ? '15%' : '3.8%',
    }}

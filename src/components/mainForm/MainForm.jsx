@@ -42,7 +42,6 @@ const MainForm = ({
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue, resetForm }) => {
-      //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
         <div className={`items-start grid grid-cols-${grid} gap-0`}>

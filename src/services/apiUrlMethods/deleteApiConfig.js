@@ -17,6 +17,34 @@ const DELETE_API_URL = {
   url: '/docprintsetup/deletexdocbyid',
   baseURL: 'DOCPRINT',
  },
+ deleteLifeAssuredDetails: {
+  url: '/polEmployee/deletePolEmployee',
+  baseURL: 'CLAIMURL',
+ },
+ deleteRidersDetails: {
+  url: '/polEmpCover/deletePolEmpCover',
+  baseURL: 'CLAIMURL',
+ },
+ deleteMedicalDetails: {
+  url: '/medexFeeDtl/deleteMedDtl',
+  baseURL: 'CLAIMURL',
+ },
+ deleteBeneficiaryDetails: {
+  url: '/polBeneficiary/deletePolBeneficiary',
+  baseURL: 'CLAIMURL',
+ },
+ deleteChargesDetails: {
+  url: '/polCharge/deletePolCharge',
+  baseURL: 'CLAIMURL',
+ },
+ deleteDisLoadDetails: {
+  url: '/polDiscLoad/deletePolBroker',
+  baseURL: 'CLAIMURL',
+ },
+ deleteConditionsDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default DELETE_API_URL;

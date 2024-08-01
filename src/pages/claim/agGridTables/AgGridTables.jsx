@@ -7,7 +7,6 @@ import '@ag-grid-community/styles/ag-theme-quartz.css';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { exportToExcel, exportToPDF } from './PdfDownload';
-import { olympics } from '../../../components/tableComponents/sampleData';
 import './AgGridTables.scss';
 
 ModuleRegistry.registerModules([ClientSideRowModelModule]);

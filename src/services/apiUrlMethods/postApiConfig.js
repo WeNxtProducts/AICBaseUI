@@ -125,5 +125,137 @@ const POST_API_URL = {
  deleteAutoDispatch: {
   url: '/auto-dispatch/deleteAutoDispDetails',
  },
+ claimBfcryCreate: {
+  url: '/claimBfcry/claimBfcry_creates',
+  baseURL: 'CLAIMURL',
+ },
+ claimBfcryUpdate: {
+  url: '/claimBfcry/updateLtClaimBeneficiary',
+  baseURL: 'CLAIMURL',
+ },
+ claimBfcryDelete: {
+  url: '/claimBfcry/deletesclaimBfcryByid',
+  baseURL: 'CLAIMURL',
+ },
+ claimChargeCreate: {
+  url: '/claimchrgs/claimChrgsSave',
+  baseURL: 'CLAIMURL',
+ },
+ claimChargeUpdate: {
+  url: '/claimchrgs/updateClaimCharges',
+  baseURL: 'CLAIMURL',
+ },
+ claimChargeDelete: {
+  url: '/claimchrgs/deleteclaimchrgsByid',
+  baseURL: 'CLAIMURL',
+ },
+ claimCoverCreate: {
+  url: '/claimest/claimEstSave',
+  baseURL: 'CLAIMURL',
+ },
+ claimCoverUpdate: {
+  url: '/claimest/updateLtClaimEstimate',
+  baseURL: 'CLAIMURL',
+ },
+ claimCoverDelete: {
+  url: '/claimest/deleteclaimestByid',
+  baseURL: 'CLAIMURL',
+ },
+ claimDeductionUpdate: {
+  url: '/ltclaim/claimDeductionsave',
+  baseURL: 'CLAIMURL',
+ },
+ processApproveOrReject: {
+  url: '/ltclaim/saveClaimFlagDetails',
+  baseURL: 'CLAIMURL',
+ },
+ invokeClaimsProcedure: {
+  url: '/common/invokeProcedure',
+ },
+ modernClaimDelete: {
+  url: '/ltclaim/claimHdrDelete',
+  baseURL: 'CLAIMURL',
+ },
+ claimLevelDetailsUpdate: {
+  url: '/ltclaim/saveClaimFlagDetails',
+  baseURL: 'CLAIMURL',
+ },
+ updateCoverAmount: {
+  url: '/claimPaid/save',
+  baseURL: 'CLAIMURL',
+ },
+ saveProposalEntry: {
+  url: '/policy/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateProposalEntry: {
+  url: '/policy/policyUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveLifeAssuredDetails: {
+  url: '/polEmployee/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateLifeAssuredDetails: {
+  url: '/polEmployee/polEmployeeUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveRidersDetails: {
+  url: '/polEmpCover/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateRidersDetails: {
+  url: '/polEmpCover/polEmpCoverUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveMedicalDetails: {
+  url: '/medexFeeDtl/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateMedicalDetails: {
+  url: '/medexFeeDtl/updateMedExFeeDtl',
+  baseURL: 'CLAIMURL',
+ },
+
+ saveBeneficiaryDetails: {
+  url: '/polBeneficiary/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateBeneficiaryDetails: {
+  url: '/polBeneficiary/polBeneficiaryUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveChargesDetails: {
+  url: '/polCharge/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateChargesDetails: {
+  url: '/polCharge/polChargeUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveDisLoadDetails: {
+  url: '/polDiscLoad/save',
+  baseURL: 'CLAIMURL',
+ },
+ updateDisLoadDetails: {
+  url: '/polDiscLoad/polDiscLoadUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ saveConditionsDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
+ },
+ updateConditionsDetails: {
+  url: '',
+  baseURL: 'CLAIMURL',
+ },
+ updateProposalChecklistFlag: {
+  url: 'docToDoList/statusFlagUpdate',
+  baseURL: 'CLAIMURL',
+ },
+ updateProposalChecklistFlagBulk: {
+  url: 'docToDoList/statusFlagBulkUpdate',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

@@ -1,38 +1,47 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import useMRVListing from '../../../../../components/mrvListing/useMRVListing';
+import { ClaimContext } from '../../../ModernClaim';
 
-const Bonus = () => {
- const renderHeader = () => (
-  <>
-   <div className='col-span-3 content_header'>Bonus Code</div>
-   <div className='col-span-3 content_header'>Foriegn Currency</div>
-   <div className='col-span-3 content_header'>Local Currency</div>
-  </>
- );
+const Bonus = ({ listingId, page }) => {
+ const {
+  selectedPolDetails: { CLM_TRAN_ID },
+ } = useContext(ClaimContext);
+ const { rowData, columnData, handleMRVListing } = useMRVListing();
+ const [column, setColumn] = useState(null);
 
- const renderRows = fieldName => (
-  <div className='col-span-10 grid grid-cols-10 items-center justify-items-center field_val_style_bonus'>
-   <div className='col-span-3'>{fieldName}</div>
-   <div className='col-span-3'>10000</div>
-   <div className='col-span-3'>20000</div>
+ useEffect(() => {
+  handleMRVListing(listingId, CLM_TRAN_ID);
+ }, []);
+
+ useEffect(() => {
+  setColumn(columnData?.length > 0 ? JSON.parse(columnData) : columnData);
+ }, [rowData]);
+
+ const renderRows = (item, index) => (
+  <div key={`${index}-bonus`} className='col-span-5 p-2 field_val_style_bonus'>
+   {Object.keys(column)?.map(key => (
+    <div
+     key={key}
+     className='ml-3 mrv_list items-center grid grid-cols-12 mb-1'>
+     <p className='col-span-6 key_font'>{column[key]}</p>
+     <p className='col-span-6 value_font'>{item[key]}</p>
+    </div>
+   ))}
   </div>
  );
 
  return (
-  <div className='pl-4'>
-   <p className='breakup_title'>Bonus</p>
-   <div className='breakUpContent p-1'>
-    <div className='grid grid-cols-10 items-center gap-y-3 gap-x-3'>
-     {renderHeader()}
-     {renderRows('1000GTE')}
-     {renderRows('1000GTE')}
-     {renderRows('1000GTE')}
-     {renderRows('1000GTE')}
-    </div>
-
-    <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
-     <p>Total Bonus</p>
-     <div className='total_value'> </div>
-    </div>
+  <div className={`pl-${page === 'Bonus' ? '4' : '0'}`}>
+   <p className='breakup_title'>{page}</p>
+   <div className='breakUpContent p-1 mt-2'>
+    {rowData &&
+     rowData.length > 0 &&
+     Object.keys(rowData[0]).length > 0 &&
+     column !== null && (
+      <div className='grid grid-cols-10 items-center gap-y-3 gap-x-3'>
+       {rowData?.map((item, index) => renderRows(item, index))}
+      </div>
+     )}
    </div>
   </div>
  );

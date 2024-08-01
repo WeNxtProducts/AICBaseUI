@@ -13,6 +13,12 @@
   background-color: var(--accordion-color);
   padding: 3px !important;
  }
+ .active-panel {
+  --accordion-color: #ffffff;
+ }
+ .inactive-panel {
+  --accordion-color: #d4d6d8;
+ }
  .ant-collapse-content-box {
   padding: 0 !important;
  }

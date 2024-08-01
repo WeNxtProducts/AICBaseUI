@@ -53,7 +53,7 @@ const useCustomAxios = () => {
      //   navigate('/login');
      //  }, 2000);
      navigate('/login');
-     showNotification.WARNING('Session has expired');
+    //  showNotification.WARNING('Session has expired');
     }
     return Promise.reject(error);
    },

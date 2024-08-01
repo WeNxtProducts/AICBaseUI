@@ -34,7 +34,7 @@ const Content = ({ width, setOpen }) => {
   <div
    style={{ width: `${width}px`, maxHeight: '200px' }}
    className='overflow-y-auto'>
-   <ul class='profile-menu-list select-none'>
+   <ul className='profile-menu-list select-none'>
     <li onClick={() => handleNavigate('resetPassword')}>
      <p>Reset Password</p>
     </li>

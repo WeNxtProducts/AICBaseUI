@@ -12,7 +12,7 @@ const GET_API_URL = {
   url: '/common/lovtoJson',
  },
  getQuotation: {
-  url: '/common/quotationEdit',
+  url: '/common/policyEdit',
  },
  getUserMaster: {
   url: '/common/userEdit',
@@ -53,6 +53,55 @@ const GET_API_URL = {
  getPolicyList: {
   url: '/ltclaim/getListOfPolicies',
   baseURL: 'CLAIMURL',
+ },
+ getPreClaimDate: {
+  url: '/common/getMapQuery',
+ },
+ getClaimPayToDetailsEdit: {
+  url: '/common/claimsBeneficiaryEdit',
+ },
+ getClaimChargesDetailsEdit: {
+  url: '/common/claimsChargesEdit',
+ },
+ getClaimCoverDetailsEdit: {
+  url: '/common/claimsEstimatEdit',
+ },
+ getClaimHistoryDetailsEdit: {
+  url: '/common/claimsHistoryEdit',
+ },
+ getLovList: {
+  url: '/common/getlov',
+ },
+ getModernClaim: {
+  url: '/ltclaim/claimHdrGet',
+  baseURL: 'CLAIMURL',
+ },
+ claimListSearch: {
+  url: '/common/claimListSearch',
+ },
+ getLifeAssuredDetails: {
+  url: '/common/polEmployeeEdit',
+ },
+ getRidersDetails: {
+  url: '/common/polEmpCoverEdit',
+ },
+ getMedicalDetails: {
+  url: '/common/medicalDetailsEdit',
+ },
+ getChargesDetails: {
+  url: '/common/polChargeEdit',
+ },
+ getDisLoadDetails: {
+  url: '/common/polDiscLoadEdit',
+ },
+ getConditionsDetails: {
+  url: '',
+ },
+ getBeneficiaryDetails: {
+  url: '/common/polBeneficiaryEdit',
+ },
+ getProposalChecklist: {
+  url: '/common/claimsDocToDoListEdit',
  },
 };
 

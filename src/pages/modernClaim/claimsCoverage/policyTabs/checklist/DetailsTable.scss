@@ -1,0 +1,84 @@
+.checklist_table {
+ user-select: none;
+ overflow: auto;
+ border-radius: 5px;
+ border: 1px solid #c6c2de;
+ .status_main_table {
+  width: 100%;
+  max-width: 100%;
+  border-spacing: 0;
+  //   border-collapse: collapse;
+  border-style: hidden;
+  //   table-layout: fixed;
+  border-collapse: collapse;
+  tbody {
+   tr {
+    &:hover {
+     //  background-color: whitesmoke;
+    }
+   }
+  }
+  th,
+  td {
+   padding: 4px;
+   text-align: center;
+  }
+  th {
+   padding: 7px;
+  }
+  td {
+   border-bottom: 1px solid #c6c2de;
+  }
+  th {
+   border-bottom: 1px solid #c6c2de;
+   background-color: #fcfcfd;
+   color: #667085;
+   font-size: 12px;
+   font-weight: 600;
+   line-height: 18px;
+  }
+  td {
+   color: #667085;
+   font-weight: 400;
+   font-size: 13px;
+   line-height: 20px;
+  }
+
+  td:nth-child(1) {
+   width: 5%;
+  }
+
+  td:nth-child(2) {
+   width: 30%;
+  }
+
+  td:nth-child(3) {
+   width: 15%;
+  }
+
+  td:nth-child(4) {
+   width: 30%;
+  }
+
+  td:nth-child(5) {
+   width: 10%;
+  }
+ }
+ .upload-icons {
+  color: #2f80ed;
+  font-size: 20px;
+
+  &:hover {
+   cursor: pointer;
+  }
+ }
+ .table_lov {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+ .claim_row_expand {
+  background-color: #efeded;
+  text-align: left !important;
+ }
+}

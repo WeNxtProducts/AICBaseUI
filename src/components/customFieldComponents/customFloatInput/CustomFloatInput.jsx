@@ -16,7 +16,7 @@ const CustomFloatInput = ({ value, onChange, id, label }) => {
     placeholder=' '
     onChange={onChange}
    />
-   <label for={id}>{label}</label>
+   <label htmlFor={id}>{label}</label>
    <button type='button' onClick={() => handleTogglePassword()}>
     {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
    </button>

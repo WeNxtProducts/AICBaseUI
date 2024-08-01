@@ -1,3 +1,96 @@
+export const reportData = {
+ Check: {
+  20: {
+   Chennai: [
+    { name: 'Check', age: '20', city: 'Chennai' },
+    { name: 'Check', age: '20', city: 'Chennai' },
+   ],
+  },
+  30: {
+   Karur: [
+    { name: 'Check', age: '30', city: 'Karur' },
+    { name: 'Check', age: '30', city: 'Karur' },
+   ],
+  },
+  40: {
+   Coimbatore: [{ name: 'Check', age: '40', city: 'Coimbatore' }],
+   Trichy: [{ name: 'Check', age: '40', city: 'Trichy' }],
+  },
+ },
+ John: {
+  25: {
+   Bangalore: [
+    { name: 'John', age: '25', city: 'Bangalore' },
+    { name: 'John', age: '25', city: 'Bangalore' },
+   ],
+  },
+ },
+ Alice: {
+  30: {
+   Hyderabad: [
+    { name: 'Alice', age: '30', city: 'Hyderabad' },
+    { name: 'Alice', age: '30', city: 'Hyderabad' },
+   ],
+  },
+ },
+ Bob: {
+  35: {
+   Mumbai: [
+    { name: 'Bob', age: '35', city: 'Mumbai' },
+    { name: 'Bob', age: '35', city: 'Mumbai' },
+   ],
+  },
+ },
+ Eve: {
+  28: {
+   Delhi: [
+    { name: 'Eve', age: '28', city: 'Delhi' },
+    { name: 'Eve', age: '28', city: 'Delhi' },
+   ],
+  },
+ },
+ Frank: {
+  32: {
+   Pune: [
+    { name: 'Frank', age: '32', city: 'Pune' },
+    { name: 'Frank', age: '32', city: 'Pune' },
+   ],
+  },
+ },
+ Grace: {
+  27: {
+   Kolkata: [
+    { name: 'Grace', age: '27', city: 'Kolkata' },
+    { name: 'Grace', age: '27', city: 'Kolkata' },
+   ],
+  },
+ },
+ Henry: {
+  29: {
+   Ahmedabad: [
+    { name: 'Henry', age: '29', city: 'Ahmedabad' },
+    { name: 'Henry', age: '29', city: 'Ahmedabad' },
+   ],
+  },
+ },
+ Ivy: {
+  24: {
+   Jaipur: [
+    { name: 'Ivy', age: '24', city: 'Jaipur' },
+    { name: 'Ivy', age: '24', city: 'Jaipur' },
+   ],
+  },
+ },
+ Jack: {
+  26: {
+   Surat: [
+    { name: 'Jack', age: '26', city: 'Surat' },
+    { name: 'Jack', age: '26', city: 'Surat' },
+   ],
+  },
+ },
+};
+
 export const tableData = [
  {
   accType: 'savings',
@@ -491,18 +584,18 @@ export const bankData = [
   account_number: '83901',
   ifsc_code: 'CC002',
  },
- {
-  bank_code: '1233',
-  bank_sort_code: '3',
-  account_number: '83901',
-  ifsc_code: 'CC003',
- },
- {
-  bank_code: '789',
-  bank_sort_code: '4',
-  account_number: '83901',
-  ifsc_code: 'CC004',
- },
+ //  {
+ //   bank_code: '1233',
+ //   bank_sort_code: '3',
+ //   account_number: '83901',
+ //   ifsc_code: 'CC003',
+ //  },
+ //  {
+ //   bank_code: '789',
+ //   bank_sort_code: '4',
+ //   account_number: '83901',
+ //   ifsc_code: 'CC004',
+ //  },
 ];
 
 export const listTable = [
@@ -523,15 +616,31 @@ export const listTable = [
 ];
 
 export const platforms = [
- { value: 'death', label: 'Death' },
- { value: 'disability', label: 'Disability' },
- { value: 'accident', label: 'Accident' },
+ { value: 'D', label: 'Death' },
+ { value: 'O', label: 'Disability' },
+ { value: 'A', label: 'Accident' },
+];
+
+export const appOrRej = [
+ { value: 'A', label: 'Approve' },
+ { value: 'R', label: 'Reject' },
 ];
 
 export const claim_check = [
- { value: 'preclaimNo', label: 'Preclaim No' },
- { value: 'nationalID', label: 'National ID' },
- { value: 'policyNo', label: 'Policy No' },
+ { value: 'PR', label: 'Preclaim No' },
+ { value: 'ID', label: 'National ID' },
+ { value: 'PO', label: 'Policy No' },
+];
+
+export const settlementStatus = [
+ { value: 'P', label: 'Yes' },
+ { value: 'N', label: 'No' },
+];
+
+export const checkListValue = [
+ { label: 'Yes', value: 'Y' },
+ { label: 'No', value: 'N' },
+ { label: 'Waived', value: 'W' },
 ];
 
 export const CoverageTableData = [
@@ -564,16 +673,32 @@ export const proposalStepper = [
  { key: 2, title: 'Beneficiary', status: 'todo' },
  { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
  { key: 4, title: 'Checklist', status: 'todo' },
- { key: 5, title: 'Cmts/Mat/Remindr', status: 'todo' },
 ];
+
+export const PDFdata = [
+ { name: 'John', age: 25, city: 'New York' },
+ { name: 'Peter', age: 30, city: 'Paris' },
+ { name: 'Steve', age: 32, city: 'London' },
+ { name: 'Mary', age: 22, city: 'Rome' },
+ { name: 'Steve', age: 25, city: 'Berlin' },
+ { name: 'Steve', age: 30, city: 'Madrid' },
+];
+
+// export const proposalStepper = [
+//  { key: 0, title: 'Propposal Entry', status: 'completed' },
+//  { key: 1, title: 'Life Assured Details', status: 'completed' },
+//  { key: 2, title: 'Beneficiary', status: 'completed' },
+//  { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'completed' },
+//  { key: 4, title: 'Checklist', status: 'inprogress' },
+// ];
 
 export const claimsStepper = [
  { key: 0, title: 'Claim Entry', status: 'completed' },
  { key: 1, title: 'Claim Estimate', status: 'completed' },
  { key: 2, title: 'Claim Charges', status: 'completed' },
- //  { key: 3, title: 'Claim Estimate', status: 'todo' },
+ //{ key: 3, title: 'Claim Estimate', status: 'todo' },
  { key: 3, title: 'Checklist', status: 'inprogress' },
- //  { key: 5, title: 'Claim Decision', status: 'todo' },
+ //{ key: 5, title: 'Claim Decision', status: 'todo' },
 ];
 
 export const checklistColumn = {
@@ -1142,5 +1267,98 @@ export const olympics = [
   silver: 0,
   bronze: 0,
   total: 1,
+ },
+];
+
+export const policyList = [
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9877',
+ },
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9878',
+ },
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9879',
+ },
+ {
+  CLM_POL_NO: 'P/90/7789/9876/9880',
+ },
+];
+
+export const colHeader =
+ '{"dueDats":"Due Dates","code":"Code","amount":"Amount"}';
+
+export const dueDates = [
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 1,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 2,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 3,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 4,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 5,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 6,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 7,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 8,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 9,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 10,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 11,
+ },
+ {
+  dueDats: '10/10/2000',
+  code: 'USD',
+  amount: '10,000',
+  id: 12,
  },
 ];

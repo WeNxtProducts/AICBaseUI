@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Formik, Form } from 'formik';
 import ModernMRVFieldWithValue from './ModernMRVFieldWithValue';
 import { createYupSchema } from '../../../components/commonHelper/SchemaGenerator';
+import { Button } from 'antd';
 
 const ModernMRV = ({
  initialValues,
@@ -13,14 +14,24 @@ const ModernMRV = ({
  grid = '2',
  action = true,
  addOrUpdate,
- resetForm,
+ resetForm: formReset,
  lovList,
  handleOnBlur,
  smallFont = false,
+ title = '',
+ freeze = false,
+ formInit = false,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
  const [loader, setLoader] = useState(false);
+ const formikRef = useRef(null);
+
+ useEffect(() => {
+  if (formikRef.current) {
+   formikRef.current.resetForm();
+  }
+ }, [formInit]);
 
  useEffect(() => {
   const validationSchema = createYupSchema({
@@ -32,18 +43,38 @@ const ModernMRV = ({
 
  return (
   <>
-   {/* {loader && <Loader />} */}
    {validation !== null && (
     <Formik
      initialValues={initValues}
      values={initValues}
-     //validationSchema={validation}
+     validationSchema={validation}
      onSubmit={onSubmit}
-     enableReinitialize={true}>
-     {({ handleSubmit, values, setFieldValue }) => {
+     enableReinitialize={true}
+     innerRef={formikRef}>
+     {({ handleSubmit, values, setFieldValue, resetForm }) => {
       //   console.log('values : ', values);
       return (
        <Form onSubmit={handleSubmit}>
+        <div className='mb-4 flex items-center justify-between'>
+         <p className='mrv_header'>{title}</p>
+         {addOrUpdate && (
+          <>
+           {action && !freeze && (
+            <Button
+             className='add-buttons me-5'
+             type='primary'
+             onClick={() => {
+              if (addOrUpdate) formReset();
+              else resetForm();
+             }}
+             icon={<i className='bi bi-plus icon-style' />}>
+             Add New
+            </Button>
+           )}
+          </>
+         )}
+        </div>
+
         <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
           const dataId =
@@ -62,6 +93,7 @@ const ModernMRV = ({
                 handleChangeValue={handleChangeValue}
                 parent={root}
                 smallFont={smallFont}
+                freeze={freeze}
                />
               </div>
              )}
@@ -72,20 +104,11 @@ const ModernMRV = ({
         </div>
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
-          {addOrUpdate && (
-           <button
-            type='button'
-            onClick={() => {
-             // setInitValues(null);
-             resetForm();
-            }}
-            className='reset'>
-            Reset
+          {!freeze && (
+           <button disabled={freeze} type='submit' className='save ml-9'>
+            {addOrUpdate ? 'Update' : 'Submit'}
            </button>
           )}
-          <button type='submit' className='save ml-9'>
-           {addOrUpdate ? 'Update' : 'Submit'}
-          </button>
          </div>
         )}
        </Form>

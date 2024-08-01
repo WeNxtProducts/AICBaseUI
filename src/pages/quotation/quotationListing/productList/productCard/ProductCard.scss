@@ -1,0 +1,183 @@
+%title-style {
+ text-align: center;
+ font-size: 16px;
+ font-weight: 700;
+ line-height: 24px;
+}
+
+.card {
+ position: relative;
+ height: 350px;
+ border: 1px solid #0382c8;
+ border-radius: 20px;
+ overflow: hidden;
+ transition: transform 0.3s ease;
+ cursor: pointer;
+
+ &:hover {
+  transform: scale(1);
+ }
+
+ .ac-img {
+  width: 20px;
+ }
+ .ac-text {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 22px;
+ }
+ .get-quote-btn {
+  font-size: 14px;
+  border-radius: 7px;
+  width: 45%;
+ }
+
+ .card-content {
+  height: 100%;
+  z-index: 1;
+  .img-container {
+   height: 65%;
+   width: 100%;
+   overflow: hidden;
+   border-radius: 0 0 0 30px;
+   .img-card {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+   }
+  }
+  .action_content {
+   .card-title {
+    @extend %title-style;
+    color: #2a2d3f;
+   }
+   .ac-text {
+    color: #000000;
+   }
+   .get-quote-btn {
+    background-color: #0382c8;
+    color: #ffffff;
+   }
+  }
+ }
+
+ .card-overlay {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: #0382c8;
+  color: white;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+
+  .card-overlay-content {
+   transform: translateY(20px);
+   opacity: 0;
+   transition: transform 0.2s ease 0.2s, opacity 0.2s ease 0.2s;
+  }
+ }
+
+ &:hover .card-overlay {
+  transform: translateY(0);
+ }
+
+ &:hover .card-overlay-content {
+  transform: translateY(0); /* Slide to final position */
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  height: 93%;
+ }
+ .lower-level {
+  margin-top: auto;
+  .ac-text {
+   color: #ffffff;
+  }
+  .get-quote-btn {
+   background-color: #ffffff;
+   color: #0382c8;
+  }
+ }
+ .top-level {
+  padding: 0px 15px 0px 15px;
+  .card-title {
+   @extend %title-style;
+   margin-top: 5px;
+   color: #ffffff;
+  }
+ }
+ .description {
+  max-height: 84%;
+  min-height: 84%;
+  overflow-y: auto;
+  .description-style {
+   color: #ffffff;
+   font-size: 11px;
+   font-weight: 400;
+   line-height: 15px;
+   text-align: center;
+  }
+ }
+}
+
+.plan_card {
+ cursor: pointer;
+ position: relative;
+//  width: 300px; // Adjust width as needed
+ height: 200px; // Adjust height as needed
+ overflow: hidden;
+ border-radius: 8px;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+ .plan_card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+ }
+
+ .plan_card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%; // Initially cover 20% of the card
+  background: rgba(3, 130, 200, 0.7); // Adjust opacity for readability
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: height 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; // Center content horizontally
+ }
+
+ &:hover .plan_card-content {
+  height: 100%; // Expand to cover 100% on hover
+ }
+
+ .plan_card-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+ }
+
+ .plan_card-description {
+  position: absolute;
+  bottom: 10px; // Position at the bottom inside the content area
+  opacity: 0; // Initially hidden
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none; // Prevent interaction when not visible
+ }
+
+ &:hover .plan_card-description {
+  opacity: 1; // Show description on hover
+  pointer-events: auto; // Enable interaction on hover
+ }
+}

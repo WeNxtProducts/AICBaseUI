@@ -16,8 +16,8 @@ import Loader from '../../../../../components/loader/Loader';
 import ConfirmationModal from '../../../../../components/confirmationModal/ConfirmationModal';
 import { ClaimContext } from '../../../ModernClaim';
 import MRVListingScreen from '../MRVListingScreen';
-import { bankColumn, bankData } from '../../../../../components/tableComponents/sampleData';
 import ModernMRV from '../../../modernMRV/ModernMRV';
+import ClaimLevelTotal from '../ClaimLevelTotal';
 
 const MRVClaim = ({
  queryID,
@@ -28,6 +28,11 @@ const MRVClaim = ({
  saveRow,
  editRow,
  deleteRow,
+ title,
+ action = true,
+ isView = true,
+ isEdit = true,
+ isDelete = true,
 }) => {
  const {
   ClaimsJson,
@@ -35,7 +40,11 @@ const MRVClaim = ({
   formValues,
   setDropDown,
   dropDown,
+  selectedPolDetails,
+  selectedPolicy,
+  freeze,
  } = useContext(ClaimContext);
+ const { CLM_TRAN_ID } = selectedPolDetails;
  const { mrvListingId } = ClaimsJson;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
@@ -48,16 +57,19 @@ const MRVClaim = ({
  const [editMRVId, setEditMRVId] = useState('');
  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
  const [loader, setLoader] = useState(false);
+ const [first, setFirst] = useState(false);
+ const [formInit, setFormInit] = useState(false);
 
  const addOrUpdateMRV = async (payload, addOrUpdate) => {
   try {
-   const params = editMRVId ? { editMRVId } : { tranId };
+   const params = editMRVId ? { editMRVId } : { CLM_TRAN_ID };
    const response = await addOrUpdate(payload, '', params);
    if (response?.status === 'FAILURE')
     showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
-    // setEditMRVId(response?.data?.Id);
+    if (!editMRVId) setFormInit(!formInit);
+    // setEditMRVId(response?.data?.Id ?? editMRVId);
     showNotification.SUCCESS(response?.status_msg);
    }
    setLoader(false);
@@ -70,28 +82,70 @@ const MRVClaim = ({
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
-  console.log('payload : ', payload);
-  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
+
+  if (title === 'Pay To') {
+   const percentage = payload[root]?.formFields?.CBEN_PERC;
+   const totalPercentage =
+    rowData.reduce((sum, item) => {
+     if (item.ID === editMRVId) return sum;
+     return sum + (Number(item?.Percentage) || 0);
+    }, 0) + Number(percentage);
+   if (percentage > 100) {
+    showNotification.WARNING('Percentage should not exceed 100');
+    return;
+   } else if (totalPercentage > 100) {
+    showNotification.WARNING('Total percentage should not exceed 100');
+    return;
+   } else {
+    addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
+   }
+  } else addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
  };
 
  const handleInitData = response => {
   const orderedData = sortObjectByPFDSeqNo(response);
   setClaimMRV({ [root]: orderedData[root] });
   setClaimMRVInitialValues({ [root]: orderedData[root] });
-  //console.log('orderedData : ', { [root]: orderedData[root] });
+  // console.log('orderedData : ', { [root]: orderedData[root] });
  };
 
  const MRVListing = () => {
-  if (tranId) {
+  if (CLM_TRAN_ID) {
    const queryId = getQueryId(queryID, mrvListingId);
-   handleMRVListing(queryId, tranId);
+   handleMRVListing(queryId, CLM_TRAN_ID);
   }
  };
 
  useEffect(() => {
-  handleInitData(ClaimsJson);
-  MRVListing();
- }, []);
+  if (rowData?.length > 0 && !editMRVId && !first) {
+   setFirst(true);
+   handleEdit(rowData[0]);
+  }
+  // else {
+  //  handleInitData(ClaimsJson);
+  // }
+ }, [rowData]);
+
+ useEffect(() => {
+  if (CLM_TRAN_ID) {
+   handleInitData(ClaimsJson);
+   MRVListing();
+  }
+ }, [CLM_TRAN_ID]);
+
+ useEffect(() => {
+  if (title === 'Claim Cover' && formValues !== null) {
+   if (!Object.prototype.hasOwnProperty.call(dropDown, 'CE_COVER_CODE')) {
+    const PFD_PARAM_2 = ['CE_COVER_CODE'];
+    const valueKey = {
+     PEMP_ID: formValues?.CH_ASSR_CODE,
+     POL_NO: selectedPolicy,
+    };
+    const valueQueryId = { CE_COVER_CODE: 127 };
+    apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
+   }
+  }
+ }, [formValues]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);
@@ -126,6 +180,7 @@ const MRVClaim = ({
    const response = await deleteMRV('', {}, { id });
    if (response?.status === 'SUCCESS') {
     MRVListing();
+    if (id === editMRVId) resetForm();
     showNotification.SUCCESS(response?.status_msg);
    } else if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
@@ -140,8 +195,9 @@ const MRVClaim = ({
 
  const handleClose = status => {
   const deleteId = editMRVId;
-  setEditMRVId('');
+  // setEditMRVId('');
   if (status) handleDeleteConfirm(deleteId);
+  else if (!status) setDeleteConfirmation(false);
  };
 
  const handleDelete = item => {
@@ -183,19 +239,14 @@ const MRVClaim = ({
  return (
   <div className='front-form claim-cover grid grid-cols-8 gap-1'>
    {loader && <Loader />}
+
    <div className='propasal-entry-form col-span-8 grid grid-cols-7'>
-    {/* {rowData?.length > 0 && (
-     <div className='inline-table-details mb-4 mt-2 col-span-8'>
-      <CustomList
-       tableColumn={columnData}
-       tableData={rowData}
-       handleEdit={handleEdit}
-       handleDelete={handleDelete}
-       selectedRow={editMRVId}
-      />
-     </div>
-    )} */}
-    <div className='col-span-5 mt-3'>
+    <div className='col-span-5 mt-1'>
+     {title === 'Claim Cover' && freeze && (
+      <div className='col-span-5 mb-4'>
+       <ClaimLevelTotal />
+      </div>
+     )}
      {claimMRV && Object.prototype.hasOwnProperty.call(claimMRV, root) && (
       <ModernMRV
        initialValues={claimMRVInitialValues}
@@ -208,11 +259,29 @@ const MRVClaim = ({
        handleOnBlur={handleOnBlur}
        addOrUpdate={!!editMRVId}
        smallFont={true}
+       title={title}
+       action={action}
+       freeze={freeze}
+       formInit={formInit}
       />
      )}
     </div>
+
     <div className='col-span-2 p-2 border_left_divider'>
-     <MRVListingScreen tableColumn={bankColumn} tableData={bankData} />
+     {rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0 && (
+      <MRVListingScreen
+       tableColumn={columnData}
+       tableData={rowData}
+       handleEdit={handleEdit}
+       handleDelete={handleDelete}
+       selectedRow={editMRVId}
+       action={action}
+       isView={isView}
+       isEdit={isEdit}
+       isDelete={isDelete}
+       freeze={freeze}
+      />
+     )}
     </div>
    </div>
    {deleteConfirmation && (

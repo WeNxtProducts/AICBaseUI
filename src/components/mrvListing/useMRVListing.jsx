@@ -6,8 +6,13 @@ const useMRVListing = () => {
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
 
- const handleMRVListing = async (queryId, tranId) => {
+ const handleMRVListing = async (queryId, tranId, ...rest) => {
   const queryParams = { queryId, tranId };
+
+  rest.forEach(value => {
+   if (value !== undefined) queryParams[`emptranId`] = value;
+  });
+
   try {
    const response = await getMRVlisting('', queryParams);
    if (response?.status === 'SUCCESS') {
@@ -16,7 +21,7 @@ const useMRVListing = () => {
     return true;
    }
   } catch (err) {
-   console.log(err);
+   console.error(err);
    return false;
   } finally {
    const panel = document.querySelector(`[data-id='dept-1']`);

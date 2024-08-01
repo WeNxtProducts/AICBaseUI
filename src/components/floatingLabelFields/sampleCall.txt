@@ -1,0 +1,17 @@
+ <TextInput
+  label='Name'
+  value={inputValue}
+  onChange={e => setInputValue(e.target.value)}
+ />
+
+ <SelectInput
+  label='Select'
+  value={selectValue}
+  onChange={value => setSelectValue(value)}
+ />
+ 
+ <DateInput
+  label='Date'
+  value={inputValue}
+  onChange={date => setInputValue(date)}
+ />

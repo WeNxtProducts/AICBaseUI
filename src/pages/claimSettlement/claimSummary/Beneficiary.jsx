@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Modal } from 'antd';
-import CustomList from '../../../components/customList/CustomList';
-import {
- bankColumn,
- bankData,
-} from '../../../components/tableComponents/sampleData';
-import QuotationJSON from '../../../getFormFields/QUOTATIONENTRY_getFieldList.json';
-import MRVform from '../../../components/mrvForm/MRVform';
+import CardListingScreen from './CardListingScreen';
 
-const Beneficiary = ({ open, handleClose }) => {
+const modalStyles = {
+ body: { height: 450, overflowY: 'auto' },
+ topPosition: { top: 20 },
+};
+
+const Beneficiary = ({ open, handleClose, claimTranId, coverId }) => {
  const [Open, setOpen] = useState(false);
- const [beneficiaryDetails, setBeneficiaryDetails] = useState(QuotationJSON);
- const [beneficiaryInitialValues, setBeneficiaryInitialValues] = useState(null);
 
  useEffect(() => {
   setOpen(open);
@@ -22,47 +19,28 @@ const Beneficiary = ({ open, handleClose }) => {
   handleClose();
  };
 
- const onSubmit = values => {
-  console.log('values : ', values);
- };
-
- const handleChangeValue = (value, path, setFieldValue, values) => {
-  setFieldValue(path, value);
- };
-
- const handleEdit = item => {
-  console.log('handleEdit : ', item);
-  setBeneficiaryInitialValues(item);
- };
-
- const resetForm = () => {
-  setBeneficiaryInitialValues(null);
- };
-
  return (
   <Modal
-   width={1000}
+   width={900}
    title='Beneficiary'
    open={Open}
    onCancel={() => onClose()}
+   style={modalStyles?.topPosition}
+   styles={{
+    content: {
+     backgroundColor: '#F3F4F5',
+     maxHeight: '500px',
+     overflowY: 'auto',
+    },
+    header: { backgroundColor: '#F3F4F5' },
+   }}
    footer={null}>
-   <div className='inline-table-details mt-5'>
-    <CustomList
-     tableColumn={bankColumn}
-     tableData={bankData}
-     handleEdit={handleEdit}
-    />
-   </div>
-   <div className='mt-2'>
-    <MRVform
-     initialValues={beneficiaryInitialValues}
-     formRender={beneficiaryDetails}
-     root='Charges'
-     onSubmit={onSubmit}
-     handleChangeValue={handleChangeValue}
-     resetForm={resetForm}
-    />
-   </div>
+   <CardListingScreen
+    title='Beneficiary'
+    queryId={134}
+    claimTranId={claimTranId}
+    coverId={coverId}
+   />
   </Modal>
  );
 };

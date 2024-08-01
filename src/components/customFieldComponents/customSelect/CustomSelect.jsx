@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Select, Tooltip } from 'antd';
 import './CustomSelect.scss';
 
 const CustomSelect = ({
- options,
+ options = [],
  loading,
  placeholder,
  value,
@@ -16,12 +16,14 @@ const CustomSelect = ({
  name,
  firstFieldRef = null,
  onBlur,
+ readOnly = false,
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
   medium: { code: '1/4', desc: '3/4', main: '3/5' }, // 3/4
   large: { code: '1/4', desc: '3/4', main: 'full' },
  };
+ const [dropdownOpen, setDropdownOpen] = useState(false);
 
  useEffect(() => {
   if (firstFieldRef?.current) {
@@ -29,11 +31,19 @@ const CustomSelect = ({
   }
  }, []);
 
+ const handleDropdownVisibleChange = open => {
+  if (!readOnly) {
+   setDropdownOpen(open);
+  } else {
+   setDropdownOpen(false);
+  }
+ };
+
  const sharedProps = {
   mode: mode,
   // variant: "borderless",
   showSearch,
-  allowClear: true,
+  allowClear: !readOnly,
   maxTagCount: 'responsive',
   filterOption: (input, option) => {
    return option.children.toLowerCase().includes(input.toLowerCase());
@@ -59,6 +69,8 @@ const CustomSelect = ({
     loading={loading}
     value={value}
     onChange={onChange}
+    open={dropdownOpen}
+    onDropdownVisibleChange={handleDropdownVisibleChange}
     notFoundContent={<span>{loading ? 'Loading...' : 'No data found'}</span>}
     maxTagPlaceholder={renderMaxTagPlaceholder}
     {...sharedProps}>

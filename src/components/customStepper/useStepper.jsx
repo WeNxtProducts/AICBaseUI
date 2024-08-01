@@ -1,22 +1,30 @@
 import { useState, useCallback, useEffect } from 'react';
 
-const useStepper = steppers => {
- const [currentStep, setCurrentStep] = useState(0);
+const useStepper = (steppers, index) => {
+ const [currentStep, setCurrentStep] = useState(index);
  const [stepperData, setStepperData] = useState(steppers);
 
+ const updateStatus = (stepper, index) =>
+  stepper.map((step, i) => ({
+   ...step,
+   status: i < index ? 'completed' : i === index ? 'inprogress' : 'todo',
+  }));
+
  useEffect(() => {
-  const findCurrentStep = steppers?.find(item => {
+  const updatedStepper = updateStatus(steppers, index);
+  setStepperData(updatedStepper);
+  const findCurrentStep = updatedStepper?.find(item => {
    return item?.status === 'inprogress';
   });
   setCurrentStep(findCurrentStep?.key);
- }, []);
+ }, [index]);
 
  const handleSteps = useCallback(() => {
   setStepperData(prevStepperData => {
    return prevStepperData.map((item, index) => {
     if (index === currentStep) {
      if (item.status !== 'completed') {
-      return { ...item, status: 'todo' };
+       return{ ...item, status: 'todo' };
      }
     } else if (index === currentStep - 1 && currentStep > 0) {
      if (prevStepperData[index].status !== 'completed') {
@@ -59,6 +67,7 @@ const useStepper = steppers => {
 
  const handleSkip = useCallback(
   index => {
+   console.log('index : ', index);
    handleSteps();
    if (stepperData[index]?.status === 'completed') {
     setCurrentStep(index);

@@ -1,10 +1,26 @@
-import { Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './PrivateRoute';
-import ClaimListing from '../pages/claims/claimsListing/ClaimsListing';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
+import Loader from '../components/loader/Loader';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const ClaimListing = lazy(() =>
+ import('../pages/claims/claimsListing/ClaimsListing'),
+);
+const UnderWriterWorkBench = lazy(() =>
+ import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
+);
+const ProductList = lazy(() =>
+ import('../pages/quotation/quotationListing/productList/ProductList'),
+);
+const Receipt = lazy(() => import('../pages/receipt/Receipt'));
+const QuotationListing = lazy(() =>
+ import('../pages/quotation/quotationListing/QuotationListing'),
+);
+const Quotation = lazy(() => import('../pages/quotation/Quotation'));
+const Quote = lazy(() => import('../pages/quote/Quote'));
+const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() =>
  import('../pages/autoDispatchSetUp/AutoDispatchSetUp'),
 );
@@ -86,9 +102,75 @@ const AppRouter = () => {
      }
     />
 
+    <Route
+     path='/reports'
+     element={
+      <Suspense fallback={<div>Report...</div>}>
+       <ReportList />
+      </Suspense>
+     }
+    />
+    <Route
+     path='/quote'
+     element={
+      <Suspense fallback={<div>QUOTE...</div>}>
+       <Quote />
+      </Suspense>
+     }
+    />
+
     {/* ProtectedRoute */}
 
     <Route element={<ProtectedRoute />}>
+     <Route
+      path='/receipt'
+      element={
+       <Suspense fallback={<Loader />}>
+        <Receipt />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/productList'
+      element={
+       <Suspense fallback={<Loader />}>
+        <ProductList />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/quotationList'
+      element={
+       <Suspense fallback={<div>Listing...</div>}>
+        <QuotationListing />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/quotation'
+      element={
+       <Suspense fallback={<Loader />}>
+        <Quotation />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/quote'
+      element={
+       <Suspense fallback={<div>QUOTE...</div>}>
+        <Quote />
+       </Suspense>
+      }
+     />
+     <Route
+      path='/underwriterworkbench'
+      element={
+       <Suspense fallback={<div>UnderWriterWorkBench...</div>}>
+        <UnderWriterWorkBench />
+       </Suspense>
+      }
+     />
+
      <Route
       path='/autoDispatchSetUp'
       element={

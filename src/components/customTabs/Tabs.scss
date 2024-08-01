@@ -4,6 +4,7 @@
  .tab-list {
   display: flex;
   border-bottom: 1px solid #ccc;
+  background-color: #f6fcff;
  }
 
  .tab {
@@ -21,9 +22,17 @@
  .tab.active {
   border-bottom: 2px solid #25213b;
   color: #25213b;
+  border-radius: 10px 10px 0 0;
+  background-color: #e5f6ff;
+ }
+
+ .tab.crossed {
+  color: #0382C8;
  }
 
  .tab-content {
-  padding: 5px 0px;
+  padding: 5px 10px;
+  background-color: #e5f6ff;
+  min-height: 300px;
  }
 }

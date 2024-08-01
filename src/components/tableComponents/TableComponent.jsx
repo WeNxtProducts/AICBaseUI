@@ -41,7 +41,7 @@ const TableComponent = ({
   <div className='table-container'>
    {/* <button onClick={() => scrollToRow("10")}>Click</button> */}
    {tableData?.length > 0 && (
-    <table className='custom-table' columnCount={3}>
+    <table className='custom-table'>
      <thead>
       <tr>
        {Object.keys(column)?.map(item => {
@@ -91,8 +91,8 @@ const TableComponent = ({
               onClick={() => handleEdit(item)}
               className='bi bi-pencil-square'
              />
-             {/* <i class="bi bi-eye"></i> */}
-             <i class='bi bi-trash' onClick={() => handleDelete(item)} />
+             {/* <i className="bi bi-eye"></i> */}
+             <i className='bi bi-trash' onClick={() => handleDelete(item)} />
              {process && (
               <Button
                onClick={() => handleProcessData(item)}
