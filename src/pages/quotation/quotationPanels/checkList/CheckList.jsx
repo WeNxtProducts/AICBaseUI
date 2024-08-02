@@ -73,7 +73,7 @@ const Checklist = ({ tranId }) => {
      />
     )}
    </div>
-   <button onClick={() => handleNext()}>handleNext</button>
+   {/* <button onClick={() => handleNext()}>handleNext</button> */}
   </div>
  );
 };

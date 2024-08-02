@@ -5,8 +5,11 @@ import Loader from '../../../components/loader/Loader';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useApiRequests from '../../../services/useApiRequests';
-import { setCurrentID } from '../../../globalStore/slices/IdSlices';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
+import {
+ setCurrentID,
+ setFreezeStatus,
+} from '../../../globalStore/slices/IdSlices';
 
 const QuotationListing = () => {
  const dispatch = useDispatch();
@@ -63,11 +66,9 @@ const QuotationListing = () => {
  };
 
  const handleEdit = item => {
-  console.log('item : ', item);
+  dispatch(setFreezeStatus(item?.Freeze_Flag === 'Y'));
   dispatch(setCurrentID(item?.ID));
-  navigate('/quotation');
-  // dispatch(setCurrentID(item?.ID));
-  // navigate('/usercreation');
+  navigate(`/quotation/${item?.Stepper_Id}`);
  };
 
  const handleDelete = async item => {

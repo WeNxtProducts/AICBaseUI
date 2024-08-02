@@ -48,7 +48,7 @@ const StatusPopup = ({ open, handleClose, status = true }) => {
     </div>
     <div className='status_message'>
      {status ? (
-      <p>Proposal Saved Successfully !!!</p>
+      <p>Proposal Submitted Successfully !!!</p>
      ) : (
       <p>Proposal Not Saved</p>
      )}

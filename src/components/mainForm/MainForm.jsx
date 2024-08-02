@@ -15,6 +15,7 @@ const MainForm = ({
  addOrUpdate,
  lovList,
  handleOnBlur,
+ freeze = false,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -38,7 +39,7 @@ const MainForm = ({
     <Formik
      initialValues={initValues}
      values={initValues}
-    //  validationSchema={validation}
+     //  validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue, resetForm }) => {
@@ -69,7 +70,7 @@ const MainForm = ({
           }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
          })}
         </div>
-        {action && (
+        {action && !freeze && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
           <button
            type='button'

@@ -23,18 +23,14 @@ dayjs.extend(utc);
 const ProposalEntryForm = () => {
  const dispatch = useDispatch();
  const {
-  currentStep,
-  stepperData,
   handleNext,
-  handlePrevious,
-  handleSkip,
   id: tranId,
   QuotationJSON,
-  setDropDown,
   dropDown,
   prodCode,
   proposalNumber,
   setProposalNumber,
+  freeze,
  } = useContext(StepperContext);
  const currentMenuId = useSelector(
   state => state?.tokenAndMenuList?.currentMenuId,
@@ -76,7 +72,6 @@ const ProposalEntryForm = () => {
  };
 
  useEffect(() => {
-  console.log('currentMenuId : ', currentMenuId);
   if (tranId) handleQuotationDetails();
   else handleStateInit(QuotationJSON);
  }, []);
@@ -90,9 +85,9 @@ const ProposalEntryForm = () => {
   const { ds_type, ds_code } = currentMenuId;
   const payload = {
    inParams: {
-    P_POL_PROD_CODE: prodCode,
-    P_POL_DS_TYPE: ds_type,
-    P_POL_DS_CODE: ds_code,
+    P_POL_PROD_CODE: prodCode || '',
+    P_POL_DS_TYPE: ds_type || '',
+    P_POL_DS_CODE: ds_code || '',
     P_POL_TRAN_ID,
     P_POL_ISSUE_DT: dayjs().format(`YYYY-MM-DD HH:mm:ss`),
     P_POL_END_NO_IDX: P_POL_END_NO_IDX || 0,
@@ -130,7 +125,7 @@ const ProposalEntryForm = () => {
     }
     showNotification.SUCCESS(response?.status_msg);
    }
-   //setLoader(false);
+   setLoader(false);
   } catch (err) {
    setLoader(false);
   }
@@ -165,6 +160,7 @@ const ProposalEntryForm = () => {
       handleChangeValue={handleChangeValue}
       addOrUpdate={!!tranId}
       lovList={dropDown}
+      freeze={freeze}
       //handleOnBlur={handleOnBlur}
      />
     </div>

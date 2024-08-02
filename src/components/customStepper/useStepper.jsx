@@ -4,6 +4,29 @@ const useStepper = (steppers, index) => {
  const [currentStep, setCurrentStep] = useState(index);
  const [stepperData, setStepperData] = useState(steppers);
 
+ const getNextKey = arr => {
+  let lastCompletedIndex = -1;
+
+  for (let i = 0; i < arr.length; i++) {
+   if (arr[i].status === 'completed') {
+    lastCompletedIndex = i;
+   }
+  }
+
+  // If last object is completed, return its key
+  if (lastCompletedIndex === arr.length - 1) {
+   return arr[lastCompletedIndex].key + 1;
+  }
+
+  // Return the key of the next object if it exists
+  if (lastCompletedIndex + 1 < arr.length) {
+   return arr[lastCompletedIndex + 1].key;
+  }
+
+  // If no completed status found or it's the only element
+  return arr[0].key;
+ };
+
  const updateStatus = (stepper, index) =>
   stepper.map((step, i) => ({
    ...step,
@@ -23,11 +46,14 @@ const useStepper = (steppers, index) => {
   setStepperData(prevStepperData => {
    return prevStepperData.map((item, index) => {
     if (index === currentStep) {
-     if (item.status !== 'completed') {
-       return{ ...item, status: 'todo' };
+     if (item.status !== 'completed' && item.status !== 'inprogress') {
+      return { ...item, status: 'todo' };
      }
     } else if (index === currentStep - 1 && currentStep > 0) {
-     if (prevStepperData[index].status !== 'completed') {
+     if (
+      prevStepperData[index].status !== 'completed' &&
+      item.status !== 'inprogress'
+     ) {
       return { ...item, status: 'todo' };
      }
     }
@@ -67,9 +93,13 @@ const useStepper = (steppers, index) => {
 
  const handleSkip = useCallback(
   index => {
-   console.log('index : ', index);
    handleSteps();
-   if (stepperData[index]?.status === 'completed') {
+   const adjustedIndex = index < stepperData.length - 1 ? index + 1 : index;
+   if (
+    stepperData[index]?.status === 'completed' ||
+    stepperData[adjustedIndex]?.status === 'inprogress' ||
+    stepperData[adjustedIndex]?.status === 'todo'
+   ) {
     setCurrentStep(index);
    }
   },
@@ -83,6 +113,7 @@ const useStepper = (steppers, index) => {
   handlePrevious,
   handleSkip,
   setCurrentStep,
+  getNextKey,
  };
 };
 

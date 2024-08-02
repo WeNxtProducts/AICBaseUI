@@ -79,7 +79,10 @@ const QuotationPanels = () => {
   const lastElement = key[key.length - 1];
   const lastElementAsNumber = parseInt(lastElement, 10);
   if (!isAllCompleted) {
-   if (stepperData[lastElement]?.status === 'completed')
+   if (
+    stepperData[lastElement]?.status === 'completed' ||
+    stepperData[lastElement]?.status === 'inprogress'
+   )
     handleSkip(lastElementAsNumber);
   } else {
    setActivePanel(key);

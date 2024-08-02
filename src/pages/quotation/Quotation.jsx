@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { Button } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { Button, Checkbox } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProposalEntry from './proposalEntryForm/ProposalEntry';
 import QuotationPanels from './quotationPanels/QuotationPanels';
@@ -14,6 +14,7 @@ import UnderWriterWorkBench from '../underWriterWorkBench/UnderWriterWorkBench';
 import {
  setCurrentID,
  setFormValues,
+ setFreezeStatus,
  setProdCode,
 } from '../../globalStore/slices/IdSlices';
 import useApiRequests from '../../services/useApiRequests';
@@ -24,13 +25,29 @@ import './Quotations.scss';
 export const StepperContext = createContext();
 
 const Quotation = () => {
+ const { id: stepperId } = { id: Number(useParams().id) };
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
- const [stepperIndex, setStepperIndex] = useState(5);
- const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
-  useStepper(proposalStepper, stepperIndex);
+ const updateProposalStepperStatus = useApiRequests(
+  'updateProposalStepperStatus',
+  'POST',
+ );
+ const updateProposalFreezeStatus = useApiRequests(
+  'updateProposalFreezeStatus',
+  'POST',
+ );
+ const [lastUpdatedStep, setLastUpdatedStep] = useState(0);
+ const {
+  currentStep,
+  stepperData,
+  handleNext,
+  handlePrevious,
+  handleSkip,
+  getNextKey,
+ } = useStepper(proposalStepper, stepperId);
  const id = useSelector(state => state?.id?.id);
+ const freeze = useSelector(state => state?.id?.freezeStatus);
  const prodCode = useSelector(state => state?.id?.prodCode);
  const [loader, setLoader] = useState(false);
  const [showUnderWriter, setShowUnderWriter] = useState(false);
@@ -47,12 +64,45 @@ const Quotation = () => {
    dispatch(setCurrentID(''));
    dispatch(setProdCode(''));
    dispatch(setFormValues(null));
+   dispatch(setFreezeStatus(false));
   };
  }, []);
 
+ const stepperUpdate = async flag => {
+  const queryParams = { flag, tranId: id };
+  try {
+   const response = await updateProposalStepperStatus('', queryParams);
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    setLastUpdatedStep(flag);
+   }
+  } catch (err) {
+   //console.log('err : ', err);
+  }
+ };
+
+ const freezeUpdate = async flag => {
+  const queryParams = { flag: flag ? 'Y' : 'N', tranId: id };
+  try {
+   const response = await updateProposalFreezeStatus('', queryParams);
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.status_msg);
+    dispatch(setFreezeStatus(flag));
+   }
+  } catch (err) {
+   //console.log('err : ', err);
+  }
+ };
+
  useEffect(() => {
-  console.log('stepperData : ', stepperData);
- }, [stepperData]);
+  if (id) {
+   const flag = getNextKey(stepperData);
+   if (flag > 0 && lastUpdatedStep !== flag) stepperUpdate(flag);
+  }
+ }, [stepperData, id]);
 
  const data = {
   currentStep,
@@ -68,9 +118,11 @@ const Quotation = () => {
   prodCode,
   proposalNumber,
   setProposalNumber,
+  freeze,
  };
 
  const procedureCall = async () => {
+  setLoader(true);
   const payload = { inParams: { P_POL_TRAN_ID: id } };
   try {
    const response = await invokeClaimsProcedure(payload, {
@@ -122,13 +174,27 @@ const Quotation = () => {
        <div className='mt-3'>
         <QuotationPanels />
        </div>
-       <div className='mt-10 mb-7 flex justify-center'>
-        <Button className='prem_btn' onClick={() => procedureCall()}>
-         Prem Calc
-        </Button>
-        <Button className='sub_btn' onClick={() => setSuccessPopup(true)}>
-         Submit
-        </Button>
+       <div className='mt-6 mb-7'>
+        <Checkbox
+         className='custom-checkbox pl-2'
+         checked={freeze}
+         onChange={e => freezeUpdate(e.target.checked)}>
+         <span className='freeze_style'>Freeze All Changes</span>
+        </Checkbox>
+        <div className='flex justify-center'>
+         <Button
+          disabled={!freeze}
+          className='prem_btn'
+          onClick={() => procedureCall()}>
+          Prem Calc
+         </Button>
+         <Button
+          disabled={!freeze}
+          className='sub_btn'
+          onClick={() => setSuccessPopup(true)}>
+          Submit
+         </Button>
+        </div>
        </div>
       </div>
       {successPopup && (

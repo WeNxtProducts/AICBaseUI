@@ -147,7 +147,7 @@ const AppRouter = () => {
       }
      />
      <Route
-      path='/quotation'
+      path='/quotation/:id'
       element={
        <Suspense fallback={<Loader />}>
         <Quotation />
