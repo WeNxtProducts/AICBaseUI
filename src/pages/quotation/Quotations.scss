@@ -64,9 +64,6 @@
    }
   }
  }
- .inline-table-details {
-  // border: 1px solid red;
- }
  .border_left_divider {
   background-color: #f3f4f5;
  }
@@ -93,93 +90,31 @@
  .sub_btn {
   @include btn-style(#0382c8, #ffffff, #0382c8, 'left');
  }
-}
-.broker_agent {
- //  border: 1px solid red;
- .header {
-  p {
-   color: #4d5e80;
-   font-weight: 700;
-   font-size: 17px;
-   line-height: 30px;
-  }
-  button {
-   //  margin-left: 100px;
-   color: #ffffff;
-   background-color: #0382c8;
-  }
- }
- .agent_form {
-  // border: 1px solid black;
- }
- .agent_commission {
-  border-left: 1px solid #c6c2de;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .commission_table {
-   //  border: 1px solid red;
-   background-color: #f9fafb;
-   width: 90%;
-   height: 80%;
 
-   .commission_header {
-    color: #4d5e80;
-    font-size: 14px;
-    line-height: 30px;
-    p {
-     font-weight: 700;
-    }
-    span {
-     font-weight: 400;
-    }
-   }
-   .main_table {
-    .comm_table {
-     width: 100%;
-     table-layout: fixed;
-     th,
-     td {
-      padding: 10px;
-      // border: 1px solid #ddd;
-     }
-     td {
-      text-align: center;
-      line-height: 20px;
-      font-weight: 400;
-     }
-     th {
-      line-height: 30px;
-      font-weight: 700;
-     }
-     th,
-     td {
-      color: #4d5e80;
-      font-size: 14px;
-     }
-    }
-   }
+ .custom-checkbox {
+  .ant-checkbox-inner {
+   width: 22px;
+   height: 22px;
+   border-width: 2px;
+   border-radius: 4px;
+  }
+
+  .ant-checkbox-inner::after {
+   width: 8px;
+   height: 13px;
+   top: 14%;
+   left: 33%;
+   transform: rotate(43deg);
+  }
+  .freeze_style {
+   color: #4d5e80;
+   font-weight: 600;
+   font-size: 16px;
+   line-height: 24px;
   }
  }
 }
-.medical_mrv {
- //  border: 1px solid red;
- .header_font_medical {
-  color: #4d5e80;
-  font-size: 20px;
-  font-weight: 700;
- }
- .emp_style {
-  color: #4d5e80;
-  font-size: 15px;
-  font-weight: 600;
-  span {
-   margin-left: 10px;
-   color: #000000;
-   font-weight: 400;
-  }
- }
-}
+
 .product_listing {
  .breadcrumb-title {
   cursor: pointer;

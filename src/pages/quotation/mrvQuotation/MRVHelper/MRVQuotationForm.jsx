@@ -110,12 +110,14 @@ const MRVQuotationForm = ({
             {addOrUpdate ? 'Update' : 'Submit'}
            </button>
           )}
-          <button
-           onClick={() => nextStep()}
-           type='button'
-           className='next-button ml-9'>
-           Next
-          </button>
+          {!['pol_riders', 'medical_details']?.includes(root) && (
+           <button
+            onClick={() => nextStep()}
+            type='button'
+            className='next-button ml-9'>
+            Next
+           </button>
+          )}
          </div>
         )}
        </Form>

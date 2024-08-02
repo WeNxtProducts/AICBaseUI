@@ -892,6 +892,13 @@
   { "label": "Derrickman - off-shore drillin", "value": "D018" },
   { "label": "dhoby", "value": "D020" }
  ],
+ "POL_MODE_OF_PYMT": [
+  { "label": "Half Yearly", "value": "H" },
+  { "label": "Monthly", "value": "M" },
+  { "label": "Quarterly", "value": "Q" },
+  { "label": "Single", "value": "S" },
+  { "label": "Yearly", "value": "Y" }
+ ],
  "PEMP_MEMBER_TYPE": [
   { "label": "PRIMARY", "value": "P" },
   { "label": "SECONDARY", "value": "S" }

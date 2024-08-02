@@ -257,5 +257,13 @@ const POST_API_URL = {
   url: 'docToDoList/statusFlagBulkUpdate',
   baseURL: 'CLAIMURL',
  },
+ updateProposalStepperStatus: {
+  url: '/policy/updateStepperFlag',
+  baseURL: 'CLAIMURL',
+ },
+ updateProposalFreezeStatus: {
+  url: '/policy/updateFreezeFlag',
+  baseURL: 'CLAIMURL',
+ },
 };
 export default POST_API_URL;

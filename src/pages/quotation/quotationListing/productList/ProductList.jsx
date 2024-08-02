@@ -9,7 +9,10 @@ import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import '../../Quotations.scss';
-import { setProdCode } from '../../../../globalStore/slices/IdSlices';
+import {
+ setFreezeStatus,
+ setProdCode,
+} from '../../../../globalStore/slices/IdSlices';
 
 const ProductList = () => {
  const dispatch = useDispatch();
@@ -63,7 +66,8 @@ const ProductList = () => {
 
  const handleSelectPlan = item => {
   console.log('handleSelectPlan : ', item);
-  navigate('/quotation');
+  dispatch(setFreezeStatus(false));
+  navigate('/quotation/0');
  };
 
  return (

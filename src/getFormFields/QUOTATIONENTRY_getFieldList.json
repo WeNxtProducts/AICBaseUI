@@ -24,8 +24,58 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PAD_NATURE_OF_WORK": {
+    "PFD_HINT": "Nature Of work",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "PAD_NATURE_OF_WORK",
+    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
+    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 0,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_SEQ_NO": 15,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "NATURE OF WORK",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PEMP_BMI": {
+    "PFD_HINT": "B.M.I.",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "PEMP_BMI",
+    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
+    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
+    "PFD_DATA_TYPE": "number",
+    "PFD_SYS_ID": 0,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_SEQ_NO": 9,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "BMI",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEMP_NAME": {
@@ -49,8 +99,83 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PEMP_DOB": {
+    "PFD_HINT": "D.O.B.",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "PEMP_DOB",
+    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
+    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
+    "PFD_DATA_TYPE": "date",
+    "PFD_SYS_ID": 0,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_SEQ_NO": 6,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "DATE OF BIRTH",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PEMP_WEIGHT": {
+    "PFD_HINT": "Weight",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "PEMP_WEIGHT",
+    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
+    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
+    "PFD_DATA_TYPE": "number",
+    "PFD_SYS_ID": 0,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_SEQ_NO": 8,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "WEIGHT",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PAD_NATURE_OF_WOR": {
+    "PFD_HINT": "Nature Of work",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "PAD_NATURE_OF_WOR",
+    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
+    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
+    "PFD_DATA_TYPE": "text",
+    "PFD_SYS_ID": 0,
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_SEQ_NO": 15,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "NATURE OF WORK",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEMP_OCC_CODE": {
@@ -75,209 +200,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
     "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PEMP_OCC_CATG": {
-    "PFD_HINT": "Occ Class",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PEMP_OCC_CATG",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "codedesc",
-    "PFD_SYS_ID": 0,
-    "PFD_PARAM_1": "143",
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 14,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "OCCUPATION CLASS",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PEMP_OCC_COD": {
-    "PFD_HINT": "Occ Code",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PEMP_OCC_COD",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "codedesc",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 13,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "OCCUPATION CODE",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PEMP_OCC_CAT": {
-    "PFD_HINT": "Occ Class",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PEMP_OCC_CAT",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "codedesc",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 14,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "OCCUPATION CLASS",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PAD_NATURE_OF_WORK": {
-    "PFD_HINT": "Nature Of work",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PAD_NATURE_OF_WORK",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "text",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 15,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "NATURE OF WORK",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PEMP_BMI": {
-    "PFD_HINT": "B.M.I.",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PEMP_BMI",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "number",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 9,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "BMI",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PEMP_DOB": {
-    "PFD_HINT": "D.O.B.",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PEMP_DOB",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "date",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 6,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "DATE OF BIRTH",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PEMP_WEIGHT": {
-    "PFD_HINT": "Weight",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PEMP_WEIGHT",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "number",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 8,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "WEIGHT",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "25",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "PAD_NATURE_OF_WOR": {
-    "PFD_HINT": "Nature Of work",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "PAD_NATURE_OF_WOR",
-    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
-    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
-    "PFD_DATA_TYPE": "text",
-    "PFD_SYS_ID": 0,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_MINMAX_YN": false,
-    "PFD_FLD_VALUE": "",
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 15,
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "NATURE OF WORK",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
-    "PFD_FLD_LEN": "25",
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEMP_MEMBER_TYPE": {
@@ -302,8 +226,34 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
+    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
+   },
+   "PEMP_OCC_CATG": {
+    "PFD_HINT": "Occ Class",
+    "PFD_FORM_ITEM_TYPE1": "TYPE",
+    "PFD_COLUMN_NAME": "PEMP_OCC_CATG",
+    "PFD_FORM_ITEM_TYPE2": "life_assured_details",
+    "PFD_TABLE_NAME": "LT_POL_EMPLOYEE",
+    "PFD_DATA_TYPE": "codedesc",
+    "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "143",
+    "PFD_VALIDATION_ID": "1",
+    "PFD_MINMAX_YN": false,
+    "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
+    "PFD_SEQ_NO": 14,
+    "PFD_CLASS_NAME": "CLASS",
+    "PFD_VALIDATION_YN": "1",
+    "PFD_MANDATORY_YN": true,
+    "PFD_EDIT_YN": "1",
+    "PFD_FLD_NAME": "OCCUPATION CLASS",
+    "PFD_RADIO_GRP_NAME": "GROUP",
+    "PFD_PROG_CODE": "QUOTATIONENTRY",
+    "PFD_FONT_SIZE": "20",
+    "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEMP_HEIGHT": {
@@ -327,8 +277,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEMP_CATG_CODE": {
@@ -353,8 +303,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -373,6 +323,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 1,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -382,8 +333,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "DTLS_APPR_STS": {
@@ -397,6 +348,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 3,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -406,8 +358,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "DTLS_MANDATORY_YN": {
@@ -421,6 +373,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 4,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -430,8 +383,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "DTLS_TODO_LIST_ITEM": {
@@ -445,6 +398,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 2,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -454,8 +408,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -476,6 +430,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -485,8 +440,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_RATE_PER": {
@@ -500,6 +455,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -509,8 +465,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_LC_SA": {
@@ -524,6 +480,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -533,8 +490,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PR_WOP_FLAG": {
@@ -548,6 +505,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -557,8 +515,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_COVER_CODE": {
@@ -582,8 +540,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_PERIOD": {
@@ -597,6 +555,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -606,8 +565,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_LC_PREM": {
@@ -621,6 +580,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -630,8 +590,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_RATE": {
@@ -645,6 +605,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -654,8 +615,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PR_EMR_RATE": {
@@ -669,6 +630,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -678,8 +640,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_FC_SA": {
@@ -693,6 +655,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -702,8 +665,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_PREM_PAY_YRS": {
@@ -717,6 +680,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -726,8 +690,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_FC_PREM": {
@@ -741,6 +705,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -750,8 +715,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PEC_EFF_FM_DT": {
@@ -765,6 +730,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 12,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -774,8 +740,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -794,6 +760,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 2,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -803,8 +770,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "MFD_FC_FEE": {
@@ -818,6 +785,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 5,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -827,8 +795,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "MD_EXAM_CODE": {
@@ -842,6 +810,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 1,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -851,8 +820,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "MFD_PAY_TO": {
@@ -866,6 +835,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 4,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -875,8 +845,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "MD_STATUS": {
@@ -890,6 +860,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 6,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -899,8 +870,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "MFD_FREEZE_YN": {
@@ -914,6 +885,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 7,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -923,8 +895,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "MFD_DOCTOR_CODE": {
@@ -938,6 +910,7 @@
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
+    "PFD_DFLT_VALUE_YN": "0",
     "PFD_SEQ_NO": 3,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
@@ -947,8 +920,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -977,8 +950,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_BNF_CODE": {
@@ -1002,8 +975,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_CATG_CODE": {
@@ -1028,8 +1001,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_RELATION_CODE": {
@@ -1054,8 +1027,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_AGE": {
@@ -1079,8 +1052,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_SHARE_PERC": {
@@ -1104,8 +1077,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_BNF_NAME": {
@@ -1129,8 +1102,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_GUARDIAN_NAME": {
@@ -1154,8 +1127,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PGBEN_BNF_TYPE": {
@@ -1180,8 +1153,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PN_MOBILE_NO": {
@@ -1205,8 +1178,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -1230,10 +1203,10 @@
  "frontForm": {
   "Label": "User Entry",
   "formFields": {
-   "POL_FREEZE_RATE": {
-    "PFD_HINT": "Freeze Yn",
+   "POL_PERIOD": {
+    "PFD_HINT": "Period",
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
-    "PFD_COLUMN_NAME": "POL_FREEZE_RATE",
+    "PFD_COLUMN_NAME": "POL_PERIOD",
     "PFD_TABLE_NAME": "LT_POLICY",
     "PFD_DATA_TYPE": "text",
     "PFD_SYS_ID": 0,
@@ -1241,17 +1214,17 @@
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
     "PFD_DFLT_VALUE_YN": "0",
-    "PFD_SEQ_NO": 4,
+    "PFD_SEQ_NO": 7,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
     "PFD_MANDATORY_YN": true,
     "PFD_EDIT_YN": "1",
-    "PFD_FLD_NAME": "POLICY FREEZE  YN",
+    "PFD_FLD_NAME": "PERIOD",
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_FM_DT": {
@@ -1274,8 +1247,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_PLAN_CODES": {
@@ -1298,8 +1271,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_UW_YEAR": {
@@ -1322,8 +1295,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_MODE_OF_PYMT": {
@@ -1331,8 +1304,9 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "POL_MODE_OF_PYMT",
     "PFD_TABLE_NAME": "LT_POLICY",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "lov",
     "PFD_SYS_ID": 0,
+    "PFD_PARAM_1": "170",
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
     "PFD_FLD_VALUE": "",
@@ -1346,8 +1320,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_CUST_CODE": {
@@ -1371,8 +1345,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_LAST_INST_DT": {
@@ -1395,8 +1369,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_SRC_OF_BUS": {
@@ -1404,7 +1378,7 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "POL_SRC_OF_BUS",
     "PFD_TABLE_NAME": "LT_POLICY",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "lov",
     "PFD_SYS_ID": 0,
     "PFD_VALIDATION_ID": "1",
     "PFD_MINMAX_YN": false,
@@ -1419,8 +1393,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_FC_SA": {
@@ -1443,8 +1417,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_PYMT_TYPE": {
@@ -1467,8 +1441,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_SA_CURR_CODE": {
@@ -1491,8 +1465,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_FC_ANN_SAL": {
@@ -1515,8 +1489,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "pol_first_inst_dt": {
@@ -1539,8 +1513,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "POL_PLAN_CODE": {
@@ -1563,8 +1537,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": true,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": true,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -1597,8 +1571,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PCHRG_RATE_PER": {
@@ -1622,8 +1596,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PCHRG_APPLIED_ON": {
@@ -1647,8 +1621,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PCHRG_FC_VALUE": {
@@ -1672,8 +1646,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PCHRG_RATE": {
@@ -1697,8 +1671,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PCHRG_APPLY_PERIOD": {
@@ -1722,8 +1696,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
@@ -1752,8 +1726,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PDL_DISC_LOAD_CODE": {
@@ -1777,8 +1751,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PDL_COVER_CODE": {
@@ -1802,8 +1776,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PDL_FC_DISC_LOAD_VALUE": {
@@ -1827,8 +1801,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PDL_DISC_LOAD_TYPE": {
@@ -1852,8 +1826,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PDL_APPLIED_ON": {
@@ -1877,8 +1851,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    },
    "PDL_RATE_PER": {
@@ -1902,8 +1876,8 @@
     "PFD_RADIO_GRP_NAME": "GROUP",
     "PFD_PROG_CODE": "QUOTATIONENTRY",
     "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "25",
+    "PFD_HIDE_YN": false,
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
