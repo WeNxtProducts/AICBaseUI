@@ -17,7 +17,11 @@ const DueDetails = () => {
     <Button className='save-btn'>Save</Button>
    </div>
    <div className='due_content'>
-    <DueMrvListing tableColumn={colHeader} tableData={dueDates} />
+    <DueMrvListing
+     tableColumn={colHeader}
+     tableData={dueDates}
+     isSlide={true}
+    />
     <DueInfo />
    </div>
   </div>

@@ -171,3 +171,53 @@
   }
  }
 }
+
+/* CustomSlider.css */
+.slider-container {
+ display: flex;
+ align-items: center;
+ position: relative;
+ width: 100%;
+ overflow: hidden;
+}
+
+.slider-wrapper {
+ overflow: hidden;
+ width: 100%;
+}
+
+.slider-content {
+ display: flex;
+ transition: transform 0.5s ease-in-out;
+}
+
+.slider-item {
+ flex: 0 0 calc(100% / 4); /* 4 items per view */
+ box-sizing: border-box;
+ padding: 10px;
+}
+
+.arrow {
+ background: #007bff;
+ border: none;
+ color: white;
+ padding: 10px;
+ cursor: pointer;
+ position: absolute;
+ top: 50%;
+ transform: translateY(-50%);
+ z-index: 1;
+}
+
+.left-arrow {
+ left: 10px;
+}
+
+.right-arrow {
+ right: 10px;
+}
+
+.arrow:disabled {
+ background: #cccccc;
+ cursor: not-allowed;
+}

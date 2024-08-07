@@ -1362,3 +1362,73 @@ export const dueDates = [
   id: 12,
  },
 ];
+
+export const payHeader =
+ '{"pymt_mode":"Pymt Mode","bank_code":"Bank Code","cust_name":"Cust Name","currency":"Currency","amount":"Amount"}';
+
+export const payData = [
+ {
+  id: 1,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 2,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 3,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 4,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 5,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 6,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 7,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 8,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+];

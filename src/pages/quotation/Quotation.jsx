@@ -50,7 +50,7 @@ const Quotation = () => {
  const freeze = useSelector(state => state?.id?.freezeStatus);
  const prodCode = useSelector(state => state?.id?.prodCode);
  const [loader, setLoader] = useState(false);
- const [showUnderWriter, setShowUnderWriter] = useState(false);
+ const [showUnderWriter, setShowUnderWriter] = useState(true);
  const [dropDown, setDropDown] = useState(QuotationLov);
  const [proposalNumber, setProposalNumber] = useState('');
  const [successPopup, setSuccessPopup] = useState(false);

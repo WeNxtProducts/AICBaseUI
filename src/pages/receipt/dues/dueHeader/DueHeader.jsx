@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PrinterOutlined } from '@ant-design/icons';
 import { Checkbox } from 'antd';
+import { ReceiptContext } from '../../Receipt';
 
 const DueHeader = () => {
+ const { setMultiSelect } = useContext(ReceiptContext);
+
  return (
   <div className='due_header'>
    <div className='head-container'>
-    <Checkbox />
+    <Checkbox onChange={e => setMultiSelect(e.target.checked)} />
     <span className='header_label'>Multi-select</span>
    </div>
    <div className='head-container'>

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ReceiptContext } from '../../Receipt';
 import { policyList } from '../../../../components/tableComponents/sampleData';
 import { Checkbox } from 'antd';
 
 const PolicyList = () => {
+ const { multiSelect } = useContext(ReceiptContext);
  const selectedPolicy = 'P/90/7789/9876/9877';
- const multiSelect = false;
 
  return (
   <div className=''>

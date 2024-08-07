@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import ReceiptHeader from './receiptHeader/ReceiptHeader';
 import Dues from './dues/Dues';
 import './Receipt.scss';
@@ -6,7 +6,9 @@ import './Receipt.scss';
 export const ReceiptContext = createContext();
 
 const Receipt = () => {
- const data = {};
+ const [multiSelect, setMultiSelect] = useState(false);
+
+ const data = { multiSelect, setMultiSelect };
 
  return (
   <ReceiptContext.Provider value={data}>

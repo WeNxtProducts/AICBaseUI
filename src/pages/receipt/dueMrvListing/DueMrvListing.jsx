@@ -32,6 +32,7 @@ const DueMrvListing = ({
  isView = true,
  freeze = false,
  highlightKey = 'ID',
+ isSlide = false,
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
 
@@ -74,60 +75,66 @@ const DueMrvListing = ({
   ],
  };
 
- return (
-  <div className='MRV_card'>
-   <Slider {...settings}>
-    {tableData?.map((item, index) => (
-     <div
-      data-id={item?.[highlightKey]}
-      key={item?.[highlightKey]}
-      className={
-       selectedRow == item?.[highlightKey]
-        ? 'list_card_highlighted_row'
-        : 'list_card'
-      }>
-      <div
-       className={`action_header flex item-center justify-${
-        action && !freeze ? 'between' : 'between'
-       }`}>
-       <div
-        onClick={e => {
-         handleDelete(item);
-        }}
-        className='pl-2 flex items-center'>
-        <div className='mrv_checkbox'>
-         <input
-          readOnly
-          //checked={item?.isSelected === 'Y'}
-          checked={true}
-          id={index}
-          type='checkbox'
-         />
-         <label />
-        </div>
-        <p className='pl-3 count_style'>Due {index + 1}</p>
-       </div>
-
-       <div className='flex gap-2 pe-3 p-1'>
-        {isView && (
-         <Tooltip title='View'>
-          <EyeOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
-         </Tooltip>
-        )}
-       </div>
-      </div>
-
-      {Object.keys(column)?.map(key => (
-       <div
-        key={key}
-        className='ml-3 mrv_list items-center grid grid-cols-12 gap-1'>
-        <p className='col-span-6 key_font'>{column[key]}</p>
-        <p className='col-span-6 value_font'>{item[key]}</p>
-       </div>
-      ))}
+ const renderCards = (item, index) => (
+  <div
+   data-id={item?.[highlightKey]}
+   key={item?.[highlightKey]}
+   className={
+    selectedRow == item?.[highlightKey]
+     ? 'list_card_highlighted_row'
+     : 'list_card'
+   }>
+   <div
+    className={`action_header flex item-center justify-${
+     action && !freeze ? 'between' : 'between'
+    }`}>
+    <div
+     onClick={e => {
+      handleDelete(item);
+     }}
+     className='pl-2 flex items-center'>
+     <div className='mrv_checkbox'>
+      <input
+       readOnly
+       //checked={item?.isSelected === 'Y'}
+       checked={true}
+       id={index}
+       type='checkbox'
+      />
+      <label />
      </div>
-    ))}
-   </Slider>
+     {isSlide && <p className='pl-3 count_style'>Due {index + 1}</p>}
+    </div>
+
+    <div className='flex gap-2 pe-3 p-1'>
+     {isView && (
+      <Tooltip title='View'>
+       <EyeOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
+      </Tooltip>
+     )}
+    </div>
+   </div>
+
+   {Object.keys(column)?.map(key => (
+    <div
+     key={key}
+     className='ml-3 mrv_list items-center grid grid-cols-12 gap-1'>
+     <p className='col-span-6 key_font'>{column[key]}</p>
+     <p className='col-span-6 value_font'>{item[key]}</p>
+    </div>
+   ))}
+  </div>
+ );
+
+ return (
+  <div className={`MRV_card ${isSlide ? '' : 'overflow-y-auto p-2'}`}>
+   {isSlide ? (
+    <Slider {...settings}>
+     {tableData?.map((item, index) => renderCards(item, index))}
+    </Slider>
+   ) : (
+    tableData?.map((item, index) => renderCards(item, index))
+   )}
   </div>
  );
 };
