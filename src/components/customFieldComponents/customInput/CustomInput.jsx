@@ -7,7 +7,7 @@ const CustomInput = ({
  placeholder,
  onChange,
  value,
- size = 'large',
+ size = 'small',
  firstFieldRef = null,
  disabled = false,
  onBlur,
@@ -31,7 +31,7 @@ const CustomInput = ({
     name={name}
     type='text'
     ref={firstFieldRef}
-    onBlur={onBlur}
+    onBlur={e => onBlur(e)}
     readOnly={readOnly}
     className='custom-form-fields'
     placeholder={placeholder}

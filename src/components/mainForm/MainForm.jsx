@@ -33,16 +33,24 @@ const MainForm = ({
   }
  }, [initValues]);
 
+ const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val) => {
+  if (handleOnBlur) {
+   handleOnBlur(currentData, valuesLatest, setFieldValue, val);
+  }
+ };
+
  return (
   <>
    {initValues !== null && validation !== null && (
     <Formik
      initialValues={initValues}
      values={initValues}
-     //  validationSchema={validation}
+     validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue, resetForm }) => {
+      //   console.log('values : ', values);
+
       return (
        <Form onSubmit={handleSubmit}>
         <div className={`items-start grid grid-cols-${grid} gap-0`}>
@@ -59,7 +67,7 @@ const MainForm = ({
                 values={values}
                 setFieldValue={setFieldValue}
                 lovData={lovList?.[dataId]}
-                handleOnBlur={handleOnBlur}
+                handleOnBlur={onHandleOnBlur}
                 handleChangeValue={handleChangeValue}
                 parent={root}
                />
@@ -67,7 +75,7 @@ const MainForm = ({
              )}
             </React.Fragment>
            );
-          }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
+          }, [values, lovList]);
          })}
         </div>
         {action && !freeze && (

@@ -584,18 +584,18 @@ export const bankData = [
   account_number: '83901',
   ifsc_code: 'CC002',
  },
- //  {
- //   bank_code: '1233',
- //   bank_sort_code: '3',
- //   account_number: '83901',
- //   ifsc_code: 'CC003',
- //  },
- //  {
- //   bank_code: '789',
- //   bank_sort_code: '4',
- //   account_number: '83901',
- //   ifsc_code: 'CC004',
- //  },
+ {
+  bank_code: '1233',
+  bank_sort_code: '3',
+  account_number: '83901',
+  ifsc_code: 'CC003',
+ },
+ {
+  bank_code: '789',
+  bank_sort_code: '4',
+  account_number: '83901',
+  ifsc_code: 'CC004',
+ },
 ];
 
 export const listTable = [
@@ -668,7 +668,7 @@ export const CoverageTableData = [
 ];
 
 export const proposalStepper = [
- { key: 0, title: 'Propposal Entry', status: 'inprogress' },
+ { key: 0, title: 'Proposal Entry', status: 'inprogress' },
  { key: 1, title: 'Life Assured Details', status: 'todo' },
  { key: 2, title: 'Beneficiary', status: 'todo' },
  { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
@@ -1430,5 +1430,68 @@ export const payData = [
   cust_name: 'TEST',
   currency: 'USD',
   amount: '10,000',
+ },
+];
+
+export const historyitems = [
+ {
+  id: 1,
+  label: 'Policy Approved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 2,
+  label: 'Policy Altered',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 3,
+  label: 'Claim Approved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 4,
+  label: 'Policy Lapsed',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 5,
+  label: 'Policy Reapproved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 6,
+  label: 'Policy Approved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 7,
+  label: 'Policy Lapsed',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 8,
+  label: 'Policy Altered',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 9,
+  label: 'Policy Reapproved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 10,
+  label: 'Policy Lapsed',
+  date: '12/07/1999',
+  status: 'success',
  },
 ];

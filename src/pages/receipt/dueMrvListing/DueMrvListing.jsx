@@ -127,7 +127,7 @@ const DueMrvListing = ({
  );
 
  return (
-  <div className={`MRV_card ${isSlide ? '' : 'overflow-y-auto p-2'}`}>
+  <div className={`MRV_card MRV_card--flex ${isSlide ? '' : 'overflow-y-auto p-2'}`}>
    {isSlide ? (
     <Slider {...settings}>
      {tableData?.map((item, index) => renderCards(item, index))}

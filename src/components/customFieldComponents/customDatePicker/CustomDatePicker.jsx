@@ -11,6 +11,7 @@ const CustomDatePicker = ({
  size = 'large',
  name,
  disabled = false,
+ onBlur,
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -38,6 +39,12 @@ const CustomDatePicker = ({
     name={name}
     disabled={disabled}
     placeholder={placeholder}
+    onBlur={e => {
+     if (e.target.nodeName === 'INPUT') {
+      const date = e.target.value;
+      onBlur(date);
+     }
+    }}
     className='custom-form-fields'
     value={value ? dayjs(value) : null}
     disabledDate={disabledDate}

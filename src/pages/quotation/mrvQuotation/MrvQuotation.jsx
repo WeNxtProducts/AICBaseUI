@@ -52,6 +52,7 @@ const MrvQuotation = ({
  const saveMRV = useApiRequests(saveRow, 'POST');
  const editMRV = useApiRequests(editRow, 'POST');
  const deleteMRV = useApiRequests(deleteRow, 'POST');
+ const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [quotationMRV, setQuotationMRV] = useState(null);
  const [quotationMRVInitialValues, setQuotationMRVInitialValues] =
   useState(null);
@@ -207,14 +208,63 @@ const MrvQuotation = ({
    });
  };
 
- const handleOnBlur = (currentData, values) => {
-  // if (currentData.hasOwnProperty('PFD_PARAM_2')) {
-  if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_2')) {
-   const PFD_PARAM_2 = currentData?.PFD_PARAM_2.split(',');
-   const PFD_PARAM_3 = currentData?.PFD_PARAM_3.split(',');
-   const valueKey = extractValues(PFD_PARAM_3, values, 'PFD_FLD_VALUE');
-   const valueQueryId = extractValues(PFD_PARAM_2, formValues, 'PFD_PARAM_1');
-   apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
+ //  const handleOnBlur = (currentData, values) => {
+ //   // if (currentData.hasOwnProperty('PFD_PARAM_2')) {
+ //   if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_2')) {
+ //    const PFD_PARAM_2 = currentData?.PFD_PARAM_2.split(',');
+ //    const PFD_PARAM_3 = currentData?.PFD_PARAM_3.split(',');
+ //    const valueKey = extractValues(PFD_PARAM_3, values, 'PFD_FLD_VALUE');
+ //    const valueQueryId = extractValues(PFD_PARAM_2, formValues, 'PFD_PARAM_1');
+ //    apiCallsParamLov(PFD_PARAM_2, valueKey, valueQueryId);
+ //   }
+ //  };
+
+ const procedureCall = async (height, weight) => {
+  const payload = {
+   inParams: {
+    P_HEIGHT: height,
+    P_WEIGHT: weight,
+    P_HEIGHT_UNIT: 'CM',
+    P_WEIGHT_UNIT: 'KG',
+   },
+  };
+  try {
+   const response = await invokeClaimsProcedure(payload, {
+    procedureName: 'PR_BMI_CALC',
+    packageName: 'WNPKG_COMMON',
+   });
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+    return null;
+   } else if (response?.status === 'SUCCESS') {
+    return response?.Data?.P_BMI;
+   }
+  } catch (err) {
+   setLoader(false);
+   return null;
+  }
+ };
+
+ const handleOnBlur = async (currentData, values, setFieldValue) => {
+  if (root === 'life_assured_details') {
+   const key = currentData?.PFD_COLUMN_NAME;
+   if (key === 'PEMP_HEIGHT' || key === 'PEMP_WEIGHT') {
+    const {
+     PEMP_HEIGHT: { PFD_FLD_VALUE: heightStr } = {},
+     PEMP_WEIGHT: { PFD_FLD_VALUE: weightStr } = {},
+    } = values.life_assured_details?.formFields || {};
+    const height = +heightStr || 0;
+    const weight = +weightStr || 0;
+    if (height > 0 && weight > 0) {
+     const bmi = await procedureCall(height, weight);
+     setFieldValue(
+      'life_assured_details.formFields.PEMP_BMI.PFD_FLD_VALUE',
+      bmi,
+     );
+    } else {
+     //  showNotification.WARNING('Height Should be greater than 0');
+    }
+   }
   }
  };
 

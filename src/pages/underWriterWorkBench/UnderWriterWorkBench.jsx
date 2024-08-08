@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './UnderWriterWorkBench.scss';
 import PersonalDetailsUnderWriter from './personalDetailsUnderWriter/PersonalDetailsUnderWriter';
 import HeaderUnderWriter from './headerUnderWriter/HeaderUnderWriter';
 import PremiumDetails from './premiumDetails/PremiumDetails';
@@ -7,53 +6,10 @@ import OtherPolicies from './otherPolicies/OtherPolicies';
 import Coverage from './coverage/Coverage';
 import DecisionBox from './decisionBox/DecisionBox';
 import { Button } from 'antd';
-
-const CustomSlider = ({ items }) => {
- const [currentIndex, setCurrentIndex] = useState(0);
- const itemsToShow = 4;
-
- const handleNext = () => {
-  if (currentIndex < items.length - itemsToShow) {
-   setCurrentIndex(currentIndex + 1);
-  }
- };
-
- const handlePrev = () => {
-  if (currentIndex > 0) {
-   setCurrentIndex(currentIndex - 1);
-  }
- };
-
- return (
-  <div className='slider-container'>
-   <button
-    className='arrow left-arrow'
-    onClick={handlePrev}
-    disabled={currentIndex === 0}>
-    &lt;
-   </button>
-   <div className='slider-wrapper'>
-    <div
-     className='slider-content'
-     style={{
-      transform: `translateX(-${(currentIndex * 100) / itemsToShow}%)`,
-     }}>
-     {items.map((item, index) => (
-      <div className='slider-item' key={index}>
-       {item}
-      </div>
-     ))}
-    </div>
-   </div>
-   <button
-    className='arrow right-arrow'
-    onClick={handleNext}
-    disabled={currentIndex >= items.length - itemsToShow}>
-    &gt;
-   </button>
-  </div>
- );
-};
+import HistorySlider from '../../components/historySlider/HistorySlider';
+import { historyitems } from '../../components/tableComponents/sampleData';
+import './UnderWriterWorkBench.scss';
+import DecisionDetails from './decisionBox/DecisionDetails';
 
 const UnderWriterWorkBench = ({
  fromQuotation = false,
@@ -61,32 +17,6 @@ const UnderWriterWorkBench = ({
  setShowUnderWriter,
  onClose,
 }) => {
- const items = [
-  'Item 1',
-  'Item 2',
-  'Item 3',
-  'Item 4',
-  'Item 5',
-  'Item 6',
-  'Item 7',
-  'Item 8',
- ];
- const [currentIndex, setCurrentIndex] = useState(0);
-
- const itemsToShow = 4; // Number of items to show at once
-
- const handleNext = () => {
-  if (currentIndex < items.length - itemsToShow) {
-   setCurrentIndex(currentIndex + 1);
-  }
- };
-
- const handlePrev = () => {
-  if (currentIndex > 0) {
-   setCurrentIndex(currentIndex - 1);
-  }
- };
-
  return (
   <div className='under-writer-workbench pl-5 pr-5 pt-3 pb-2'>
    {fromQuotation && (
@@ -104,21 +34,22 @@ const UnderWriterWorkBench = ({
     <OtherPolicies />
    </div>
    <Coverage fromPremCalc={fromPremCalc} />
+
+   <div className='historyBox grid grid-cols-12 mt-5'>
+    <div className='col-span-2 title'>Policy Status</div>
+    <div className='historySlider col-span-10'>
+     <HistorySlider items={historyitems} />
+    </div>
+   </div>
+
    {!fromPremCalc ? (
-    <DecisionBox />
+    // <DecisionBox />
+    <DecisionDetails />
    ) : (
     <div className='close_button'>
      <Button onClick={onClose}>Close</Button>
     </div>
    )}
-
-   <CustomSlider
-    items={items.map(item => (
-     <div key={item} className='item'>
-      {item}
-     </div>
-    ))}
-   />
   </div>
  );
 };

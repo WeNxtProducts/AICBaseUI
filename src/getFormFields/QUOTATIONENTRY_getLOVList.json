@@ -1,4 +1,5 @@
 {
+ "PGBEN_BNF_CODE": [],
  "PGBEN_CATG_CODE": [
   { "label": "Male", "value": "1" },
   { "label": "Female", "value": "2" }
@@ -892,12 +893,33 @@
   { "label": "Derrickman - off-shore drillin", "value": "D018" },
   { "label": "dhoby", "value": "D020" }
  ],
+ "POL_PYMT_TYPE": [
+  { "label": "Auto Debit", "value": "AD" },
+  { "label": "Auto Credit", "value": "B" },
+  { "label": "Cheque", "value": "C" },
+  { "label": "Credit Card", "value": "CC" },
+  { "label": "Cash", "value": "P" },
+  { "label": "Telegraphic Transfer", "value": "TT" }
+ ],
  "POL_MODE_OF_PYMT": [
   { "label": "Half Yearly", "value": "H" },
   { "label": "Monthly", "value": "M" },
   { "label": "Quarterly", "value": "Q" },
   { "label": "Single", "value": "S" },
   { "label": "Yearly", "value": "Y" }
+ ],
+ "POL_CUST_CODE": [
+  { "label": "MBEKE PHILIP OCHIENG", "value": "100059" },
+  { "label": "SULEMAN NAZEEM BASHIR", "value": "100060" },
+  { "label": "NKARANGU ISAACK PETRO", "value": "100061" },
+  { "label": "Subirah John Mwamaso", "value": "100062" },
+  { "label": "BUTO LOIDA FORTUNATA", "value": "100064" },
+  { "label": "DHIRA  SHAMIM", "value": "100065" },
+  { "label": "MASOLI JELLY ATHUMAN", "value": "100066" },
+  { "label": "MONGATEKO MONGATEKO MAKONGORO", "value": "100074" },
+  { "label": "NDOSI GERALD MOSES", "value": "CUST001" },
+  { "label": "Timothy", "value": "CUST002" },
+  { "label": "CUSTOMER THREE", "value": "CUST003" }
  ],
  "PEMP_MEMBER_TYPE": [
   { "label": "PRIMARY", "value": "P" },
@@ -909,6 +931,10 @@
   { "label": "CLASS 2", "value": "OCLS002" },
   { "label": "CLASS 3", "value": "OCLS003" },
   { "label": "CLASS 1", "value": "OCLS001" }
+ ],
+ "POL_SRC_OF_BUS": [
+  { "label": "Broker/Agent", "value": "075" },
+  { "label": "Direct ", "value": "001" }
  ],
  "PEMP_CATG_CODE": [
   { "label": "Male", "value": "1" },

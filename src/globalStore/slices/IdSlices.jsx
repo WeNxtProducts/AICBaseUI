@@ -5,6 +5,7 @@ const initialState = {
  formValues: null,
  prodCode: '',
  freezeStatus: false,
+ planCode: '',
 };
 
 const IdSlices = createSlice({
@@ -17,6 +18,9 @@ const IdSlices = createSlice({
   setProdCode: (state, action) => {
    state.prodCode = action.payload;
   },
+  setPlanCode: (state, action) => {
+   state.planCode = action.payload;
+  },
   setFormValues: (state, action) => {
    state.formValues = action.payload;
   },
@@ -26,7 +30,12 @@ const IdSlices = createSlice({
  },
 });
 
-export const { setCurrentID, setFormValues, setProdCode, setFreezeStatus } =
- IdSlices.actions;
+export const {
+ setCurrentID,
+ setFormValues,
+ setProdCode,
+ setFreezeStatus,
+ setPlanCode,
+} = IdSlices.actions;
 
 export default IdSlices.reducer;

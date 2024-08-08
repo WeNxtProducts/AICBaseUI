@@ -36,6 +36,7 @@ const CustomNumberField = ({
  disabled = false,
  readOnly = false,
  format = 'amount',
+ onBlur
 }) => {
  const [formattedValue, setFormattedValue] = useState(value?.toString() || '');
  const inputRef = useRef(null);
@@ -106,6 +107,7 @@ const CustomNumberField = ({
      }
     }}
     type='text'
+    onBlur={e => onBlur(e)}
     className='custom-form-fields number-field'
     placeholder={placeholder}
     readOnly={readOnly}

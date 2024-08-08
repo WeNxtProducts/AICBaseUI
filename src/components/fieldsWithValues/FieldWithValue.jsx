@@ -48,9 +48,9 @@ const FieldWithValue = ({
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
- const onBlurHandler = (currentData, values) => {
+ const onBlurHandler = (currentData, values, setFieldValue, val) => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, values);
+   handleOnBlur(currentData, values, setFieldValue, val);
   }
  };
 
@@ -79,7 +79,9 @@ const FieldWithValue = ({
          placeholder={PFD_HINT}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
-         onBlur={() => onBlurHandler(currentData, values)}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e.target.value);
+         }}
          onChange={e => {
           handleChangeValue(
            e.target.value,
@@ -88,6 +90,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
+           PFD_COLUMN_NAME
           );
          }}
         />
@@ -102,7 +105,9 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
-         onBlur={() => onBlurHandler(currentData, values)}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e);
+         }}
          disabled={!PFD_EDIT_YN}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
          value={value?.PFD_FLD_VALUE || undefined}
@@ -170,6 +175,9 @@ const FieldWithValue = ({
          size='medium'
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
+         onBlur={date => {
+          onBlurHandler(currentData, values, setFieldValue, date);
+         }}
          onChange={date => {
           handleChangeValue(
            date,
@@ -178,6 +186,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
+           PFD_COLUMN_NAME,
           );
          }}
         />

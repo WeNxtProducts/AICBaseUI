@@ -49,8 +49,9 @@ const Quotation = () => {
  const id = useSelector(state => state?.id?.id);
  const freeze = useSelector(state => state?.id?.freezeStatus);
  const prodCode = useSelector(state => state?.id?.prodCode);
+ const planCode = useSelector(state => state?.id?.planCode);
  const [loader, setLoader] = useState(false);
- const [showUnderWriter, setShowUnderWriter] = useState(true);
+ const [showUnderWriter, setShowUnderWriter] = useState(false);
  const [dropDown, setDropDown] = useState(QuotationLov);
  const [proposalNumber, setProposalNumber] = useState('');
  const [successPopup, setSuccessPopup] = useState(false);
@@ -119,6 +120,7 @@ const Quotation = () => {
   proposalNumber,
   setProposalNumber,
   freeze,
+  planCode,
  };
 
  const procedureCall = async () => {

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import CustomAccordion from '../../../components/customAccordion/CustomAccordion';
 import ActionButtons from './ActionButtons';
+import RidersPremium from './ridersPremium/RidersPremium';
 
 const Coverage = ({ fromPremCalc = false }) => {
  const [accordionState, setAccordionState] = useState({
   basicPremium: false,
-  riderPremium: false,
+  riderPremium: true,
   loading: false,
   discount: false,
   charges: false,
@@ -26,6 +27,8 @@ const Coverage = ({ fromPremCalc = false }) => {
      className={`col-span-${fromPremCalc ? 10 : 10} mr-2 accordion_conatiner`}>
      <CustomAccordion
       title='Basic Premium'
+      isOpen={accordionState.basicPremium}
+      toggleAccordion={() => toggleAccordion('basicPremium')}
       content={
        <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -34,24 +37,17 @@ const Coverage = ({ fromPremCalc = false }) => {
         commodo consequat.
        </p>
       }
-      isOpen={accordionState.basicPremium}
-      toggleAccordion={() => toggleAccordion('basicPremium')}
      />
      <CustomAccordion
       title='Rider Premium'
-      content={
-       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-       </p>
-      }
       isOpen={accordionState.riderPremium}
       toggleAccordion={() => toggleAccordion('riderPremium')}
+      content={<RidersPremium />}
      />
      <CustomAccordion
       title='Loading'
+      isOpen={accordionState.loading}
+      toggleAccordion={() => toggleAccordion('loading')}
       content={
        <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -60,11 +56,11 @@ const Coverage = ({ fromPremCalc = false }) => {
         commodo consequat.
        </p>
       }
-      isOpen={accordionState.loading}
-      toggleAccordion={() => toggleAccordion('loading')}
      />
      <CustomAccordion
       title='Discount'
+      isOpen={accordionState.discount}
+      toggleAccordion={() => toggleAccordion('discount')}
       content={
        <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -73,11 +69,11 @@ const Coverage = ({ fromPremCalc = false }) => {
         commodo consequat.
        </p>
       }
-      isOpen={accordionState.discount}
-      toggleAccordion={() => toggleAccordion('discount')}
      />
      <CustomAccordion
       title='Charges'
+      isOpen={accordionState.charges}
+      toggleAccordion={() => toggleAccordion('charges')}
       content={
        <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -86,8 +82,6 @@ const Coverage = ({ fromPremCalc = false }) => {
         commodo consequat.
        </p>
       }
-      isOpen={accordionState.charges}
-      toggleAccordion={() => toggleAccordion('charges')}
      />
     </div>
     {!fromPremCalc && (

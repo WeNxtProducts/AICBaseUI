@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import '../../Quotations.scss';
 import {
  setFreezeStatus,
+ setPlanCode,
  setProdCode,
 } from '../../../../globalStore/slices/IdSlices';
 
@@ -65,8 +66,9 @@ const ProductList = () => {
  };
 
  const handleSelectPlan = item => {
-  console.log('handleSelectPlan : ', item);
+  console.log('handleSelectPlan : ', item,item?.VALUE);
   dispatch(setFreezeStatus(false));
+  dispatch(setPlanCode(item?.VALUE));
   navigate('/quotation/0');
  };
 

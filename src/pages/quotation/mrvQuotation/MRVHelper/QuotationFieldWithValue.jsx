@@ -47,9 +47,9 @@ const QuotationFieldWithValue = ({
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
- const onBlurHandler = (currentData, values) => {
+ const onBlurHandler = (currentData, values, setFieldValue) => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, values);
+   handleOnBlur(currentData, values, setFieldValue);
   }
  };
 
@@ -79,7 +79,7 @@ const QuotationFieldWithValue = ({
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          readOnly={freeze}
-         onBlur={() => onBlurHandler(currentData, values)}
+         onBlur={() => onBlurHandler(currentData, values, setFieldValue)}
          onChange={e => {
           handleChangeValue(
            e.target.value,
@@ -102,7 +102,7 @@ const QuotationFieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
-         onBlur={() => onBlurHandler(currentData, values)}
+         onBlur={() => onBlurHandler(currentData, values, setFieldValue)}
          disabled={!PFD_EDIT_YN}
          readOnly={freeze}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
@@ -122,26 +122,35 @@ const QuotationFieldWithValue = ({
       case 'number':
       case 'amount':
        return (
-        <CustomNumberField
-         firstFieldRef={firstFieldRef}
-         name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
-         placeholder={PFD_HINT}
-         size='medium'
-         format={PFD_DATA_TYPE}
-         value={value?.PFD_FLD_VALUE}
-         readOnly={freeze}
-         disabled={!PFD_EDIT_YN}
-         onChange={e => {
-          handleChangeValue(
-           e.target.value,
-           `${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`,
-           setFieldValue,
-           parent,
-           values,
-           currentData,
-          );
-         }}
-        />
+        <div className='flex items-center'>
+         <CustomNumberField
+          firstFieldRef={firstFieldRef}
+          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
+          placeholder={PFD_HINT}
+          size='medium'
+          format={PFD_DATA_TYPE}
+          value={value?.PFD_FLD_VALUE}
+          onBlur={() => onBlurHandler(currentData, values, setFieldValue)}
+          readOnly={freeze}
+          disabled={!PFD_EDIT_YN}
+          onChange={e => {
+           handleChangeValue(
+            e.target.value,
+            `${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`,
+            setFieldValue,
+            parent,
+            values,
+            currentData,
+           );
+          }}
+         />
+         {(PFD_COLUMN_NAME === 'PEMP_HEIGHT' ||
+          PFD_COLUMN_NAME === 'PEMP_WEIGHT') && (
+          <p className='ml-2'>
+           {PFD_COLUMN_NAME === 'PEMP_HEIGHT' ? 'Cms' : 'Kgs'}
+          </p>
+         )}
+        </div>
        );
       case 'codedesc':
        return (
