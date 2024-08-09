@@ -10,7 +10,7 @@ import './App.scss';
 // 107017
 
 const App = () => {
- const ignorePaths = ['/', '/login', '/newlogin', '/resetpassword', '/quote'];
+ const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`];
  const location = useLocation();
  const [currentPath, setCurrentPath] = useState(true);
 

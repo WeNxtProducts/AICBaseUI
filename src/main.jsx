@@ -9,6 +9,8 @@ import './index.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+//basename={import.meta.env.VITE_CORE}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
  <Provider store={store}>
   <PersistGate loading={null} persistor={persistor}>
