@@ -5,10 +5,6 @@ import Sidebar from './pages/sidebar/Sidebar';
 import Header from './pages/header/Header';
 import './App.scss';
 
-//import.meta.env.VITE_API_KEY
-//border-2 border-black
-// 107017
-
 const App = () => {
  const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`];
  const location = useLocation();

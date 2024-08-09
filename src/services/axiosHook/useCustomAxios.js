@@ -15,7 +15,7 @@ import { setMenu } from '../../globalStore/slices/MenuSlices';
 import showNotification from '../../components/notification/Notification';
 import { useNavigate } from 'react-router-dom';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASEURL;
+axios.defaults.baseURL = import.meta.env.WENXT_BASEURL;
 
 const useCustomAxios = () => {
  const navigate = useNavigate();
@@ -53,7 +53,7 @@ const useCustomAxios = () => {
      //   navigate('/login');
      //  }, 2000);
      navigate('/login');
-    //  showNotification.WARNING('Session has expired');
+     //  showNotification.WARNING('Session has expired');
     }
     return Promise.reject(error);
    },

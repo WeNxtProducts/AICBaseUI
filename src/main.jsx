@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       colorPrimary: '#2c99d6',
      },
     }}>
-    <BrowserRouter basename={import.meta.env.VITE_CORE}>
+    <BrowserRouter basename={import.meta.env.WENXT_CORE}>
      <App />
     </BrowserRouter>
    </ConfigProvider>

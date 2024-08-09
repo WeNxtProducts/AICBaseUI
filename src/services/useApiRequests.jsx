@@ -15,7 +15,7 @@ const useApiRequests = (apiName, method) => {
  ) => {
   return new Promise(async (resolve, reject) => {
    let url = api?.url;
-   const baseURL = api?.baseURL ? import.meta.env[`VITE_${api?.baseURL}`] : '';
+   const baseURL = api?.baseURL ? import.meta.env[`WENXT_${api?.baseURL}`] : '';
 
    try {
     if (Object.keys(pathParams).length > 0)
