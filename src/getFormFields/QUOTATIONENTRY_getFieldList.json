@@ -1122,7 +1122,7 @@
     "PFD_SEQ_NO": 11,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": true,
-    "PFD_MANDATORY_YN": true,
+    "PFD_MANDATORY_YN": false,
     "PFD_EDIT_YN": true,
     "PFD_FLD_NAME": "GUARDIAN NAME",
     "PFD_RADIO_GRP_NAME": "GROUP",

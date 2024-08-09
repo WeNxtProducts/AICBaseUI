@@ -265,6 +265,16 @@ const MrvQuotation = ({
      //  showNotification.WARNING('Height Should be greater than 0');
     }
    }
+  } else if (root === 'benificiary') {
+   //PGBEN_AGE PGBEN_GUARDIAN_NAME setQuotationMRV
+   const key = currentData?.PFD_COLUMN_NAME;
+   if (key === 'PGBEN_AGE') {
+    const age = values?.benificiary?.formFields?.PGBEN_AGE?.PFD_FLD_VALUE;
+    console.log('values : ', quotationMRV);
+    if (age <= 18) {
+     showNotification.WARNING(age);
+    }
+   }
   }
  };
 
