@@ -11,7 +11,6 @@ export default defineConfig(({ mode }) => {
  const env = loadEnv(mode, process.cwd(), 'WENXT_');
  const __urlport = env.WENXT_PORT;
 
- console.log('ENV Data : ', env);
 
  return {
   plugins: [react()],
@@ -20,7 +19,7 @@ export default defineConfig(({ mode }) => {
    enabled: true,
   },
   server: {
-   port: 3001,
+   port: __urlport,
    strictPort: true,
   },
   resolve: {
