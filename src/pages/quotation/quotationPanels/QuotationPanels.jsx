@@ -29,7 +29,7 @@ const QuotationPanels = () => {
   if (panel) {
    setTimeout(() => {
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-   }, 300);
+   }, 500);
   }
   if (isAllCompleted) {
    if (activePanal.includes(currentStep.toString())) {

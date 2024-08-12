@@ -12,7 +12,10 @@ const CustomDropDown = ({
  name,
  size = 'large',
  firstFieldRef = null,
+ onSearch,
  disabled = false,
+ onBlur,
+ format = 'codedesc',
 }) => {
  const fieldSize = {
   small: { code: '1/4', desc: '3/4', main: '2/5' },
@@ -69,6 +72,10 @@ const CustomDropDown = ({
   filterOption: customFilterOption,
  };
 
+ const handleBlur = () => {
+  if (onBlur) onBlur(value);
+ };
+
  return (
   <div
    ref={inputContainerRef}
@@ -79,10 +86,13 @@ const CustomDropDown = ({
     <Select
      value={value}
      onChange={handleOnChange}
+     filterOption={format !== 'codedesc'}
+     onSearch={onSearch}
      disabled={disabled}
      ref={firstFieldRef}
+     onBlur={handleBlur}
      placeholder='code'
-     dropdownStyle={{ width: `${popoverWidth - 30}px`, maxHeight: '200px' }}
+     dropdownStyle={{ width: `${popoverWidth}px`, maxHeight: '200px' }}
      //popupClassName={`my-custom-select-dropdown-${size}`}
      optionLabelProp='value'
      {...sharedProps}>

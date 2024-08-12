@@ -1,30 +1,36 @@
-@import "../../../styles/variable";
+@import '../../../styles/variable';
 
 .custom-form-fields {
-  border-radius: 8px;
-  outline: none;
-  width: 100%;
-  // padding: 0.2rem 1rem;
-  // background-color: #f6f6f7;
-  border: 1px solid #cecece;
+ border-radius: 8px;
+ outline: none;
+ width: 100%;
+ // padding: 0.2rem 1rem;
+ // background-color: #f6f6f7;
+ border: 1px solid #cecece;
 
-  // &::placeholder {
-  //   opacity: 0.5;
-  //   font-size: 12px;
-  //   font-weight: 600;
-  // }
-  // &:focus,
-  // &:hover {
-  //   border-color: $form-fields-highlight;
-  // }
+ // &::placeholder {
+ //   opacity: 0.5;
+ //   font-size: 12px;
+ //   font-weight: 600;
+ // }
+ // &:focus,
+ // &:hover {
+ //   border-color: $form-fields-highlight;
+ // }
 }
 
+// .custom-form-fields:disabled {
+//   background-color: lightblue; /* Your desired background color */
+//   color: #999; /* Optional: Change the text color as well */
+//   cursor: not-allowed; /* Optional: Change the cursor style */
+// }
+
 .number-field {
-  text-align: right;
+ text-align: right;
 }
 
 .number-field::-webkit-inner-spin-button,
 .number-field::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+ -webkit-appearance: none;
+ margin: 0;
 }

@@ -1,5 +1,4 @@
 {
- "PGBEN_BNF_CODE": [],
  "PGBEN_CATG_CODE": [
   { "label": "Male", "value": "1" },
   { "label": "Female", "value": "2" }
@@ -29,6 +28,11 @@
   { "label": "Son", "value": "02" },
   { "label": "FINANCIAL INSTITUTIONS", "value": "17" },
   { "label": "BANKS", "value": "18" }
+ ],
+ "PCHRG_APPLY_PERIOD": [
+  { "label": "Per MOP", "value": "M" },
+  { "label": "Per ANNUM", "value": "P" },
+  { "label": "Single", "value": "S" }
  ],
  "PEMP_OCC_CODE": [
   { "label": "Chief engineer - radio and tel", "value": "C033" },
@@ -893,14 +897,6 @@
   { "label": "Derrickman - off-shore drillin", "value": "D018" },
   { "label": "dhoby", "value": "D020" }
  ],
- "POL_PYMT_TYPE": [
-  { "label": "Auto Debit", "value": "AD" },
-  { "label": "Auto Credit", "value": "B" },
-  { "label": "Cheque", "value": "C" },
-  { "label": "Credit Card", "value": "CC" },
-  { "label": "Cash", "value": "P" },
-  { "label": "Telegraphic Transfer", "value": "TT" }
- ],
  "POL_MODE_OF_PYMT": [
   { "label": "Half Yearly", "value": "H" },
   { "label": "Monthly", "value": "M" },
@@ -908,22 +904,16 @@
   { "label": "Single", "value": "S" },
   { "label": "Yearly", "value": "Y" }
  ],
- "POL_CUST_CODE": [
-  { "label": "MBEKE PHILIP OCHIENG", "value": "100059" },
-  { "label": "SULEMAN NAZEEM BASHIR", "value": "100060" },
-  { "label": "NKARANGU ISAACK PETRO", "value": "100061" },
-  { "label": "Subirah John Mwamaso", "value": "100062" },
-  { "label": "BUTO LOIDA FORTUNATA", "value": "100064" },
-  { "label": "DHIRA  SHAMIM", "value": "100065" },
-  { "label": "MASOLI JELLY ATHUMAN", "value": "100066" },
-  { "label": "MONGATEKO MONGATEKO MAKONGORO", "value": "100074" },
-  { "label": "NDOSI GERALD MOSES", "value": "CUST001" },
-  { "label": "Timothy", "value": "CUST002" },
-  { "label": "CUSTOMER THREE", "value": "CUST003" }
+ "PDL_DISC_LOAD_TYPE": [
+  { "label": "Discount", "value": "D" },
+  { "label": "Load", "value": "L" }
  ],
- "PEMP_MEMBER_TYPE": [
-  { "label": "PRIMARY", "value": "P" },
-  { "label": "SECONDARY", "value": "S" }
+ "PCHRG_APPLIED_ON": [
+  { "label": "Sum Assured", "value": "1" },
+  { "label": "Premium", "value": "2" },
+  { "label": "Fixed", "value": "3" },
+  { "label": "Percentage", "value": "4" },
+  { "label": "Tariff", "value": "5" }
  ],
  "PEMP_OCC_CATG": [
   { "label": "CLASS 4", "value": "OCLS004" },
@@ -936,13 +926,40 @@
   { "label": "Broker/Agent", "value": "075" },
   { "label": "Direct ", "value": "001" }
  ],
- "PEMP_CATG_CODE": [
-  { "label": "Male", "value": "1" },
-  { "label": "Female", "value": "2" }
- ],
  "PGBEN_BNF_TYPE": [
   { "label": "Assignee", "value": "A" },
   { "label": "Nominee", "value": "N" },
   { "label": "Policy Assured", "value": "P" }
+ ],
+ "POL_PYMT_TYPE": [
+  { "label": "Auto Debit", "value": "AD" },
+  { "label": "Auto Credit", "value": "B" },
+  { "label": "Cheque", "value": "C" },
+  { "label": "Credit Card", "value": "CC" },
+  { "label": "Cash", "value": "P" },
+  { "label": "Telegraphic Transfer", "value": "TT" }
+ ],
+ "PEMP_MEMBER_TYPE": [
+  { "label": "PRIMARY", "value": "P" },
+  { "label": "SECONDARY", "value": "S" }
+ ],
+ "PEMP_CATG_CODE": [
+  { "label": "Male", "value": "1" },
+  { "label": "Female", "value": "2" }
+ ],
+ "PDL_APPLIED_ON": [
+  { "label": "Sum Assured", "value": "1" },
+  { "label": "Payee Cover Prem", "value": "10" },
+  { "label": "Payor Age", "value": "11" },
+  { "label": "Payee Age", "value": "12" },
+  { "label": "Tot Prem-EMR", "value": "13" },
+  { "label": "Fixed", "value": "14" },
+  { "label": "Formula", "value": "15" },
+  { "label": "Total Premium", "value": "2" },
+  { "label": "Cover Premium", "value": "3" },
+  { "label": "Cover SA", "value": "6" },
+  { "label": "Payor Cover SA", "value": "7" },
+  { "label": "Payee Cover SA", "value": "8" },
+  { "label": "Payor Cover Prem", "value": "9" }
  ]
 }

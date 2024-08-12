@@ -121,9 +121,10 @@ body {
 .error-message {
  position: absolute;
  //  margin-left: 2px;
- font-size: 10px;
- top: 94%;
- left: 4%;
+ font-size: 9px;
+ font-weight: 500;
+ top: 95%;
+ //  left: 2%;
  color: rgb(253, 95, 95);
  user-select: none;
 }

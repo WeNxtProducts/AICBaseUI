@@ -58,6 +58,10 @@ const CustomSelect = ({
   </Tooltip>
  );
 
+ const handleBlur = () => {
+  if (onBlur) onBlur(value);
+ };
+
  return (
   <div className={`w-${fieldSize[size].main}`}>
    <Select
@@ -65,7 +69,7 @@ const CustomSelect = ({
     name={name}
     placeholder={placeholder}
     onSearch={onSearch}
-    onBlur={onBlur}
+    onBlur={handleBlur}
     loading={loading}
     value={value}
     onChange={onChange}

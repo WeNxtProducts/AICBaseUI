@@ -8,7 +8,10 @@ export const createYupSchema = data => {
    if (fieldValue?.formFields) {
     let formFieldsSchema = {};
     for (const formField in fieldValue.formFields) {
-     if (fieldValue.formFields[formField].PFD_MANDATORY_YN) {
+     if (
+      fieldValue.formFields[formField].PFD_MANDATORY_YN &&
+      !fieldValue.formFields[formField].PFD_HIDE_YN
+     ) {
       formFieldsSchema[formField] = Yup.object({
        PFD_FLD_VALUE: Yup.string().required(
         `${fieldValue.formFields[formField].PFD_FLD_NAME} is required`,

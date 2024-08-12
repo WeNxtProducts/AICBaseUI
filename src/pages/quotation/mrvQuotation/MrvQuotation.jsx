@@ -19,6 +19,8 @@ import MRVQuotationForm from './MRVHelper/MRVQuotationForm';
 import MRVListingQuotation from './MRVHelper/MRVListing';
 import MRVModal from './MRVHelper/MRVInModal/MRVModal';
 import '../../../styles/components/MRV_Card.scss';
+import useParamLov from '../../../components/useParamLov/useParamLov';
+import dayjs from 'dayjs';
 
 const MrvQuotation = ({
  tranId,
@@ -44,14 +46,17 @@ const MrvQuotation = ({
   dropDown,
   freeze,
   handleNext,
+  rules,
  } = useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
+ const { onSearch } = useParamLov();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
  const getParamLov = useApiRequests('getParamLov', 'GET');
  const saveMRV = useApiRequests(saveRow, 'POST');
  const editMRV = useApiRequests(editRow, 'POST');
  const deleteMRV = useApiRequests(deleteRow, 'POST');
+ const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [quotationMRV, setQuotationMRV] = useState(null);
  const [quotationMRVInitialValues, setQuotationMRVInitialValues] =
@@ -245,9 +250,44 @@ const MrvQuotation = ({
   }
  };
 
- const handleOnBlur = async (currentData, values, setFieldValue) => {
+ const handleGetData = async (bnfCode, stDate) => {
+  const payload = {
+   queryParams: {
+    CUST_CODE: bnfCode,
+    POL_START_DT: stDate,
+   },
+  };
+  try {
+   const response = await getMapQuery(payload, { queryId: 183 });
+   if (response?.status === 'SUCCESS') {
+    return response?.Data[0];
+   } else if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   }
+  } catch (err) {
+   console.log('err  : ', err);
+  }
+ };
+
+ const changeState = (root, field, key, value) => {
+  setQuotationMRV(prevState => ({
+   ...prevState,
+   [root]: {
+    ...prevState[root],
+    formFields: {
+     ...prevState[root].formFields,
+     [field]: {
+      ...prevState[root].formFields[field],
+      [key]: value,
+     },
+    },
+   },
+  }));
+ };
+
+ const handleOnBlur = async (currentData, values, setFieldValue, val) => {
+  const key = currentData?.PFD_COLUMN_NAME;
   if (root === 'life_assured_details') {
-   const key = currentData?.PFD_COLUMN_NAME;
    if (key === 'PEMP_HEIGHT' || key === 'PEMP_WEIGHT') {
     const {
      PEMP_HEIGHT: { PFD_FLD_VALUE: heightStr } = {},
@@ -266,14 +306,43 @@ const MrvQuotation = ({
     }
    }
   } else if (root === 'benificiary') {
-   //PGBEN_AGE PGBEN_GUARDIAN_NAME setQuotationMRV
-   const key = currentData?.PFD_COLUMN_NAME;
-   if (key === 'PGBEN_AGE') {
-    const age = values?.benificiary?.formFields?.PGBEN_AGE?.PFD_FLD_VALUE;
-    console.log('values : ', quotationMRV);
-    if (age <= 18) {
-     showNotification.WARNING(age);
+   if (key === 'PGBEN_BNF_CODE') {
+    if (formValues !== null && val) {
+     const response = await handleGetData(
+      val,
+      dayjs(formValues?.frontForm?.formFields?.POL_FM_DT?.PFD_FLD_VALUE).format(
+       'YYYY-MM-DD',
+      ),
+     );
+     for (let key in response) {
+      if (Object.prototype.hasOwnProperty.call(response, key)) {
+       setFieldValue(
+        `benificiary.formFields.${key}.PFD_FLD_VALUE`,
+        response[key],
+       );
+      }
+     }
+
+     const age = response?.PGBEN_AGE;
+     if (age < rules.PGBEN_AGE.below || age > rules.PGBEN_AGE.above) {
+      changeState(
+       'benificiary',
+       'PGBEN_GUARDIAN_NAME',
+       'PFD_MANDATORY_YN',
+       true,
+      );
+     }
     }
+   }
+  } else if (root === 'Discount_Loading') {
+   if (key === 'PDL_APPLIED_ON') {
+    const isMandatory = ['3', '6', '7', '8', '9'].includes(val);
+    changeState(
+     'Discount_Loading',
+     'PDL_COVER_CODE',
+     'PFD_MANDATORY_YN',
+     isMandatory,
+    );
    }
   }
  };
@@ -292,6 +361,39 @@ const MrvQuotation = ({
 
  const hasValidRowData = rowData => {
   return rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0;
+ };
+
+ const handleOnSearch = async (currentData, values, setFieldValue, val) => {
+  const key = currentData?.PFD_COLUMN_NAME;
+  if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_4')) {
+   if (
+    [
+     'PGBEN_BNF_CODE',
+     'PCHRG_CODE',
+     'PDL_DISC_LOAD_CODE',
+     'PDL_COVER_CODE',
+    ].includes(key)
+   ) {
+    let payload;
+    if (key === 'PDL_DISC_LOAD_CODE') {
+     payload = {
+      type:
+       values?.Discount_Loading?.formFields?.PDL_DISC_LOAD_TYPE
+        ?.PFD_FLD_VALUE || '',
+     };
+    } else if (key === 'PDL_COVER_CODE') {
+     payload = { tranId };
+    }
+
+    if (val?.length > 0) {
+     const response = await onSearch(currentData?.PFD_PARAM_4, val, payload);
+     setDropDown(prev => ({
+      ...prev,
+      [key]: response?.Data?.[key],
+     }));
+    }
+   }
+  }
  };
 
  return (
@@ -315,6 +417,7 @@ const MrvQuotation = ({
         title={title}
         action={action}
         freeze={freeze}
+        handleOnSearch={handleOnSearch}
         formInit={formInit}
         nextStep={nextStep}
        />

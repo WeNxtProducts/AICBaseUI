@@ -25,6 +25,12 @@ import './Quotations.scss';
 export const StepperContext = createContext();
 
 const Quotation = () => {
+ const rules = {
+  PGBEN_AGE: {
+   below: 18,
+   above: 60,
+  },
+ };
  const { id: stepperId } = { id: Number(useParams().id) };
  const dispatch = useDispatch();
  const navigate = useNavigate();
@@ -47,6 +53,7 @@ const Quotation = () => {
   getNextKey,
  } = useStepper(proposalStepper, stepperId);
  const id = useSelector(state => state?.id?.id);
+ const formValues = useSelector(state => state?.id?.formValues);
  const freeze = useSelector(state => state?.id?.freezeStatus);
  const prodCode = useSelector(state => state?.id?.prodCode);
  const planCode = useSelector(state => state?.id?.planCode);
@@ -62,10 +69,10 @@ const Quotation = () => {
 
  useEffect(() => {
   return () => {
-   dispatch(setCurrentID(''));
-   dispatch(setProdCode(''));
-   dispatch(setFormValues(null));
-   dispatch(setFreezeStatus(false));
+   //    dispatch(setCurrentID(''));
+   //    dispatch(setProdCode(''));
+   //    dispatch(setFormValues(null));
+   //    dispatch(setFreezeStatus(false));
   };
  }, []);
 
@@ -112,6 +119,8 @@ const Quotation = () => {
   handlePrevious,
   handleSkip,
   id,
+  formValues,
+  rules,
   QuotationJSON,
   setShowUnderWriter,
   setDropDown,

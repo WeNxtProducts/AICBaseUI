@@ -15,23 +15,26 @@ const MainForm = ({
  addOrUpdate,
  lovList,
  handleOnBlur,
+ handleOnSearch,
  freeze = false,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
 
  useEffect(() => {
-  const validationSchema = createYupSchema({
-   [root]: formRender[root],
-  });
-  setValidation(validationSchema);
-
   if (addOrUpdate) {
    setInitValues(initialValues);
   } else {
    setInitValues(formRender);
   }
  }, [initValues]);
+
+ useEffect(() => {
+  const validationSchema = createYupSchema({
+   [root]: formRender[root],
+  });
+  setValidation(validationSchema);
+ }, [formRender]);
 
  const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val) => {
   if (handleOnBlur) {
@@ -68,6 +71,7 @@ const MainForm = ({
                 setFieldValue={setFieldValue}
                 lovData={lovList?.[dataId]}
                 handleOnBlur={onHandleOnBlur}
+                handleOnSearch={handleOnSearch}
                 handleChangeValue={handleChangeValue}
                 parent={root}
                />
@@ -75,7 +79,11 @@ const MainForm = ({
              )}
             </React.Fragment>
            );
-          }, [values, lovList]);
+          }, [
+           values?.[root]?.formFields[fieldKey],
+           lovList?.[dataId],
+           formRender,
+          ]);
          })}
         </div>
         {action && !freeze && (

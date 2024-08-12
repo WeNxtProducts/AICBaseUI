@@ -33,6 +33,7 @@ const QuotationFieldWithValue = ({
  firstFieldRef = null,
  lovData = [],
  handleOnBlur,
+ handleOnSearch,
  smallFont = false,
  freeze = false,
 }) => {
@@ -47,9 +48,15 @@ const QuotationFieldWithValue = ({
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
- const onBlurHandler = (currentData, values, setFieldValue) => {
+ const onBlurHandler = (currentData, values, setFieldValue, val) => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, values, setFieldValue);
+   handleOnBlur(currentData, values, setFieldValue, val);
+  }
+ };
+
+ const onHandleSearch = (currentData, values, setFieldValue, val) => {
+  if (handleOnBlur) {
+   handleOnSearch(currentData, values, setFieldValue, val);
   }
  };
 
@@ -79,7 +86,9 @@ const QuotationFieldWithValue = ({
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          readOnly={freeze}
-         onBlur={() => onBlurHandler(currentData, values, setFieldValue)}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e.target.value);
+         }}
          onChange={e => {
           handleChangeValue(
            e.target.value,
@@ -101,8 +110,13 @@ const QuotationFieldWithValue = ({
          options={lovData}
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
+         onSearch={e => {
+          onHandleSearch(currentData, values, setFieldValue, e);
+         }}
          size='medium'
-         onBlur={() => onBlurHandler(currentData, values, setFieldValue)}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e);
+         }}
          disabled={!PFD_EDIT_YN}
          readOnly={freeze}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
@@ -130,7 +144,7 @@ const QuotationFieldWithValue = ({
           size='medium'
           format={PFD_DATA_TYPE}
           value={value?.PFD_FLD_VALUE}
-          onBlur={() => onBlurHandler(currentData, values, setFieldValue)}
+          onBlur={e => onBlurHandler(currentData, values, setFieldValue, e)}
           readOnly={freeze}
           disabled={!PFD_EDIT_YN}
           onChange={e => {
@@ -153,11 +167,19 @@ const QuotationFieldWithValue = ({
         </div>
        );
       case 'codedesc':
+      case 'codedescsearch':
        return (
         <CustomDropDown
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          options={lovData}
          firstFieldRef={firstFieldRef}
+         format={PFD_DATA_TYPE}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e);
+         }}
+         onSearch={e => {
+          onHandleSearch(currentData, values, setFieldValue, e);
+         }}
          value={value?.PFD_FLD_VALUE || undefined}
          disabled={!PFD_EDIT_YN}
          onChange={e => {

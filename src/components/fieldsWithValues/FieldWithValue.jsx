@@ -34,6 +34,7 @@ const FieldWithValue = ({
  firstFieldRef = null,
  lovData = [],
  handleOnBlur,
+ handleOnSearch,
  smallFont = false,
 }) => {
  const {
@@ -51,6 +52,12 @@ const FieldWithValue = ({
  const onBlurHandler = (currentData, values, setFieldValue, val) => {
   if (handleOnBlur) {
    handleOnBlur(currentData, values, setFieldValue, val);
+  }
+ };
+
+ const onHandleSearch = (currentData, values, setFieldValue, val) => {
+  if (handleOnBlur) {
+   handleOnSearch(currentData, values, setFieldValue, val);
   }
  };
 
@@ -90,7 +97,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
-           PFD_COLUMN_NAME
+           PFD_COLUMN_NAME,
           );
          }}
         />
@@ -104,6 +111,9 @@ const FieldWithValue = ({
          options={lovData}
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
+         onSearch={e => {
+          onHandleSearch(currentData, values, setFieldValue, e);
+         }}
          size='medium'
          onBlur={e => {
           onBlurHandler(currentData, values, setFieldValue, e);
@@ -147,11 +157,19 @@ const FieldWithValue = ({
         />
        );
       case 'codedesc':
+      case 'codedescsearch':
        return (
         <CustomDropDown
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          options={lovData}
          firstFieldRef={firstFieldRef}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e);
+         }}
+         onSearch={e => {
+          onHandleSearch(currentData, values, setFieldValue, e);
+         }}
+         format={PFD_DATA_TYPE}
          value={value?.PFD_FLD_VALUE || undefined}
          disabled={!PFD_EDIT_YN}
          onChange={e => {

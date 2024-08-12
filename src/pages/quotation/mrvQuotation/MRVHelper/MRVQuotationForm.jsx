@@ -22,6 +22,7 @@ const MRVQuotationForm = ({
  freeze = false,
  formInit = false,
  nextStep,
+ handleOnSearch,
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -52,8 +53,8 @@ const MRVQuotationForm = ({
      onSubmit={onSubmit}
      enableReinitialize={true}
      innerRef={formikRef}>
-     {({ handleSubmit, values, setFieldValue, resetForm }) => {
-      //   console.log('values : ', values);
+     {({ handleSubmit, values, setFieldValue, resetForm, errors }) => {
+      // console.log('values : ', errors, values);
       return (
        <Form onSubmit={handleSubmit}>
         <div className='mb-4 flex items-center justify-between px-2'>
@@ -92,6 +93,7 @@ const MRVQuotationForm = ({
                 handleOnBlur={handleOnBlur}
                 lovData={lovList?.[dataId]}
                 handleChangeValue={handleChangeValue}
+                handleOnSearch={handleOnSearch}
                 parent={root}
                 smallFont={smallFont}
                 freeze={freeze}
@@ -100,7 +102,7 @@ const MRVQuotationForm = ({
              )}
             </React.Fragment>
            );
-          }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
+          }, [values, lovList?.[dataId], formRender]);
          })}
         </div>
         {action && (

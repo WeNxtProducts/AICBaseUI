@@ -17,6 +17,7 @@ import Loader from '../../../components/loader/Loader';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { useSelector } from 'react-redux';
+import useParamLov from '../../../components/useParamLov/useParamLov';
 
 dayjs.extend(utc);
 
@@ -27,6 +28,7 @@ const ProposalEntryForm = () => {
   id: tranId,
   QuotationJSON,
   dropDown,
+  setDropDown,
   prodCode,
   proposalNumber,
   setProposalNumber,
@@ -36,6 +38,7 @@ const ProposalEntryForm = () => {
  const currentMenuId = useSelector(
   state => state?.tokenAndMenuList?.currentMenuId,
  );
+ const { onSearch } = useParamLov();
  const getQuotation = useApiRequests('getQuotation', 'GET');
  const saveQuotation = useApiRequests('saveProposalEntry', 'POST');
  const updateQuotation = useApiRequests('updateProposalEntry', 'POST');
@@ -47,7 +50,7 @@ const ProposalEntryForm = () => {
 
  const handleStateInit = value => {
   const orderedData = sortObjectByPFDSeqNo(value);
-  if (!tranId)
+  if (!tranId && orderedData)
    orderedData.frontForm.formFields.POL_UW_YEAR.PFD_FLD_VALUE = dayjs()?.year();
   setProposalEntryInitialValues({ frontForm: orderedData?.frontForm });
   setProposalEntry({ frontForm: orderedData?.frontForm });
@@ -176,8 +179,25 @@ const ProposalEntryForm = () => {
   }
  };
 
+ const changeState = (field, key, value) => {
+  setProposalEntry(prevState => ({
+   ...prevState,
+   frontForm: {
+    ...prevState.frontForm,
+    formFields: {
+     ...prevState.frontForm.formFields,
+     [field]: {
+      ...prevState.frontForm.formFields[field],
+      [key]: value,
+     },
+    },
+   },
+  }));
+ };
+
  const handleOnBlur = (currentData, values, setFieldValue, val) => {
   const key = currentData?.PFD_COLUMN_NAME;
+  console.log('key : ', key);
 
   if (key === 'POL_PERIOD') {
    if (values?.frontForm.formFields.POL_FM_DT.PFD_FLD_VALUE) {
@@ -188,6 +208,32 @@ const ProposalEntryForm = () => {
       val,
      ),
     );
+   }
+  }
+
+  if (key === 'POL_SRC_OF_BUS') {
+   const srcId = Number(
+    values?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE,
+   );
+   if (srcId === 75) {
+    changeState('POL_AGENT_CODE', 'PFD_MANDATORY_YN', true);
+   } else if (srcId !== 75) {
+    changeState('POL_AGENT_CODE', 'PFD_MANDATORY_YN', false);
+   }
+  }
+ };
+
+ const handleOnSearch = async (currentData, values, setFieldValue, val) => {
+  const key = currentData?.PFD_COLUMN_NAME;
+  if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_4')) {
+   if (['POL_CUST_CODE', 'POL_AGENT_CODE'].includes(key)) {
+    if (val?.length > 0) {
+     const response = await onSearch(currentData?.PFD_PARAM_4, val);
+     setDropDown(prev => ({
+      ...prev,
+      [key]: response?.Data?.[key],
+     }));
+    }
    }
   }
  };
@@ -213,6 +259,7 @@ const ProposalEntryForm = () => {
       lovList={dropDown}
       freeze={freeze}
       handleOnBlur={handleOnBlur}
+      handleOnSearch={handleOnSearch}
      />
     </div>
    )}
