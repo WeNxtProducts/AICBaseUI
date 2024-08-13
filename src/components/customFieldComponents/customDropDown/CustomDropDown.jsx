@@ -73,7 +73,7 @@ const CustomDropDown = ({
  };
 
  const handleBlur = () => {
-  if (onBlur) onBlur(value);
+  if (onBlur) onBlur(value, selected?.label);
  };
 
  return (

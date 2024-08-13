@@ -8,7 +8,8 @@ import ListDetails from './ListDetails';
 import MRVListingQuotation from '../../mrvQuotation/MRVHelper/MRVListing';
 
 const Checklist = ({ tranId }) => {
- const { QuotationJSON, handleNext } = useContext(StepperContext);
+ const { QuotationJSON, handleNext, proposalNumber } =
+  useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const getChecklistDetails = useApiRequests('getPreClaimDate', 'POST');
@@ -58,6 +59,8 @@ const Checklist = ({ tranId }) => {
      tranId={tranId}
      refreshData={refreshData}
      selectedRow={editMRVId}
+     Tran_Id={proposalNumber}
+     group_code={editMRVId}
     />
    </div>
    <div className='col-span-2 p-2 border_left_divider'>

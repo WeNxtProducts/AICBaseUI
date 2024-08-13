@@ -2,16 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import MainForm from '../../../components/mainForm/MainForm';
 import { StepperContext } from '../Quotation';
 import { sortObjectByPFDSeqNo } from './../../../components/commonHelper/SortBySequence';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
 import useApiRequests from '../../../services/useApiRequests';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../components/commonHelper/DataSend';
 import showNotification from '../../../components/notification/Notification';
 import Loader from '../../../components/loader/Loader';
 import dayjs from 'dayjs';
@@ -35,26 +29,70 @@ const ProposalEntryForm = () => {
   freeze,
   planCode,
  } = useContext(StepperContext);
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const { onSearch } = useParamLov();
  const getQuotation = useApiRequests('getQuotation', 'GET');
  const saveQuotation = useApiRequests('saveProposalEntry', 'POST');
  const updateQuotation = useApiRequests('updateProposalEntry', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [proposalEntry, setProposalEntry] = useState(null);
- const [proposalEntryInitialValues, setProposalEntryInitialValues] =
-  useState(null);
+ const [proposalEntryInitialValues, setProposalEntryInitialValues] = useState(null);
  const [loader, setLoader] = useState(false);
 
- const handleStateInit = value => {
-  const orderedData = sortObjectByPFDSeqNo(value);
-  if (!tranId && orderedData)
-   orderedData.frontForm.formFields.POL_UW_YEAR.PFD_FLD_VALUE = dayjs()?.year();
+ const dataAssign = orderedData => {
   setProposalEntryInitialValues({ frontForm: orderedData?.frontForm });
   setProposalEntry({ frontForm: orderedData?.frontForm });
   dispatch(setFormValues(orderedData));
+ };
+
+ const handleStateInit = value => {
+  const orderedData = sortObjectByPFDSeqNo(value);
+  if (!tranId) {
+   if (orderedData?.frontForm?.formFields?.POL_UW_YEAR) {
+    const updatedState = changeState(orderedData, 'POL_UW_YEAR', 'PFD_FLD_VALUE', dayjs()?.year());
+    dataAssign(updatedState);
+   }
+  } else if (tranId) {
+   const { POL_ASSR_CODE, POL_ASSURED_NAME, POL_CUST_NAME, POL_CUST_CODE, POL_ASSR_CUST_FLAG } =
+    orderedData.frontForm.formFields;
+   const flag = POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
+   let updatedState = orderedData;
+   if (!flag) {
+    const newState = {
+     ...orderedData,
+     frontForm: {
+      ...orderedData.frontForm,
+      formFields: {
+       ...orderedData.frontForm.formFields,
+       POL_ASSR_CODE: {
+        ...orderedData.frontForm.formFields.POL_ASSR_CODE,
+        PFD_MANDATORY_YN: true,
+       },
+      },
+     },
+    };
+    const update = {
+     ...newState,
+     frontForm: {
+      ...newState.frontForm,
+      formFields: {
+       ...newState.frontForm.formFields,
+       POL_ASSR_CODE: {
+        ...newState.frontForm.formFields.POL_ASSR_CODE,
+        PFD_EDIT_YN: true,
+       },
+      },
+     },
+    };
+    updatedState = update;
+   }
+   setDropDown(prev => ({
+    ...prev,
+    POL_ASSR_CODE: [{ value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE }],
+    POL_CUST_CODE: [{ value: POL_CUST_CODE?.PFD_FLD_VALUE, label: POL_CUST_NAME?.PFD_FLD_VALUE }],
+   }));
+   dataAssign(updatedState);
+  }
  };
 
  const handleQuotationDetails = async () => {
@@ -69,8 +107,7 @@ const ProposalEntryForm = () => {
    if (response?.status === 'SUCCESS') {
     setProposalNumber(response?.PROPOSAL_NO);
     handleStateInit(response?.Data);
-   } else if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
   } catch (err) {
    setLoader(false);
@@ -111,12 +148,13 @@ const ProposalEntryForm = () => {
 
  const addOrUpdateClaim = async (payload, addOrUpdate) => {
   setLoader(true);
-  const { ds_type, ds_code } = currentMenuId;
+  const { ds_type, ds_code, POL_CLASS_CODE = '' } = currentMenuId;
   const inParams = {
    POL_PROD_CODE: prodCode || '',
    POL_DS_TYPE: ds_type || '',
    POL_DS_CODE: ds_code || '',
    POL_PLAN_CODE: planCode || '',
+   POL_CLASS_CODE,
   };
   const mainLoad = { inParams, frontForm: payload?.frontForm };
   try {
@@ -156,77 +194,91 @@ const ProposalEntryForm = () => {
   return dayjs(date).add(years, 'year').format('YYYY-MM-DD');
  };
 
- const handleChangeValue = (
-  value,
-  path,
-  setFieldValue,
-  parent,
-  values,
-  currentData,
-  col_name,
- ) => {
+ const handleChangeValue = (value, path, setFieldValue, parent, values, currentData, col_name) => {
   setFieldValue(path, value);
   if (col_name === 'POL_FM_DT') {
    if (col_name === 'POL_FM_DT') {
     setFieldValue(
      'frontForm.formFields.POL_TO_DT.PFD_FLD_VALUE',
-     calculateDateAfterYears(
-      value,
-      values?.frontForm.formFields.POL_PERIOD.PFD_FLD_VALUE,
-     ),
+     calculateDateAfterYears(value, values?.frontForm.formFields.POL_PERIOD.PFD_FLD_VALUE),
     );
    }
   }
  };
 
- const changeState = (field, key, value) => {
-  setProposalEntry(prevState => ({
-   ...prevState,
+ const changeState = (preState, field, key, value) => {
+  const newState = {
+   ...preState,
    frontForm: {
-    ...prevState.frontForm,
+    ...preState.frontForm,
     formFields: {
-     ...prevState.frontForm.formFields,
+     ...preState.frontForm.formFields,
      [field]: {
-      ...prevState.frontForm.formFields[field],
+      ...preState.frontForm.formFields[field],
       [key]: value,
      },
     },
    },
+  };
+  return newState;
+ };
+
+ const handleCust_code = (values, setFieldValue) => {
+  const cust_code = values?.frontForm?.formFields?.POL_CUST_CODE?.PFD_FLD_VALUE;
+  const cust_name = values?.frontForm?.formFields?.POL_CUST_NAME?.PFD_FLD_VALUE;
+  setFieldValue(`frontForm.formFields.${'POL_ASSR_CODE'}.PFD_FLD_VALUE`, cust_code);
+  setFieldValue(`frontForm.formFields.${'POL_ASSURED_NAME'}.PFD_FLD_VALUE`, cust_name);
+  setDropDown(prev => ({
+   ...prev,
+   POL_ASSR_CODE: [{ value: cust_code, label: cust_name }],
   }));
  };
 
- const handleOnBlur = (currentData, values, setFieldValue, val) => {
+ const handleOnBlur = (currentData, values, setFieldValue, val, label) => {
   const key = currentData?.PFD_COLUMN_NAME;
-  console.log('key : ', key);
+
+  if (key === 'POL_CUST_CODE') {
+   setFieldValue(`frontForm.formFields.${'POL_CUST_NAME'}.PFD_FLD_VALUE`, label);
+   const flag = values?.frontForm?.formFields?.POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
+   if (flag) {
+    handleCust_code(values, setFieldValue);
+   }
+  }
+
+  if (key === 'POL_ASSR_CODE') {
+   setFieldValue(`frontForm.formFields.${'POL_ASSURED_NAME'}.PFD_FLD_VALUE`, label);
+  }
+
+  if (key === 'POL_ASSR_CUST_FLAG') {
+   const flag = values?.frontForm?.formFields?.POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
+   const updatedEdit = changeState(proposalEntry, 'POL_ASSR_CODE', 'PFD_EDIT_YN', !flag);
+   const updatedState = changeState(updatedEdit, 'POL_ASSR_CODE', 'PFD_MANDATORY_YN', !flag);
+   setProposalEntry(updatedState);
+   if (flag) {
+    handleCust_code(values, setFieldValue);
+   }
+  }
 
   if (key === 'POL_PERIOD') {
    if (values?.frontForm.formFields.POL_FM_DT.PFD_FLD_VALUE) {
     setFieldValue(
      'frontForm.formFields.POL_TO_DT.PFD_FLD_VALUE',
-     calculateDateAfterYears(
-      values?.frontForm.formFields.POL_FM_DT.PFD_FLD_VALUE,
-      val,
-     ),
+     calculateDateAfterYears(values?.frontForm.formFields.POL_FM_DT.PFD_FLD_VALUE, val),
     );
    }
   }
 
   if (key === 'POL_SRC_OF_BUS') {
-   const srcId = Number(
-    values?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE,
-   );
-   if (srcId === 75) {
-    changeState('POL_AGENT_CODE', 'PFD_MANDATORY_YN', true);
-   } else if (srcId !== 75) {
-    changeState('POL_AGENT_CODE', 'PFD_MANDATORY_YN', false);
-   }
+   const srcId = Number(values?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE);
+   const updatedState = changeState(proposalEntry, 'POL_AGENT_CODE', 'PFD_MANDATORY_YN', srcId === 75);
+   setProposalEntry(updatedState);
   }
  };
 
  const handleOnSearch = async (currentData, values, setFieldValue, val) => {
   const key = currentData?.PFD_COLUMN_NAME;
   if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_4')) {
-   if (['POL_CUST_CODE', 'POL_AGENT_CODE'].includes(key)) {
+   if (['POL_CUST_CODE', 'POL_AGENT_CODE', 'POL_ASSR_CODE'].includes(key)) {
     if (val?.length > 0) {
      const response = await onSearch(currentData?.PFD_PARAM_4, val);
      setDropDown(prev => ({
@@ -243,9 +295,7 @@ const ProposalEntryForm = () => {
    {loader && <Loader />}
    <div className='flex items-center pl-1'>
     <p className='header-font'>{`Proposal Entry`}</p>
-    {proposalNumber && (
-     <p className='pol-number ml-10'>{`${proposalNumber}`}</p>
-    )}
+    {proposalNumber && <p className='pol-number ml-10'>{`${proposalNumber}`}</p>}
    </div>
    {proposalEntry !== null && (
     <div className='mt-3 mb-5'>

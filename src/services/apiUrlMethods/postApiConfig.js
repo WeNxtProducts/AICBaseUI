@@ -265,5 +265,8 @@ const POST_API_URL = {
   url: '/policy/updateFreezeFlag',
   baseURL: 'CLAIMURL',
  },
+ DMSFileUpload: {
+  //
+ },
 };
 export default POST_API_URL;

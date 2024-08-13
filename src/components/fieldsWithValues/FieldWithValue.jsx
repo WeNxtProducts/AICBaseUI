@@ -7,6 +7,7 @@ import {
  CodeWithNumber,
  CustomTextArea,
  CustomPasswordField,
+ CustomCheckBox,
 } from '../commonExportsFields/CommonExportsFields';
 import { ErrorMessage } from 'formik';
 import CustomDropDown from '../customFieldComponents/customDropDown/CustomDropDown';
@@ -49,9 +50,9 @@ const FieldWithValue = ({
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
- const onBlurHandler = (currentData, values, setFieldValue, val) => {
+ const onBlurHandler = (currentData, values, setFieldValue, val, label) => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, values, setFieldValue, val);
+   handleOnBlur(currentData, values, setFieldValue, val, label);
   }
  };
 
@@ -87,7 +88,7 @@ const FieldWithValue = ({
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onBlur={e => {
-          onBlurHandler(currentData, values, setFieldValue, e.target.value);
+          onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
          }}
          onChange={e => {
           handleChangeValue(
@@ -116,7 +117,7 @@ const FieldWithValue = ({
          }}
          size='medium'
          onBlur={e => {
-          onBlurHandler(currentData, values, setFieldValue, e);
+          onBlurHandler(currentData, values, setFieldValue, e, '');
          }}
          disabled={!PFD_EDIT_YN}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
@@ -163,8 +164,8 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          options={lovData}
          firstFieldRef={firstFieldRef}
-         onBlur={e => {
-          onBlurHandler(currentData, values, setFieldValue, e);
+         onBlur={(e, label) => {
+          onBlurHandler(currentData, values, setFieldValue, e, label);
          }}
          onSearch={e => {
           onHandleSearch(currentData, values, setFieldValue, e);
@@ -194,7 +195,7 @@ const FieldWithValue = ({
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onBlur={date => {
-          onBlurHandler(currentData, values, setFieldValue, date);
+          onBlurHandler(currentData, values, setFieldValue, date, '');
          }}
          onChange={date => {
           handleChangeValue(

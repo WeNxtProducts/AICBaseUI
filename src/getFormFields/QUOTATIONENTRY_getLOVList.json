@@ -943,6 +943,10 @@
   { "label": "PRIMARY", "value": "P" },
   { "label": "SECONDARY", "value": "S" }
  ],
+ "POL_ASSR_CUST_FLAG": [
+  { "label": "EMS001", "value": "Yes" },
+  { "label": "EMS002", "value": "No" }
+ ],
  "PEMP_CATG_CODE": [
   { "label": "Male", "value": "1" },
   { "label": "Female", "value": "2" }

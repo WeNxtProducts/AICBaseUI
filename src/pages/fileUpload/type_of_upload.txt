@@ -1,0 +1,133 @@
+ const handleUpload = async () => {
+   const formData = new FormData();
+   formData.append('remarks', 'Some remarks');
+
+   files.forEach(fileName => {
+    if (fileName) {
+     formData.append(fileName?.name, fileName);
+    }
+   });
+
+   try {
+    const response = await fetch('/api/upload', {
+     method: 'POST',
+     body: formData,
+    });
+
+    if (response.ok) {
+     console.log('Files uploaded successfully');
+     // Handle success
+    } else {
+     console.error('Failed to upload files');
+     // Handle error
+    }
+   } catch (error) {
+    console.error('Error uploading files:', error);
+    // Handle error
+   }
+  };
+
+  const handleUpload = async () => {
+   const formData = new FormData();
+
+   const readFileAsByteArray = file => {
+    return new Promise((resolve, reject) => {
+     const reader = new FileReader();
+     reader.onload = () => {
+      const arrayBuffer = reader.result;
+      const byteArray = new Uint8Array(arrayBuffer);
+      resolve(byteArray);
+     };
+     reader.onerror = error => reject(error);
+     reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer
+    });
+   };
+
+   try {
+    for (let file of files) {
+     const byteArray = await readFileAsByteArray(file);
+     formData.append('files', new Blob([byteArray]), file.name); // Append the byte array with the original file name
+    }
+
+    // Add any additional form data
+    formData.append('remarks', 'Some remarks');
+
+    console.log('formData:', formData);
+
+    const response = await fetch('/api/upload', {
+     method: 'POST',
+     body: formData,
+    });
+
+    if (response.ok) {
+     console.log('Files uploaded successfully');
+     // Handle success
+    } else {
+     console.error('Failed to upload files');
+     // Handle error
+    }
+   } catch (error) {
+    console.error('Error uploading files:', error);
+    // Handle error
+   }
+  };
+
+
+
+  main
+
+
+
+   const handleUpload = async () => {
+  try {
+   const filesByteArrays = [];
+
+   for (let file of files) {
+    const byteArray = await readFileAsByteArray(file);
+    const byteArrayFormatted = Array.from(byteArray); // Convert Uint8Array to regular array
+    filesByteArrays.push({
+     fileName: file.name,
+     byteArray: byteArrayFormatted,
+    });
+   }
+
+   const payload = {
+    files: filesByteArrays,
+    remarks: 'Some remarks',
+   };
+
+   console.log('Payload to be sent:', payload);
+
+   const response = await fetch('/api/upload', {
+    method: 'POST',
+    headers: {
+     'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+   });
+
+   if (response.ok) {
+    console.log('Files uploaded successfully');
+    // Handle success
+   } else {
+    console.error('Failed to upload files');
+    // Handle error
+   }
+  } catch (error) {
+   console.error('Error uploading files:', error);
+   // Handle error
+  }
+ };
+
+ const readFileAsByteArray = file => {
+  return new Promise((resolve, reject) => {
+   const reader = new FileReader();
+   reader.onload = () => {
+    const arrayBuffer = reader.result;
+    const byteArray = new Uint8Array(arrayBuffer);
+    resolve(byteArray);
+   };
+   reader.onerror = error => reject(error);
+   reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer
+  });
+ };

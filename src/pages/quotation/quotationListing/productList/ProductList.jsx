@@ -9,11 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import '../../Quotations.scss';
-import {
- setFreezeStatus,
- setPlanCode,
- setProdCode,
-} from '../../../../globalStore/slices/IdSlices';
+import { setFreezeStatus, setPlanCode, setProdCode } from '../../../../globalStore/slices/IdSlices';
 
 const ProductList = () => {
  const dispatch = useDispatch();
@@ -31,11 +27,9 @@ const ProductList = () => {
    const response = await apiCalls(payload, {
     queryId,
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setState(response?.Data);
-    console.log('response : ', response);
    }
   } catch (err) {
    console.log(err);
@@ -66,7 +60,6 @@ const ProductList = () => {
  };
 
  const handleSelectPlan = item => {
-  console.log('handleSelectPlan : ', item,item?.VALUE);
   dispatch(setFreezeStatus(false));
   dispatch(setPlanCode(item?.VALUE));
   navigate('/quotation/0');
@@ -79,9 +72,7 @@ const ProductList = () => {
      {breadCrumbsItem.map((item, index) => (
       <Breadcrumb.Item key={index}>
        <span
-        className={`breadcrumb-title ${
-         item?.title === locationState ? 'highlight' : ''
-        }`}
+        className={`breadcrumb-title ${item?.title === locationState ? 'highlight' : ''}`}
         onClick={() => handleBreadCrumbs(item)}>
         {item.title}
        </span>

@@ -1,4 +1,4 @@
-import { Checkbox } from 'antd';
+import { Checkbox, Col, Row } from 'antd';
 
 const CustomCheckBox = ({ options, onChange, value, size = 'large' }) => {
  const fieldSize = {
@@ -9,7 +9,15 @@ const CustomCheckBox = ({ options, onChange, value, size = 'large' }) => {
 
  return (
   <div className={`w-${fieldSize[size].main}`}>
-   <Checkbox onChange={onChange} />
+   <Checkbox.Group style={{ width: '100%' }} value={value} onChange={onChange}>
+    <Row>
+     {options.map(option => (
+      <Col key={option.value} span={8}>
+       <Checkbox value={option.value}>{option.label}</Checkbox>
+      </Col>
+     ))}
+    </Row>
+   </Checkbox.Group>
   </div>
  );
 };

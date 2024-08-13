@@ -3,7 +3,14 @@ import DetailsTable from './DetailsTable';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 
-const ListDetails = ({ listItemData, refreshData, tranId, selectedRow }) => {
+const ListDetails = ({
+ listItemData,
+ refreshData,
+ tranId,
+ selectedRow,
+ Tran_Id,
+ group_code,
+}) => {
  const updateFlag = useApiRequests('updateProposalChecklistFlag', 'POST');
  const updateFlagBulk = useApiRequests(
   'updateProposalChecklistFlagBulk',
@@ -72,6 +79,8 @@ const ListDetails = ({ listItemData, refreshData, tranId, selectedRow }) => {
       handleSelect={handleSelect}
       handleBulkFlag={handleBulkFlag}
       handleUpload={handleUpload}
+      Tran_Id={Tran_Id}
+      group_code={group_code}
      />
     )}
    </div>

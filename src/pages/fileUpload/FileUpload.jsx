@@ -1,18 +1,31 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Checkbox, Tooltip } from 'antd';
+import FileTable from './FileTable';
 import {
- CustomSelect,
- CustomTextArea,
-} from '../../components/commonExportsFields/CommonExportsFields';
-import { SaveOutlined } from '@ant-design/icons';
+ getFileFormat,
+ readFileAsByteArray,
+} from '../../components/mediaHelper/MediaHelper';
 import './FileUpload.scss';
 
-const FileUpload = () => {
+const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
  const [files, setFiles] = useState([]);
 
- const onDrop = useCallback(acceptedFiles => {
-  setFiles(prevFiles => [...prevFiles, ...acceptedFiles]);
+ const onDrop = useCallback(async acceptedFiles => {
+  const filesByteArrays = [];
+  for (let file of acceptedFiles) {
+   const byteArrayFormatted = await readFileAsByteArray(file);
+   filesByteArrays.push({
+    filename: file.name,
+    byteArray: byteArrayFormatted,
+    genType: getFileFormat(file),
+    module: group_code,
+    TranId: Tran_Id,
+    DocType: docType,
+    replaceFlag: 'N',
+    dmsStatus: 'N',
+   });
+  }
+  setFiles(prevFiles => [...prevFiles, ...filesByteArrays]);
  }, []);
 
  const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -57,123 +70,11 @@ const FileUpload = () => {
      )}
     </div>
    </div>
-   <FileTable files={files} onDelete={handleDeleteFiles} />
-  </div>
- );
-};
-
-const FileTable = ({ files, onDelete }) => {
- const [selectedRows, setSelectedRows] = useState([]);
-
- const handleCheckboxChange = (event, file) => {
-  const fileId = file.name;
-  if (event.target.checked) {
-   setSelectedRows(prevSelectedRows => [...prevSelectedRows, fileId]);
-  } else {
-   setSelectedRows(prevSelectedRows =>
-    prevSelectedRows.filter(id => id !== fileId),
-   );
-  }
- };
-
- const handleDelete = () => {
-  onDelete(selectedRows);
-  setSelectedRows([]);
- };
-
- const handleDownload = (event, file) => {
-  event.preventDefault();
-  const url = URL.createObjectURL(file);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = file.name; // Ensures the file is downloaded
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
- };
-
- return (
-  <div className=''>
-   {selectedRows.length > 0 && (
-    <button
-     className='delete-file mt-1'
-     onClick={handleDelete}
-     disabled={selectedRows.length === 0}>
-     Delete Selected
-    </button>
-   )}
-   <div className='upload_file_wrapper'>
-    <table className='upload-file-table'>
-     <thead>
-      <tr>
-       <th></th>
-       <th></th>
-       <th>Remarks</th>
-       <th>DOCUMENT TYPE</th>
-       <th>UPDATED BY</th>
-       <th>UPDATED DATE</th>
-       <th></th>
-      </tr>
-     </thead>
-     <tbody>
-      {files.map((file, index) => (
-       <tr key={index}>
-        <td>
-         <Checkbox
-          checked={selectedRows.includes(file.name)}
-          onChange={event => handleCheckboxChange(event, file)}
-         />
-        </td>
-        <td>
-         <p>
-          <span
-           className='download-link'
-           onClick={event => handleDownload(event, file)}>
-           Download
-          </span>
-         </p>
-        </td>
-        <td>
-         <div className='table_textarea'>
-          <CustomTextArea
-           // value={item?.Remarks}
-           placeholder={'remarks'}
-           onChange={e => {
-            console.log('e.target.value : ', e.target.value);
-            //  handleSelect(index, 'Remarks', e.target.value);
-           }}
-          />
-         </div>
-        </td>
-        <td>
-         <div className='table_lov'>
-          <CustomSelect
-           options={[]}
-           placeholder={'select'}
-           size='large'
-           showSearch={false}
-           // value={item?.Received}
-           onChange={e => {
-            console.log('e : ', e);
-            //  handleSelect(index, 'Received', e);
-           }}
-          />
-         </div>
-        </td>
-        <td>PREMIA</td>
-        <td>14-MAY-2023</td>
-        <td>
-         <Tooltip placement='top' title='Post'>
-          <SaveOutlined className='post-icon' />
-         </Tooltip>
-         {/* <button onClick={() => onDelete([file.name])}>Delete</button> */}
-        </td>
-       </tr>
-      ))}
-     </tbody>
-    </table>
-   </div>
+   <FileTable
+    files={files}
+    onDelete={handleDeleteFiles}
+    handleUpload={handleUpload}
+   />
   </div>
  );
 };

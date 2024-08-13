@@ -36,9 +36,9 @@ const MainForm = ({
   setValidation(validationSchema);
  }, [formRender]);
 
- const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val) => {
+ const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val, label = '') => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, valuesLatest, setFieldValue, val);
+   handleOnBlur(currentData, valuesLatest, setFieldValue, val, label);
   }
  };
 
@@ -52,14 +52,13 @@ const MainForm = ({
      onSubmit={onSubmit}
      enableReinitialize={true}>
      {({ handleSubmit, values, setFieldValue, resetForm }) => {
-      //   console.log('values : ', values);
+      // console.log('values : ', values);
 
       return (
        <Form onSubmit={handleSubmit}>
         <div className={`items-start grid grid-cols-${grid} gap-0`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
-          const dataId =
-           formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+          const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
           return useMemo(() => {
            return (
             <React.Fragment key={dataId}>
@@ -79,11 +78,8 @@ const MainForm = ({
              )}
             </React.Fragment>
            );
-          }, [
-           values?.[root]?.formFields[fieldKey],
-           lovList?.[dataId],
-           formRender,
-          ]);
+           // values?.[root]?.formFields[fieldKey],
+          }, [values?.[root]?.formFields, lovList?.[dataId], formRender]);
          })}
         </div>
         {action && !freeze && (

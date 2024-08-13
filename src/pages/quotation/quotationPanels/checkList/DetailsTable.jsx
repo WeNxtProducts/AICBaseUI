@@ -10,7 +10,9 @@ const DetailsTable = ({
  tableData = [],
  handleSelect,
  handleBulkFlag,
- handleUpload,
+ //  handleUpload,
+ Tran_Id,
+ group_code,
 }) => {
  const [expandedRows, setExpandedRows] = useState('');
 
@@ -18,6 +20,14 @@ const DetailsTable = ({
   const panel = document.querySelector(`[data-id='claim-row-expanded-${id}']`);
   if (panel) {
    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+ };
+
+ const handleUpload = async files => {
+  try {
+   console.log('fileeee : ', files);
+  } catch (error) {
+   console.error('Error uploading files:', error);
   }
  };
 
@@ -79,7 +89,12 @@ const DetailsTable = ({
      key={`claim-row-expanded-${item.DTLS_TRAN_ID}`}>
      <td colSpan='6' className='claim_row_expand'>
       <div className='Upload_documents_claim_checklist mb-3'>
-       <FileUpload />
+       <FileUpload
+        docType={item?.DESCRPTION}
+        Tran_Id={Tran_Id}
+        group_code={group_code}
+        handleUpload={handleUpload}
+       />
       </div>
      </td>
     </tr>,
