@@ -95,7 +95,7 @@ const GET_API_URL = {
   url: '/common/polDiscLoadEdit',
  },
  getConditionsDetails: {
-  url: '',
+  url: '/common/polConditionEdit',
  },
  getBeneficiaryDetails: {
   url: '/common/polBeneficiaryEdit',

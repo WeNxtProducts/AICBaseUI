@@ -931,6 +931,11 @@
   { "label": "Nominee", "value": "N" },
   { "label": "Policy Assured", "value": "P" }
  ],
+ "PCOND_CODE": [
+  { "label": "Change in Occuptation", "value": "01" },
+  { "label": "Others", "value": "03" },
+  { "label": "Change of Country", "value": "02" }
+ ],
  "POL_PYMT_TYPE": [
   { "label": "Auto Debit", "value": "AD" },
   { "label": "Auto Credit", "value": "B" },

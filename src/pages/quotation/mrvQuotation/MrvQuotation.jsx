@@ -155,7 +155,6 @@ const MrvQuotation = ({
    setQuotationMRV({ [root]: orderedData[root] });
    setQuotationMRVInitialValues({ [root]: orderedData[root] });
   } else if (root === 'Charges') {
-   // PCHRG_DESC PCHRG_CODE
    const { PCHRG_DESC, PCHRG_CODE } = orderedData.Charges.formFields;
    const label = PCHRG_DESC?.PFD_FLD_VALUE;
    const value = PCHRG_CODE?.PFD_FLD_VALUE;
@@ -165,6 +164,25 @@ const MrvQuotation = ({
    }));
    setQuotationMRV({ [root]: orderedData[root] });
    setQuotationMRVInitialValues({ [root]: orderedData[root] });
+  } else if (root === 'Discount_Loading') {
+   const { PDL_APPLIED_ON } = orderedData.Discount_Loading.formFields;
+   const isMandatory = ['3', '6', '7', '8', '9'].includes(PDL_APPLIED_ON?.PFD_FLD_VALUE);
+   const newState = {
+    ...orderedData,
+    Discount_Loading: {
+     ...orderedData.Discount_Loading,
+     formFields: {
+      ...orderedData.Discount_Loading.formFields,
+      PDL_COVER_CODE: {
+       ...orderedData.Discount_Loading.formFields.PDL_COVER_CODE,
+       PFD_MANDATORY_YN: isMandatory,
+      },
+     },
+    },
+   };
+
+   setQuotationMRV({ [root]: newState[root] });
+   setQuotationMRVInitialValues({ [root]: newState[root] });
   } else {
    setQuotationMRV({ [root]: orderedData[root] });
    setQuotationMRVInitialValues({ [root]: orderedData[root] });
