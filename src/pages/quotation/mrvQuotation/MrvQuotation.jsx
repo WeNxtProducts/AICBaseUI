@@ -442,7 +442,7 @@ const MrvQuotation = ({
    }
   } else if (root === 'Charges') {
    if (key === 'PCHRG_CODE') {
-    setFieldValue(`life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`, label);
+    setFieldValue(`Charges.formFields.${'PCHRG_DESC'}.PFD_FLD_VALUE`, label);
    }
   }
  };
