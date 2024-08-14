@@ -65,10 +65,7 @@ const FieldWithValue = ({
  return (
   <div className='current-field p-2 flex items-baseline'>
    <div className='w-1/4'>
-    <p
-     className={`${
-      smallFont ? 'label_small_font' : 'label-font'
-     }  select-none`}>
+    <p className={`${smallFont ? 'label_small_font' : 'label-font'}  select-none`}>
      {PFD_FLD_NAME}
      {PFD_MANDATORY_YN && <span className='mandatory-symbol'>*</span>}
     </p>
@@ -142,6 +139,9 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          format={PFD_DATA_TYPE}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
+         }}
          size='medium'
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}

@@ -3,6 +3,7 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import fixReactVirtualized from 'esbuild-plugin-react-virtualized';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +11,6 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => {
  const env = loadEnv(mode, process.cwd(), 'WENXT_');
  const __urlport = env.WENXT_PORT;
-
 
  return {
   plugins: [react()],
@@ -24,16 +24,14 @@ export default defineConfig(({ mode }) => {
   },
   resolve: {
    alias: {
-    '@float-Input': path.resolve(
-     __dirname,
-     'src/components/floatingLabelFields/FLFieldsExports',
-    ),
+    '@float-Input': path.resolve(__dirname, 'src/components/floatingLabelFields/FLFieldsExports'),
    },
   },
   build: {
    minify: 'esbuild',
    sourcemap: true,
    rollupOptions: {
+    // external: ['apexcharts'],
     output: {
      chunkFileNames: 'chunks/[name]-[hash].js',
      manualChunks: id => {
@@ -46,6 +44,9 @@ export default defineConfig(({ mode }) => {
    cacheDir: 'node_modules/.vite_cache',
   },
   optimizeDeps: {
+   esbuildOptions: {
+    plugins: [fixReactVirtualized],
+   },
    include: ['react', 'react-dom'],
   },
  };

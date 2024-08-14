@@ -242,11 +242,11 @@ const POST_API_URL = {
   baseURL: 'CLAIMURL',
  },
  saveConditionsDetails: {
-  url: '',
+  url: '/condition/save',
   baseURL: 'CLAIMURL',
  },
  updateConditionsDetails: {
-  url: '',
+  url: '/condition/update',
   baseURL: 'CLAIMURL',
  },
  updateProposalChecklistFlag: {

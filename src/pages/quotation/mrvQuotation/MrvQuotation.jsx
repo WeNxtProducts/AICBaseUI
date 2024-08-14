@@ -2,16 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import useMRVListing from '../../../components/mrvListing/useMRVListing';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../components/commonHelper/DataSend';
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
 import { getQueryId } from '../../../components/commonHelper/QueryIdFetch';
-import {
- extractValues,
- mergeDropdownData,
-} from '../../../components/commonHelper/ParamLov';
+import { extractValues, mergeDropdownData } from '../../../components/commonHelper/ParamLov';
 import Loader from '../../../components/loader/Loader';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 import { StepperContext } from '../Quotation';
@@ -21,6 +15,7 @@ import MRVModal from './MRVHelper/MRVInModal/MRVModal';
 import '../../../styles/components/MRV_Card.scss';
 import useParamLov from '../../../components/useParamLov/useParamLov';
 import dayjs from 'dayjs';
+import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
 
 const MrvQuotation = ({
  tranId,
@@ -39,15 +34,8 @@ const MrvQuotation = ({
  isDelete = true,
  subId = '',
 }) => {
- const {
-  QuotationJSON,
-  formValues,
-  setDropDown,
-  dropDown,
-  freeze,
-  handleNext,
-  rules,
- } = useContext(StepperContext);
+ const { QuotationJSON, formValues, setDropDown, dropDown, freeze, handleNext, rules } =
+  useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const { onSearch } = useParamLov();
@@ -59,8 +47,7 @@ const MrvQuotation = ({
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [quotationMRV, setQuotationMRV] = useState(null);
- const [quotationMRVInitialValues, setQuotationMRVInitialValues] =
-  useState(null);
+ const [quotationMRVInitialValues, setQuotationMRVInitialValues] = useState(null);
  const [editMRVId, setEditMRVId] = useState('');
  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
  const [loader, setLoader] = useState(false);
@@ -84,15 +71,15 @@ const MrvQuotation = ({
 
  const addOrUpdateMRV = async (payload, addOrUpdate, lifeId) => {
   try {
-   const params = editMRVId
-    ? { editMRVId }
-    : { tranId, ...(lifeId && { lifeId }) };
+   const params = editMRVId ? { editMRVId } : { tranId, ...(lifeId && { lifeId }) };
    const response = await addOrUpdate(payload, '', params);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
-    if (!editMRVId) setFormInit(!formInit);
+    if (!editMRVId) {
+     handleInitData(QuotationJSON);
+     setFormInit(!formInit);
+    }
     // setEditMRVId(response?.data?.Id ?? editMRVId);
     showNotification.SUCCESS(response?.status_msg);
    }
@@ -109,11 +96,79 @@ const MrvQuotation = ({
   addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV, subId || '');
  };
 
- const handleInitData = response => {
+ const handleInitData = async response => {
   const orderedData = sortObjectByPFDSeqNo(response);
-  setQuotationMRV({ [root]: orderedData[root] });
-  setQuotationMRVInitialValues({ [root]: orderedData[root] });
-  // console.log('orderedData : ', { [root]: orderedData[root] });
+  if (root === 'life_assured_details') {
+   const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
+   const { PEMP_MEMBER_TYPE } = orderedData.life_assured_details.formFields;
+   const makeDropdown = { ...dropDown };
+
+   if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE === 'P') {
+    const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
+    const response = await handleGetData(payload, 190);
+    const newState = {
+     ...orderedData,
+     life_assured_details: {
+      ...orderedData.life_assured_details,
+      formFields: {
+       ...orderedData.life_assured_details.formFields,
+       PEMP_ID: {
+        ...orderedData.life_assured_details.formFields.PEMP_ID,
+        PFD_FLD_VALUE: POL_ASSR_CODE?.PFD_FLD_VALUE,
+        PFD_EDIT_YN: PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
+       },
+       PEMP_NAME: {
+        ...orderedData.life_assured_details.formFields.PEMP_NAME,
+        PFD_FLD_VALUE: POL_ASSURED_NAME?.PFD_FLD_VALUE,
+       },
+       PEMP_CATG_CODE: {
+        ...orderedData.life_assured_details.formFields.PEMP_CATG_CODE,
+        PFD_FLD_VALUE: response?.PEMP_CATG_CODE,
+       },
+       PEMP_DOB: {
+        ...orderedData.life_assured_details.formFields.PEMP_DOB,
+        PFD_FLD_VALUE: response?.PEMP_DOB,
+       },
+      },
+     },
+    };
+    makeDropdown.PEMP_ID = [
+     { value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE },
+    ];
+    setQuotationMRV({ [root]: newState[root] });
+    setQuotationMRVInitialValues({ [root]: newState[root] });
+   } else if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P') {
+    setQuotationMRV({ [root]: orderedData[root] });
+    setQuotationMRVInitialValues({ [root]: orderedData[root] });
+    const { PEMP_NAME, PEMP_ID } = orderedData.life_assured_details.formFields;
+    makeDropdown.PEMP_ID = [{ value: PEMP_ID?.PFD_FLD_VALUE, label: PEMP_NAME?.PFD_FLD_VALUE }];
+   }
+   setDropDown(makeDropdown);
+  } else if (root === 'benificiary') {
+   const { PGBEN_BNF_NAME, PGBEN_BNF_CODE } = orderedData.benificiary.formFields;
+   const label = PGBEN_BNF_NAME?.PFD_FLD_VALUE;
+   const value = PGBEN_BNF_CODE?.PFD_FLD_VALUE;
+   setDropDown(prev => ({
+    ...prev,
+    PGBEN_BNF_CODE: [{ value, label }],
+   }));
+   setQuotationMRV({ [root]: orderedData[root] });
+   setQuotationMRVInitialValues({ [root]: orderedData[root] });
+  } else if (root === 'Charges') {
+   // PCHRG_DESC PCHRG_CODE
+   const { PCHRG_DESC, PCHRG_CODE } = orderedData.Charges.formFields;
+   const label = PCHRG_DESC?.PFD_FLD_VALUE;
+   const value = PCHRG_CODE?.PFD_FLD_VALUE;
+   setDropDown(prev => ({
+    ...prev,
+    PCHRG_CODE: [{ value, label }],
+   }));
+   setQuotationMRV({ [root]: orderedData[root] });
+   setQuotationMRVInitialValues({ [root]: orderedData[root] });
+  } else {
+   setQuotationMRV({ [root]: orderedData[root] });
+   setQuotationMRVInitialValues({ [root]: orderedData[root] });
+  }
  };
 
  const MRVListing = () => {
@@ -250,15 +305,9 @@ const MrvQuotation = ({
   }
  };
 
- const handleGetData = async (bnfCode, stDate) => {
-  const payload = {
-   queryParams: {
-    CUST_CODE: bnfCode,
-    POL_START_DT: stDate,
-   },
-  };
+ const handleGetData = async (payload, qId) => {
   try {
-   const response = await getMapQuery(payload, { queryId: 183 });
+   const response = await getMapQuery(payload, { queryId: qId });
    if (response?.status === 'SUCCESS') {
     return response?.Data[0];
    } else if (response?.status === 'FAILURE') {
@@ -285,7 +334,7 @@ const MrvQuotation = ({
   }));
  };
 
- const handleOnBlur = async (currentData, values, setFieldValue, val) => {
+ const handleOnBlur = async (currentData, values, setFieldValue, val, label) => {
   const key = currentData?.PFD_COLUMN_NAME;
   if (root === 'life_assured_details') {
    if (key === 'PEMP_HEIGHT' || key === 'PEMP_WEIGHT') {
@@ -297,52 +346,103 @@ const MrvQuotation = ({
     const weight = +weightStr || 0;
     if (height > 0 && weight > 0) {
      const bmi = await procedureCall(height, weight);
-     setFieldValue(
-      'life_assured_details.formFields.PEMP_BMI.PFD_FLD_VALUE',
-      bmi,
-     );
+     setFieldValue('life_assured_details.formFields.PEMP_BMI.PFD_FLD_VALUE', bmi);
     } else {
      //  showNotification.WARNING('Height Should be greater than 0');
     }
    }
+   if (key === 'PEMP_MEMBER_TYPE') {
+    const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
+    const { PEMP_MEMBER_TYPE } = values.life_assured_details.formFields;
+    if (val === 'P') {
+     const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
+     const response = await handleGetData(payload, 190);
+     setFieldValue(
+      `life_assured_details.formFields.${'PEMP_ID'}.PFD_FLD_VALUE`,
+      POL_ASSR_CODE?.PFD_FLD_VALUE,
+     );
+     setFieldValue(
+      `life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`,
+      POL_ASSURED_NAME?.PFD_FLD_VALUE,
+     );
+     setFieldValue(
+      `life_assured_details.formFields.${'PEMP_CATG_CODE'}.PFD_FLD_VALUE`,
+      response?.PEMP_CATG_CODE,
+     );
+     setFieldValue(
+      `life_assured_details.formFields.${'PEMP_DOB'}.PFD_FLD_VALUE`,
+      response?.PEMP_DOB,
+     );
+     changeState(
+      'life_assured_details',
+      'PEMP_ID',
+      'PFD_EDIT_YN',
+      PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
+     );
+     setDropDown(prev => ({
+      ...prev,
+      PEMP_ID: [{ value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE }],
+     }));
+    } else if (val !== 'P') {
+     changeState(
+      'life_assured_details',
+      'PEMP_ID',
+      'PFD_EDIT_YN',
+      PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
+     );
+    }
+   }
+   if (key === 'PEMP_ID') {
+    setFieldValue(`life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`, label);
+   }
   } else if (root === 'benificiary') {
    if (key === 'PGBEN_BNF_CODE') {
     if (formValues !== null && val) {
-     const response = await handleGetData(
-      val,
-      dayjs(formValues?.frontForm?.formFields?.POL_FM_DT?.PFD_FLD_VALUE).format(
-       'YYYY-MM-DD',
-      ),
-     );
+     const payload = {
+      queryParams: {
+       CUST_CODE: val,
+       POL_START_DT: dayjs(formValues?.frontForm?.formFields?.POL_FM_DT?.PFD_FLD_VALUE).format(
+        'YYYY-MM-DD',
+       ),
+      },
+     };
+     const response = await handleGetData(payload, 183);
      for (let key in response) {
       if (Object.prototype.hasOwnProperty.call(response, key)) {
-       setFieldValue(
-        `benificiary.formFields.${key}.PFD_FLD_VALUE`,
-        response[key],
-       );
+       setFieldValue(`benificiary.formFields.${key}.PFD_FLD_VALUE`, response[key]);
       }
      }
 
      const age = response?.PGBEN_AGE;
      if (age < rules.PGBEN_AGE.below || age > rules.PGBEN_AGE.above) {
-      changeState(
-       'benificiary',
-       'PGBEN_GUARDIAN_NAME',
-       'PFD_MANDATORY_YN',
-       true,
-      );
+      changeState('benificiary', 'PGBEN_GUARDIAN_NAME', 'PFD_MANDATORY_YN', true);
      }
     }
    }
   } else if (root === 'Discount_Loading') {
    if (key === 'PDL_APPLIED_ON') {
     const isMandatory = ['3', '6', '7', '8', '9'].includes(val);
-    changeState(
-     'Discount_Loading',
-     'PDL_COVER_CODE',
-     'PFD_MANDATORY_YN',
-     isMandatory,
-    );
+    changeState('Discount_Loading', 'PDL_COVER_CODE', 'PFD_MANDATORY_YN', isMandatory);
+   }
+  } else if (root === 'pol_riders') {
+   if (key === 'PEC_EFF_FM_DT' || key === 'PEC_PERIOD') {
+    if (key === 'PEC_EFF_FM_DT') {
+     const period = values?.pol_riders?.formFields?.PEC_PERIOD?.PFD_FLD_VALUE;
+     setFieldValue(
+      'pol_riders.formFields.PEC_EFF_TO_DT.PFD_FLD_VALUE',
+      calculateDateAfterYears(val, period),
+     );
+    } else if (key === 'PEC_PERIOD') {
+     const stDate = values?.pol_riders?.formFields?.PEC_EFF_FM_DT?.PFD_FLD_VALUE;
+     setFieldValue(
+      'pol_riders.formFields.PEC_EFF_TO_DT.PFD_FLD_VALUE',
+      calculateDateAfterYears(stDate, val),
+     );
+    }
+   }
+  } else if (root === 'Charges') {
+   if (key === 'PCHRG_CODE') {
+    setFieldValue(`life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`, label);
    }
   }
  };
@@ -372,16 +472,16 @@ const MrvQuotation = ({
      'PCHRG_CODE',
      'PDL_DISC_LOAD_CODE',
      'PDL_COVER_CODE',
+     'PEMP_ID',
+     'PEC_COVER_CODE',
     ].includes(key)
    ) {
     let payload;
     if (key === 'PDL_DISC_LOAD_CODE') {
      payload = {
-      type:
-       values?.Discount_Loading?.formFields?.PDL_DISC_LOAD_TYPE
-        ?.PFD_FLD_VALUE || '',
+      type: values?.Discount_Loading?.formFields?.PDL_DISC_LOAD_TYPE?.PFD_FLD_VALUE || '',
      };
-    } else if (key === 'PDL_COVER_CODE') {
+    } else if (key === 'PDL_COVER_CODE' || key === 'PEC_COVER_CODE') {
      payload = { tranId };
     }
 
@@ -401,27 +501,26 @@ const MrvQuotation = ({
    {loader && <Loader />}
    <div className='propasal-entry-form col-span-8 grid grid-cols-9'>
     <div className={`col-span-${hasValidRowData(rowData) ? '7' : '9'} mt-1`}>
-     {quotationMRV &&
-      Object.prototype.hasOwnProperty.call(quotationMRV, root) && (
-       <MRVQuotationForm
-        initialValues={quotationMRVInitialValues}
-        formRender={quotationMRV}
-        root={root}
-        lovList={dropDown}
-        onSubmit={onSubmit}
-        handleChangeValue={handleChangeValue}
-        resetForm={resetForm}
-        handleOnBlur={handleOnBlur}
-        addOrUpdate={!!editMRVId}
-        smallFont={true}
-        title={title}
-        action={action}
-        freeze={freeze}
-        handleOnSearch={handleOnSearch}
-        formInit={formInit}
-        nextStep={nextStep}
-       />
-      )}
+     {quotationMRV && Object.prototype.hasOwnProperty.call(quotationMRV, root) && (
+      <MRVQuotationForm
+       initialValues={quotationMRVInitialValues}
+       formRender={quotationMRV}
+       root={root}
+       lovList={dropDown}
+       onSubmit={onSubmit}
+       handleChangeValue={handleChangeValue}
+       resetForm={resetForm}
+       handleOnBlur={handleOnBlur}
+       addOrUpdate={!!editMRVId}
+       smallFont={true}
+       title={title}
+       action={action}
+       freeze={freeze}
+       handleOnSearch={handleOnSearch}
+       formInit={formInit}
+       nextStep={nextStep}
+      />
+     )}
     </div>
     {hasValidRowData(rowData) && (
      <div className='col-span-2 p-3 border_left_divider'>
@@ -442,9 +541,7 @@ const MrvQuotation = ({
      </div>
     )}
    </div>
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
    {openModal && (
     <MRVModal
      subId={editMRVId}

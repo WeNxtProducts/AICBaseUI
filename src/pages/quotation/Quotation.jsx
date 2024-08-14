@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState } from 'react';
 import { Button, Checkbox } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,28 +30,17 @@ const Quotation = () => {
    below: 18,
    above: 60,
   },
+  POL_MODE_OF_PYMT: { H: '2', M: '12', Q: '4', S: '1', Y: '1' },
  };
  const { id: stepperId } = { id: Number(useParams().id) };
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
- const updateProposalStepperStatus = useApiRequests(
-  'updateProposalStepperStatus',
-  'POST',
- );
- const updateProposalFreezeStatus = useApiRequests(
-  'updateProposalFreezeStatus',
-  'POST',
- );
+ const updateProposalStepperStatus = useApiRequests('updateProposalStepperStatus', 'POST');
+ const updateProposalFreezeStatus = useApiRequests('updateProposalFreezeStatus', 'POST');
  const [lastUpdatedStep, setLastUpdatedStep] = useState(0);
- const {
-  currentStep,
-  stepperData,
-  handleNext,
-  handlePrevious,
-  handleSkip,
-  getNextKey,
- } = useStepper(proposalStepper, stepperId);
+ const { currentStep, stepperData, handleNext, handlePrevious, handleSkip, getNextKey } =
+  useStepper(proposalStepper, stepperId);
  const id = useSelector(state => state?.id?.id);
  const formValues = useSelector(state => state?.id?.formValues);
  const freeze = useSelector(state => state?.id?.freezeStatus);
@@ -160,10 +149,7 @@ const Quotation = () => {
    {loader && <Loader />}
    <div className='quotation'>
     {showUnderWriter ? (
-     <UnderWriterWorkBench
-      fromQuotation={true}
-      setShowUnderWriter={setShowUnderWriter}
-     />
+     <UnderWriterWorkBench fromQuotation={true} setShowUnderWriter={setShowUnderWriter} />
     ) : (
      <>
       <div className='stepper'>
@@ -193,28 +179,16 @@ const Quotation = () => {
          <span className='freeze_style'>Freeze All Changes</span>
         </Checkbox>
         <div className='flex justify-center'>
-         <Button
-          disabled={!freeze}
-          className='prem_btn'
-          onClick={() => procedureCall()}>
+         <Button disabled={!freeze} className='prem_btn' onClick={() => procedureCall()}>
           Prem Calc
          </Button>
-         <Button
-          disabled={!freeze}
-          className='sub_btn'
-          onClick={() => setSuccessPopup(true)}>
+         <Button disabled={!freeze} className='sub_btn' onClick={() => setSuccessPopup(true)}>
           Submit
          </Button>
         </div>
        </div>
       </div>
-      {successPopup && (
-       <StatusPopup
-        open={successPopup}
-        handleClose={handleClose}
-        status={true}
-       />
-      )}
+      {successPopup && <StatusPopup open={successPopup} handleClose={handleClose} status={true} />}
      </>
     )}
    </div>

@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import { useSelector } from 'react-redux';
 import useParamLov from '../../../components/useParamLov/useParamLov';
+import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
 
 dayjs.extend(utc);
 
@@ -28,6 +29,7 @@ const ProposalEntryForm = () => {
   setProposalNumber,
   freeze,
   planCode,
+  rules,
  } = useContext(StepperContext);
  const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const { onSearch } = useParamLov();
@@ -67,28 +69,18 @@ const ProposalEntryForm = () => {
        POL_ASSR_CODE: {
         ...orderedData.frontForm.formFields.POL_ASSR_CODE,
         PFD_MANDATORY_YN: true,
-       },
-      },
-     },
-    };
-    const update = {
-     ...newState,
-     frontForm: {
-      ...newState.frontForm,
-      formFields: {
-       ...newState.frontForm.formFields,
-       POL_ASSR_CODE: {
-        ...newState.frontForm.formFields.POL_ASSR_CODE,
         PFD_EDIT_YN: true,
        },
       },
      },
     };
-    updatedState = update;
+    updatedState = newState;
    }
    setDropDown(prev => ({
     ...prev,
-    POL_ASSR_CODE: [{ value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE }],
+    POL_ASSR_CODE: [
+     { value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE },
+    ],
     POL_CUST_CODE: [{ value: POL_CUST_CODE?.PFD_FLD_VALUE, label: POL_CUST_NAME?.PFD_FLD_VALUE }],
    }));
    dataAssign(updatedState);
@@ -189,20 +181,14 @@ const ProposalEntryForm = () => {
   addOrUpdateClaim(payload, tranId ? updateQuotation : saveQuotation);
  };
 
- const calculateDateAfterYears = (date, yearsToAdd) => {
-  const years = Number(yearsToAdd);
-  return dayjs(date).add(years, 'year').format('YYYY-MM-DD');
- };
-
  const handleChangeValue = (value, path, setFieldValue, parent, values, currentData, col_name) => {
   setFieldValue(path, value);
+
   if (col_name === 'POL_FM_DT') {
-   if (col_name === 'POL_FM_DT') {
-    setFieldValue(
-     'frontForm.formFields.POL_TO_DT.PFD_FLD_VALUE',
-     calculateDateAfterYears(value, values?.frontForm.formFields.POL_PERIOD.PFD_FLD_VALUE),
-    );
-   }
+   setFieldValue(
+    'frontForm.formFields.POL_TO_DT.PFD_FLD_VALUE',
+    calculateDateAfterYears(value, values?.frontForm.formFields.POL_PERIOD.PFD_FLD_VALUE),
+   );
   }
  };
 
@@ -270,8 +256,21 @@ const ProposalEntryForm = () => {
 
   if (key === 'POL_SRC_OF_BUS') {
    const srcId = Number(values?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE);
-   const updatedState = changeState(proposalEntry, 'POL_AGENT_CODE', 'PFD_MANDATORY_YN', srcId === 75);
+   const updatedState = changeState(
+    proposalEntry,
+    'POL_AGENT_CODE',
+    'PFD_MANDATORY_YN',
+    srcId === 75,
+   );
    setProposalEntry(updatedState);
+  }
+
+  if (key === 'POL_MODE_OF_PYMT') {
+   setFieldValue(
+    `frontForm.formFields.${'POL_NO_OF_INST'}.PFD_FLD_VALUE`,
+    rules?.POL_MODE_OF_PYMT[val],
+    val,
+   );
   }
  };
 

@@ -3,11 +3,10 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './PrivateRoute';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 import Loader from '../components/loader/Loader';
+import VirtualScroll from '../components/react-virtual/VirtualScroll';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
-const ClaimListing = lazy(() =>
- import('../pages/claims/claimsListing/ClaimsListing'),
-);
+const ClaimListing = lazy(() => import('../pages/claims/claimsListing/ClaimsListing'));
 const UnderWriterWorkBench = lazy(() =>
  import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
 );
@@ -15,27 +14,19 @@ const ProductList = lazy(() =>
  import('../pages/quotation/quotationListing/productList/ProductList'),
 );
 const Receipt = lazy(() => import('../pages/receipt/Receipt'));
-const QuotationListing = lazy(() =>
- import('../pages/quotation/quotationListing/QuotationListing'),
-);
+const QuotationListing = lazy(() => import('../pages/quotation/quotationListing/QuotationListing'));
 const Quotation = lazy(() => import('../pages/quotation/Quotation'));
 const Quote = lazy(() => import('../pages/quote/Quote'));
 const ReportList = lazy(() => import('../pages/reportList/ReportList'));
-const AutoDispatchSetUp = lazy(() =>
- import('../pages/autoDispatchSetUp/AutoDispatchSetUp'),
-);
+const AutoDispatchSetUp = lazy(() => import('../pages/autoDispatchSetUp/AutoDispatchSetUp'));
 
 const AutoDispatchListing = lazy(() =>
  import('../pages/autoDispatchSetUp/autoDispatchListing/AutoDispatchListing'),
 );
 const ModernClaim = lazy(() => import('../pages/modernClaim/ModernClaim'));
 const DocPrint = lazy(() => import('../pages/docPrint/DocPrint'));
-const DocPrintListing = lazy(() =>
- import('../pages/docPrint/docPrintListing/DocPrintListing'),
-);
-const EmailTemplate = lazy(() =>
- import('../pages/emailTemplate/EmailTemplate'),
-);
+const DocPrintListing = lazy(() => import('../pages/docPrint/docPrintListing/DocPrintListing'));
+const EmailTemplate = lazy(() => import('../pages/emailTemplate/EmailTemplate'));
 const EmailTemplateListing = lazy(() =>
  import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
 );
@@ -46,24 +37,14 @@ const CustomerListingScreen = lazy(() =>
  import('../pages/customerListingScreens/customerListingScreen'),
 );
 const NewLoginForm = lazy(() => import('../pages/newLoginForm/NewLoginForm'));
-const ResetPassword = lazy(() =>
- import('../pages/resetPassword/ResetPassword'),
-);
+const ResetPassword = lazy(() => import('../pages/resetPassword/ResetPassword'));
 const ApiToJson = lazy(() => import('../pages/apiToJson/ApiToJson'));
 const Claims = lazy(() => import('../pages/claims/Claims'));
 const Claim = lazy(() => import('../pages/claim/Claim'));
-const ClaimSettlement = lazy(() =>
- import('../pages/claimSettlement/ClaimSettlement'),
-);
-const CashbackProcessing = lazy(() =>
- import('../pages/cashbackProcessing/CashbackProcessing'),
-);
-const SurrenderProcessing = lazy(() =>
- import('../pages/surrenderProcessing/SurrenderProcessing'),
-);
-const SurrenderPayment = lazy(() =>
- import('../pages/surrenderPayment/SurrenderPayment'),
-);
+const ClaimSettlement = lazy(() => import('../pages/claimSettlement/ClaimSettlement'));
+const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/CashbackProcessing'));
+const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
+const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
 
 const AppRouter = () => {
  return (
@@ -74,6 +55,14 @@ const AppRouter = () => {
      element={
       <Suspense fallback={<div>AG GRID TABLE</div>}>
        <AgGridTables />
+      </Suspense>
+     }
+    />
+    <Route
+     path='/virtualscroll'
+     element={
+      <Suspense fallback={<div>VirtualScroll</div>}>
+       <VirtualScroll />
       </Suspense>
      }
     />

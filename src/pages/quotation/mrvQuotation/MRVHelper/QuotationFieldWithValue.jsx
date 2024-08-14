@@ -37,20 +37,14 @@ const QuotationFieldWithValue = ({
  smallFont = false,
  freeze = false,
 }) => {
- const {
-  PFD_FLD_NAME,
-  PFD_COLUMN_NAME,
-  PFD_DATA_TYPE,
-  PFD_MANDATORY_YN,
-  PFD_HINT,
-  PFD_EDIT_YN,
- } = currentData;
+ const { PFD_FLD_NAME, PFD_COLUMN_NAME, PFD_DATA_TYPE, PFD_MANDATORY_YN, PFD_HINT, PFD_EDIT_YN } =
+  currentData;
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
- const onBlurHandler = (currentData, values, setFieldValue, val) => {
+ const onBlurHandler = (currentData, values, setFieldValue, val, label = '') => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, values, setFieldValue, val);
+   handleOnBlur(currentData, values, setFieldValue, val, label);
   }
  };
 
@@ -63,10 +57,7 @@ const QuotationFieldWithValue = ({
  return (
   <div className='col-span-1 grid grid-cols-3 items-center'>
    <div className='col-span-1'>
-    <p
-     className={`${
-      smallFont ? 'label_small_font' : 'label-font'
-     }  select-none`}>
+    <p className={`${smallFont ? 'label_small_font' : 'label-font'}  select-none`}>
      {PFD_FLD_NAME}
      {PFD_MANDATORY_YN && <span className='mandatory-symbol'>*</span>}
     </p>
@@ -87,7 +78,7 @@ const QuotationFieldWithValue = ({
          disabled={!PFD_EDIT_YN}
          readOnly={freeze}
          onBlur={e => {
-          onBlurHandler(currentData, values, setFieldValue, e.target.value);
+          onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
          }}
          onChange={e => {
           handleChangeValue(
@@ -144,7 +135,10 @@ const QuotationFieldWithValue = ({
           size='medium'
           format={PFD_DATA_TYPE}
           value={value?.PFD_FLD_VALUE}
-          onBlur={e => onBlurHandler(currentData, values, setFieldValue, e)}
+          onBlur={e => {
+           onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
+          }}
+          // onBlur={e => onBlurHandler(currentData, values, setFieldValue, e)}
           readOnly={freeze}
           disabled={!PFD_EDIT_YN}
           onChange={e => {
@@ -158,11 +152,8 @@ const QuotationFieldWithValue = ({
            );
           }}
          />
-         {(PFD_COLUMN_NAME === 'PEMP_HEIGHT' ||
-          PFD_COLUMN_NAME === 'PEMP_WEIGHT') && (
-          <p className='ml-2'>
-           {PFD_COLUMN_NAME === 'PEMP_HEIGHT' ? 'Cms' : 'Kgs'}
-          </p>
+         {(PFD_COLUMN_NAME === 'PEMP_HEIGHT' || PFD_COLUMN_NAME === 'PEMP_WEIGHT') && (
+          <p className='ml-2'>{PFD_COLUMN_NAME === 'PEMP_HEIGHT' ? 'Cms' : 'Kgs'}</p>
          )}
         </div>
        );
@@ -174,8 +165,8 @@ const QuotationFieldWithValue = ({
          options={lovData}
          firstFieldRef={firstFieldRef}
          format={PFD_DATA_TYPE}
-         onBlur={e => {
-          onBlurHandler(currentData, values, setFieldValue, e);
+         onBlur={(e, label) => {
+          onBlurHandler(currentData, values, setFieldValue, e, label);
          }}
          onSearch={e => {
           onHandleSearch(currentData, values, setFieldValue, e);
@@ -201,6 +192,9 @@ const QuotationFieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
+         onBlur={date => {
+          onBlurHandler(currentData, values, setFieldValue, date, '');
+         }}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onChange={date => {

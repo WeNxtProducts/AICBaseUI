@@ -26,7 +26,6 @@ const MRVQuotationForm = ({
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
- const [loader, setLoader] = useState(false);
  const formikRef = useRef(null);
 
  useEffect(() => {
@@ -79,8 +78,34 @@ const MRVQuotationForm = ({
 
         <div className={`items-center grid grid-cols-${grid} gap-y-3 px-2`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
-          const dataId =
-           formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+          const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+
+          return (
+           <React.Fragment key={dataId}>
+            {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
+             <div data-id={dataId}>
+              <QuotationFieldWithValue
+               currentData={formRender?.[root]?.formFields[fieldKey]}
+               values={values}
+               setFieldValue={setFieldValue}
+               handleOnBlur={handleOnBlur}
+               lovData={lovList?.[dataId]}
+               handleChangeValue={handleChangeValue}
+               handleOnSearch={handleOnSearch}
+               parent={root}
+               smallFont={smallFont}
+               freeze={freeze}
+              />
+             </div>
+            )}
+           </React.Fragment>
+          );
+         })}
+        </div>
+
+        {/* <div className={`items-center grid grid-cols-${grid} gap-y-3 px-2`}>
+         {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
+          const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
           return useMemo(() => {
            return (
             <React.Fragment key={dataId}>
@@ -102,9 +127,10 @@ const MRVQuotationForm = ({
              )}
             </React.Fragment>
            );
+           //values?.[root]?.formFields[fieldKey]
           }, [values, lovList?.[dataId], formRender]);
          })}
-        </div>
+        </div> */}
         {action && (
          <div className='w-full mt-5 mb-5 submit-button-form'>
           {!freeze && (
@@ -113,10 +139,7 @@ const MRVQuotationForm = ({
            </button>
           )}
           {!['pol_riders', 'medical_details']?.includes(root) && (
-           <button
-            onClick={() => nextStep()}
-            type='button'
-            className='next-button ml-9'>
+           <button onClick={() => nextStep()} type='button' className='next-button ml-9'>
             Next
            </button>
           )}

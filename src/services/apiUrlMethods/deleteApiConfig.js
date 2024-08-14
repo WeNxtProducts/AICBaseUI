@@ -42,7 +42,7 @@ const DELETE_API_URL = {
   baseURL: 'CLAIMURL',
  },
  deleteConditionsDetails: {
-  url: '',
+  url: '/condition/delete',
   baseURL: 'CLAIMURL',
  },
 };

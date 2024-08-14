@@ -33,10 +33,11 @@ body {
 }
 
 .ant-pagination-item-active {
+ border: 1px solid #0989d0 !important;
  a {
   color: #0989d0 !important;
  }
- border: 1px solid #0989d0 !important;
+ //  border: 1px solid #0989d0 !important;
 }
 
 .ant-collapse-arrow {
@@ -170,10 +171,11 @@ body {
 
 .back-button-usercreation-decision {
  color: #1e69ff;
+ cursor: pointer;
  &:hover {
   text-decoration: underline;
  }
- cursor: pointer;
+ //  cursor: pointer;
  i {
   font-size: 20px;
   font-weight: bolder;
