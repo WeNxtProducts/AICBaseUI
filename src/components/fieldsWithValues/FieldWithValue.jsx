@@ -37,6 +37,7 @@ const FieldWithValue = ({
  handleOnBlur,
  handleOnSearch,
  smallFont = false,
+ freeze = false,
 }) => {
  const {
   PFD_FLD_NAME,
@@ -83,6 +84,7 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          placeholder={PFD_HINT}
          value={value?.PFD_FLD_VALUE}
+         readOnly={freeze}
          disabled={!PFD_EDIT_YN}
          onBlur={e => {
           onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
@@ -108,6 +110,7 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          options={lovData}
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
+         readOnly={freeze}
          placeholder={PFD_HINT}
          onSearch={e => {
           onHandleSearch(currentData, values, setFieldValue, e);
@@ -143,6 +146,7 @@ const FieldWithValue = ({
           onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
          }}
          size='medium'
+         readOnly={freeze}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
@@ -164,6 +168,7 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          options={lovData}
          firstFieldRef={firstFieldRef}
+         readOnly={freeze}
          onBlur={(e, label) => {
           onBlurHandler(currentData, values, setFieldValue, e, label);
          }}
@@ -192,6 +197,7 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
+         readOnly={freeze}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onBlur={date => {
@@ -235,6 +241,7 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          value={value?.PFD_FLD_VALUE}
          placeholder={PFD_HINT}
+         readOnly={freeze}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
           handleChangeValue(

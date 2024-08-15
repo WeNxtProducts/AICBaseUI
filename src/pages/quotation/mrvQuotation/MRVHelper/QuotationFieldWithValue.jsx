@@ -165,6 +165,7 @@ const QuotationFieldWithValue = ({
          options={lovData}
          firstFieldRef={firstFieldRef}
          format={PFD_DATA_TYPE}
+         readOnly={freeze}
          onBlur={(e, label) => {
           onBlurHandler(currentData, values, setFieldValue, e, label);
          }}
@@ -192,6 +193,7 @@ const QuotationFieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
+         readOnly={freeze}
          onBlur={date => {
           onBlurHandler(currentData, values, setFieldValue, date, '');
          }}
@@ -235,6 +237,7 @@ const QuotationFieldWithValue = ({
          value={value?.PFD_FLD_VALUE}
          placeholder={PFD_HINT}
          disabled={!PFD_EDIT_YN}
+         readOnly={freeze}
          onChange={e => {
           handleChangeValue(
            e.target.value,
