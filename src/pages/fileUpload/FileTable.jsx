@@ -7,7 +7,7 @@ import {
  readFileAsByteArray,
 } from '../../components/mediaHelper/MediaHelper';
 
-const FileTable = ({ files, onDelete, handleUpload }) => {
+const FileTable = ({ files, onDelete, handleUpload, handlePostFile }) => {
  const [selectedRows, setSelectedRows] = useState([]);
  const [fileData, setFileData] = useState([]);
 
@@ -16,9 +16,7 @@ const FileTable = ({ files, onDelete, handleUpload }) => {
   if (event.target.checked) {
    setSelectedRows(prevSelectedRows => [...prevSelectedRows, fileId]);
   } else {
-   setSelectedRows(prevSelectedRows =>
-    prevSelectedRows.filter(id => id !== fileId),
-   );
+   setSelectedRows(prevSelectedRows => prevSelectedRows.filter(id => id !== fileId));
   }
  };
 
@@ -45,12 +43,12 @@ const FileTable = ({ files, onDelete, handleUpload }) => {
 
  return (
   <div className=''>
-   <button
+   {/* <button
     onClick={() => {
      handleUpload(files);
     }}>
     upload
-   </button>
+   </button> */}
    {selectedRows.length > 0 && (
     <button
      className='delete-file mt-1'
@@ -66,7 +64,6 @@ const FileTable = ({ files, onDelete, handleUpload }) => {
        <th></th>
        <th>File Name</th>
        <th>Remarks</th>
-       {/* <th>DOCUMENT TYPE</th> */}
        <th>UPDATED BY</th>
        <th>UPDATED DATE</th>
        <th>Action</th>
@@ -74,7 +71,6 @@ const FileTable = ({ files, onDelete, handleUpload }) => {
      </thead>
      <tbody>
       {files.map((file, index) => {
-       //    console.log('file : ', file);
        return (
         <tr key={index}>
          <td>
@@ -105,32 +101,14 @@ const FileTable = ({ files, onDelete, handleUpload }) => {
            />
           </div>
          </td>
-         {/* <td>
-             <div className='table_lov'>
-              <CustomSelect
-               options={[]}
-               placeholder={'select'}
-               size='large'
-               showSearch={false}
-               // value={item?.Received}
-               onChange={e => {
-                console.log('e : ', e);
-                //  handleSelect(index, 'Received', e);
-               }}
-              />
-             </div>
-            </td> */}
          <td>PREMIA</td>
          <td>14-MAY-2023</td>
          <td>
           <Tooltip placement='top' title='Post'>
-           <SaveOutlined className='post-icon' />
+           <SaveOutlined className='post-icon' onClick={() => handlePostFile(index)} />
           </Tooltip>
           <Tooltip placement='top' title='View'>
-           <EyeOutlined
-            className='view-icon'
-            onClick={() => handleViewFile(index)}
-           />
+           <EyeOutlined className='view-icon' onClick={() => handleViewFile(index)} />
           </Tooltip>
           <Tooltip placement='top' title='Delete'>
            <DeleteOutlined className='delete-icon' />

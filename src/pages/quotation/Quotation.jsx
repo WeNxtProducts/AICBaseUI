@@ -32,6 +32,13 @@ const Quotation = () => {
   },
   POL_MODE_OF_PYMT: { H: '2', M: '12', Q: '4', S: '1', Y: '1' },
  };
+ const statusMap = {
+  S: { class: 'approved', text: 'Submitted' },
+  P: { class: 'partial', text: 'Partially Submitted' },
+  N: { class: 'pending', text: 'Not Submitted' },
+ };
+ const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
+  statusMap.S || {};
  const { id: stepperId } = { id: Number(useParams().id) };
  const dispatch = useDispatch();
  const navigate = useNavigate();
@@ -51,6 +58,7 @@ const Quotation = () => {
  const [dropDown, setDropDown] = useState(QuotationLov);
  const [proposalNumber, setProposalNumber] = useState('');
  const [successPopup, setSuccessPopup] = useState(false);
+ const [isPremCalc, setIsPremCalc] = useState(true);
 
  const handleSkipStep = index => {
   handleSkip(index);
@@ -119,6 +127,8 @@ const Quotation = () => {
   setProposalNumber,
   freeze,
   planCode,
+  isPremCalc,
+  setIsPremCalc,
  };
 
  const procedureCall = async () => {
@@ -149,7 +159,13 @@ const Quotation = () => {
    {loader && <Loader />}
    <div className='quotation'>
     {showUnderWriter ? (
-     <UnderWriterWorkBench fromQuotation={true} setShowUnderWriter={setShowUnderWriter} />
+     <UnderWriterWorkBench
+      fromQuotation={true}
+      setShowUnderWriter={setShowUnderWriter}
+      Id={id}
+      POL_NO={proposalNumber}
+      CustCode={formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE}
+     />
     ) : (
      <>
       <div className='stepper'>
@@ -160,12 +176,17 @@ const Quotation = () => {
        />
       </div>
 
-      <div
-       onClick={() => navigate('/quotationList')}
-       className='flex items-center mb-1 back-button-usercreation-decision'>
-       <i className='bi bi-arrow-left-short' />
-       <p>Back</p>
+      <div className='flex items-center justify-between mb-1 back-button-usercreation-decision'>
+       <div className='flex items-center'>
+        <i onClick={() => navigate('/quotationList')} className='bi bi-arrow-left-short' />
+        <p>Back</p>
+       </div>
+       <div>
+        <span className={`status_notify ${statusClass}`}>{statusText}</span>
+       </div>
       </div>
+
+      <Button onClick={() => setShowUnderWriter(true)}>UW</Button>
       <div className='main-screen mt-0'>
        <ProposalEntry />
        <div className='mt-3'>

@@ -5,6 +5,8 @@ import { CustomSelect } from '../../../../components/commonExportsFields/CommonE
 import { checkListValue } from '../../../../components/tableComponents/sampleData';
 import FileUpload from './../../../fileUpload/FileUpload';
 import './DetailsTable.scss';
+import useApiRequests from '../../../../services/useApiRequests';
+import showNotification from '../../../../components/notification/Notification';
 
 const DetailsTable = ({
  tableData = [],
@@ -14,6 +16,7 @@ const DetailsTable = ({
  Tran_Id,
  group_code,
 }) => {
+ const DMSFileUpload = useApiRequests('DMSFileUpload', 'POST');
  const [expandedRows, setExpandedRows] = useState('');
 
  const scrollToView = id => {
@@ -25,9 +28,13 @@ const DetailsTable = ({
 
  const handleUpload = async files => {
   try {
-   console.log('fileeee : ', files);
-  } catch (error) {
-   console.error('Error uploading files:', error);
+   const response = await DMSFileUpload(files);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    console.log('response : ', response);
+   }
+  } catch (err) {
+   showNotification.ERROR('Error uploading files');
   }
  };
 
@@ -110,8 +117,8 @@ const DetailsTable = ({
    {/* <th>Remarks</th> */}
    <th>Mandatory Y/N</th>
    <th>
-    <div>
-     <span>Status</span>
+    <div className='flex items-center justify-center'>
+     <span className='me-2'>Status</span>
      <Checkbox onClick={e => handleBulkFlag(e.target.checked)} />
     </div>
    </th>

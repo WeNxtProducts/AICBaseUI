@@ -9,6 +9,11 @@
  //  --select-field-width: 574px;
 }
 
+*,
+*::before,
+*::after {
+ box-sizing: border-box;
+}
 body {
  background-color: $app-bg-color;
 }

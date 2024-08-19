@@ -266,7 +266,8 @@ const POST_API_URL = {
   baseURL: 'CLAIMURL',
  },
  DMSFileUpload: {
-  //
+  url: '/dms/uploadMultiple',
+  baseURL: 'DOCPRINT',
  },
 };
 export default POST_API_URL;

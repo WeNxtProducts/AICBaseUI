@@ -103,7 +103,7 @@ const QuotationListing = () => {
       className='add-buttons'
       type='primary'
       icon={<i className='bi bi-plus icon-style' />}>
-      Add Quotation
+      Add Proposal
      </Button>
     </div>
    </div>

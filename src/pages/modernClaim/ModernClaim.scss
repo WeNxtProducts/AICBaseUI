@@ -1,6 +1,7 @@
 @import '../../styles/variable';
 // @import '../../styles/components/Quotation.scss';
 @import '../../components//modernTable/ModernTable.scss';
+@import '../../styles//components//StatusColors.scss';
 
 .modern_claim {
  .main-screen {
@@ -84,47 +85,6 @@
  }
  .ref_no_val {
   font-size: 14px;
-  .status_notify {
-   margin-left: 10px;
-   font-weight: 600;
-   font-size: 13px;
-   display: inline-block;
-   padding: 3px 15px;
-   border-radius: 20px;
-   position: relative;
-
-   &::before {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-   }
-  }
-  .approved {
-   background-color: #ecfdf3;
-   color: #037847;
-   &::before {
-    background-color: #14ba6d;
-   }
-  }
-  .pending {
-   background-color: #f2f4f7;
-   color: #6c778b;
-   &::before {
-    background-color: #6c778b;
-   }
-  }
-  .partial {
-   background-color: #fffbe6;
-   color: #ffc53d;
-   &::before {
-    background-color: #ffc53d;
-   }
-  }
  }
 
  .key_value_form {

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UWContext } from '../UnderWriterWorkBench';
 
 const HeaderUnderWriter = () => {
+ const { policyNumber } = useContext(UWContext);
+
  return (
   <div className='header-details flex items-center justify-between'>
    <p>
     <span>Product -</span> <span>Life insurance</span>
    </p>
    <p>
-    <span>Policy Number - </span> <span>P/100/23/0992/2000</span>
+    <span>Policy Number - </span> <span>{policyNumber}</span>
    </p>
   </div>
  );

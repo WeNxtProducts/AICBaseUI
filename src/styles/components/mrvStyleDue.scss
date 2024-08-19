@@ -123,5 +123,9 @@
     height: 17px;
    }
   }
+  .is_medical {
+   user-select: none;
+   cursor: not-allowed;
+  }
  }
 }

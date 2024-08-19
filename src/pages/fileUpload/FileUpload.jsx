@@ -1,10 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import FileTable from './FileTable';
-import {
- getFileFormat,
- readFileAsByteArray,
-} from '../../components/mediaHelper/MediaHelper';
+import { getFileFormat, readFileAsByteArray } from '../../components/mediaHelper/MediaHelper';
 import './FileUpload.scss';
 
 const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
@@ -22,7 +19,9 @@ const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
     TranId: Tran_Id,
     DocType: docType,
     replaceFlag: 'N',
-    dmsStatus: 'N',
+    dms_status: 'N',
+    uploadscrn: 'CHKLIS',
+    screenName: 'DMS',
    });
   }
   setFiles(prevFiles => [...prevFiles, ...filesByteArrays]);
@@ -39,20 +38,20 @@ const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
    'application/pdf': ['.pdf'],
    'application/msword': ['.doc'],
    'application/vnd.ms-excel': ['.xls'],
-   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
-    '.docx',
-   ],
-   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-    '.xlsx',
-   ],
+   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
    'message/rfc822': ['.eml'],
   },
  });
 
  const handleDeleteFiles = selectedFiles => {
-  setFiles(prevFiles =>
-   prevFiles.filter(file => !selectedFiles.includes(file.name)),
-  );
+  setFiles(prevFiles => prevFiles.filter(file => !selectedFiles.includes(file.name)));
+ };
+
+ const handlePostFile = index => {
+  const payload = [files[index]];
+  handleUpload(payload);
+  console.log('handlePostFile : ', payload);
  };
 
  return (
@@ -74,6 +73,7 @@ const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
     files={files}
     onDelete={handleDeleteFiles}
     handleUpload={handleUpload}
+    handlePostFile={handlePostFile}
    />
   </div>
  );

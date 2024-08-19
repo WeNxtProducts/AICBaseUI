@@ -1,42 +1,50 @@
-import React, { useState } from 'react';
-import { policyDetails } from '../../../components/tableComponents/sampleData';
+import React, { useContext, useEffect, useState } from 'react';
+import { UWContext } from '../UnderWriterWorkBench';
+import dayjs from 'dayjs';
 
 const OtherPolicies = () => {
+ const { tranId, proposalList, policyNumber, POL_NO, setPolicyNumber, setTranId } =
+  useContext(UWContext);
  const [currentIndex, setCurrentIndex] = useState(0);
 
+ useEffect(() => {
+  console.log('proposalList : ', proposalList, policyNumber, POL_NO);
+ }, []);
+
  const handleNext = () => {
-  console.log('handleNext');
   setCurrentIndex(currentIndex + 1);
  };
 
  const handlePrev = () => {
   setCurrentIndex(currentIndex - 1);
-  console.log('handlePrev');
+ };
+
+ const handleSetSelected = () => {
+  setTranId(proposalList[currentIndex]?.ID);
+  setPolicyNumber(proposalList[currentIndex]?.Policy_Number);
  };
 
  return (
   <div className='other_policies p-3'>
    <p>
-    Other Policies / Proposals <span className='counter'>06</span>
+    Other Policies / Proposals <span className='counter'>{proposalList?.length}</span>
    </p>
    <div className='details mt-4 grid grid-cols-12 gap-1'>
     <div className='col-span-1 flex items-center'>
      <i
-      className={`bi bi-chevron-left icon_arrow ${
-       currentIndex === 0 ? 'arrow_disabled' : ''
-      }`}
+      className={`bi bi-chevron-left icon_arrow ${currentIndex === 0 ? 'arrow_disabled' : ''}`}
       onClick={() => handlePrev()}
      />
     </div>
 
-    <div className='col-span-10'>
+    <div onClick={() => handleSetSelected()} className='col-span-10'>
      <>
       <div className='w-full flex mt-2'>
        <div className='w-3/5 flex items-center'>
         <p className='label-style ml-4'>S.No</p>
        </div>
        <div className='w-2/5 flex items-center'>
-        <p className='value-style'>{currentIndex + 1}</p>
+        <p className='value-style'>{proposalList[currentIndex]?.SNo || ''}</p>
        </div>
       </div>
      </>
@@ -47,20 +55,7 @@ const OtherPolicies = () => {
         <p className='label-style ml-4'>Policy Number</p>
        </div>
        <div className='w-2/5 flex items-center'>
-        <p className='value-style'>
-         {policyDetails[currentIndex].policy_number}
-        </p>
-       </div>
-      </div>
-     </>
-
-     <>
-      <div className='w-full flex mt-2'>
-       <div className='w-3/5 flex items-center'>
-        <p className='label-style ml-4'>Policy Number</p>
-       </div>
-       <div className='w-2/5 flex items-center'>
-        <p className='value-style'>{policyDetails[currentIndex].fc_sum}</p>
+        <p className='value-style'>{proposalList[currentIndex]?.Policy_Number || ''}</p>
        </div>
       </div>
      </>
@@ -71,7 +66,9 @@ const OtherPolicies = () => {
         <p className='label-style ml-4'>Policy Start Date</p>
        </div>
        <div className='w-2/5 flex items-center'>
-        <p className='value-style'>{policyDetails[currentIndex].start_date}</p>
+        <p className='value-style'>
+         {dayjs(proposalList[currentIndex]?.Start_Date).format('YYYY-MM-DD') || ''}
+        </p>
        </div>
       </div>
      </>
@@ -82,7 +79,7 @@ const OtherPolicies = () => {
         <p className='label-style ml-4'>Policy Status</p>
        </div>
        <div className='w-2/5 flex items-center'>
-        <p className='value-style'>{policyDetails[currentIndex].status}</p>
+        <p className='value-style'>{proposalList[currentIndex]?.Status || ''}</p>
        </div>
       </div>
      </>
@@ -91,7 +88,7 @@ const OtherPolicies = () => {
     <div className='col-span-1 flex items-center'>
      <i
       className={`bi bi-chevron-right icon_arrow ${
-       currentIndex === policyDetails?.length - 1 ? 'arrow_disabled' : ''
+       currentIndex === proposalList?.length - 1 ? 'arrow_disabled' : ''
       }`}
       onClick={() => handleNext()}
      />
