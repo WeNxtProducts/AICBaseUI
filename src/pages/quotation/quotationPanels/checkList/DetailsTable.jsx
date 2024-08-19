@@ -4,34 +4,57 @@ import { CloudUploadOutlined } from '@ant-design/icons';
 import { CustomSelect } from '../../../../components/commonExportsFields/CommonExportsFields';
 import { checkListValue } from '../../../../components/tableComponents/sampleData';
 import FileUpload from './../../../fileUpload/FileUpload';
-import './DetailsTable.scss';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
+import './DetailsTable.scss';
 
 const DetailsTable = ({
+ files,
+ setFiles,
  tableData = [],
  handleSelect,
  handleBulkFlag,
- //  handleUpload,
  Tran_Id,
  group_code,
+ handleGetMediaFiles,
 }) => {
  const DMSFileUpload = useApiRequests('DMSFileUpload', 'POST');
+ const DMSFileDelete = useApiRequests('DMSDelete', 'POST');
  const [expandedRows, setExpandedRows] = useState('');
 
- const scrollToView = id => {
-  const panel = document.querySelector(`[data-id='claim-row-expanded-${id}']`);
-  if (panel) {
-   panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+ const updateFileKeyAtIndex = (index, newValue) => {
+  setFiles(prevFiles => {
+   const updatedFiles = [...prevFiles];
+   const updatedFile = { ...updatedFiles[index], ...newValue };
+   //const { byteArray, ...updatedFile } = { ...updatedFiles[index], ...newValue };
+   updatedFiles[index] = updatedFile;
+   return updatedFiles;
+  });
+ };
+
+ const handleDelete = async payload => {
+  try {
+   const response = await DMSFileDelete(payload);
+   console.log('response : ', response);
+   if (response?.status === 'SUCCESS') {
+    handleGetMediaFiles();
+    return true;
+   } else if (response?.status === 'FAILURE') {
+    return false;
+   }
+  } catch (err) {
+   showNotification.ERROR('Error Deleting files');
   }
  };
 
- const handleUpload = async files => {
+ const handleUpload = async (files, index) => {
   try {
    const response = await DMSFileUpload(files);
-   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
-   if (response?.status === 'SUCCESS') {
-    console.log('response : ', response);
+   if (response?.overall[0]?.status === 'FAILURE')
+    showNotification.ERROR(response?.overall[0]?.status);
+   if (response?.overall[0]?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.overall[0]?.status_msg);
+    updateFileKeyAtIndex(index, response?.overall[0]?.Data);
    }
   } catch (err) {
    showNotification.ERROR('Error uploading files');
@@ -101,6 +124,9 @@ const DetailsTable = ({
         Tran_Id={Tran_Id}
         group_code={group_code}
         handleUpload={handleUpload}
+        handleDelete={handleDelete}
+        files={files}
+        setFiles={setFiles}
        />
       </div>
      </td>

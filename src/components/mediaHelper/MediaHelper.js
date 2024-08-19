@@ -57,7 +57,7 @@ export const handleFileDownloadOrView = file => {
  const url = URL.createObjectURL(blob);
 
  // Open in a new tab or trigger download
- if (isImage(file.filename) || isPDF(file.filename)) {
+ if (isImage(file?.filename) || isPDF(file?.filename)) {
   // Open in a new tab to view the image or PDF
   window.open(url, '_blank');
  } else {
@@ -71,5 +71,17 @@ export const handleFileDownloadOrView = file => {
  }
 
  // Clean up the URL object
+ URL.revokeObjectURL(url);
+};
+
+const handleDownload = (event, file) => {
+ event.preventDefault();
+ const url = URL.createObjectURL(file);
+ const link = document.createElement('a');
+ link.href = url;
+ link.download = file.name; // Ensures the file is downloaded
+ document.body.appendChild(link);
+ link.click();
+ document.body.removeChild(link);
  URL.revokeObjectURL(url);
 };

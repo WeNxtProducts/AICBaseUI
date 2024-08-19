@@ -8,13 +8,13 @@ import ListDetails from './ListDetails';
 import MRVListingQuotation from '../../mrvQuotation/MRVHelper/MRVListing';
 
 const Checklist = ({ tranId }) => {
- const { QuotationJSON, handleNext, proposalNumber } =
-  useContext(StepperContext);
+ const { QuotationJSON, handleNext, proposalNumber } = useContext(StepperContext);
  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const getChecklistDetails = useApiRequests('getPreClaimDate', 'POST');
  const [listItemData, setListItemData] = useState([]);
  const [editMRVId, setEditMRVId] = useState('');
+ const [files, setFiles] = useState([]);
 
  const MRVListing = () => {
   if (tranId) {
@@ -29,6 +29,21 @@ const Checklist = ({ tranId }) => {
   }
  }, [tranId]);
 
+ const handleGetMediaFiles = async () => {
+  try {
+   const response = await getChecklistDetails(
+    { queryParams: { tranId: proposalNumber } },
+    { queryId: 195 },
+   );
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    setFiles(response?.Data);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
  const handleEdit = async item => {
   setEditMRVId(item?.Group_Code);
   try {
@@ -36,9 +51,9 @@ const Checklist = ({ tranId }) => {
     { queryParams: { tranId, groupCode: item?.Group_Code } },
     { queryId: 155 },
    );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
+    handleGetMediaFiles();
     setListItemData(response?.Data);
    }
   } catch (err) {
@@ -61,6 +76,9 @@ const Checklist = ({ tranId }) => {
      selectedRow={editMRVId}
      Tran_Id={proposalNumber}
      group_code={editMRVId}
+     files={files}
+     setFiles={setFiles}
+     handleGetMediaFiles={handleGetMediaFiles}
     />
    </div>
    <div className='col-span-2 p-2 border_left_divider'>

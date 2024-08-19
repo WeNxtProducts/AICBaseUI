@@ -32,13 +32,13 @@ const Quotation = () => {
   },
   POL_MODE_OF_PYMT: { H: '2', M: '12', Q: '4', S: '1', Y: '1' },
  };
+
  const statusMap = {
   S: { class: 'approved', text: 'Submitted' },
   P: { class: 'partial', text: 'Partially Submitted' },
   N: { class: 'pending', text: 'Not Submitted' },
  };
- const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
-  statusMap.S || {};
+ const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } = statusMap.S || {};
  const { id: stepperId } = { id: Number(useParams().id) };
  const dispatch = useDispatch();
  const navigate = useNavigate();
@@ -177,8 +177,8 @@ const Quotation = () => {
       </div>
 
       <div className='flex items-center justify-between mb-1 back-button-usercreation-decision'>
-       <div className='flex items-center'>
-        <i onClick={() => navigate('/quotationList')} className='bi bi-arrow-left-short' />
+       <div onClick={() => navigate('/quotationList')} className='flex items-center'>
+        <i className='bi bi-arrow-left-short' />
         <p>Back</p>
        </div>
        <div>

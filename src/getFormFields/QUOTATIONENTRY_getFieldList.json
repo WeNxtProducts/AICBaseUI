@@ -1531,7 +1531,7 @@
     "PFD_FORM_ITEM_TYPE1": "FrontFormField",
     "PFD_COLUMN_NAME": "POL_SA_CURR_CODE",
     "PFD_TABLE_NAME": "LT_POLICY",
-    "PFD_DATA_TYPE": "text",
+    "PFD_DATA_TYPE": "lov",
     "PFD_SYS_ID": 0,
     "PFD_MINMAX_YN": false,
     "PFD_VALIDATION_ID": "1",

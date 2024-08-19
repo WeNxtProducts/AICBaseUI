@@ -6,62 +6,83 @@ import {
  handleFileDownloadOrView,
  readFileAsByteArray,
 } from '../../components/mediaHelper/MediaHelper';
+import useApiRequests from '../../services/useApiRequests';
+import showNotification from '../../components/notification/Notification';
 
-const FileTable = ({ files, onDelete, handleUpload, handlePostFile }) => {
+const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
+ const DMSFileView = useApiRequests('DMSView', 'POST');
  const [selectedRows, setSelectedRows] = useState([]);
- const [fileData, setFileData] = useState([]);
 
  const handleCheckboxChange = (event, file) => {
-  const fileId = file.name;
-  if (event.target.checked) {
+  const fileId = file?.filepath;
+  if (event?.target?.checked) {
    setSelectedRows(prevSelectedRows => [...prevSelectedRows, fileId]);
   } else {
    setSelectedRows(prevSelectedRows => prevSelectedRows.filter(id => id !== fileId));
   }
  };
 
- const handleDelete = () => {
-  onDelete(selectedRows);
-  setSelectedRows([]);
+ const handleDeleteSingle = async item => {
+  const payload = [{ path: item?.filepath, doc_sys_id: item?.doc_sys_id }];
+  const isDeleted = await onDelete(payload);
  };
 
- const handleDownload = (event, file) => {
-  event.preventDefault();
-  const url = URL.createObjectURL(file);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = file.name; // Ensures the file is downloaded
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+ const handleDelete = async () => {
+  const payload = selectedRows.reduce((acc, selectedRowPath) => {
+   const matchedFile = files.find(file => file.filepath === selectedRowPath);
+   if (matchedFile) {
+    acc.push({ doc_sys_id: matchedFile.doc_sys_id, path: matchedFile?.filepath });
+   }
+   return acc;
+  }, []);
+  const isDeleted = await onDelete(payload);
+  if (isDeleted) {
+   setSelectedRows([]);
+  }
+ };
+
+ const handleGetAndView = async item => {
+  const payload = [{ path: item?.filepath }];
+  try {
+   const response = await DMSFileView(payload);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    const updatedItem = { ...item, byteArray: response?.byteArray[0] };
+    handleFileDownloadOrView(updatedItem);
+    console.log('handleGetAndView : ', response?.byteArray[0]);
+   }
+  } catch (err) {
+   showNotification.ERROR('Error on Viewing file');
+  }
  };
 
  const handleViewFile = index => {
-  handleFileDownloadOrView(files[index]);
+  if (Object.prototype.hasOwnProperty.call(files[index], 'byteArray')) {
+   handleFileDownloadOrView(files[index]);
+  } else {
+   handleGetAndView(files[index]);
+  }
+ };
+
+ const removeBeforeFirstUnderscore = filename => {
+  //   const underscoreIndex = filename.indexOf('_');
+  //   return underscoreIndex !== -1 ? filename.slice(underscoreIndex + 1) : filename;
+  return filename;
  };
 
  return (
   <div className=''>
-   {/* <button
-    onClick={() => {
-     handleUpload(files);
-    }}>
-    upload
-   </button> */}
-   {selectedRows.length > 0 && (
-    <button
-     className='delete-file mt-1'
-     onClick={handleDelete}
-     disabled={selectedRows.length === 0}>
-     Delete Selected
-    </button>
-   )}
    <div className='upload_file_wrapper'>
     <table className='upload-file-table'>
      <thead>
       <tr>
-       <th></th>
+       <th>
+        {selectedRows.length === 0 ? null : (
+         <Tooltip placement='top' title='Delete Selected'>
+          <DeleteOutlined onClick={() => handleDelete()} className='delete-icon' />
+         </Tooltip>
+        )}
+       </th>
        <th>File Name</th>
        <th>Remarks</th>
        <th>UPDATED BY</th>
@@ -70,53 +91,59 @@ const FileTable = ({ files, onDelete, handleUpload, handlePostFile }) => {
       </tr>
      </thead>
      <tbody>
-      {files.map((file, index) => {
-       return (
-        <tr key={index}>
-         <td>
-          <Checkbox
-           checked={selectedRows.includes(file.name)}
-           onChange={event => handleCheckboxChange(event, file)}
-          />
-         </td>
-         <td>
-          <p className='file_name'>
-           {file?.filename}
-           {/* <span
+      {files?.map((file, index) => {
+       if (docType === file?.DocType) {
+        return (
+         <tr key={index}>
+          <td>
+           <Checkbox
+            checked={selectedRows.includes(file?.filepath)}
+            onChange={event => handleCheckboxChange(event, file)}
+           />
+          </td>
+          <td>
+           <p className='file_name'>
+            {removeBeforeFirstUnderscore(file?.filename)}
+            {/* <span
                className='download-link'
                onClick={event => handleDownload(event, file)}>
                Download
               </span> */}
-          </p>
-         </td>
-         <td>
-          <div className='table_textarea'>
-           <CustomTextArea
-            // value={item?.Remarks}
-            placeholder={'remarks'}
-            onChange={e => {
-             console.log('e.target.value : ', e.target.value);
-             //  handleSelect(index, 'Remarks', e.target.value);
-            }}
-           />
-          </div>
-         </td>
-         <td>PREMIA</td>
-         <td>14-MAY-2023</td>
-         <td>
-          <Tooltip placement='top' title='Post'>
-           <SaveOutlined className='post-icon' onClick={() => handlePostFile(index)} />
-          </Tooltip>
-          <Tooltip placement='top' title='View'>
-           <EyeOutlined className='view-icon' onClick={() => handleViewFile(index)} />
-          </Tooltip>
-          <Tooltip placement='top' title='Delete'>
-           <DeleteOutlined className='delete-icon' />
-          </Tooltip>
-          {/* <button onClick={() => onDelete([file.name])}>Delete</button> */}
-         </td>
-        </tr>
-       );
+           </p>
+          </td>
+          <td>
+           <div className='table_textarea'>
+            <CustomTextArea
+             // value={item?.Remarks}
+             placeholder={'remarks'}
+             onChange={e => {
+              console.log('e.target.value : ', e.target.value);
+              //  handleSelect(index, 'Remarks', e.target.value);
+             }}
+            />
+           </div>
+          </td>
+          <td>PREMIA</td>
+          <td>14-MAY-2023</td>
+          <td>
+           {file?.dms_status === 'N' && (
+            <Tooltip placement='top' title='Post'>
+             <SaveOutlined className='post-icon' onClick={() => handlePostFile(index)} />
+            </Tooltip>
+           )}
+           <Tooltip placement='top' title='View'>
+            <EyeOutlined className='view-icon' onClick={() => handleViewFile(index)} />
+           </Tooltip>
+           <Tooltip placement='top' title='Delete'>
+            <DeleteOutlined className='delete-icon' onClick={() => handleDeleteSingle(file)} />
+           </Tooltip>
+           {/* <button onClick={() => onDelete([file.name])}>Delete</button> */}
+          </td>
+         </tr>
+        );
+       } else {
+        return null;
+       }
       })}
      </tbody>
     </table>

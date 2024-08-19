@@ -10,12 +10,12 @@ const ListDetails = ({
  selectedRow,
  Tran_Id,
  group_code,
+ files,
+ setFiles,
+ handleGetMediaFiles,
 }) => {
  const updateFlag = useApiRequests('updateProposalChecklistFlag', 'POST');
- const updateFlagBulk = useApiRequests(
-  'updateProposalChecklistFlagBulk',
-  'POST',
- );
+ const updateFlagBulk = useApiRequests('updateProposalChecklistFlagBulk', 'POST');
  const [rowData, setRowData] = useState([]);
  const [openUpload, setOpenUpload] = useState(false);
 
@@ -32,8 +32,7 @@ const ListDetails = ({
 
   try {
    const response = await updateFlag('', {}, { id: item?.ID, flag: value });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     refreshData();
    }
@@ -50,8 +49,7 @@ const ListDetails = ({
   };
   try {
    const response = await updateFlagBulk('', {}, pathParams);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     showNotification.SUCCESS(response?.status_msg);
     refreshData();
@@ -81,6 +79,9 @@ const ListDetails = ({
       handleUpload={handleUpload}
       Tran_Id={Tran_Id}
       group_code={group_code}
+      files={files}
+      setFiles={setFiles}
+      handleGetMediaFiles={handleGetMediaFiles}
      />
     )}
    </div>

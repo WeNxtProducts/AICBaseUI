@@ -4,9 +4,24 @@ import FileTable from './FileTable';
 import { getFileFormat, readFileAsByteArray } from '../../components/mediaHelper/MediaHelper';
 import './FileUpload.scss';
 
-const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
- const [files, setFiles] = useState([]);
-
+const FileUpload = ({
+ files,
+ setFiles,
+ docType,
+ Tran_Id,
+ group_code,
+ handleUpload,
+ handleDelete,
+}) => {
+ const fileData = {
+  module: group_code,
+  TranId: Tran_Id,
+  DocType: docType,
+  replaceFlag: 'N',
+  dms_status: 'N',
+  uploadscrn: 'CHKLIS',
+  screenName: 'DMS',
+ };
  const onDrop = useCallback(async acceptedFiles => {
   const filesByteArrays = [];
   for (let file of acceptedFiles) {
@@ -15,16 +30,20 @@ const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
     filename: file.name,
     byteArray: byteArrayFormatted,
     genType: getFileFormat(file),
-    module: group_code,
-    TranId: Tran_Id,
-    DocType: docType,
-    replaceFlag: 'N',
-    dms_status: 'N',
-    uploadscrn: 'CHKLIS',
-    screenName: 'DMS',
+    ...fileData,
    });
   }
-  setFiles(prevFiles => [...prevFiles, ...filesByteArrays]);
+
+  setFiles(prevFiles => {
+   const validPrevFiles = Array.isArray(prevFiles) ? prevFiles : [];
+   console.log('[...validPrevFiles, ...filesByteArrays] : ', [
+    ...validPrevFiles,
+    ...filesByteArrays,
+   ]);
+   return [...validPrevFiles, ...filesByteArrays];
+  });
+
+  //   setFiles(prevFiles => [...prevFiles, ...filesByteArrays]);
  }, []);
 
  const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -44,13 +63,9 @@ const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
   },
  });
 
- const handleDeleteFiles = selectedFiles => {
-  setFiles(prevFiles => prevFiles.filter(file => !selectedFiles.includes(file.name)));
- };
-
  const handlePostFile = index => {
   const payload = [files[index]];
-  handleUpload(payload);
+  handleUpload(payload, index);
   console.log('handlePostFile : ', payload);
  };
 
@@ -69,12 +84,16 @@ const FileUpload = ({ docType, Tran_Id, group_code, handleUpload }) => {
      )}
     </div>
    </div>
-   <FileTable
-    files={files}
-    onDelete={handleDeleteFiles}
-    handleUpload={handleUpload}
-    handlePostFile={handlePostFile}
-   />
+   {files?.length > 0 && (
+    <FileTable
+     files={files}
+     onDelete={handleDelete}
+     handleUpload={handleUpload}
+     handlePostFile={handlePostFile}
+     docType={docType}
+     handleDelete={handleDelete}
+    />
+   )}
   </div>
  );
 };

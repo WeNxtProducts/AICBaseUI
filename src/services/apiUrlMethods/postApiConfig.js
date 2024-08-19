@@ -269,5 +269,14 @@ const POST_API_URL = {
   url: '/dms/uploadMultiple',
   baseURL: 'DOCPRINT',
  },
+ DMSView: {
+  url: '/dms/view',
+  baseURL: 'DOCPRINT',
+ },
+ DMSDelete: {
+  url: '/dms/delete',
+  baseURL: 'DOCPRINT',
+ },
 };
+
 export default POST_API_URL;
