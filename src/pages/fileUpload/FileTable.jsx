@@ -14,7 +14,7 @@ const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
  const [selectedRows, setSelectedRows] = useState([]);
 
  const handleCheckboxChange = (event, file) => {
-  const fileId = file?.filepath;
+  const fileId = file?.doc_sys_id;
   if (event?.target?.checked) {
    setSelectedRows(prevSelectedRows => [...prevSelectedRows, fileId]);
   } else {
@@ -23,18 +23,25 @@ const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
  };
 
  const handleDeleteSingle = async item => {
-  const payload = [{ path: item?.filepath, doc_sys_id: item?.doc_sys_id }];
+  const payload = {
+   doc_sys_id: [item?.doc_sys_id],
+  };
+  //   const payload = [{ path: item?.doc_sys_id, doc_sys_id: item?.doc_sys_id }];
   const isDeleted = await onDelete(payload);
  };
 
  const handleDelete = async () => {
-  const payload = selectedRows.reduce((acc, selectedRowPath) => {
-   const matchedFile = files.find(file => file.filepath === selectedRowPath);
-   if (matchedFile) {
-    acc.push({ doc_sys_id: matchedFile.doc_sys_id, path: matchedFile?.filepath });
-   }
-   return acc;
-  }, []);
+  const payload = {
+   doc_sys_id: selectedRows?.reduce((acc, selectedRowPath) => {
+    const matchedFile = files.find(
+     file => file.doc_sys_id === selectedRowPath && file.dms_status === 'Y',
+    );
+    if (matchedFile) {
+     acc.push(matchedFile.doc_sys_id);
+    }
+    return acc;
+   }, []),
+  };
   const isDeleted = await onDelete(payload);
   if (isDeleted) {
    setSelectedRows([]);
@@ -92,12 +99,12 @@ const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
      </thead>
      <tbody>
       {files?.map((file, index) => {
-       if (docType === file?.DocType) {
+       if (docType === file?.DocType && file?.dms_status !== 'D') {
         return (
          <tr key={index}>
           <td>
            <Checkbox
-            checked={selectedRows.includes(file?.filepath)}
+            checked={selectedRows.includes(file?.doc_sys_id)}
             onChange={event => handleCheckboxChange(event, file)}
            />
           </td>

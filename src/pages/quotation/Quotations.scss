@@ -1,5 +1,5 @@
 @import '../../styles/variable';
-@import '../../styles//components/StatusColors.scss';
+@import '../../styles/components/StatusColors.scss';
 
 @mixin btn-style($bg-color, $text-color, $border-color, $side) {
  background-color: $bg-color;
@@ -23,6 +23,7 @@
    background-color: #ffffff;
    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
    .propasal-entry-form {
+    user-select: none;
     padding: 5px;
     .header-font {
      color: #4d5e80;
@@ -112,6 +113,45 @@
    font-weight: 600;
    font-size: 16px;
    line-height: 24px;
+  }
+ }
+ .broker_agent {
+  .delete-button {
+   background-color: #d4504c;
+   color: white;
+   border: none;
+   padding: 5px 8px;
+   cursor: pointer;
+   border-radius: 8px;
+   &:hover {
+    background-color: #c0392b;
+   }
+  }
+  .add-buttons-broker {
+   background-color: #0382c8;
+   font-weight: 400;
+   padding: 2px 10px;
+   border-radius: 8px;
+   color: #ffffff;
+   .icon-style {
+    margin-right: 3px;
+    font-size: 18px;
+   }
+  }
+  .broker-submit-button-form {
+   .save {
+    background-color: #0382c8;
+    padding: 7px 30px;
+    border-radius: 8px;
+    color: #ffffff;
+   }
+   .next-btn {
+    border: 1px solid #0382c8;
+    background-color: #ffffff;
+    padding: 7px 50px;
+    border-radius: 8px;
+    color: #0382c8;
+   }
   }
  }
 }

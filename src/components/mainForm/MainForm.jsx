@@ -56,7 +56,7 @@ const MainForm = ({
      validationSchema={validation}
      onSubmit={onSubmit}
      enableReinitialize={true}>
-     {({ handleSubmit, values, setFieldValue, resetForm }) => {
+     {({ handleSubmit, values, setFieldValue, resetForm, touched, setFieldTouched }) => {
       // console.log('values : ', values);
 
       return (

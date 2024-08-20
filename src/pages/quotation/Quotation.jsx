@@ -186,7 +186,7 @@ const Quotation = () => {
        </div>
       </div>
 
-      <Button onClick={() => setShowUnderWriter(true)}>UW</Button>
+      {/* <Button onClick={() => setShowUnderWriter(true)}>UW</Button> */}
       <div className='main-screen mt-0'>
        <ProposalEntry />
        <div className='mt-3'>

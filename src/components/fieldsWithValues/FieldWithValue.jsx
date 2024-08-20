@@ -87,6 +87,7 @@ const FieldWithValue = ({
          readOnly={freeze}
          disabled={!PFD_EDIT_YN}
          onBlur={e => {
+          // e.target.focus()
           onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
          }}
          onChange={e => {

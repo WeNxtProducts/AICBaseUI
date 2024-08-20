@@ -274,7 +274,7 @@ const POST_API_URL = {
   baseURL: 'DOCPRINT',
  },
  DMSDelete: {
-  url: '/dms/delete',
+  url: '/dms/deleteFiles',
   baseURL: 'DOCPRINT',
  },
 };

@@ -7,6 +7,7 @@ import CheckList from './checkList/CheckList';
 import MrvQuotation from '../mrvQuotation/MrvQuotation';
 import showNotification from '../../../components/notification/Notification';
 import useApiRequests from '../../../services/useApiRequests';
+import BrokerAgent from './broker_Agent/BrokerAgent';
 
 const { Panel } = Collapse;
 
@@ -51,8 +52,7 @@ const QuotationPanels = () => {
    const response = await getPrimaryLifeAssuredId(payloadBene, {
     queryId: 156,
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setPrimaryLifeAssuredId(response?.Data[0]?.PEMP_TRAN_ID || '');
    }
@@ -72,8 +72,7 @@ const QuotationPanels = () => {
   }
  }, [currentStep]);
 
- const allStepsCompleted = () =>
-  stepperData.every(item => item.status === 'completed');
+ const allStepsCompleted = () => stepperData.every(item => item.status === 'completed');
 
  const callback = key => {
   const lastElement = key[key.length - 1];
@@ -113,9 +112,7 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(1)}
      data-id='panel-1'
-     header={
-      <CollapsePanelHeader name='Life Assured Details' saved={stepperData[1]} />
-     }
+     header={<CollapsePanelHeader name='Life Assured Details' saved={stepperData[1]} />}
      key={1}>
      <MrvQuotation
       queryID='getLifeAssuredDetails'
@@ -152,20 +149,24 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(3)}
      data-id='panel-3'
-     header={
-      <CollapsePanelHeader
-       name='Chargs/Discount-loading/Conditions'
-       saved={stepperData[3]}
-      />
-     }
+     header={<CollapsePanelHeader name='Broker/Agent' saved={stepperData[3]} />}
      key={3}>
-     <ChargsDisLoadConditions tranId={tranId} />
+     <BrokerAgent />
     </Panel>
     <Panel
      className={determinePanelClassName(4)}
      data-id='panel-4'
-     header={<CollapsePanelHeader name='Checklist' saved={stepperData[4]} />}
+     header={
+      <CollapsePanelHeader name='Chargs/Discount-loading/Conditions' saved={stepperData[4]} />
+     }
      key={4}>
+     <ChargsDisLoadConditions tranId={tranId} />
+    </Panel>
+    <Panel
+     className={determinePanelClassName(5)}
+     data-id='panel-5'
+     header={<CollapsePanelHeader name='Checklist' saved={stepperData[5]} />}
+     key={5}>
      <CheckList tranId={tranId} />
     </Panel>
    </Collapse>

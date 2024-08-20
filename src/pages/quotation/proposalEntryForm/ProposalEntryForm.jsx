@@ -13,6 +13,8 @@ import utc from 'dayjs/plugin/utc';
 import { useSelector } from 'react-redux';
 import useParamLov from '../../../components/useParamLov/useParamLov';
 import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import ErrorLog from '../../../components/errorLog/ErrorLog';
 
 dayjs.extend(utc);
 
@@ -131,7 +133,10 @@ const ProposalEntryForm = () => {
    });
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
-   } else if (response?.status === 'SUCCESS') handleNext();
+   } else if (response?.status === 'SUCCESS') {
+    setProposalNumber(response?.Data?.P_POL_NO || '');
+    handleNext();
+   }
    setLoader(false);
   } catch (err) {
    setLoader(false);
@@ -157,7 +162,7 @@ const ProposalEntryForm = () => {
    }
    if (response?.status === 'SUCCESS') {
     if (!tranId) {
-     setProposalNumber(response?.Data?.PROPOSAL_NO || '');
+     //  setProposalNumber(response?.Data?.PROPOSAL_NO || '');
      dispatch(setCurrentID(response?.Data?.Id));
      procedureCall(response?.Data);
     } else if (tranId) {
@@ -292,9 +297,12 @@ const ProposalEntryForm = () => {
  return (
   <div>
    {loader && <Loader />}
-   <div className='flex items-center pl-1'>
-    <p className='header-font'>{`Proposal Entry`}</p>
-    {proposalNumber && <p className='pol-number ml-10'>{`${proposalNumber}`}</p>}
+   <div className='flex items-center justify-between pl-1'>
+    <div className='flex items-center'>
+     <p className='header-font'>{`Proposal Entry`}</p>
+     {proposalNumber && <p className='pol-number mt-1 ml-10'>{`${proposalNumber}`}</p>}
+    </div>
+    <ErrorLog />
    </div>
    {proposalEntry !== null && (
     <div className='mt-3 mb-5'>

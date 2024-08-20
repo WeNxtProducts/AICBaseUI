@@ -34,7 +34,10 @@ const CustomInput = ({
     name={name}
     type='text'
     ref={firstFieldRef}
-    onBlur={e => onBlur(e)}
+    onBlur={e => {
+     onBlur(e);
+     //  e.target.focus()
+    }}
     readOnly={readOnly}
     className='custom-form-fields'
     placeholder={placeholder}

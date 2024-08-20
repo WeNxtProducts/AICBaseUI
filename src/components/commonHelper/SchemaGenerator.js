@@ -59,14 +59,22 @@ export const generateMRVValidationSchema = formFields => {
  for (let field in formFields) {
   let fieldValidation = Yup.string();
   if (formFields[field].PFD_MANDATORY_YN) {
-   fieldValidation = fieldValidation.required(
-    `${formFields[field]?.PFD_FLD_NAME} is required`,
-   );
+   fieldValidation = fieldValidation.required(`${formFields[field]?.PFD_FLD_NAME} is required`);
   }
   validation[field] = fieldValidation;
  }
  return Yup.object().shape(validation);
 };
+
+const brokerSchema = Yup.object().shape({
+ broker_code: Yup.string().required('Agent Code is required'),
+ percentage: Yup.number()
+  .required('Percentage is required')
+  .min(0, 'Percentage must be at least 0')
+  .max(100, 'Percentage cannot exceed 100'),
+});
+
+export const brokerValidationSchema = Yup.array().of(brokerSchema);
 
 // formFieldsSchema.validate(data.formFields)
 //   .then(valid => console.log("Valid"))

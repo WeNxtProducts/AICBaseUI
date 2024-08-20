@@ -671,8 +671,9 @@ export const proposalStepper = [
  { key: 0, title: 'Proposal Entry', status: 'inprogress' },
  { key: 1, title: 'Life Assured Details', status: 'todo' },
  { key: 2, title: 'Beneficiary', status: 'todo' },
- { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
- { key: 4, title: 'Checklist', status: 'todo' },
+ { key: 3, title: 'Broker/Agent', status: 'todo' },
+ { key: 4, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
+ { key: 5, title: 'Checklist', status: 'todo' },
 ];
 
 export const PDFdata = [
@@ -1285,8 +1286,7 @@ export const policyList = [
  },
 ];
 
-export const colHeader =
- '{"dueDats":"Due Dates","code":"Code","amount":"Amount"}';
+export const colHeader = '{"dueDats":"Due Dates","code":"Code","amount":"Amount"}';
 
 export const dueDates = [
  {

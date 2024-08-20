@@ -58,8 +58,10 @@ const MrvQuotation = ({
  const [modalType, setModalType] = useState('');
 
  const nextStep = () => {
-  if (root !== 'life_assured_details') handleNext();
-  else if (root === 'life_assured_details') {
+  if (root !== 'life_assured_details') {
+   console.log('next : ', root);
+   handleNext();
+  } else if (root === 'life_assured_details') {
    if (hasValidRowData(rowData)) {
     const hasMemberTypeP = rowData.some(item => item.Member_Type === 'P');
     if (hasMemberTypeP) handleNext();

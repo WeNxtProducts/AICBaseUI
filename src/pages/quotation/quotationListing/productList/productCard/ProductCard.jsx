@@ -41,7 +41,7 @@ const ProductCard = ({ value, onSelect }) => {
      <p className='card-title'>{label}</p>
      {actionIcons(false)}
      <div className='mt-2 flex justify-center'>
-      <Button className='get-quote-btn'>Get Policy</Button>
+      <Button className='get-quote-btn'>Get Proposal</Button>
      </div>
     </div>
    </div>
@@ -56,7 +56,7 @@ const ProductCard = ({ value, onSelect }) => {
      <div className='lower-level'>
       {actionIcons(true)}
       <div className='mt-2 flex justify-center'>
-       <Button className='get-quote-btn'>Get Policy</Button>
+       <Button className='get-quote-btn'>Get Proposal</Button>
       </div>
      </div>
     </div>
