@@ -28,7 +28,7 @@ const UnderWriterWorkBench = ({
  const [proposalList, setProposalList] = useState([]);
  const [policyNumber, setPolicyNumber] = useState('');
  const [tranId, setTranId] = useState('');
- const [personalDetails, setPersonalDetails] = useState(null);
+ const [policyDetails, setPolicyDetails] = useState(null);
 
  const handleGetProposalList = async () => {
   try {
@@ -58,8 +58,7 @@ const UnderWriterWorkBench = ({
    const response = await getMapQuery({ queryParams: { POL_NO: policyNumber } }, { queryId: 162 });
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    console.log('policyNumber : ', policyNumber);
-    console.log('handlePersonalDetails : ', response?.Data);
+    setPolicyDetails(response?.Data[0]);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -70,7 +69,16 @@ const UnderWriterWorkBench = ({
   if (policyNumber && tranId) handlePersonalDetails();
  }, [policyNumber]);
 
- const data = { tranId, POL_NO, policyNumber, proposalList, setPolicyNumber, setTranId };
+ const data = {
+  tranId,
+  POL_NO,
+  policyNumber,
+  proposalList,
+  setPolicyNumber,
+  setTranId,
+  policyDetails,
+ };
+
  return (
   <UWContext.Provider value={data}>
    {proposalList?.length > 0 && (
@@ -84,19 +92,18 @@ const UnderWriterWorkBench = ({
       </div>
      )}
      <HeaderUnderWriter />
-     <PersonalDetailsUnderWriter />
-     <div className='premium_policies mt-4'>
-      <PremiumDetails />
-      <OtherPolicies />
-     </div>
-     <Coverage fromPremCalc={fromPremCalc} />
-
      <div className='historyBox grid grid-cols-12 mt-5'>
       <div className='col-span-2 title'>Policy Status</div>
       <div className='historySlider col-span-10'>
        <HistorySlider items={historyitems} />
       </div>
      </div>
+     {policyDetails !== null && <PersonalDetailsUnderWriter />}
+     <div className='premium_policies mt-4'>
+      {policyDetails !== null && <PremiumDetails />}
+      <OtherPolicies />
+     </div>
+     {policyDetails !== null && <Coverage fromPremCalc={fromPremCalc} />}
 
      {!fromPremCalc ? (
       // <DecisionBox />

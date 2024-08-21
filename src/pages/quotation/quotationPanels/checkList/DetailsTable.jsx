@@ -50,11 +50,11 @@ const DetailsTable = ({
  const handleUpload = async (files, index) => {
   try {
    const response = await DMSFileUpload(files);
-   if (response?.overall[0]?.status === 'FAILURE')
-    showNotification.ERROR(response?.overall[0]?.status);
-   if (response?.overall[0]?.status === 'SUCCESS') {
-    showNotification.SUCCESS(response?.overall[0]?.status_msg);
-    updateFileKeyAtIndex(index, response?.overall[0]?.Data);
+   if (response?.Overall[0]?.status === 'FAILURE')
+    showNotification.ERROR(response?.Overall[0]?.status);
+   if (response?.Overall[0]?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.Overall[0]?.status_msg);
+    updateFileKeyAtIndex(index, response?.Overall[0]?.Data);
    }
   } catch (err) {
    showNotification.ERROR('Error uploading files');

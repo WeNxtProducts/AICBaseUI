@@ -7,10 +7,6 @@ const OtherPolicies = () => {
   useContext(UWContext);
  const [currentIndex, setCurrentIndex] = useState(0);
 
- useEffect(() => {
-  console.log('proposalList : ', proposalList, policyNumber, POL_NO);
- }, []);
-
  const handleNext = () => {
   setCurrentIndex(currentIndex + 1);
  };

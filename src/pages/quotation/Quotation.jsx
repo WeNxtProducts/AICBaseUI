@@ -33,18 +33,21 @@ const Quotation = () => {
   POL_MODE_OF_PYMT: { H: '2', M: '12', Q: '4', S: '1', Y: '1' },
  };
 
+ const [policyStatus, setPolicyStatus] = useState(false);
  const statusMap = {
   S: { class: 'approved', text: 'Submitted' },
   P: { class: 'partial', text: 'Partially Submitted' },
   N: { class: 'pending', text: 'Not Submitted' },
  };
- const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } = statusMap.S || {};
+ const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
+  statusMap[policyStatus ? 'S' : 'N'] || {};
  const { id: stepperId } = { id: Number(useParams().id) };
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const updateProposalStepperStatus = useApiRequests('updateProposalStepperStatus', 'POST');
  const updateProposalFreezeStatus = useApiRequests('updateProposalFreezeStatus', 'POST');
+ const policySubmit = useApiRequests('policySubmit', 'POST');
  const [lastUpdatedStep, setLastUpdatedStep] = useState(0);
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip, getNextKey } =
   useStepper(proposalStepper, stepperId);
@@ -129,6 +132,8 @@ const Quotation = () => {
   planCode,
   isPremCalc,
   setIsPremCalc,
+  setPolicyStatus,
+  policyStatus,
  };
 
  const procedureCall = async () => {
@@ -152,6 +157,20 @@ const Quotation = () => {
 
  const handleClose = () => {
   setSuccessPopup(false);
+ };
+
+ const handlePolicySubmit = async () => {
+  try {
+   const response = await policySubmit('', { tranId: id });
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    setPolicyStatus(true);
+    showNotification.SUCCESS(response?.status_msg);
+   }
+  } catch (err) {
+   //console.log('err : ', err);
+  }
  };
 
  return (
@@ -186,7 +205,7 @@ const Quotation = () => {
        </div>
       </div>
 
-      {/* <Button onClick={() => setShowUnderWriter(true)}>UW</Button> */}
+      <Button onClick={() => setShowUnderWriter(true)}>UW</Button>
       <div className='main-screen mt-0'>
        <ProposalEntry />
        <div className='mt-3'>
@@ -203,7 +222,13 @@ const Quotation = () => {
          <Button disabled={!freeze} className='prem_btn' onClick={() => procedureCall()}>
           Prem Calc
          </Button>
-         <Button disabled={!freeze} className='sub_btn' onClick={() => setSuccessPopup(true)}>
+         <Button
+          disabled={!freeze}
+          className='sub_btn'
+          onClick={() => {
+           handlePolicySubmit();
+           //setSuccessPopup(true);
+          }}>
           Submit
          </Button>
         </div>

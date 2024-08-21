@@ -1,4 +1,5 @@
-.MRV_card {
+.MRV_card,
+.MRV_card_Coverage {
  width: 98%;
  margin: 0 auto;
  max-height: 400px;
@@ -11,10 +12,16 @@
   gap: 10px;
  }
 
+ .mrv_title_name {
+  color: #ffffff;
+  margin-left: 10px;
+  font-size: 15px;
+ }
+
  .list_card,
  .list_card_highlighted_row {
   user-select: none;
-  //   padding: 0px 0px 10px 0px;
+  //padding: 0px 0px 10px 0px;
   padding: 0px 0px 0px 0px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
   max-width: 97%;

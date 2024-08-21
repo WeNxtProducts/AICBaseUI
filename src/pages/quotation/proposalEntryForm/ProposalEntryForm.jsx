@@ -32,6 +32,8 @@ const ProposalEntryForm = () => {
   freeze,
   planCode,
   rules,
+  setPolicyStatus,
+  policyStatus,
  } = useContext(StepperContext);
  const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const { onSearch } = useParamLov();
@@ -53,31 +55,47 @@ const ProposalEntryForm = () => {
   const orderedData = sortObjectByPFDSeqNo(value);
   if (!tranId) {
    if (orderedData?.frontForm?.formFields?.POL_UW_YEAR) {
-    const updatedState = changeState(orderedData, 'POL_UW_YEAR', 'PFD_FLD_VALUE', dayjs()?.year());
+    let updatedState = changeState(orderedData, 'POL_UW_YEAR', 'PFD_FLD_VALUE', dayjs()?.year());
+    if (orderedData?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE === '075') {
+     updatedState = changeState(updatedState, 'POL_AGENT_CODE', 'PFD_MANDATORY_YN', true);
+     updatedState = changeState(updatedState, 'POL_AGENT_COMM_BASIS', 'PFD_MANDATORY_YN', true);
+    }
     dataAssign(updatedState);
    }
   } else if (tranId) {
-   const { POL_ASSR_CODE, POL_ASSURED_NAME, POL_CUST_NAME, POL_CUST_CODE, POL_ASSR_CUST_FLAG } =
-    orderedData.frontForm.formFields;
+   const {
+    POL_ASSR_CODE,
+    POL_ASSURED_NAME,
+    POL_CUST_NAME,
+    POL_CUST_CODE,
+    POL_ASSR_CUST_FLAG,
+    POL_SRC_OF_BUS,
+    POL_AGENT_COMM_BASIS,
+   } = orderedData.frontForm.formFields;
    const flag = POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
    let updatedState = orderedData;
-   if (!flag) {
-    const newState = {
-     ...orderedData,
-     frontForm: {
-      ...orderedData.frontForm,
-      formFields: {
-       ...orderedData.frontForm.formFields,
-       POL_ASSR_CODE: {
-        ...orderedData.frontForm.formFields.POL_ASSR_CODE,
-        PFD_MANDATORY_YN: true,
-        PFD_EDIT_YN: true,
-       },
+   updatedState = {
+    ...orderedData,
+    frontForm: {
+     ...orderedData.frontForm,
+     formFields: {
+      ...orderedData.frontForm.formFields,
+      POL_ASSR_CODE: {
+       ...orderedData.frontForm.formFields.POL_ASSR_CODE,
+       PFD_MANDATORY_YN: !flag,
+       PFD_EDIT_YN: !flag,
+      },
+      POL_AGENT_CODE: {
+       ...orderedData.frontForm.formFields.POL_AGENT_CODE,
+       PFD_MANDATORY_YN: POL_SRC_OF_BUS?.PFD_FLD_VALUE === '075',
+      },
+      POL_AGENT_COMM_BASIS: {
+       ...orderedData.frontForm.formFields.POL_AGENT_COMM_BASIS,
+       PFD_MANDATORY_YN: POL_SRC_OF_BUS?.PFD_FLD_VALUE === '075',
       },
      },
-    };
-    updatedState = newState;
-   }
+    },
+   };
    setDropDown(prev => ({
     ...prev,
     POL_ASSR_CODE: [
@@ -100,6 +118,7 @@ const ProposalEntryForm = () => {
    const response = await getQuotation('', queryParams);
    if (response?.status === 'SUCCESS') {
     setProposalNumber(response?.PROPOSAL_NO);
+    setPolicyStatus(response?.POL_WF_STS === 'Y');
     handleStateInit(response?.Data);
    } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
@@ -242,8 +261,8 @@ const ProposalEntryForm = () => {
 
   if (key === 'POL_ASSR_CUST_FLAG') {
    const flag = values?.frontForm?.formFields?.POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
-   const updatedEdit = changeState(proposalEntry, 'POL_ASSR_CODE', 'PFD_EDIT_YN', !flag);
-   const updatedState = changeState(updatedEdit, 'POL_ASSR_CODE', 'PFD_MANDATORY_YN', !flag);
+   let updatedState = changeState(proposalEntry, 'POL_ASSR_CODE', 'PFD_EDIT_YN', !flag);
+   updatedState = changeState(updatedState, 'POL_ASSR_CODE', 'PFD_MANDATORY_YN', !flag);
    setProposalEntry(updatedState);
    if (flag) {
     handleCust_code(values, setFieldValue);
@@ -260,13 +279,9 @@ const ProposalEntryForm = () => {
   }
 
   if (key === 'POL_SRC_OF_BUS') {
-   const srcId = Number(values?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE);
-   const updatedState = changeState(
-    proposalEntry,
-    'POL_AGENT_CODE',
-    'PFD_MANDATORY_YN',
-    srcId === 75,
-   );
+   const srcId = Number(values?.frontForm?.formFields?.POL_SRC_OF_BUS?.PFD_FLD_VALUE) === 75;
+   let updatedState = changeState(proposalEntry, 'POL_AGENT_CODE', 'PFD_MANDATORY_YN', srcId);
+   updatedState = changeState(updatedState, 'POL_AGENT_COMM_BASIS', 'PFD_MANDATORY_YN', srcId);
    setProposalEntry(updatedState);
   }
 

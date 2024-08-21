@@ -277,6 +277,14 @@ const POST_API_URL = {
   url: '/dms/deleteFiles',
   baseURL: 'DOCPRINT',
  },
+ getBrokerList: {
+  url: '/polBroker/getPolBrokerByid',
+  baseURL: 'CLAIMURL',
+ },
+ policySubmit: {
+  url: '/policy/onSubmit',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default POST_API_URL;

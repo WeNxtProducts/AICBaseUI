@@ -74,7 +74,7 @@ const Checklist = ({ tranId }) => {
      tranId={tranId}
      refreshData={refreshData}
      selectedRow={editMRVId}
-     Tran_Id={proposalNumber} //proposalNumber
+     Tran_Id={proposalNumber}
      group_code={editMRVId}
      files={files}
      setFiles={setFiles}

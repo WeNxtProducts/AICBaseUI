@@ -4,9 +4,7 @@ import './CustomAccordion.scss';
 const CustomAccordion = ({ title, content, isOpen, toggleAccordion }) => {
  return (
   <div className='accordion'>
-   <button
-    className={`accordion-header ${isOpen ? 'active' : ''}`}
-    onClick={toggleAccordion}>
+   <button className={`accordion-header ${isOpen ? 'active' : ''}`} onClick={toggleAccordion}>
     <div className='flex items-center justify-between'>
      <div className='acc-title'>{title}</div>
      <div>
@@ -21,6 +19,7 @@ const CustomAccordion = ({ title, content, isOpen, toggleAccordion }) => {
    <div
     className='accordion-content'
     style={{
+     minHeight: isOpen ? '100px' : '0',
      maxHeight: isOpen ? '500px' : '0',
     }}>
     <div className='accordion-content-inner'>{content}</div>

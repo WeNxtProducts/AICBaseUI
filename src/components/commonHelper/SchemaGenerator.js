@@ -66,15 +66,21 @@ export const generateMRVValidationSchema = formFields => {
  return Yup.object().shape(validation);
 };
 
-const brokerSchema = Yup.object().shape({
- broker_code: Yup.string().required('Agent Code is required'),
- percentage: Yup.number()
+const formFieldsSchema = Yup.object().shape({
+ PBRK_BRK_CODE: Yup.string().required('Agent Code is required'),
+ PBRK_BRK_PERC: Yup.number()
   .required('Percentage is required')
   .min(0, 'Percentage must be at least 0')
   .max(100, 'Percentage cannot exceed 100'),
 });
 
-export const brokerValidationSchema = Yup.array().of(brokerSchema);
+const brokerDetailSchema = Yup.object().shape({
+ formFields: formFieldsSchema,
+});
+
+export const brokerValidationSchema = Yup.object().shape({
+ polBrokerDetails: Yup.array().of(brokerDetailSchema),
+});
 
 // formFieldsSchema.validate(data.formFields)
 //   .then(valid => console.log("Valid"))
