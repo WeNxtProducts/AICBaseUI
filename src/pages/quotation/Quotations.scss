@@ -170,3 +170,57 @@
   color: #0382c8;
  }
 }
+
+.premium-log-popover {
+ .ant-popover-inner {
+  padding: 0px;
+  min-height: 200px;
+  border-radius: 9px;
+  border: 1px solid #59af34;
+ }
+ .ant-popover-arrow {
+  &::before {
+   background-color: #59af34;
+  }
+ }
+ .premium_popover_content {
+  width: 350px;
+
+  .premium_title {
+   height: 30px;
+   border-radius: 8px 8px 0 0;
+   background-color: #f6ffed;
+
+   .premium_calc {
+    margin-left: 7px;
+    font-size: 14px;
+    color: #4d5e80;
+    font-weight: 600;
+   }
+  }
+  .details {
+   margin: auto;
+   padding: 0 0 10px 20px;
+  }
+  .fc_lc-style {
+   color: #4d5e80;
+   font-weight: 600;
+   font-size: 14px;
+   // text-align: center;
+   // padding-left: 6px;
+  }
+  .label-style {
+   color: #4d5e80;
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 20px;
+  }
+  .value-style {
+   font-family: Montserrat;
+   color: #4d5e80;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 20px;
+  }
+ }
+}

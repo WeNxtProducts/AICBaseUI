@@ -1,25 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { StepperContext } from '../../Quotation';
+import React, { useEffect, useState } from 'react';
+// import { StepperContext } from '../../Quotation';
 import useMRVListing from '../../../../components/mrvListing/useMRVListing';
 import useApiRequests from '../../../../services/useApiRequests';
-import { getQueryId } from '../../../../components/commonHelper/QueryIdFetch';
+// import { getQueryId } from '../../../../components/commonHelper/QueryIdFetch';
 import showNotification from '../../../../components/notification/Notification';
 import ListDetails from './ListDetails';
 import MRVListingQuotation from '../../mrvQuotation/MRVHelper/MRVListing';
 
-const Checklist = ({ tranId }) => {
- const { QuotationJSON, handleNext, proposalNumber } = useContext(StepperContext);
- const { mrvListingId } = QuotationJSON;
+const Checklist = ({ tranId, proposalNumber, queryID, freeze }) => {
+ //  const { QuotationJSON } = useContext(StepperContext);
+ //  const { mrvListingId } = QuotationJSON;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const getChecklistDetails = useApiRequests('getPreClaimDate', 'POST');
  const [listItemData, setListItemData] = useState([]);
  const [editMRVId, setEditMRVId] = useState('');
  const [files, setFiles] = useState([]);
+ const [first, setFirst] = useState(true);
 
  const MRVListing = () => {
   if (tranId) {
-   const queryId = getQueryId('getCheckListList', mrvListingId);
-   handleMRVListing(queryId, tranId);
+   //const queryId = getQueryId('getCheckListList', mrvListingId);
+   handleMRVListing(queryID, tranId);
   }
  };
 
@@ -28,6 +29,13 @@ const Checklist = ({ tranId }) => {
    MRVListing();
   }
  }, [tranId]);
+
+ useEffect(() => {
+  if (first && rowData?.length > 0) {
+   handleEdit(rowData[0]);
+   setFirst(false);
+  }
+ }, [rowData]);
 
  const handleGetMediaFiles = async () => {
   try {
@@ -79,6 +87,7 @@ const Checklist = ({ tranId }) => {
      files={files}
      setFiles={setFiles}
      handleGetMediaFiles={handleGetMediaFiles}
+     freeze={freeze}
     />
    </div>
    <div className='col-span-2 p-2 border_left_divider'>
@@ -87,6 +96,7 @@ const Checklist = ({ tranId }) => {
       tableColumn={columnData}
       tableData={rowData}
       handleEdit={handleEdit}
+      freeze={freeze}
       //handleDelete={handleDelete}
       //selectedRow={editMRVId}
       selectedRow={editMRVId}

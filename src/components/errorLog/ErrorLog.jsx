@@ -4,14 +4,19 @@ import { Popover } from 'antd';
 import ErrorContent from './ErrorContent';
 import './ErrorLog.scss';
 
-const ErrorLog = ({ name }) => {
+const ErrorLog = ({
+ children,
+ classNamePopOver = 'error-log-popover',
+ classNameText = 'error-log-status',
+ tagName = 'Error',
+}) => {
  return (
-  <div className='error-log-status flex mr-5'>
+  <div className={`${classNameText} flex mr-5`}>
    <p>
-    Error
+    {tagName}
     <Popover
-     overlayClassName='error-log-popover'
-     content={<ErrorContent name={name} />}
+     overlayClassName={classNamePopOver}
+     content={children}
      //  open={true}
      trigger='hover'>
      <InfoCircleOutlined className='info-icon' />

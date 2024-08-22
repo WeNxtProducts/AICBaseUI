@@ -12,7 +12,7 @@ const persistConfig = {
    out: state => decrypt(state),
   },
  ],
- whitelist: ['menuSelected', 'tokenAndMenuList', 'id'],
+ whitelist: ['menuSelected', 'tokenAndMenuList', 'id', 'UWId'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

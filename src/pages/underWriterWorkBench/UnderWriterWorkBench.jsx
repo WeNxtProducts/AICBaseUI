@@ -4,26 +4,19 @@ import HeaderUnderWriter from './headerUnderWriter/HeaderUnderWriter';
 import PremiumDetails from './premiumDetails/PremiumDetails';
 import OtherPolicies from './otherPolicies/OtherPolicies';
 import Coverage from './coverage/Coverage';
-import DecisionBox from './decisionBox/DecisionBox';
-import { Button } from 'antd';
 import HistorySlider from '../../components/historySlider/HistorySlider';
 import { historyitems } from '../../components/tableComponents/sampleData';
-import './UnderWriterWorkBench.scss';
 import DecisionDetails from './decisionBox/DecisionDetails';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
+import { useSelector } from 'react-redux';
+import './UnderWriterWorkBench.scss';
 
 export const UWContext = createContext();
 
-const UnderWriterWorkBench = ({
- fromQuotation = false,
- fromPremCalc = false,
- setShowUnderWriter,
- onClose,
- Id,
- POL_NO,
- CustCode,
-}) => {
+const UnderWriterWorkBench = () => {
+ const POL_NO = useSelector(state => state?.UWId?.POL_NO);
+ const CustCode = useSelector(state => state?.UWId?.CustCode);
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const [proposalList, setProposalList] = useState([]);
  const [policyNumber, setPolicyNumber] = useState('');
@@ -83,14 +76,6 @@ const UnderWriterWorkBench = ({
   <UWContext.Provider value={data}>
    {proposalList?.length > 0 && (
     <div className='under-writer-workbench pl-5 pr-5 pt-3 pb-2'>
-     {fromQuotation && (
-      <div
-       onClick={() => setShowUnderWriter(false)}
-       className='flex items-center mb-2 back-button-uw-decision'>
-       <i className='bi bi-arrow-left-short' />
-       <p>Back</p>
-      </div>
-     )}
      <HeaderUnderWriter />
      <div className='historyBox grid grid-cols-12 mt-5'>
       <div className='col-span-2 title'>Policy Status</div>
@@ -103,16 +88,9 @@ const UnderWriterWorkBench = ({
       {policyDetails !== null && <PremiumDetails />}
       <OtherPolicies />
      </div>
-     {policyDetails !== null && <Coverage fromPremCalc={fromPremCalc} />}
+     {policyDetails !== null && <Coverage />}
 
-     {!fromPremCalc ? (
-      // <DecisionBox />
-      <DecisionDetails />
-     ) : (
-      <div className='close_button'>
-       <Button onClick={onClose}>Close</Button>
-      </div>
-     )}
+     <DecisionDetails />
     </div>
    )}
   </UWContext.Provider>

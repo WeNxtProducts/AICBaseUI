@@ -15,6 +15,8 @@ import useParamLov from '../../../components/useParamLov/useParamLov';
 import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import ErrorLog from '../../../components/errorLog/ErrorLog';
+import ErrorContent from '../../../components/errorLog/ErrorContent';
+import PremiumDetails from './PremiumDetails';
 
 dayjs.extend(utc);
 
@@ -317,7 +319,15 @@ const ProposalEntryForm = () => {
      <p className='header-font'>{`Proposal Entry`}</p>
      {proposalNumber && <p className='pol-number mt-1 ml-10'>{`${proposalNumber}`}</p>}
     </div>
-    <ErrorLog />
+    <ErrorLog
+     classNamePopOver='premium-log-popover'
+     classNameText='premium-log-status'
+     tagName='Premium Calc'>
+     <PremiumDetails />
+    </ErrorLog>
+    <ErrorLog classNamePopOver='error-log-popover' classNameText='error-log-status' tagName='Error'>
+     <ErrorContent />
+    </ErrorLog>
    </div>
    {proposalEntry !== null && (
     <div className='mt-3 mb-5'>

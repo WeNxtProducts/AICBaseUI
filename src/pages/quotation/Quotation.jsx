@@ -21,6 +21,7 @@ import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
 import StatusPopup from '../../components/statusPopup/StatusPopup';
 import './Quotations.scss';
+import { setCustCode, setPolNum } from '../../globalStore/slices/UnderwriterId';
 
 export const StepperContext = createContext();
 
@@ -48,6 +49,7 @@ const Quotation = () => {
  const updateProposalStepperStatus = useApiRequests('updateProposalStepperStatus', 'POST');
  const updateProposalFreezeStatus = useApiRequests('updateProposalFreezeStatus', 'POST');
  const policySubmit = useApiRequests('policySubmit', 'POST');
+ const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const [lastUpdatedStep, setLastUpdatedStep] = useState(0);
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip, getNextKey } =
   useStepper(proposalStepper, stepperId);
@@ -62,6 +64,7 @@ const Quotation = () => {
  const [proposalNumber, setProposalNumber] = useState('');
  const [successPopup, setSuccessPopup] = useState(false);
  const [isPremCalc, setIsPremCalc] = useState(true);
+ const [premDetails, setPremDetails] = useState(null);
 
  const handleSkipStep = index => {
   handleSkip(index);
@@ -134,6 +137,7 @@ const Quotation = () => {
   setIsPremCalc,
   setPolicyStatus,
   policyStatus,
+  premDetails,
  };
 
  const procedureCall = async () => {
@@ -147,6 +151,7 @@ const Quotation = () => {
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
+    handleGetPremiumDetails();
     console.log('response : ', response);
    }
    setLoader(false);
@@ -157,6 +162,9 @@ const Quotation = () => {
 
  const handleClose = () => {
   setSuccessPopup(false);
+  setTimeout(() => {
+   setShowUnderWriter(true);
+  }, 500);
  };
 
  const handlePolicySubmit = async () => {
@@ -173,70 +181,88 @@ const Quotation = () => {
   }
  };
 
+ const handleGetPremiumDetails = async () => {
+  try {
+   const response = await getMapQuery(
+    { queryParams: { POL_NO: proposalNumber } },
+    { queryId: 163 },
+   );
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    setPremDetails(response?.Data[0]);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
+ const handleNavigateUW = () => {
+  dispatch(setPolNum(proposalNumber));
+  dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
+  navigate('/underwriterworkbench');
+ };
+
  return (
   <StepperContext.Provider value={data}>
    {loader && <Loader />}
    <div className='quotation'>
-    {showUnderWriter ? (
-     <UnderWriterWorkBench
-      fromQuotation={true}
-      setShowUnderWriter={setShowUnderWriter}
-      Id={id}
-      POL_NO={proposalNumber}
-      CustCode={formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE}
+    <div className='stepper'>
+     <CustomStepper
+      currentStep={currentStep}
+      stepperData={stepperData}
+      handleSkip={handleSkipStep}
      />
-    ) : (
-     <>
-      <div className='stepper'>
-       <CustomStepper
-        currentStep={currentStep}
-        stepperData={stepperData}
-        handleSkip={handleSkipStep}
-       />
-      </div>
+    </div>
 
-      <div className='flex items-center justify-between mb-1 back-button-usercreation-decision'>
-       <div onClick={() => navigate('/quotationList')} className='flex items-center'>
-        <i className='bi bi-arrow-left-short' />
-        <p>Back</p>
-       </div>
-       <div>
-        <span className={`status_notify ${statusClass}`}>{statusText}</span>
-       </div>
-      </div>
+    <div className='flex items-center justify-between mb-1 back-button-usercreation-decision'>
+     <div onClick={() => navigate('/quotationList')} className='flex items-center'>
+      <i className='bi bi-arrow-left-short' />
+      <p>Back</p>
+     </div>
+     <div>
+      <span className={`status_notify ${statusClass}`}>{statusText}</span>
+     </div>
+    </div>
 
-      <Button onClick={() => setShowUnderWriter(true)}>UW</Button>
-      <div className='main-screen mt-0'>
-       <ProposalEntry />
-       <div className='mt-3'>
-        <QuotationPanels />
-       </div>
-       <div className='mt-6 mb-7'>
-        <Checkbox
-         className='custom-checkbox pl-2'
-         checked={freeze}
-         onChange={e => freezeUpdate(e.target.checked)}>
-         <span className='freeze_style'>Freeze All Changes</span>
-        </Checkbox>
-        <div className='flex justify-center'>
-         <Button disabled={!freeze} className='prem_btn' onClick={() => procedureCall()}>
-          Prem Calc
-         </Button>
-         <Button
-          disabled={!freeze}
-          className='sub_btn'
-          onClick={() => {
-           handlePolicySubmit();
-           //setSuccessPopup(true);
-          }}>
-          Submit
-         </Button>
-        </div>
+    <Button
+     onClick={() => {
+      handleNavigateUW();
+     }}>
+     UW
+    </Button>
+    <div className='main-screen mt-0'>
+     <ProposalEntry />
+     <div className='mt-3'>
+      <QuotationPanels />
+     </div>
+     {!policyStatus && (
+      <div className='mt-6 mb-7'>
+       <Checkbox
+        className='custom-checkbox pl-2'
+        checked={freeze}
+        onChange={e => freezeUpdate(e.target.checked)}>
+        <span className='freeze_style'>Freeze All Changes</span>
+       </Checkbox>
+
+       <div className='flex justify-center'>
+        <Button disabled={!freeze} className='prem_btn' onClick={() => procedureCall()}>
+         Prem Calc
+        </Button>
+
+        <Button
+         disabled={!freeze}
+         className='sub_btn'
+         onClick={() => {
+          handlePolicySubmit();
+          setSuccessPopup(true);
+         }}>
+         Final Submit
+        </Button>
        </div>
       </div>
-      {successPopup && <StatusPopup open={successPopup} handleClose={handleClose} status={true} />}
-     </>
-    )}
+     )}
+    </div>
+    {successPopup && <StatusPopup open={successPopup} handleClose={handleClose} status={true} />}
    </div>
   </StepperContext.Provider>
  );

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UWContext } from '../UnderWriterWorkBench';
 import dayjs from 'dayjs';
+import { Button } from 'antd';
 
 const OtherPolicies = () => {
  const { tranId, proposalList, policyNumber, POL_NO, setPolicyNumber, setTranId } =
@@ -22,9 +23,16 @@ const OtherPolicies = () => {
 
  return (
   <div className='other_policies p-3'>
-   <p>
-    Other Policies / Proposals <span className='counter'>{proposalList?.length}</span>
-   </p>
+   <div className='flex items-end justify-between'>
+    <p>
+     Other Policies / Proposals <span className='counter'>{proposalList?.length}</span>
+    </p>
+    <div>
+     <Button className='view_policy' onClick={() => handleSetSelected()}>
+      View
+     </Button>
+    </div>
+   </div>
    <div className='details mt-4 grid grid-cols-12 gap-1'>
     <div className='col-span-1 flex items-center'>
      <i
@@ -33,7 +41,7 @@ const OtherPolicies = () => {
      />
     </div>
 
-    <div onClick={() => handleSetSelected()} className='col-span-10'>
+    <div className='col-span-10'>
      <>
       <div className='w-full flex mt-2'>
        <div className='w-3/5 flex items-center'>

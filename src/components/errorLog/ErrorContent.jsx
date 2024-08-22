@@ -1,7 +1,7 @@
-import { WarningOutlined } from '@ant-design/icons';
 import React from 'react';
+import { WarningOutlined } from '@ant-design/icons';
 
-const ErrorContent = ({ name }) => {
+const ErrorContent = () => {
  return (
   <div className='error_content'>
    <div className='error_title flex items-center'>

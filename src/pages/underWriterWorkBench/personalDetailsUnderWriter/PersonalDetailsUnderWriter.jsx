@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { personaldetails } from '../../../components/tableComponents/sampleData';
 import { UWContext } from '../UnderWriterWorkBench';
 import dayjs from 'dayjs';
+import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 
 const PersonalDetailsUnderWriter = () => {
  const { policyDetails } = useContext(UWContext);
@@ -60,7 +61,7 @@ const PersonalDetailsUnderWriter = () => {
       <p className='label-style'>Sum Assured</p>
      </div>
      <div className='w-3/5'>
-      <p className='value-style'>{POL_LC_SA}</p>
+      <p className='value-style'>{formatNumber(POL_LC_SA)}</p>
      </div>
     </div>
 

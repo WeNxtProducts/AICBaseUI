@@ -9,7 +9,7 @@ import {
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
 
-const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
+const FileTable = ({ files, onDelete, handlePostFile, docType, freeze }) => {
  const DMSFileView = useApiRequests('DMSView', 'POST');
  const [selectedRows, setSelectedRows] = useState([]);
 
@@ -83,13 +83,15 @@ const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
     <table className='upload-file-table'>
      <thead>
       <tr>
-       <th>
-        {selectedRows.length === 0 ? null : (
-         <Tooltip placement='top' title='Delete Selected'>
-          <DeleteOutlined onClick={() => handleDelete()} className='delete-icon' />
-         </Tooltip>
-        )}
-       </th>
+       {!freeze && (
+        <th>
+         {selectedRows.length === 0 ? null : (
+          <Tooltip placement='top' title='Delete Selected'>
+           <DeleteOutlined onClick={() => handleDelete()} className='delete-icon' />
+          </Tooltip>
+         )}
+        </th>
+       )}
        <th>File Name</th>
        <th>Remarks</th>
        <th>UPDATED BY</th>
@@ -102,12 +104,14 @@ const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
        if (docType === file?.DocType && file?.dms_status !== 'D') {
         return (
          <tr key={index}>
-          <td>
-           <Checkbox
-            checked={selectedRows.includes(file?.doc_sys_id)}
-            onChange={event => handleCheckboxChange(event, file)}
-           />
-          </td>
+          {!freeze && (
+           <td>
+            <Checkbox
+             checked={selectedRows.includes(file?.doc_sys_id)}
+             onChange={event => handleCheckboxChange(event, file)}
+            />
+           </td>
+          )}
           <td>
            <p className='file_name'>
             {removeBeforeFirstUnderscore(file?.filename)}
@@ -141,9 +145,11 @@ const FileTable = ({ files, onDelete, handlePostFile, docType }) => {
            <Tooltip placement='top' title='View'>
             <EyeOutlined className='view-icon' onClick={() => handleViewFile(index)} />
            </Tooltip>
-           <Tooltip placement='top' title='Delete'>
-            <DeleteOutlined className='delete-icon' onClick={() => handleDeleteSingle(file)} />
-           </Tooltip>
+           {!freeze && (
+            <Tooltip placement='top' title='Delete'>
+             <DeleteOutlined className='delete-icon' onClick={() => handleDeleteSingle(file)} />
+            </Tooltip>
+           )}
            {/* <button onClick={() => onDelete([file.name])}>Delete</button> */}
           </td>
          </tr>

@@ -13,6 +13,7 @@ const ListDetails = ({
  files,
  setFiles,
  handleGetMediaFiles,
+ freeze,
 }) => {
  const updateFlag = useApiRequests('updateProposalChecklistFlag', 'POST');
  const updateFlagBulk = useApiRequests('updateProposalChecklistFlagBulk', 'POST');
@@ -82,6 +83,7 @@ const ListDetails = ({
       files={files}
       setFiles={setFiles}
       handleGetMediaFiles={handleGetMediaFiles}
+      freeze={freeze}
      />
     )}
    </div>

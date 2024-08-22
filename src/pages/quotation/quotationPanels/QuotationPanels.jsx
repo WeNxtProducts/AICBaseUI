@@ -19,6 +19,8 @@ const QuotationPanels = () => {
   handlePrevious,
   handleSkip,
   id: tranId,
+  proposalNumber,
+  freeze,
  } = useContext(StepperContext);
  const getPrimaryLifeAssuredId = useApiRequests('getPreClaimDate', 'POST');
  const [activePanal, setActivePanel] = useState(['0']);
@@ -167,7 +169,7 @@ const QuotationPanels = () => {
      data-id='panel-5'
      header={<CollapsePanelHeader name='Checklist' saved={stepperData[5]} />}
      key={5}>
-     <CheckList tranId={tranId} />
+     <CheckList tranId={tranId} proposalNumber={proposalNumber} queryID={149} freeze={freeze} />
     </Panel>
    </Collapse>
   </div>

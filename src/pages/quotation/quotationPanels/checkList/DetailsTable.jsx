@@ -17,6 +17,7 @@ const DetailsTable = ({
  Tran_Id,
  group_code,
  handleGetMediaFiles,
+ freeze,
 }) => {
  const DMSFileUpload = useApiRequests('DMSFileUpload', 'POST');
  const DMSFileDelete = useApiRequests('DMSDelete', 'POST');
@@ -86,6 +87,7 @@ const DetailsTable = ({
        placeholder={'select'}
        size='medium'
        showSearch={false}
+       readOnly={freeze}
        value={item?.RECEIVED_STATUS}
        onChange={e => {
         console.log('e : ', e);
@@ -127,6 +129,7 @@ const DetailsTable = ({
         handleDelete={handleDelete}
         files={files}
         setFiles={setFiles}
+        freeze={freeze}
        />
       </div>
      </td>
@@ -145,7 +148,7 @@ const DetailsTable = ({
    <th>
     <div className='flex items-center justify-center'>
      <span className='me-2'>Status</span>
-     <Checkbox onClick={e => handleBulkFlag(e.target.checked)} />
+     {!freeze && <Checkbox onClick={e => handleBulkFlag(e.target.checked)} />}
     </div>
    </th>
    <th>Upload</th>

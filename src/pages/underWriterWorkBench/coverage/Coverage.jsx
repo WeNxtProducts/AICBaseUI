@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
 import CustomAccordion from '../../../components/customAccordion/CustomAccordion';
 import ActionButtons from './ActionButtons';
-import RidersPremium from './ridersPremium/RidersPremium';
 import BasicPremium from './basicPremium/BasicPremium';
 import MRVData from './MRVData/MRVData';
 import { UWContext } from '../UnderWriterWorkBench';
 
-const Coverage = ({ fromPremCalc = false }) => {
+const Coverage = () => {
  const { tranId, policyNumber } = useContext(UWContext);
  const [accordionState, setAccordionState] = useState({
   basicPremium: false,
@@ -27,7 +26,7 @@ const Coverage = ({ fromPremCalc = false }) => {
   <div className='coverage_details mt-4 p-3'>
    <p>coverage</p>
    <div className='grid grid-cols-12 gap-1 mt-2'>
-    <div className={`col-span-${fromPremCalc ? 10 : 10} mr-2 accordion_conatiner`}>
+    <div className={`col-span-${10} mr-2 accordion_conatiner`}>
      <CustomAccordion
       title='Basic Premium'
       isOpen={accordionState.basicPremium}
@@ -59,11 +58,10 @@ const Coverage = ({ fromPremCalc = false }) => {
       content={<MRVData queryId={148} tranId={tranId} heading='Charges' />}
      />
     </div>
-    {!fromPremCalc && (
-     <div className='col-span-2'>
-      <ActionButtons />
-     </div>
-    )}
+
+    <div className='col-span-2'>
+     <ActionButtons />
+    </div>
    </div>
   </div>
  );

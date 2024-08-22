@@ -12,6 +12,7 @@ const FileUpload = ({
  group_code,
  handleUpload,
  handleDelete,
+ freeze,
 }) => {
  const fileData = {
   module: group_code,
@@ -71,19 +72,21 @@ const FileUpload = ({
 
  return (
   <div className='file-upload'>
-   <div className='file-drop-zone' {...getRootProps()}>
-    <div className='inner-drop'>
-     <input {...getInputProps()} />
-     {isDragActive ? (
-      <p>Drop the files here ...</p>
-     ) : (
-      <div>
-       <p>Click to browse or drag and drop your files</p>
-       {/* <p>drag and drop your files</p> */}
-      </div>
-     )}
+   {!freeze && (
+    <div className='file-drop-zone' {...getRootProps()}>
+     <div className='inner-drop'>
+      <input {...getInputProps()} />
+      {isDragActive ? (
+       <p>Drop the files here ...</p>
+      ) : (
+       <div>
+        <p>Click to browse or drag and drop your files</p>
+        {/* <p>drag and drop your files</p> */}
+       </div>
+      )}
+     </div>
     </div>
-   </div>
+   )}
    {files?.length > 0 && (
     <FileTable
      files={files}
@@ -92,6 +95,7 @@ const FileUpload = ({
      handlePostFile={handlePostFile}
      docType={docType}
      handleDelete={handleDelete}
+     freeze={freeze}
     />
    )}
   </div>

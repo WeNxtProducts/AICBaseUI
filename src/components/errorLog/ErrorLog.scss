@@ -1,10 +1,10 @@
-.error-log-status {
+.error-log-status,
+.premium-log-status {
  width: auto;
  cursor: pointer;
  p {
   padding: 0 10px;
-  background-color: #fff1f0;
-  color: #e37079;
+
   font-size: 12px;
   line-height: 30px;
   letter-spacing: 0.7px;
@@ -17,8 +17,26 @@
  }
 
  .info-icon {
-  color: #e37079;
   font-size: 14px;
+ }
+}
+.error-log-status {
+ color: #e37079;
+ p {
+  background-color: #fff1f0;
+ }
+ .info-icon {
+  color: #e37079;
+ }
+}
+
+.premium-log-status {
+ color: #59af34;
+ p {
+  background-color: #f6ffed;
+ }
+ .info-icon {
+  color: #59af34;
  }
 }
 
