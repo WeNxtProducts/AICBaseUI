@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { premiumdetails } from '../../../components/tableComponents/sampleData';
 import { UWContext } from '../UnderWriterWorkBench';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';

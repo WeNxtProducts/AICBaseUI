@@ -58,8 +58,23 @@ const UnderWriterWorkBench = () => {
   }
  };
 
+ const handleGetHistoryDetails = async () => {
+  try {
+   const response = await getMapQuery({ queryParams: { tranId } }, { queryId: 202 });
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    console.log('History : ', response);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
  useEffect(() => {
-  if (policyNumber && tranId) handlePersonalDetails();
+  if (policyNumber && tranId) {
+   handleGetHistoryDetails();
+   handlePersonalDetails();
+  }
  }, [policyNumber]);
 
  const data = {

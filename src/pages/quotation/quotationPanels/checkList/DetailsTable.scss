@@ -71,6 +71,14 @@
   &:hover {
    cursor: pointer;
   }
+
+  .view_text {
+   color: #2f80ed;
+   font-size: 15px;
+   &:hover {
+    text-decoration: underline;
+   }
+  }
  }
  .table_lov {
   display: flex;

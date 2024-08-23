@@ -8,7 +8,7 @@ const MRVData = ({ queryId, heading, tranId }) => {
 
  useEffect(() => {
   handleMRVListing(queryId, tranId);
- }, []);
+ }, [tranId]);
 
  const hasValidRowData = rowData => {
   return rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0;
@@ -17,7 +17,7 @@ const MRVData = ({ queryId, heading, tranId }) => {
  return (
   <div className='mrv_data'>
    {hasValidRowData(rowData) && (
-    <MRVCoverage tableColumn={columnData} tableData={rowData} heading={heading} />
+    <MRVCoverage tableColumn={columnData} tableData={rowData} heading={heading} tranId={tranId} />
    )}
   </div>
  );

@@ -22,7 +22,7 @@ const BasicPremium = () => {
 
  useEffect(() => {
   handleGetBasicPremium();
- }, []);
+ }, [policyNumber]);
 
  const renderRows = (label, val, side = 'right') => (
   <div className='col-span-1'>

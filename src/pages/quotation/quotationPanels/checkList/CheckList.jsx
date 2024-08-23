@@ -31,11 +31,11 @@ const Checklist = ({ tranId, proposalNumber, queryID, freeze }) => {
  }, [tranId]);
 
  useEffect(() => {
-  if (first && rowData?.length > 0) {
+  if (first && rowData?.length > 0 && proposalNumber) {
    handleEdit(rowData[0]);
    setFirst(false);
   }
- }, [rowData]);
+ }, [proposalNumber, rowData]);
 
  const handleGetMediaFiles = async () => {
   try {

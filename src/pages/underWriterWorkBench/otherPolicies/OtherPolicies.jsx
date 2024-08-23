@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Button } from 'antd';
 import { UWContext } from '../UnderWriterWorkBench';
 import dayjs from 'dayjs';
-import { Button } from 'antd';
 
 const OtherPolicies = () => {
  const { tranId, proposalList, policyNumber, POL_NO, setPolicyNumber, setTranId } =
@@ -28,8 +28,14 @@ const OtherPolicies = () => {
      Other Policies / Proposals <span className='counter'>{proposalList?.length}</span>
     </p>
     <div>
-     <Button className='view_policy' onClick={() => handleSetSelected()}>
-      View
+     <Button
+      className={
+       policyNumber !== proposalList[currentIndex]?.Policy_Number
+        ? `view_policy`
+        : `view_policy_dis`
+      }
+      onClick={() => handleSetSelected()}>
+      {policyNumber !== proposalList[currentIndex]?.Policy_Number ? 'View' : 'Viewing'}
      </Button>
     </div>
    </div>

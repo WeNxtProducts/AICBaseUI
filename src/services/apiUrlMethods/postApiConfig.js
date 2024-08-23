@@ -285,6 +285,10 @@ const POST_API_URL = {
   url: '/policy/onSubmit',
   baseURL: 'CLAIMURL',
  },
+ UWSubmit: {
+  url: '/policy/uwSubmit',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default POST_API_URL;

@@ -101,12 +101,9 @@ const DetailsTable = ({
       <span
        onClick={() => {
         clickCallback();
-        // handleUpload(item);
        }}
        className='upload-icons'>
-       {/* Upload Docs */}
-       <CloudUploadOutlined />
-       {/* <UploadOutlined /> */}
+       {!freeze ? <CloudUploadOutlined /> : <span className='view_text'>View</span>}
       </span>
      </div>
     </td>

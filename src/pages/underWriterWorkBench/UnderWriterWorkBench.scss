@@ -113,6 +113,13 @@
     background-color: #0382c8;
     color: #ffffff;
    }
+   .view_policy_dis {
+    background-color: #f5f7f8;
+    border: 1px solid #c7c8cc;
+    font-weight: 600;
+    color: #a8a196;
+    cursor: not-allowed;
+   }
   }
  }
  .coverage_details {
@@ -222,6 +229,40 @@
   .sub_btn {
    background-color: #0382c8;
    color: #ffffff;
+  }
+ }
+ .info-icon {
+  color: #ffffff;
+  margin-right: 10px;
+ }
+}
+
+.broker_details_Popover {
+ .ant-popover-inner {
+  padding: 0px;
+  min-height: 200px;
+  max-height: 300px;
+  width: 500px;
+  border-radius: 9px;
+  border: 1px solid #0382c8;
+ }
+ .ant-popover-arrow {
+  &::before {
+   background-color: #0382c8;
+  }
+ }
+ .broker_content {
+  .broker_title {
+   height: 30px;
+   border-radius: 8px 8px 0 0;
+   background-color: #0382c8;
+
+   .broker_text {
+    margin-left: 7px;
+    font-size: 18px;
+    font-size: 14px;
+    color: #ffffff;
+   }
   }
  }
 }

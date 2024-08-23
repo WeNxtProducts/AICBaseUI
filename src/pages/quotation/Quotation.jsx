@@ -6,7 +6,7 @@ import ProposalEntry from './proposalEntryForm/ProposalEntry';
 import QuotationPanels from './quotationPanels/QuotationPanels';
 import useStepper from '../../components/customStepper/useStepper';
 import CustomStepper from '../../components/customStepper/CustomStepper';
-import { proposalStepper } from '../../components/tableComponents/sampleData';
+// import { proposalStepper } from '../../components/tableComponents/sampleData';
 import Loader from '../../components/loader/Loader';
 import QuotationJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
 import QuotationLov from '../../getFormFields/QUOTATIONENTRY_getLOVList.json';
@@ -33,7 +33,19 @@ const Quotation = () => {
   },
   POL_MODE_OF_PYMT: { H: '2', M: '12', Q: '4', S: '1', Y: '1' },
  };
-
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
+ const proposalStepper = [
+  {
+   key: 0,
+   title: currentMenuId?.ds_type == 1 ? 'Proposal Entry' : 'Policy',
+   status: 'inprogress',
+  },
+  { key: 1, title: 'Life Assured Details', status: 'todo' },
+  { key: 2, title: 'Beneficiary', status: 'todo' },
+  { key: 3, title: 'Broker/Agent', status: 'todo' },
+  { key: 4, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
+  { key: 5, title: 'Checklist', status: 'todo' },
+ ];
  const [policyStatus, setPolicyStatus] = useState(false);
  const statusMap = {
   S: { class: 'approved', text: 'Submitted' },
@@ -54,6 +66,7 @@ const Quotation = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip, getNextKey } =
   useStepper(proposalStepper, stepperId);
  const id = useSelector(state => state?.id?.id);
+
  const formValues = useSelector(state => state?.id?.formValues);
  const freeze = useSelector(state => state?.id?.freezeStatus);
  const prodCode = useSelector(state => state?.id?.prodCode);
@@ -71,15 +84,21 @@ const Quotation = () => {
  };
 
  useEffect(() => {
+  if (proposalNumber) procedureCall(false);
+  if (currentMenuId?.ds_type == 2) {
+   setPolicyStatus(true);
+   dispatch(setFreezeStatus(true));
+  }
   return () => {
    //    dispatch(setCurrentID(''));
    //    dispatch(setProdCode(''));
    //    dispatch(setFormValues(null));
    //    dispatch(setFreezeStatus(false));
   };
- }, []);
+ }, [proposalNumber]);
 
  const stepperUpdate = async flag => {
+  console.log('stepperUpdate : ', flag);
   const queryParams = { flag, tranId: id };
   try {
    const response = await updateProposalStepperStatus('', queryParams);
@@ -140,8 +159,8 @@ const Quotation = () => {
   premDetails,
  };
 
- const procedureCall = async () => {
-  setLoader(true);
+ const procedureCall = async load => {
+  setLoader(load);
   const payload = { inParams: { P_POL_TRAN_ID: id } };
   try {
    const response = await invokeClaimsProcedure(payload, {
@@ -173,7 +192,9 @@ const Quotation = () => {
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
+    handleNext();
     setPolicyStatus(true);
+    setSuccessPopup(true);
     showNotification.SUCCESS(response?.status_msg);
    }
   } catch (err) {
@@ -215,13 +236,17 @@ const Quotation = () => {
     </div>
 
     <div className='flex items-center justify-between mb-1 back-button-usercreation-decision'>
-     <div onClick={() => navigate('/quotationList')} className='flex items-center'>
+     <div
+      onClick={() => navigate(currentMenuId?.ds_type == 1 ? '/quotationList' : '/policyList')}
+      className='flex items-center'>
       <i className='bi bi-arrow-left-short' />
       <p>Back</p>
      </div>
-     <div>
-      <span className={`status_notify ${statusClass}`}>{statusText}</span>
-     </div>
+     {currentMenuId?.ds_type == 1 && (
+      <div>
+       <span className={`status_notify ${statusClass}`}>{statusText}</span>
+      </div>
+     )}
     </div>
 
     <Button
@@ -230,6 +255,7 @@ const Quotation = () => {
      }}>
      UW
     </Button>
+
     <div className='main-screen mt-0'>
      <ProposalEntry />
      <div className='mt-3'>
@@ -245,7 +271,7 @@ const Quotation = () => {
        </Checkbox>
 
        <div className='flex justify-center'>
-        <Button disabled={!freeze} className='prem_btn' onClick={() => procedureCall()}>
+        <Button disabled={!freeze} className='prem_btn' onClick={() => procedureCall(true)}>
          Prem Calc
         </Button>
 
@@ -254,7 +280,7 @@ const Quotation = () => {
          className='sub_btn'
          onClick={() => {
           handlePolicySubmit();
-          setSuccessPopup(true);
+          //   setSuccessPopup(true);
          }}>
          Final Submit
         </Button>

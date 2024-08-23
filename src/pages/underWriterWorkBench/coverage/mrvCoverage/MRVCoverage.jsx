@@ -1,7 +1,16 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Popover } from 'antd';
 import React from 'react';
+import BrokerDetails from './BrokerDetails';
 // import '../../../../styles/components/mrvStyleDue.scss';
 
-const MRVCoverage = ({ tableColumn = '', tableData = [], highlightKey = 'ID', heading = '' }) => {
+const MRVCoverage = ({
+ tableColumn = '',
+ tableData = [],
+ highlightKey = 'ID',
+ heading = '',
+ tranId,
+}) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
 
  return (
@@ -11,24 +20,16 @@ const MRVCoverage = ({ tableColumn = '', tableData = [], highlightKey = 'ID', he
      data-id={item?.[highlightKey]}
      key={item?.[highlightKey]}
      className={`col-span-2 ${'list_card'}`}>
-     <div className={`action_header flex item-center justify-${'start'}`}>
+     <div className={`action_header flex item-center justify-${'between'}`}>
       <p className='mrv_title_name'>{`${heading} - ${index + 1}`}</p>
-      {/* <div
-       onClick={e => {
-        handleDelete(item);
-       }}
-       className='pl-2 flex items-center'>
-       <div className='mrv_checkbox'>
-        <input
-         readOnly
-         //checked={item?.isSelected === 'Y'}
-         checked={true}
-         id={index}
-         type='checkbox'
-        />
-        <label />
-       </div>
-      </div> */}
+      {heading === 'Broker/Agent' && (
+       <Popover
+        overlayClassName={'broker_details_Popover'}
+        content={<BrokerDetails brokerId={item?.ID} tranId={tranId} />}
+        trigger='hover'>
+        <InfoCircleOutlined className='info-icon' />
+       </Popover>
+      )}
      </div>
 
      {Object.keys(column)?.map(key => (

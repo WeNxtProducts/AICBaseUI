@@ -45,6 +45,10 @@ const DELETE_API_URL = {
   url: '/condition/delete',
   baseURL: 'CLAIMURL',
  },
+ deleteProposal: {
+  url: '/policy/deletePolicy',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default DELETE_API_URL;

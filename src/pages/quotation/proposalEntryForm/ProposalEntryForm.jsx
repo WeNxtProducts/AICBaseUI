@@ -120,7 +120,7 @@ const ProposalEntryForm = () => {
    const response = await getQuotation('', queryParams);
    if (response?.status === 'SUCCESS') {
     setProposalNumber(response?.PROPOSAL_NO);
-    setPolicyStatus(response?.POL_WF_STS === 'Y');
+    setPolicyStatus(response?.POL_WF_STS === 'S');
     handleStateInit(response?.Data);
    } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
@@ -316,7 +316,7 @@ const ProposalEntryForm = () => {
    {loader && <Loader />}
    <div className='flex items-center justify-between pl-1'>
     <div className='flex items-center'>
-     <p className='header-font'>{`Proposal Entry`}</p>
+     <p className='header-font'>{`${currentMenuId?.ds_type == 1 ? 'Proposal Entry' : 'Policy'}`}</p>
      {proposalNumber && <p className='pol-number mt-1 ml-10'>{`${proposalNumber}`}</p>}
     </div>
     <ErrorLog
@@ -325,6 +325,7 @@ const ProposalEntryForm = () => {
      tagName='Premium Calc'>
      <PremiumDetails />
     </ErrorLog>
+
     <ErrorLog classNamePopOver='error-log-popover' classNameText='error-log-status' tagName='Error'>
      <ErrorContent />
     </ErrorLog>

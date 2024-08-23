@@ -13,6 +13,7 @@ const Coverage = () => {
   loading: false,
   discount: false,
   charges: false,
+  brokerAgent: true,
  });
 
  const toggleAccordion = section => {
@@ -56,6 +57,12 @@ const Coverage = () => {
       isOpen={accordionState.charges}
       toggleAccordion={() => toggleAccordion('charges')}
       content={<MRVData queryId={148} tranId={tranId} heading='Charges' />}
+     />
+     <CustomAccordion
+      title='BrokerAgent'
+      isOpen={accordionState.brokerAgent}
+      toggleAccordion={() => toggleAccordion('brokerAgent')}
+      content={<MRVData queryId={204} tranId={tranId} heading='Broker/Agent' />}
      />
     </div>
 

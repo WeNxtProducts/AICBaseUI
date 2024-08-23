@@ -6,6 +6,7 @@ import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const Endorsement = lazy(() => import('../pages/endorsement/Endorsement'));
 const ClaimListing = lazy(() => import('../pages/claims/claimsListing/ClaimsListing'));
 const UnderWriterWorkBench = lazy(() =>
  import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
@@ -112,6 +113,14 @@ const AppRouter = () => {
 
     <Route element={<ProtectedRoute />}>
      <Route
+      path='/endorsement'
+      element={
+       <Suspense fallback={<Loader />}>
+        <Endorsement />
+       </Suspense>
+      }
+     />
+     <Route
       path='/receipt'
       element={
        <Suspense fallback={<Loader />}>
@@ -128,10 +137,18 @@ const AppRouter = () => {
       }
      />
      <Route
+      path='/policyList'
+      element={
+       <Suspense fallback={<div>Listing...</div>}>
+        <QuotationListing label='Policy' />
+       </Suspense>
+      }
+     />
+     <Route
       path='/quotationList'
       element={
        <Suspense fallback={<div>Listing...</div>}>
-        <QuotationListing />
+        <QuotationListing label='Proposal' />
        </Suspense>
       }
      />
