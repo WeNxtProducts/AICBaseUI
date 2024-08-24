@@ -25,7 +25,7 @@ const MRVCoverage = ({
       {heading === 'Broker/Agent' && (
        <Popover
         overlayClassName={'broker_details_Popover'}
-        content={<BrokerDetails brokerId={item?.ID} tranId={tranId} />}
+        content={<BrokerDetails brokerId={item?.ID} code={item['Broker Code']} />}
         trigger='hover'>
         <InfoCircleOutlined className='info-icon' />
        </Popover>

@@ -45,7 +45,7 @@ const QuotationListing = ({ label }) => {
 
  useEffect(() => {
   handleListingApi(0);
- }, []);
+ }, [label]);
 
  const handleInputChange = value => {
   console.log('Input value:', value);

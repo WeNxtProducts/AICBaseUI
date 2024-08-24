@@ -9,10 +9,11 @@ import showNotification from '../../../components/notification/Notification';
 import { UWContext } from '../UnderWriterWorkBench';
 
 const DecisionDetails = () => {
- const { tranId } = useContext(UWContext);
+ const { tranId, policyNumber } = useContext(UWContext);
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const getLovList = useApiRequests('getLovList', 'GET');
  const UWSubmit = useApiRequests('UWSubmit', 'POST');
+ const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [decionList, setDecisionList] = useState([]);
  const [values, setValues] = useState({
   DECISION: '',
@@ -25,6 +26,29 @@ const DecisionDetails = () => {
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setDecisionList(response?.Data);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
+
+ const handleProcedureOnDecision = async msg => {
+  const payload = {
+   inParams: {
+    P_POL_TRAN_ID: tranId,
+    P_POL_NO: policyNumber,
+   },
+  };
+  try {
+   const response = await invokeClaimsProcedure( payload, {
+    procedureName: 'PROP_DIR_APPROVAL',
+    packageName: 'WNPKG_POLICY',
+   });
+   console.log('handleProcedureOnDecision : ', response);
+   //    showNotification.SUCCESS(msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    //
    }
   } catch (err) {
    console.log('err : ', err);
@@ -46,7 +70,7 @@ const DecisionDetails = () => {
  useEffect(() => {
   handleGetDecisionList();
   handleGetUpdatedStaus();
- }, []);
+ }, [tranId]);
 
  const handleInputChange = (name, value) => {
   setValues(prevValues => ({
@@ -56,12 +80,14 @@ const DecisionDetails = () => {
  };
 
  const handleOnSubmit = async () => {
-  console.log('values : ', values);
+  console.log('values : ', values); //handleProcedureOnDecision
   try {
    const response = await UWSubmit('', { ...values, tranId });
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    showNotification.SUCCESS(response?.status_msg);
+    if (values?.DECISION === 'A') {
+     handleProcedureOnDecision(response?.status_msg);
+    } else showNotification.SUCCESS(response?.status_msg);
     console.log('values : ', response);
    }
   } catch (err) {

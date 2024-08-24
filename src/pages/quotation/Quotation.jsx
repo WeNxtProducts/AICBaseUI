@@ -26,6 +26,8 @@ import { setCustCode, setPolNum } from '../../globalStore/slices/UnderwriterId';
 export const StepperContext = createContext();
 
 const Quotation = () => {
+ const dispatch = useDispatch();
+ const navigate = useNavigate();
  const rules = {
   PGBEN_AGE: {
    below: 18,
@@ -55,8 +57,6 @@ const Quotation = () => {
  const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
   statusMap[policyStatus ? 'S' : 'N'] || {};
  const { id: stepperId } = { id: Number(useParams().id) };
- const dispatch = useDispatch();
- const navigate = useNavigate();
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const updateProposalStepperStatus = useApiRequests('updateProposalStepperStatus', 'POST');
  const updateProposalFreezeStatus = useApiRequests('updateProposalFreezeStatus', 'POST');
@@ -180,10 +180,8 @@ const Quotation = () => {
  };
 
  const handleClose = () => {
+  handleNavigateUW();
   setSuccessPopup(false);
-  setTimeout(() => {
-   setShowUnderWriter(true);
-  }, 500);
  };
 
  const handlePolicySubmit = async () => {
@@ -242,19 +240,20 @@ const Quotation = () => {
       <i className='bi bi-arrow-left-short' />
       <p>Back</p>
      </div>
-     {currentMenuId?.ds_type == 1 && (
+     {/* {currentMenuId?.ds_type == 1 && (
       <div>
        <span className={`status_notify ${statusClass}`}>{statusText}</span>
       </div>
-     )}
+     )} */}
     </div>
-
-    <Button
-     onClick={() => {
-      handleNavigateUW();
-     }}>
-     UW
-    </Button>
+    {currentMenuId?.ds_type == 1 && (
+     <Button
+      onClick={() => {
+       handleNavigateUW();
+      }}>
+      UW
+     </Button>
+    )}
 
     <div className='main-screen mt-0'>
      <ProposalEntry />

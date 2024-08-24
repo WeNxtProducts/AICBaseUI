@@ -161,6 +161,14 @@ const AppRouter = () => {
       }
      />
      <Route
+      path='/policy/:id'
+      element={
+       <Suspense fallback={<Loader />}>
+        <Quotation />
+       </Suspense>
+      }
+     />
+     <Route
       path='/quote'
       element={
        <Suspense fallback={<div>QUOTE...</div>}>
