@@ -14,7 +14,7 @@ const Endorsement = () => {
  useEffect(() => {
   const panel = document.querySelector(`[data-id='endorsement_flow']`);
   if (panel) {
-   panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+   panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
  }, []);
 

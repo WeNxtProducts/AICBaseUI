@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 
 const LoanDetails = ({ currentTab, dataLoaded }) => {
  useEffect(() => {
-  if (!dataLoaded) console.log('LoanDetails');
-  else console.log('LoanDetails Loaded');
+  if (dataLoaded) console.log('LoanDetails');
  }, [dataLoaded]);
 
  return (

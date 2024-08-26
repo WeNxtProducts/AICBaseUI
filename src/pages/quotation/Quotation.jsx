@@ -219,11 +219,11 @@ const Quotation = () => {
  };
 
  const handleNavigateUW = () => {
-  if (userRole === 'ADM') {
+//   if (userRole === 'ADM') {
    dispatch(setPolNum(proposalNumber));
    dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
    navigate('/underwriterworkbench');
-  }
+//   }
  };
 
  return (
@@ -251,14 +251,14 @@ const Quotation = () => {
       </div>
      )}
     </div>
-    {/* {currentMenuId?.ds_type == 1 && (
+    {currentMenuId?.ds_type == 1 && (
      <Button
       onClick={() => {
        handleNavigateUW();
       }}>
       UW
      </Button>
-    )} */}
+    )}
 
     <div className='main-screen mt-0'>
      <ProposalEntry />

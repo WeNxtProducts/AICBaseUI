@@ -1495,3 +1495,70 @@ export const historyitems = [
   status: 'success',
  },
 ];
+
+export const proposalList = [
+ {
+  Policy_Number: '12345678',
+  ID: 267,
+  Start_Date: '2024-08-24 00:00:00.0',
+  SNo: 1,
+ },
+ {
+  Policy_Number: '12345678',
+  ID: 214,
+  Start_Date: '2024-08-15 00:00:00.0',
+  SNo: 2,
+  Sum_Assured: 500000,
+ },
+ {
+  Policy_Number: 'PEND2024002',
+  Status: 'A',
+  ID: 1,
+  Start_Date: '2024-08-03 00:00:00.0',
+  SNo: 3,
+  Sum_Assured: 500000,
+ },
+];
+
+export const alterData = [
+ {
+  alterNo: 1,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'S',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+ {
+  alterNo: 2,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'P',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+ {
+  alterNo: 3,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'P',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+ {
+  alterNo: 4,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'P',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+ {
+  alterNo: 5,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'P',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+];

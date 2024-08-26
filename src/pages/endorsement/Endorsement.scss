@@ -1,4 +1,6 @@
 @import '../../styles/variable';
+@import '../../styles/components//broker_popover.scss';
+@import '../../styles/components/endorsement_cards.scss';
 
 %label-style {
  color: #4d5e80;
@@ -15,6 +17,12 @@
  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
 }
 
+%label-value-style {
+ color: #4d5e80;
+ font-size: 15px;
+ line-height: 20px;
+}
+
 .endorsement {
  .main_wrapper {
   //   min-height: 60vh;
@@ -25,17 +33,13 @@
   //   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
 
   .label-style {
-   color: #4d5e80;
-   font-size: 15px;
+   @extend %label-value-style;
    font-weight: 600;
-   line-height: 20px;
   }
   .value-style {
+   @extend %label-value-style;
    font-family: Montserrat;
-   color: #4d5e80;
-   font-size: 15px;
    font-weight: 400;
-   line-height: 20px;
   }
 
   .endo_header {
@@ -159,8 +163,100 @@
     margin-left: 5px;
     @extend %flow-box-style;
 
+    .premiumDetails,
+    .other_policies,
+    .coverage_details {
+     border: 1px solid #c6c2de;
+     border-radius: 8px;
+     > p:first-child {
+      color: #4d5e80;
+      font-weight: 700;
+     }
+     .value-style {
+      @extend %label-value-style;
+      text-align: center;
+     }
+    }
+
     .policy_view_check {
-     border: 1px solid red;
+     .premium_policies {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px 15px;
+
+      .premiumDetails {
+       .fc_lc-style {
+        @extend %label-value-style;
+        text-align: center;
+       }
+      }
+      .other_policies {
+       .box_head {
+        color: #4d5e80;
+        font-weight: 700;
+       }
+       .counter {
+        margin-left: 10px;
+        padding: 3px 5px;
+        background-color: #e1fcef;
+        color: #14804a;
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 500;
+       }
+       .details {
+        .icon_arrow {
+         cursor: pointer;
+         font-size: 25px;
+        }
+        .arrow_disabled {
+         pointer-events: none;
+         color: #cdcbcb;
+        }
+       }
+       .view_policy {
+        background-color: #0382c8;
+        color: #ffffff;
+       }
+       .view_policy_dis {
+        background-color: #f5f7f8;
+        border: 1px solid #c7c8cc;
+        font-weight: 600;
+        color: #a8a196;
+        cursor: not-allowed;
+       }
+      }
+     }
+     .coverage_details {
+      .accordion_conatiner {
+       border-radius: 5px;
+       .basic_premium {
+        padding: 10px;
+        .ref_no_box {
+         background-color: #ffffff;
+         border: 1.3px solid #d9d9dc;
+         border-radius: 7px;
+         width: 50%;
+         min-height: 27px;
+
+         & > p {
+          padding: 5px 10px 5px 7px;
+          color: #35353a;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+         }
+        }
+       }
+       .mrv_data {
+        padding: 10px;
+        .info-icon {
+         color: #ffffff;
+         margin-right: 10px;
+        }
+       }
+      }
+     }
     }
    }
   }

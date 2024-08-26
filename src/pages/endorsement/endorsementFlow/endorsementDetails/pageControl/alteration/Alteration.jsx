@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
+import AlterCard from './alterCard/AlterCard';
+import { alterData } from '../../../../../../components/tableComponents/sampleData';
 
 const Alteration = ({ currentTab, dataLoaded }) => {
+ const rowData = alterData;
+
  useEffect(() => {
-  if (!dataLoaded) console.log('Alteration ');
-  else console.log('Alteration Loaded');
+  if (dataLoaded) console.log('Alteration ');
  }, [dataLoaded]);
 
  return (
-  <div>
-   <p>Alteration</p>
+  <div className=''>
+   <AlterCard rowData={rowData} />
   </div>
  );
 };

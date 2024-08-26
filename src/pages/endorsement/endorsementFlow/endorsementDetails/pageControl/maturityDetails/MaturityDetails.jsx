@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 
 const MaturityDetails = ({ currentTab, dataLoaded }) => {
  useEffect(() => {
-  if (!dataLoaded) console.log('MaturityDetails');
-  else console.log('MaturityDetails Loaded');
+  if (dataLoaded) console.log('MaturityDetails');
  }, [dataLoaded]);
 
  return (

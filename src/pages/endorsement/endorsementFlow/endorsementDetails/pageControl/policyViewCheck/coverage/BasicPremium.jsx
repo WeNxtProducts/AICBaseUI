@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import useApiRequests from '../../../../services/useApiRequests';
-import showNotification from '../../../../components/notification/Notification';
-import { UWContext } from '../../UnderWriterWorkBench';
+import showNotification from '../../../../../../../components/notification/Notification';
+import useApiRequests from '../../../../../../../services/useApiRequests';
 
 const BasicPremium = () => {
- const tranId = 1,
-  policyNumber = 'PEND2024002';
+ const { policyNumber = {} } = useContext('');
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const [preDetails, setPreDetails] = useState(null);
 
