@@ -5,15 +5,15 @@ import dayjs from 'dayjs';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 
 const PersonalDetailsUnderWriter = () => {
- const { policyDetails } = useContext(UWContext);
+ const { policyDetails = {} } = useContext(UWContext);
  const {
-  POL_ASSURED_NAME,
-  POL_MODE_OF_PYMT,
-  POL_FM_DT,
-  POL_TO_DT,
-  POL_LC_SA,
-  POL_PERIOD,
-  POL_PREM_PAY_YRS,
+  POL_ASSURED_NAME = '',
+  POL_MODE_OF_PYMT = '',
+  POL_FM_DT = '',
+  POL_TO_DT = '',
+  POL_LC_SA = '',
+  POL_PERIOD = '',
+  POL_PREM_PAY_YRS = '',
  } = policyDetails;
 
  return (

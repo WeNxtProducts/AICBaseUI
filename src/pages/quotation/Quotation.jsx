@@ -78,6 +78,7 @@ const Quotation = () => {
  const [successPopup, setSuccessPopup] = useState(false);
  const [isPremCalc, setIsPremCalc] = useState(true);
  const [premDetails, setPremDetails] = useState(null);
+ const [userRole, setUserRole] = useState('');
 
  const handleSkipStep = index => {
   handleSkip(index);
@@ -190,6 +191,8 @@ const Quotation = () => {
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
+    setUserRole(response?.ROLE);
+    console.log('handlePolicySubmit : ', response?.ROLE);
     handleNext();
     setPolicyStatus(true);
     setSuccessPopup(true);
@@ -216,9 +219,11 @@ const Quotation = () => {
  };
 
  const handleNavigateUW = () => {
-  dispatch(setPolNum(proposalNumber));
-  dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
-  navigate('/underwriterworkbench');
+  if (userRole === 'ADM') {
+   dispatch(setPolNum(proposalNumber));
+   dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
+   navigate('/underwriterworkbench');
+  }
  };
 
  return (
@@ -240,11 +245,11 @@ const Quotation = () => {
       <i className='bi bi-arrow-left-short' />
       <p>Back</p>
      </div>
-     {/* {currentMenuId?.ds_type == 1 && (
+     {currentMenuId?.ds_type == 1 && (
       <div>
        <span className={`status_notify ${statusClass}`}>{statusText}</span>
       </div>
-     )} */}
+     )}
     </div>
     {currentMenuId?.ds_type == 1 && (
      <Button

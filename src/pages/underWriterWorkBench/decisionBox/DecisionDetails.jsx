@@ -40,15 +40,13 @@ const DecisionDetails = () => {
    },
   };
   try {
-   const response = await invokeClaimsProcedure( payload, {
+   const response = await invokeClaimsProcedure(payload, {
     procedureName: 'PROP_DIR_APPROVAL',
     packageName: 'WNPKG_POLICY',
    });
-   console.log('handleProcedureOnDecision : ', response);
-   //    showNotification.SUCCESS(msg);
-   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
-   if (response?.status === 'SUCCESS') {
-    //
+   if (response?.Data?.P_SUCC_YN === 'N') showNotification.ERROR(response?.status_msg);
+   if (response?.Data?.P_SUCC_YN === 'Y') {
+    showNotification.SUCCESS(msg);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -80,18 +78,24 @@ const DecisionDetails = () => {
  };
 
  const handleOnSubmit = async () => {
-  console.log('values : ', values); //handleProcedureOnDecision
-  try {
-   const response = await UWSubmit('', { ...values, tranId });
-   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
-   if (response?.status === 'SUCCESS') {
-    if (values?.DECISION === 'A') {
-     handleProcedureOnDecision(response?.status_msg);
-    } else showNotification.SUCCESS(response?.status_msg);
-    console.log('values : ', response);
+  console.log('values : ', values);
+  const isFilled = Object.values(values).every(value => value.trim() !== '');
+  if (!isFilled) {
+   showNotification.WARNING('Please fill out all fields.');
+   return;
+  } else {
+   try {
+    const response = await UWSubmit('', { ...values, tranId });
+    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+    if (response?.status === 'SUCCESS') {
+     if (values?.DECISION === 'A') {
+      handleProcedureOnDecision(response?.status_msg);
+     } else showNotification.SUCCESS(response?.status_msg);
+     console.log('values : ', response);
+    }
+   } catch (err) {
+    console.log('err : ', err);
    }
-  } catch (err) {
-   console.log('err : ', err);
   }
  };
 
