@@ -251,14 +251,14 @@ const Quotation = () => {
       </div>
      )}
     </div>
-    {currentMenuId?.ds_type == 1 && (
+    {/* {currentMenuId?.ds_type == 1 && (
      <Button
       onClick={() => {
        handleNavigateUW();
       }}>
       UW
      </Button>
-    )}
+    )} */}
 
     <div className='main-screen mt-0'>
      <ProposalEntry />
