@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Input, Select } from 'antd';
 import LanguageSelectField from '../../components/customFieldComponents/languageSelectField/LanguageSelectField';
-import { fruitsOptions } from '../../components/tableComponents/sampleData';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import useApiRequests from '../../services/useApiRequests';
@@ -9,18 +8,17 @@ import { Formik, Form, ErrorMessage } from 'formik';
 import { loginValidationSchema } from '../../schemaValidations/loginValidation';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { storeEncryptedData } from '../../globalStore/cryptoUtils/cryptoUtil';
-import {
- setGroupId,
- setToken,
- setUserDetails,
-} from '../../globalStore/slices/TokenAndMenuList';
+import { setGroupId, setToken, setUserDetails } from '../../globalStore/slices/TokenAndMenuList';
 import ForgotPassword from '../forgotPassword/ForgotPassword';
 import showNotification from '../../components/notification/Notification';
+import SessionMaintainModal from './SessionMaintainModal';
+import Loader from './../../components/loader/Loader';
 
 const RightSideForm = () => {
  const navigate = useNavigate();
  const dispatch = useDispatch();
  const loginApi = useApiRequests('login', 'POST');
+ const sessionMaintain = useApiRequests('sessionMaintain', 'POST');
  const getCompList = useApiRequests('getCompList', 'POST');
  const getBranchList = useApiRequests('getBranchList', 'POST');
  const getDeptList = useApiRequests('getDept', 'POST');
@@ -41,6 +39,9 @@ const RightSideForm = () => {
   langCode: '',
  };
  const [isModalOpen, setIsModalOpen] = useState(false);
+ const [SessionModal, setSessionModal] = useState(false);
+ const [loginData, setLoginData] = useState(initialValues);
+ const [loader, setLoader] = useState(false);
 
  const showModal = () => setIsModalOpen(true);
  const handleClose = () => setIsModalOpen(false);
@@ -63,34 +64,45 @@ const RightSideForm = () => {
  }, []);
 
  const onSubmit = async values => {
+  console.log('values : ', values);
+  setLoader(true);
   try {
    const response = await loginApi(values);
    storeEncryptedData('token', response?.Data?.Token || response?.Token);
    dispatch(setToken(response?.Data?.Token || response?.Token));
    dispatch(setUserDetails(values));
    dispatch(setGroupId(response?.Data?.group));
-   if (response?.Status === 'REDIRECT') {
+   if (response?.status === 'REDIRECT') {
     navigate(response?.Data?.URL || '/resetpassword');
-   } else if (response?.Status === 'SUCCESS') navigate('/dashboard');
-   else if (response?.Status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') navigate('/dashboard');
+   else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   else if (response?.status === 'WARN') {
+    setLoginData(values);
+    setSessionModal(true);
+   }
   } catch (err) {
    console.error('login error : ', err);
+  } finally {
+   setLoader(false);
   }
  };
 
  const handleUserFound = async name => {
-  const adminDetail = { userId: name };
-  try {
-   const response = await getCompList(adminDetail);
-   setDropDowns({
-    ...dropDowns,
-    companyList: response?.Status === 'ERROR' ? [] : response?.Data,
-   });
-   if (response?.Status === 'ERROR')
-    showNotification[response?.Status](response?.Error[0]?.Message);
-  } catch (err) {
-   console.error('err : ', err);
+  if (name?.length > 0) {
+   const adminDetail = { userId: name };
+   try {
+    const response = await getCompList(adminDetail);
+    setDropDowns({
+     ...dropDowns,
+     companyList: response?.Status === 'ERROR' ? [] : response?.Data,
+    });
+    if (response?.Status === 'ERROR')
+     showNotification[response?.Status](response?.Error[0]?.Message);
+   } catch (err) {
+    console.error('err : ', err);
+   }
+  } else {
+   showNotification.WARNING('Please Enter User Name');
   }
  };
 
@@ -120,14 +132,32 @@ const RightSideForm = () => {
   }
  };
 
+ const handleYes = async () => {
+  try {
+   const response = await sessionMaintain({
+    userName: loginData?.userName,
+   });
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.status_msg);
+    onSubmit(loginData);
+   }
+  } catch (err) {
+   console.error('err : ', err);
+  }
+ };
+
+ const handleNo = () => {
+  setSessionModal(false);
+ };
+
  return (
   <div className='form-login-new'>
+   {loader && <Loader />}
    <Formik
     initialValues={{
      ...initialValues,
-     langCode:
-      dropDowns?.languageList?.find(option => option.IsDefault === 'True')
-       ?.value || '',
+     langCode: dropDowns?.languageList?.find(option => option.IsDefault === 'True')?.value || '',
     }}
     onSubmit={onSubmit}
     validationSchema={loginValidationSchema}
@@ -148,10 +178,7 @@ const RightSideForm = () => {
        <div className='main-forms'>
         <div className='flex justify-between items-center'>
          <p className='login-new-style'>Login</p>
-         <button
-          type='button'
-          onClick={() => navigate('/quote')}
-          className='w-full get_quote_btn'>
+         <button type='button' onClick={() => navigate('/quote')} className='w-full get_quote_btn'>
           Get Quote
          </button>
         </div>
@@ -165,11 +192,7 @@ const RightSideForm = () => {
           onChange={e => setFieldValue('userName', e.target.value)}
           onBlur={() => handleUserFound(values?.userName)}
          />
-         <ErrorMessage
-          name='userName'
-          component='div'
-          className='error-message'
-         />
+         <ErrorMessage name='userName' component='div' className='error-message' />
         </div>
 
         <div className='password-field fields mt-6'>
@@ -184,11 +207,7 @@ const RightSideForm = () => {
          <button type='button' onClick={() => handleTogglePassword()}>
           {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
          </button>
-         <ErrorMessage
-          name='password'
-          component='div'
-          className='error-message'
-         />
+         <ErrorMessage name='password' component='div' className='error-message' />
         </div>
         <div className='fields mt-6'>
          <Select
@@ -206,11 +225,7 @@ const RightSideForm = () => {
            </Select.Option>
           ))}
          </Select>
-         <ErrorMessage
-          name='companyCode'
-          component='div'
-          className='error-message'
-         />
+         <ErrorMessage name='companyCode' component='div' className='error-message' />
         </div>
         <div className='fields mt-6 flex'>
          <div className='fields w-1/2 mr-3'>
@@ -229,11 +244,7 @@ const RightSideForm = () => {
             </Select.Option>
            ))}
           </Select>
-          <ErrorMessage
-           name='divisionCode'
-           component='div'
-           className='error-message'
-          />
+          <ErrorMessage name='divisionCode' component='div' className='error-message' />
          </div>
          <div className='fields w-1/2'>
           <Select
@@ -250,11 +261,7 @@ const RightSideForm = () => {
             </Select.Option>
            ))}
           </Select>
-          <ErrorMessage
-           name='departmentCode'
-           component='div'
-           className='error-message'
-          />
+          <ErrorMessage name='departmentCode' component='div' className='error-message' />
          </div>
         </div>
         <div className='text-right mt-4'>
@@ -272,8 +279,9 @@ const RightSideForm = () => {
      );
     }}
    </Formik>
-   {isModalOpen && (
-    <ForgotPassword open={isModalOpen} handleClose={handleClose} />
+   {isModalOpen && <ForgotPassword open={isModalOpen} handleClose={handleClose} />}
+   {SessionModal && (
+    <SessionMaintainModal open={SessionModal} onConfirm={handleYes} onCancel={handleNo} />
    )}
   </div>
  );

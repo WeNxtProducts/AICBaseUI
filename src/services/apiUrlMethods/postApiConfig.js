@@ -289,6 +289,9 @@ const POST_API_URL = {
   url: '/policy/uwSubmit',
   baseURL: 'CLAIMURL',
  },
+ sessionMaintain: {
+  url: '/auth/expire-session',
+ },
 };
 
 export default POST_API_URL;
