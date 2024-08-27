@@ -101,13 +101,14 @@ const MrvQuotation = ({
 
  const handleInitData = async response => {
   const orderedData = sortObjectByPFDSeqNo(response);
-  if (!freeze) {
+  if (!freeze || freeze) {
    if (root === 'life_assured_details') {
     const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
     const { PEMP_MEMBER_TYPE } = orderedData.life_assured_details.formFields;
     const makeDropdown = { ...dropDown };
 
     if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE === 'P') {
+      console.log("PPPPPPP")
      const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
      const response = await handleGetData(payload, 190);
      const newState = {
@@ -142,6 +143,7 @@ const MrvQuotation = ({
      setQuotationMRV({ [root]: newState[root] });
      setQuotationMRVInitialValues({ [root]: newState[root] });
     } else if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P') {
+      console.log("SSSSSSSSS")
      setQuotationMRV({ [root]: orderedData[root] });
      setQuotationMRVInitialValues({ [root]: orderedData[root] });
      const { PEMP_NAME, PEMP_ID } = orderedData.life_assured_details.formFields;
