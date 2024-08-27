@@ -31,9 +31,7 @@ const Content = ({ width, setOpen }) => {
  };
 
  return (
-  <div
-   style={{ width: `${width}px`, maxHeight: '200px' }}
-   className='overflow-y-auto'>
+  <div style={{ width: `${width}px`, maxHeight: '200px' }} className='overflow-y-auto'>
    <ul className='profile-menu-list select-none'>
     <li onClick={() => handleNavigate('resetPassword')}>
      <p>Reset Password</p>
@@ -53,8 +51,7 @@ const Header = () => {
  const inputContainerRef = useRef(null);
 
  useEffect(() => {
-  if (inputContainerRef.current)
-   setPopoverWidth(inputContainerRef.current.offsetWidth);
+  if (inputContainerRef.current) setPopoverWidth(inputContainerRef.current.offsetWidth);
  }, []);
 
  const handleVisibleChange = visible => {
@@ -98,14 +95,8 @@ const Header = () => {
        onClick={() => handleOptions()}
        className='flex items-center justify-between profile-options'>
        <div className='flex items-center'>
-        <Avatar
-         className='profile-header'
-         size={64}
-         icon={<img alt='logo' src={weNxtLogo} />}
-        />
-        <p className='pl-2 user-name select-none cursor-pointer'>
-         {userDetails?.userName}
-        </p>
+        <Avatar className='profile-header' size={64} icon={<img alt='logo' src={weNxtLogo} />} />
+        <p className='pl-2 user-name select-none cursor-pointer'>{userDetails?.userName}</p>
        </div>
        <i className='bi bi-chevron-compact-down ml-2 icon-header'></i>
       </div>

@@ -8,15 +8,17 @@ import {
 } from '../../globalStore/slices/TokenAndMenuList';
 import { setMenu } from '../../globalStore/slices/MenuSlices';
 import { storeEncryptedData } from '../../globalStore/cryptoUtils/cryptoUtil';
+import { useSelector } from 'react-redux';
 
 const useLogout = () => {
  const dispatch = useDispatch();
  const logout = useApiRequests('logout', 'POST');
+ const token = useSelector(state => state?.tokenAndMenuList?.token);
 
  const handleLogout = async () => {
   try {
    const response = await logout();
-   if (response?.Status === 'SUCCESS') {
+   if (response?.status === 'SUCCESS') {
     storeEncryptedData('token', '');
     dispatch(setMenu([]));
     dispatch(setToken(''));
