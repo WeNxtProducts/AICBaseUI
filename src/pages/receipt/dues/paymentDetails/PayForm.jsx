@@ -7,14 +7,8 @@ import {
  CustomSelect,
 } from '../../../../components/commonExportsFields/CommonExportsFields';
 
-const PayForm = () => {
+const PayForm = ({ options }) => {
  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('a');
- const paymentMethods = [
-  { value: 'a', label: 'Cash' },
-  { value: 'b', label: 'Cheque' },
-  { value: 'c', label: 'Credit Card' },
-  { value: 'd', label: 'Bank Transfer' },
- ];
 
  const handlePaymentMethodChange = e => {
   setSelectedPaymentMethod(e.target.value);
@@ -28,7 +22,7 @@ const PayForm = () => {
      size='medium'
      buttonStyle='solid'
      onChange={handlePaymentMethodChange}>
-     {paymentMethods.map(method => (
+     {options.map(method => (
       <Radio.Button key={method.value} value={method.value}>
        {method.label}
       </Radio.Button>
