@@ -34,8 +34,8 @@ const CaptureFields = () => {
    <div className='col-span-10'>
     <Radio.Group
      value={selectedPaymentMethod}
-     size='medium'
      buttonStyle='solid'
+     size='medium'
      onChange={handlePaymentMethodChange}>
      {serchMethods.map(method => (
       <Radio.Button key={method.value} value={method.value}>
