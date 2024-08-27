@@ -292,6 +292,10 @@ const POST_API_URL = {
  sessionMaintain: {
   url: '/auth/expire-session',
  },
+ saveBrokers: {
+  url: '/polBroker/save',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default POST_API_URL;

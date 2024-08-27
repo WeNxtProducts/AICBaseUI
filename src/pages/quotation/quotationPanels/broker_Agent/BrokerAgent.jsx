@@ -20,6 +20,8 @@ const BrokerAgent = () => {
   isPremCalc,
   id: tranId,
  } = useContext(StepperContext);
+ const getParamLov = useApiRequests('getParamLov', 'GET');
+ const saveBrokers = useApiRequests('saveBrokers', 'POST');
  const getBrokerList = useApiRequests('getBrokerList', 'POST');
  const brokerTypeShared =
   formValues?.frontForm?.formFields?.POL_AGENT_COMM_BASIS?.PFD_FLD_VALUE === 'S';
@@ -32,6 +34,13 @@ const BrokerAgent = () => {
    const response = await getBrokerList('', { tranId });
    if (response?.status === 'SUCCESS') {
     setInitialValues(response?.Data);
+    const agentList = response?.Data?.polBrokerDetails.reduce((acc, broker, index) => {
+     acc[index] = [
+      { label: broker.formFields.PBRK_BRK_NAME, value: broker.formFields.PBRK_BRK_CODE },
+     ];
+     return acc;
+    }, {});
+    setAgentList(agentList);
    } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
   } catch (err) {
@@ -43,9 +52,54 @@ const BrokerAgent = () => {
   handleGetBrokerList();
  }, []);
 
- const onBlurHandler = async (val, label) => {
-  const key = val;
-  console.log('key : ', key);
+ const onHandleSearch = async (val, index) => {
+  try {
+   const response = await getParamLov('', {
+    queryId: 206,
+    searchTerm: val,
+   });
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    setAgentList(prevList => ({
+     ...prevList,
+     [index]: response?.Data?.PBRK_BRK_CODE,
+    }));
+   }
+  } catch (err) {
+   return null;
+  }
+ };
+
+ const onBlurHandler = async (label, path, setFieldValue) => {
+  setFieldValue(path, label);
+ };
+
+ const validateBrokerPercentages = vals => {
+  const totalPercentage = vals?.polBrokerDetails?.reduce((acc, broker) => {
+   const percentage = parseFloat(broker.formFields.PBRK_BRK_PERC) || 0;
+   return acc + percentage;
+  }, 0);
+  return totalPercentage <= 100;
+ };
+
+ const onSubmit = async values => {
+  const isValid = validateBrokerPercentages(values);
+
+  if (!isValid) {
+   showNotification.WARNING('Percentage should not exceed 100');
+  } else if (isValid) {
+   try {
+    const response = await saveBrokers(values, {}, { tranId });
+    if (response?.status === 'FAILURE') {
+     showNotification.ERROR(response?.status_msg);
+    } else if (response?.status === 'SUCCESS') {
+     showNotification.SUCCESS(response?.status_msg);
+    }
+   } catch (err) {
+    return null;
+   }
+  }
  };
 
  return (
@@ -54,10 +108,8 @@ const BrokerAgent = () => {
    {initialValues !== null && (
     <Formik
      initialValues={initialValues}
-     validationSchema={brokerValidationSchema}
-     onSubmit={values => {
-      console.log('Submitted values:', values);
-     }}>
+     //  validationSchema={brokerValidationSchema}
+     onSubmit={onSubmit}>
      {({ values, setFieldValue, errors }) => {
       return (
        <Form>
@@ -92,13 +144,22 @@ const BrokerAgent = () => {
                 <div className='w-8/12 fields-error'>
                  <CustomDropDown
                   name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
-                  options={agentList}
+                  options={agentList[index] || []}
                   readOnly={freeze}
                   value={broker?.formFields?.PBRK_BRK_CODE || undefined}
+                  onSearch={e => {
+                   onHandleSearch(e, index);
+                  }}
                   onChange={e =>
                    setFieldValue(`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`, e)
                   }
-                  onBlur={(e, label) => onBlurHandler(e, label)}
+                  onBlur={(e, label) =>
+                   onBlurHandler(
+                    label,
+                    `polBrokerDetails.${index}.formFields.PBRK_BRK_NAME`,
+                    setFieldValue,
+                   )
+                  }
                   format='codedescsearch'
                  />
                  <ErrorMessage
@@ -137,7 +198,7 @@ const BrokerAgent = () => {
                   component='div'
                   className='error-message'
                  />
-                 {brokerTypeShared && (
+                 {brokerTypeShared && index !== 0 && (
                   <div className='ml-5'>
                    <button type='button' onClick={() => remove(index)}>
                     <DeleteOutlined className='delete-button' />

@@ -99,7 +99,6 @@ const Quotation = () => {
  }, [proposalNumber]);
 
  const stepperUpdate = async flag => {
-  console.log('stepperUpdate : ', flag);
   const queryParams = { flag, tranId: id };
   try {
    const response = await updateProposalStepperStatus('', queryParams);
@@ -172,7 +171,6 @@ const Quotation = () => {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
     handleGetPremiumDetails();
-    console.log('response : ', response);
    }
    setLoader(false);
   } catch (err) {
@@ -219,11 +217,11 @@ const Quotation = () => {
  };
 
  const handleNavigateUW = () => {
-//   if (userRole === 'ADM') {
-   dispatch(setPolNum(proposalNumber));
-   dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
-   navigate('/underwriterworkbench');
-//   }
+  //   if (userRole === 'ADM') {
+  dispatch(setPolNum(proposalNumber));
+  dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
+  navigate('/underwriterworkbench');
+  //   }
  };
 
  return (

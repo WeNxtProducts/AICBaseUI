@@ -25,7 +25,6 @@ const useCustomAxios = () => {
   const noAuthEndpoints = ['auth/getLang'];
   const requestInterceptor = axios.interceptors.request.use(
    config => {
-    console.log('useEffect  : ', config.url);
     if (isTokenAvailable && !noAuthEndpoints.includes(config.url)) {
      config.headers['Authorization'] = `Bearer ${token}`;
     }
