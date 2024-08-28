@@ -8,14 +8,16 @@ import showNotification from '../../../components/notification/Notification';
 
 const serchMethods = [
  { value: 207, label: 'Customer Code ', rKey: 'C' },
- { value: -1, label: 'Loan No', rKey: 'L' },
+ { value: 210, label: 'Loan No', rKey: 'L' },
  { value: 208, label: 'Policy No', rKey: 'PO' },
  { value: 209, label: 'Proposal No', rKey: 'PR' },
 ];
 
 const CaptureFields = () => {
+ const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const receiptSave = useApiRequests('receiptSave', 'POST');
  const getParamLov = useApiRequests('getParamLov', 'GET');
+ const [loader, setLoader] = useState(false);
  const [values, setValues] = useState({
   receiptHeader: {
    formFields: {
@@ -62,6 +64,23 @@ const CaptureFields = () => {
   }
  }, 200);
 
+ const procedureCall = async (id, msg) => {
+  const payload = { inParams: { P_RH_TRAN_ID: id } };
+  try {
+   const response = await invokeClaimsProcedure(payload, {
+    procedureName: 'P_POPULATE_ELIGIBLE_RCPT',
+   });
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    showNotification.SUCCESS(msg);
+   }
+   setLoader(false);
+  } catch (err) {
+   setLoader(false);
+  }
+ };
+
  const onSubmit = async () => {
   const { RH_CURR_CODE, RH_REP_RCPT_REF_NO, RH_RCPT_BAS } = values.receiptHeader.formFields;
   if (!RH_CURR_CODE && !RH_REP_RCPT_REF_NO) {
@@ -79,15 +98,18 @@ const CaptureFields = () => {
   }
 
   try {
+   setLoader(true);
    const response = await receiptSave(values);
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
+    setLoader(false);
    } else if (response?.status === 'SUCCESS') {
     showNotification.SUCCESS(response?.status_msg);
-    console.log('response : ', response);
+    console.log('response : ', response?.Data?.Id, response?.status_msg);
+    procedureCall(response?.Data?.Id, response?.status_msg);
    }
   } catch (err) {
-   console.error(err);
+   setLoader(false);
   }
  };
 
