@@ -120,7 +120,12 @@ const ProposalEntryForm = () => {
    const response = await getQuotation('', queryParams);
    if (response?.status === 'SUCCESS') {
     setProposalNumber(response?.PROPOSAL_NO);
-    setPolicyStatus(response?.POL_WF_STS === 'S');
+    const menuType = currentMenuId?.ds_type == 1;
+    console.log(
+     "response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] : ",
+     response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] === (menuType ? 'S' : 'A'),
+    );
+    setPolicyStatus(response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] === (menuType ? 'S' : 'A'));
     handleStateInit(response?.Data);
    } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
@@ -325,10 +330,14 @@ const ProposalEntryForm = () => {
      tagName='Premium Calc'>
      <PremiumDetails />
     </ErrorLog>
-
-    <ErrorLog classNamePopOver='error-log-popover' classNameText='error-log-status' tagName='Error'>
-     <ErrorContent />
-    </ErrorLog>
+    {currentMenuId?.ds_type == 1 && (
+     <ErrorLog
+      classNamePopOver='error-log-popover'
+      classNameText='error-log-status'
+      tagName='Error'>
+      <ErrorContent />
+     </ErrorLog>
+    )}
    </div>
    {proposalEntry !== null && (
     <div className='mt-3 mb-5'>

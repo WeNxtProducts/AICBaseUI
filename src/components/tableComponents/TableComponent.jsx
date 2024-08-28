@@ -10,6 +10,8 @@ const TableComponent = ({
  process = false,
  handleEdit,
  handleDelete,
+ isDelete = true,
+ editIcon = 'bi bi-pencil-square',
  handleProcessData = () => {},
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
@@ -17,10 +19,7 @@ const TableComponent = ({
  const [sortState, setSortState] = useState({});
 
  useEffect(() => {
-  document.documentElement.style.setProperty(
-   '--column-count',
-   Object.keys(column).length,
-  );
+  document.documentElement.style.setProperty('--column-count', Object.keys(column).length);
  }, [tableColumn]);
 
  const sortTable = (columnName, sortOrder) => {
@@ -72,10 +71,7 @@ const TableComponent = ({
       <tbody>
        {tableData?.map((item, index) => {
         return (
-         <tr
-          key={index}
-          data-id={index}
-          ref={ref => (tableRefs.current[index] = ref)}>
+         <tr key={index} data-id={index} ref={ref => (tableRefs.current[index] = ref)}>
           {Object.keys(column)?.map(currentValue => {
            const mainKey = column[currentValue];
            return (
@@ -87,16 +83,10 @@ const TableComponent = ({
           {action && (
            <td>
             <div className='icon-container'>
-             <i
-              onClick={() => handleEdit(item)}
-              className='bi bi-pencil-square'
-             />
-             {/* <i className="bi bi-eye"></i> */}
-             <i className='bi bi-trash' onClick={() => handleDelete(item)} />
+             <i onClick={() => handleEdit(item)} className={editIcon} />
+             {isDelete && <i className='bi bi-trash' onClick={() => handleDelete(item)} />}
              {process && (
-              <Button
-               onClick={() => handleProcessData(item)}
-               className='process-button'>
+              <Button onClick={() => handleProcessData(item)} className='process-button'>
                Process
               </Button>
              )}

@@ -102,13 +102,12 @@ const MrvQuotation = ({
  const handleInitData = async response => {
   const orderedData = sortObjectByPFDSeqNo(response);
   if (!freeze || freeze) {
-   if (root === 'life_assured_details') {
+   if (root === 'life_assured_details' && !freeze) {
     const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
     const { PEMP_MEMBER_TYPE } = orderedData.life_assured_details.formFields;
     const makeDropdown = { ...dropDown };
 
     if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE === 'P') {
-      console.log("PPPPPPP")
      const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
      const response = await handleGetData(payload, 190);
      const newState = {
@@ -143,7 +142,6 @@ const MrvQuotation = ({
      setQuotationMRV({ [root]: newState[root] });
      setQuotationMRVInitialValues({ [root]: newState[root] });
     } else if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P') {
-      console.log("SSSSSSSSS")
      setQuotationMRV({ [root]: orderedData[root] });
      setQuotationMRVInitialValues({ [root]: orderedData[root] });
      const { PEMP_NAME, PEMP_ID } = orderedData.life_assured_details.formFields;
@@ -363,109 +361,111 @@ const MrvQuotation = ({
  };
 
  const handleOnBlur = async (currentData, values, setFieldValue, val, label) => {
-  const key = currentData?.PFD_COLUMN_NAME;
-  if (root === 'life_assured_details') {
-   if (key === 'PEMP_HEIGHT' || key === 'PEMP_WEIGHT') {
-    const {
-     PEMP_HEIGHT: { PFD_FLD_VALUE: heightStr } = {},
-     PEMP_WEIGHT: { PFD_FLD_VALUE: weightStr } = {},
-    } = values.life_assured_details?.formFields || {};
-    const height = +heightStr || 0;
-    const weight = +weightStr || 0;
-    if (height > 0 && weight > 0) {
-     const bmi = await procedureCall(height, weight);
-     setFieldValue('life_assured_details.formFields.PEMP_BMI.PFD_FLD_VALUE', bmi);
-    } else {
-     //  showNotification.WARNING('Height Should be greater than 0');
+  if (!freeze) {
+   const key = currentData?.PFD_COLUMN_NAME;
+   if (root === 'life_assured_details') {
+    if (key === 'PEMP_HEIGHT' || key === 'PEMP_WEIGHT') {
+     const {
+      PEMP_HEIGHT: { PFD_FLD_VALUE: heightStr } = {},
+      PEMP_WEIGHT: { PFD_FLD_VALUE: weightStr } = {},
+     } = values.life_assured_details?.formFields || {};
+     const height = +heightStr || 0;
+     const weight = +weightStr || 0;
+     if (height > 0 && weight > 0) {
+      const bmi = await procedureCall(height, weight);
+      setFieldValue('life_assured_details.formFields.PEMP_BMI.PFD_FLD_VALUE', bmi);
+     } else {
+      //  showNotification.WARNING('Height Should be greater than 0');
+     }
     }
-   }
-   if (key === 'PEMP_MEMBER_TYPE') {
-    const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
-    const { PEMP_MEMBER_TYPE } = values.life_assured_details.formFields;
-    if (val === 'P') {
-     const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
-     const response = await handleGetData(payload, 190);
-     setFieldValue(
-      `life_assured_details.formFields.${'PEMP_ID'}.PFD_FLD_VALUE`,
-      POL_ASSR_CODE?.PFD_FLD_VALUE,
-     );
-     setFieldValue(
-      `life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`,
-      POL_ASSURED_NAME?.PFD_FLD_VALUE,
-     );
-     setFieldValue(
-      `life_assured_details.formFields.${'PEMP_CATG_CODE'}.PFD_FLD_VALUE`,
-      response?.PEMP_CATG_CODE,
-     );
-     setFieldValue(
-      `life_assured_details.formFields.${'PEMP_DOB'}.PFD_FLD_VALUE`,
-      response?.PEMP_DOB,
-     );
-     changeState(
-      'life_assured_details',
-      'PEMP_ID',
-      'PFD_EDIT_YN',
-      PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
-     );
-     setDropDown(prev => ({
-      ...prev,
-      PEMP_ID: [{ value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE }],
-     }));
-    } else if (val !== 'P') {
-     changeState(
-      'life_assured_details',
-      'PEMP_ID',
-      'PFD_EDIT_YN',
-      PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
-     );
+    if (key === 'PEMP_MEMBER_TYPE') {
+     const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
+     const { PEMP_MEMBER_TYPE } = values.life_assured_details.formFields;
+     if (val === 'P') {
+      const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
+      const response = await handleGetData(payload, 190);
+      setFieldValue(
+       `life_assured_details.formFields.${'PEMP_ID'}.PFD_FLD_VALUE`,
+       POL_ASSR_CODE?.PFD_FLD_VALUE,
+      );
+      setFieldValue(
+       `life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`,
+       POL_ASSURED_NAME?.PFD_FLD_VALUE,
+      );
+      setFieldValue(
+       `life_assured_details.formFields.${'PEMP_CATG_CODE'}.PFD_FLD_VALUE`,
+       response?.PEMP_CATG_CODE,
+      );
+      setFieldValue(
+       `life_assured_details.formFields.${'PEMP_DOB'}.PFD_FLD_VALUE`,
+       response?.PEMP_DOB,
+      );
+      changeState(
+       'life_assured_details',
+       'PEMP_ID',
+       'PFD_EDIT_YN',
+       PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
+      );
+      setDropDown(prev => ({
+       ...prev,
+       PEMP_ID: [{ value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE }],
+      }));
+     } else if (val !== 'P') {
+      changeState(
+       'life_assured_details',
+       'PEMP_ID',
+       'PFD_EDIT_YN',
+       PEMP_MEMBER_TYPE?.PFD_FLD_VALUE !== 'P',
+      );
+     }
     }
-   }
-   if (key === 'PEMP_ID') {
-    setFieldValue(`life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`, label);
-   }
-  } else if (root === 'benificiary') {
-   if (key === 'PGBEN_BNF_CODE') {
-    if (formValues !== null && val) {
-     const payload = {
-      queryParams: {
-       CUST_CODE: val,
-       POL_START_DT: dayjs(formValues?.frontForm?.formFields?.POL_FM_DT?.PFD_FLD_VALUE).format(
-        'YYYY-MM-DD',
-       ),
-      },
-     };
-     const response = await handleGetData(payload, 183);
-     for (let key in response) {
-      if (Object.prototype.hasOwnProperty.call(response, key)) {
-       setFieldValue(`benificiary.formFields.${key}.PFD_FLD_VALUE`, response[key]);
+    if (key === 'PEMP_ID') {
+     setFieldValue(`life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`, label);
+    }
+   } else if (root === 'benificiary') {
+    if (key === 'PGBEN_BNF_CODE') {
+     if (formValues !== null && val) {
+      const payload = {
+       queryParams: {
+        CUST_CODE: val,
+        POL_START_DT: dayjs(formValues?.frontForm?.formFields?.POL_FM_DT?.PFD_FLD_VALUE).format(
+         'YYYY-MM-DD',
+        ),
+       },
+      };
+      const response = await handleGetData(payload, 183);
+      for (let key in response) {
+       if (Object.prototype.hasOwnProperty.call(response, key)) {
+        setFieldValue(`benificiary.formFields.${key}.PFD_FLD_VALUE`, response[key]);
+       }
+      }
+
+      const age = response?.PGBEN_AGE;
+      if (age < rules.PGBEN_AGE.below || age > rules.PGBEN_AGE.above) {
+       changeState('benificiary', 'PGBEN_GUARDIAN_NAME', 'PFD_MANDATORY_YN', true);
       }
      }
-
-     const age = response?.PGBEN_AGE;
-     if (age < rules.PGBEN_AGE.below || age > rules.PGBEN_AGE.above) {
-      changeState('benificiary', 'PGBEN_GUARDIAN_NAME', 'PFD_MANDATORY_YN', true);
-     }
     }
-   }
-  } else if (root === 'Discount_Loading') {
-   if (key === 'PDL_APPLIED_ON') {
-    const isMandatory = ['3', '6', '7', '8', '9'].includes(val);
-    changeState('Discount_Loading', 'PDL_COVER_CODE', 'PFD_MANDATORY_YN', isMandatory);
-   }
-  } else if (root === 'pol_riders') {
-   if (key === 'PEC_EFF_FM_DT' || key === 'PEC_PERIOD') {
-    if (key === 'PEC_EFF_FM_DT') {
-     const period = values?.pol_riders?.formFields?.PEC_PERIOD?.PFD_FLD_VALUE;
-     setFieldValue(
-      'pol_riders.formFields.PEC_EFF_TO_DT.PFD_FLD_VALUE',
-      calculateDateAfterYears(val, period),
-     );
-    } else if (key === 'PEC_PERIOD') {
-     const stDate = values?.pol_riders?.formFields?.PEC_EFF_FM_DT?.PFD_FLD_VALUE;
-     setFieldValue(
-      'pol_riders.formFields.PEC_EFF_TO_DT.PFD_FLD_VALUE',
-      calculateDateAfterYears(stDate, val),
-     );
+   } else if (root === 'Discount_Loading') {
+    if (key === 'PDL_APPLIED_ON') {
+     const isMandatory = ['3', '6', '7', '8', '9'].includes(val);
+     changeState('Discount_Loading', 'PDL_COVER_CODE', 'PFD_MANDATORY_YN', isMandatory);
+    }
+   } else if (root === 'pol_riders') {
+    if (key === 'PEC_EFF_FM_DT' || key === 'PEC_PERIOD') {
+     if (key === 'PEC_EFF_FM_DT') {
+      const period = values?.pol_riders?.formFields?.PEC_PERIOD?.PFD_FLD_VALUE;
+      setFieldValue(
+       'pol_riders.formFields.PEC_EFF_TO_DT.PFD_FLD_VALUE',
+       calculateDateAfterYears(val, period),
+      );
+     } else if (key === 'PEC_PERIOD') {
+      const stDate = values?.pol_riders?.formFields?.PEC_EFF_FM_DT?.PFD_FLD_VALUE;
+      setFieldValue(
+       'pol_riders.formFields.PEC_EFF_TO_DT.PFD_FLD_VALUE',
+       calculateDateAfterYears(stDate, val),
+      );
+     }
     }
    }
   }

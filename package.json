@@ -29,6 +29,7 @@
   "antd": "^5.16.2",
   "apexcharts": "^3.52.0",
   "axios": "^1.6.7",
+  "caniuse-lite": "^1.0.30001653",
   "crypto-js": "^4.2.0",
   "dayjs": "^1.11.11",
   "dayjs-plugin-utc": "^0.1.2",

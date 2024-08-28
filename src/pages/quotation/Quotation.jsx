@@ -50,9 +50,9 @@ const Quotation = () => {
  ];
  const [policyStatus, setPolicyStatus] = useState(false);
  const statusMap = {
-  S: { class: 'approved', text: 'Submitted' },
+  S: { class: 'approved', text: currentMenuId?.ds_type == 1 ? 'Submitted' : 'Approved' },
   P: { class: 'partial', text: 'Partially Submitted' },
-  N: { class: 'pending', text: 'Not Submitted' },
+  N: { class: 'pending', text: currentMenuId?.ds_type == 1 ? 'Not Submitted' : 'Not Approved' },
  };
  const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
   statusMap[policyStatus ? 'S' : 'N'] || {};
@@ -85,9 +85,13 @@ const Quotation = () => {
  };
 
  useEffect(() => {
+  console.log('policyStatus : ', policyStatus);
+ }, [policyStatus]);
+
+ useEffect(() => {
   if (proposalNumber) procedureCall(false);
   if (currentMenuId?.ds_type == 2) {
-   setPolicyStatus(true);
+   //    setPolicyStatus(true);
    dispatch(setFreezeStatus(true));
   }
   return () => {
@@ -190,7 +194,6 @@ const Quotation = () => {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
     setUserRole(response?.ROLE);
-    console.log('handlePolicySubmit : ', response?.ROLE);
     handleNext();
     setPolicyStatus(true);
     setSuccessPopup(true);
@@ -217,11 +220,11 @@ const Quotation = () => {
  };
 
  const handleNavigateUW = () => {
-  //   if (userRole === 'ADM') {
-  dispatch(setPolNum(proposalNumber));
-  dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
-  navigate('/underwriterworkbench');
-  //   }
+  if (userRole === 'ADM') {
+   dispatch(setPolNum(proposalNumber));
+   dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
+   navigate('/underwriterworkbench');
+  }
  };
 
  return (
@@ -243,27 +246,27 @@ const Quotation = () => {
       <i className='bi bi-arrow-left-short' />
       <p>Back</p>
      </div>
-     {currentMenuId?.ds_type == 1 && (
-      <div>
-       <span className={`status_notify ${statusClass}`}>{statusText}</span>
-      </div>
-     )}
+     {/* {currentMenuId?.ds_type == 1 && ( */}
+     <div>
+      <span className={`status_notify ${statusClass}`}>{statusText}</span>
+     </div>
+     {/* )} */}
     </div>
-    {currentMenuId?.ds_type == 1 && (
+    {/* {currentMenuId?.ds_type == 1 && (
      <Button
       onClick={() => {
        handleNavigateUW();
       }}>
       UW
      </Button>
-    )}
+    )} */}
 
     <div className='main-screen mt-0'>
      <ProposalEntry />
      <div className='mt-3'>
       <QuotationPanels />
      </div>
-     {!policyStatus && (
+     {!policyStatus && currentMenuId?.ds_type == 1 && (
       <div className='mt-6 mb-7'>
        <Checkbox
         className='custom-checkbox pl-2'

@@ -8,6 +8,7 @@ import MrvQuotation from '../mrvQuotation/MrvQuotation';
 import showNotification from '../../../components/notification/Notification';
 import useApiRequests from '../../../services/useApiRequests';
 import BrokerAgent from './broker_Agent/BrokerAgent';
+import { useSelector } from 'react-redux';
 
 const { Panel } = Collapse;
 
@@ -22,6 +23,7 @@ const QuotationPanels = () => {
   proposalNumber,
   freeze,
  } = useContext(StepperContext);
+ const ds_type = useSelector(state => state?.tokenAndMenuList?.currentMenuId?.ds_type);
  const getPrimaryLifeAssuredId = useApiRequests('getPreClaimDate', 'POST');
  const [activePanal, setActivePanel] = useState(['0']);
  const [primaryLifeAssuredId, setPrimaryLifeAssuredId] = useState('');
@@ -114,7 +116,9 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(1)}
      data-id='panel-1'
-     header={<CollapsePanelHeader name='Life Assured Details' saved={stepperData[1]} />}
+     header={
+      <CollapsePanelHeader ds_type={ds_type} name='Life Assured Details' saved={stepperData[1]} />
+     }
      key={1}>
      <MrvQuotation
       queryID='getLifeAssuredDetails'
@@ -132,7 +136,7 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(2)}
      data-id='panel-2'
-     header={<CollapsePanelHeader name='Beneficiary' saved={stepperData[2]} />}
+     header={<CollapsePanelHeader ds_type={ds_type} name='Beneficiary' saved={stepperData[2]} />}
      key={2}>
      <MrvQuotation
       queryID='getBeneficiaryList'
@@ -151,7 +155,7 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(3)}
      data-id='panel-3'
-     header={<CollapsePanelHeader name='Broker/Agent' saved={stepperData[3]} />}
+     header={<CollapsePanelHeader ds_type={ds_type} name='Broker/Agent' saved={stepperData[3]} />}
      key={3}>
      <BrokerAgent />
     </Panel>
@@ -159,7 +163,11 @@ const QuotationPanels = () => {
      className={determinePanelClassName(4)}
      data-id='panel-4'
      header={
-      <CollapsePanelHeader name='Chargs/Discount-loading/Conditions' saved={stepperData[4]} />
+      <CollapsePanelHeader
+       ds_type={ds_type}
+       name='Chargs/Discount-loading/Conditions'
+       saved={stepperData[4]}
+      />
      }
      key={4}>
      <ChargsDisLoadConditions tranId={tranId} />
@@ -167,7 +175,7 @@ const QuotationPanels = () => {
     <Panel
      className={determinePanelClassName(5)}
      data-id='panel-5'
-     header={<CollapsePanelHeader name='Checklist' saved={stepperData[5]} />}
+     header={<CollapsePanelHeader ds_type={ds_type} name='Checklist' saved={stepperData[5]} />}
      key={5}>
      <CheckList tranId={tranId} proposalNumber={proposalNumber} queryID={149} freeze={freeze} />
     </Panel>

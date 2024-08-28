@@ -136,6 +136,8 @@ const QuotationListing = ({ label }) => {
        handleSort={handleSort}
        handleEdit={handleEdit}
        handleDelete={handleDelete}
+       editIcon={label === 'Proposal' ? 'bi bi-pencil-square' : 'bi bi-eye'}
+       isDelete={label === 'Proposal'}
       />
      </div>
      <div className='float-right mt-4'>
