@@ -17,6 +17,7 @@ const CustomSelect = ({
  firstFieldRef = null,
  onBlur,
  readOnly = false,
+ searchMsg = 'No data found',
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -75,14 +76,12 @@ const CustomSelect = ({
     onChange={onChange}
     open={dropdownOpen}
     onDropdownVisibleChange={handleDropdownVisibleChange}
-    notFoundContent={<span>{loading ? 'Loading...' : 'No data found'}</span>}
+    notFoundContent={<span>{loading ? 'Loading...' : searchMsg}</span>}
     maxTagPlaceholder={renderMaxTagPlaceholder}
     {...sharedProps}>
     {options?.map(item => (
      <Select.Option key={item.value} value={item.value}>
-      {`${item?.value}${
-       item?.value !== item?.label ? ` - ${item?.label}` : ''
-      }`}
+      {`${item?.value}${item?.value !== item?.label ? ` - ${item?.label}` : ''}`}
      </Select.Option>
     ))}
    </Select>

@@ -1,42 +1,118 @@
 import React, { useState } from 'react';
+import { debounce } from 'lodash';
 import { Button, Radio } from 'antd';
-import {
- CustomInput,
- CustomSelect,
-} from '../../../components/commonExportsFields/CommonExportsFields';
-import { notification_options } from '../../../components/tableComponents/sampleData';
+import { CustomSelect } from '../../../components/commonExportsFields/CommonExportsFields';
+import { currCode } from '../../../components/tableComponents/sampleData';
+import useApiRequests from './../../../services/useApiRequests';
+import showNotification from '../../../components/notification/Notification';
 
 const serchMethods = [
- { value: 'a', label: 'Customer Code' },
- { value: 'b', label: 'Loan No' },
- { value: 'c', label: 'Policy No' },
- { value: 'd', label: 'Proposal No' },
+ { value: 207, label: 'Customer Code ', rKey: 'C' },
+ { value: -1, label: 'Loan No', rKey: 'L' },
+ { value: 208, label: 'Policy No', rKey: 'PO' },
+ { value: 209, label: 'Proposal No', rKey: 'PR' },
 ];
 
 const CaptureFields = () => {
+ const receiptSave = useApiRequests('receiptSave', 'POST');
+ const getParamLov = useApiRequests('getParamLov', 'GET');
  const [values, setValues] = useState({
-  cust_code: '',
-  currency_code: '',
+  receiptHeader: {
+   formFields: {
+    RH_CURR_CODE: '',
+    RH_REP_RCPT_REF_NO: '',
+    RH_RCPT_BAS: 'C',
+   },
+  },
  });
- const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('a');
+ const [dropdown, setDropdown] = useState([]);
+ const [selectedSearch, setSelectedSearch] = useState(207);
 
- const handlePaymentMethodChange = e => {
-  setSelectedPaymentMethod(e.target.value);
+ const handleSearchMethodChange = e => {
+  setSelectedSearch(e.target.value);
+  handleValueChange(
+   findLabelByValue(e.target.value, 'rKey'),
+   'RH_RCPT_BAS',
+   'RH_REP_RCPT_REF_NO',
+   '',
+  );
+  setDropdown([]);
  };
 
- const findLabelByValue = value => {
+ const findLabelByValue = (value, key = 'label') => {
   const method = serchMethods?.find(method => method.value === value);
-  return method ? method.label : 'Label not found';
+  return method ? method[key] : 'Label not found';
+ };
+
+ const onHandleSearch = debounce(async val => {
+  if (val?.length > 0) {
+   try {
+    const response = await getParamLov('', {
+     queryId: selectedSearch,
+     searchTerm: val,
+    });
+    if (response?.status === 'FAILURE') {
+     showNotification.ERROR(response?.status_msg);
+    } else if (response?.status === 'SUCCESS') {
+     setDropdown(response?.Data[findLabelByValue(selectedSearch)]);
+    }
+   } catch (err) {
+    console.error(err);
+   }
+  }
+ }, 200);
+
+ const onSubmit = async () => {
+  const { RH_CURR_CODE, RH_REP_RCPT_REF_NO, RH_RCPT_BAS } = values.receiptHeader.formFields;
+  if (!RH_CURR_CODE && !RH_REP_RCPT_REF_NO) {
+   showNotification.WARNING('All fields must be filled.');
+   return;
+  }
+
+  if (!RH_REP_RCPT_REF_NO) {
+   showNotification.WARNING(`${findLabelByValue(selectedSearch)}  is required.`);
+   return;
+  }
+  if (!RH_CURR_CODE) {
+   showNotification.WARNING('Currency Code is required.');
+   return;
+  }
+
+  try {
+   const response = await receiptSave(values);
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.status_msg);
+    console.log('response : ', response);
+   }
+  } catch (err) {
+   console.error(err);
+  }
+ };
+
+ const handleValueChange = (val, key, key2, val2) => {
+  setValues(prevValues => ({
+   ...prevValues,
+   receiptHeader: {
+    ...prevValues.receiptHeader,
+    formFields: {
+     ...prevValues.receiptHeader.formFields,
+     [key]: val,
+     ...(!val2 && { [key2]: val2 }),
+    },
+   },
+  }));
  };
 
  return (
   <div className='cap_fields mt-5'>
    <div className='col-span-10'>
     <Radio.Group
-     value={selectedPaymentMethod}
+     value={selectedSearch}
      buttonStyle='solid'
      size='medium'
-     onChange={handlePaymentMethodChange}>
+     onChange={handleSearchMethodChange}>
      {serchMethods.map(method => (
       <Radio.Button key={method.value} value={method.value}>
        {method.label}
@@ -45,31 +121,40 @@ const CaptureFields = () => {
     </Radio.Group>
    </div>
    <div className='col-span-4'>
-    <p className='field_label'>{findLabelByValue(selectedPaymentMethod)}</p>
-    <CustomInput
+    <p className='field_label'>{findLabelByValue(selectedSearch)}</p>
+    <CustomSelect
      name={`customer_code`}
-     placeholder={'enter code'}
+     options={dropdown || []}
+     showSearch={true}
+     onSearch={e => {
+      onHandleSearch(e);
+     }}
+     searchMsg={`Search ${findLabelByValue(selectedSearch)}`}
+     placeholder={`${findLabelByValue(selectedSearch)}`}
      size='large'
-     value={values?.cust_code}
+     value={values?.receiptHeader?.formFields?.RH_REP_RCPT_REF_NO || undefined}
      onChange={e => {
-      setValues(pre => ({ ...pre, cust_code: e.target.value }));
+      handleValueChange(e, 'RH_REP_RCPT_REF_NO');
      }}
     />
    </div>
    <div className='col-span-4'>
     <p className='field_label'>Currency Code</p>
     <CustomSelect
-     options={notification_options}
+     options={currCode}
      name={`currency`}
-     placeholder={'enter code'}
-     value={values?.currency_code || undefined}
+     showSearch={false}
+     placeholder={'select'}
+     value={values?.receiptHeader?.formFields?.RH_CURR_CODE || undefined}
      onChange={e => {
-      setValues(pre => ({ ...pre, currency_code: e }));
+      handleValueChange(e, 'RH_CURR_CODE');
      }}
     />
    </div>
    <div className='col-span-4'>
-    <Button className='fetch_btn'>Fetch</Button>
+    <Button className='fetch_btn' onClick={() => onSubmit()}>
+     Fetch
+    </Button>
    </div>
   </div>
  );

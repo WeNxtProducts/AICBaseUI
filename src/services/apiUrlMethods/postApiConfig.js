@@ -296,6 +296,10 @@ const POST_API_URL = {
   url: '/polBroker/save',
   baseURL: 'CLAIMURL',
  },
+ receiptSave: {
+  url: '/receiptHdr/save',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default POST_API_URL;

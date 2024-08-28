@@ -1562,3 +1562,42 @@ export const alterData = [
   to_date: '12-Dec-2024',
  },
 ];
+
+export const currCode = [
+ {
+  label: 'Tanzanian Shillings',
+  value: 'TZS',
+ },
+ {
+  label: 'US DOLLAR',
+  value: 'USD',
+ },
+ {
+  label: 'UGANDA SHILLINGS',
+  value: 'UGX',
+ },
+ {
+  label: 'BRITAIN POUND',
+  value: 'GBP',
+ },
+ {
+  label: 'ANDORRA, EURO',
+  value: 'EUR',
+ },
+ {
+  label: 'COMOROS, FRANCS',
+  value: 'KMF',
+ },
+ {
+  label: 'RWANDA FRANCS',
+  value: 'RWF',
+ },
+ {
+  label: 'Vietnam Dong',
+  value: 'VND',
+ },
+ {
+  label: 'Ethiopian Birr',
+  value: 'ETB',
+ },
+];
