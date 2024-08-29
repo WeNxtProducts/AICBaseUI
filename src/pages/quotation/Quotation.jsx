@@ -66,7 +66,6 @@ const Quotation = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip, getNextKey } =
   useStepper(proposalStepper, stepperId);
  const id = useSelector(state => state?.id?.id);
-
  const formValues = useSelector(state => state?.id?.formValues);
  const freeze = useSelector(state => state?.id?.freezeStatus);
  const prodCode = useSelector(state => state?.id?.prodCode);

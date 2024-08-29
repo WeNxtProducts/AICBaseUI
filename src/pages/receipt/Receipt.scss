@@ -13,6 +13,12 @@
  color: $color;
 }
 
+%save-btn {
+ background-color: #0382c8;
+ color: #ffffff;
+ width: 10%;
+}
+
 .receipt {
  padding: 15px;
  background-color: #ffffff;
@@ -21,7 +27,7 @@
  max-height: 89lvh;
  border-radius: 8px;
  overflow: auto;
- 
+
  .receipt_header {
   .header_align {
    display: grid;
@@ -231,9 +237,7 @@
       }
      }
      .save-btn {
-      background-color: #0382c8;
-      color: #ffffff;
-      width: 10%;
+      @extend %save-btn;
      }
     }
 
@@ -258,6 +262,12 @@
    .mrv_col {
     min-height: 400px;
     background-color: #f3f4f5;
+   }
+  }
+
+  .submit_section {
+   .submit_btn {
+    @extend %save-btn;
    }
   }
  }

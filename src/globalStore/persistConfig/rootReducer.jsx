@@ -4,6 +4,7 @@ import tokenAndMenuList from '../slices/TokenAndMenuList';
 import stepperData from '../slices/StepperData';
 import IdSlices from '../slices/IdSlices';
 import UnderWriterSlices from '../slices/UnderwriterId';
+import ReceiptSlices from '../slices/ReceiptId';
 
 const rootReducer = combineReducers({
  menuSelected: menuSelected,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
  stepperData: stepperData,
  id: IdSlices,
  UWId: UnderWriterSlices,
+ Receipt: ReceiptSlices,
 });
 
 export default rootReducer;
