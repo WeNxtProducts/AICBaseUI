@@ -46,7 +46,7 @@ const ReceiptListing = () => {
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
-    showNotification.SUCCESS(response?.status_msg);
+    // showNotification.SUCCESS(response?.status_msg);
     setCount(response?.count);
     setRowData(response?.Data);
     setColumnData(response?.Heading);

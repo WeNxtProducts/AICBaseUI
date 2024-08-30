@@ -9,8 +9,24 @@ export const ReceiptContext = createContext();
 const Receipt = () => {
  const id = useSelector(state => state?.Receipt?.id);
  const [multiSelect, setMultiSelect] = useState(false);
+ const [policyList, setpolicyList] = useState([]);
+ const [selectedPolicy, setSelectedPolicy] = useState('');
+ const [amountSummary, setAmountSummary] = useState(null);
+ const [isModified, setIsModified] = useState(false);
 
- const data = { multiSelect, setMultiSelect, id };
+ const data = {
+  multiSelect,
+  setMultiSelect,
+  id,
+  policyList,
+  setpolicyList,
+  selectedPolicy,
+  setSelectedPolicy,
+  amountSummary,
+  setAmountSummary,
+  isModified,
+  setIsModified,
+ };
 
  return (
   <ReceiptContext.Provider value={data}>

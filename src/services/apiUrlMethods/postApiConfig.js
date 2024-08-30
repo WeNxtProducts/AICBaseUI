@@ -300,6 +300,22 @@ const POST_API_URL = {
   url: '/receiptHdr/save',
   baseURL: 'CLAIMURL',
  },
+ getReceiptHeader: {
+  url: '/receiptHdr/get',
+  baseURL: 'CLAIMURL',
+ },
+ getDuesDetails: {
+  url: '/receiptProcess/get',
+  baseURL: 'CLAIMURL',
+ },
+ saveDueSelected: {
+  url: '/receiptProcess/update',
+  baseURL: 'CLAIMURL',
+ },
+ updateReceiptHdr: {
+  url: '/receiptHdr/update',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default POST_API_URL;

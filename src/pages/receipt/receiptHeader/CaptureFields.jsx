@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import { Button, Radio } from 'antd';
 import { CustomSelect } from '../../../components/commonExportsFields/CommonExportsFields';
 import { currCode } from '../../../components/tableComponents/sampleData';
 import useApiRequests from './../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
+import { ReceiptContext } from '../Receipt';
+import Loader from './../../../components/loader/Loader';
 
 const serchMethods = [
  { value: 207, label: 'Customer Code ', rKey: 'C' },
@@ -14,7 +16,9 @@ const serchMethods = [
 ];
 
 const CaptureFields = () => {
+ const { id: tranId, setAmountSummary, isModified, setIsModified } = useContext(ReceiptContext);
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
+ const reeiptHeaderGet = useApiRequests('getReceiptHeader', 'POST');
  const receiptSave = useApiRequests('receiptSave', 'POST');
  const getParamLov = useApiRequests('getParamLov', 'GET');
  const [loader, setLoader] = useState(false);
@@ -29,6 +33,52 @@ const CaptureFields = () => {
  });
  const [dropdown, setDropdown] = useState([]);
  const [selectedSearch, setSelectedSearch] = useState(207);
+
+ const handleGetHeader = async () => {
+  setLoader(true);
+  try {
+   const response = await reeiptHeaderGet('', { tranId });
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   } else if (response?.status === 'SUCCESS') {
+    const {
+     RH_CURR_CODE = '',
+     RH_REP_RCPT_REF_NO = '',
+     RH_RCPT_BAS = 'C',
+     RH_BATCH_LC_AMT = 0,
+     RH_LC_AMT = '',
+     RH_FLEX_03 = false,
+     RH_POL_NO = '',
+    } = response.Data;
+    setIsModified(RH_FLEX_03 === 'Y');
+    setValues({
+     receiptHeader: {
+      formFields: {
+       RH_CURR_CODE,
+       RH_REP_RCPT_REF_NO,
+       RH_RCPT_BAS,
+      },
+     },
+    });
+    setAmountSummary({
+     receiptHeader: {
+      formFields: {
+       RH_BATCH_LC_AMT: RH_BATCH_LC_AMT,
+       RH_LC_AMT: RH_LC_AMT,
+       RH_POL_NO: RH_POL_NO,
+      },
+     },
+    });
+   }
+   setLoader(false);
+  } catch (err) {
+   setLoader(false);
+  }
+ };
+
+ useEffect(() => {
+  handleGetHeader();
+ }, []);
 
  const handleSearchMethodChange = e => {
   setSelectedSearch(e.target.value);
@@ -129,10 +179,12 @@ const CaptureFields = () => {
 
  return (
   <div className='cap_fields mt-5'>
+   {loader && <Loader />}
    <div className='col-span-10'>
     <Radio.Group
      value={selectedSearch}
      buttonStyle='solid'
+     disabled={!!tranId}
      size='medium'
      onChange={handleSearchMethodChange}>
      {serchMethods.map(method => (
@@ -148,6 +200,7 @@ const CaptureFields = () => {
      name={`customer_code`}
      options={dropdown || []}
      showSearch={true}
+     readOnly={!!tranId}
      onSearch={e => {
       onHandleSearch(e);
      }}
@@ -167,17 +220,20 @@ const CaptureFields = () => {
      name={`currency`}
      showSearch={false}
      placeholder={'select'}
+     readOnly={!!tranId}
      value={values?.receiptHeader?.formFields?.RH_CURR_CODE || undefined}
      onChange={e => {
       handleValueChange(e, 'RH_CURR_CODE');
      }}
     />
    </div>
-   <div className='col-span-4'>
-    <Button className='fetch_btn' onClick={() => onSubmit()}>
-     Fetch
-    </Button>
-   </div>
+   {!tranId && (
+    <div className='col-span-4'>
+     <Button className='fetch_btn' onClick={() => onSubmit()}>
+      Fetch
+     </Button>
+    </div>
+   )}
   </div>
  );
 };

@@ -64,7 +64,6 @@ const RightSideForm = () => {
  }, []);
 
  const onSubmit = async values => {
-  console.log('values : ', values);
   setLoader(true);
   try {
    const response = await loginApi(values);

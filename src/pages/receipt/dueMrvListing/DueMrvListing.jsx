@@ -26,27 +26,16 @@ const DueMrvListing = ({
  tableColumn = '',
  tableData = [],
  handleEdit,
- handleDelete,
+ selectIndex,
  selectedRow = '',
  action,
  isView = true,
  freeze = false,
  highlightKey = 'ID',
  isSlide = false,
+ selectedCard = [],
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
-
- //  useEffect(() => {
- //   scrollToView(selectedRow);
- //  }, [selectedRow,tableData]);
-
- const scrollToView = id => {
-  const panel = document.querySelector(`[data-id='${id}']`);
-  console.log('panel : ', panel);
-  if (panel) {
-   panel.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  }
- };
 
  const settings = {
   dots: false,
@@ -55,8 +44,9 @@ const DueMrvListing = ({
   arrows: true,
   slidesToShow: 4,
   slidesToScroll: 2,
-  nextArrow: <SampleNextArrow />,
-  prevArrow: <SamplePrevArrow />,
+  centerMode: false,
+  nextArrow: tableData?.length > 4 ? <SampleNextArrow /> : null,
+  prevArrow: tableData?.length > 4 ? <SamplePrevArrow /> : null,
   responsive: [
    {
     breakpoint: 1024,
@@ -75,29 +65,32 @@ const DueMrvListing = ({
   ],
  };
 
+ const checkProcessStatus = item => {
+  const processItem = selectedCard?.receiptProcess?.find(
+   process => process.formFields.RP_TRAN_ID === item,
+  );
+  return processItem ? processItem.formFields.RP_PROCESS_YN === 'Y' : false;
+ };
+
  const renderCards = (item, index) => (
   <div
    data-id={item?.[highlightKey]}
    key={item?.[highlightKey]}
-   className={
-    selectedRow == item?.[highlightKey]
-     ? 'list_card_highlighted_row'
-     : 'list_card'
-   }>
+   className={selectedRow == item?.[highlightKey] ? 'list_card_highlighted_row' : 'list_card'}>
    <div
     className={`action_header flex item-center justify-${
      action && !freeze ? 'between' : 'between'
     }`}>
     <div
-     onClick={e => {
-      handleDelete(item);
+     onClick={() => {
+      selectIndex(item);
      }}
      className='pl-2 flex items-center'>
      <div className='mrv_checkbox'>
       <input
        readOnly
-       //checked={item?.isSelected === 'Y'}
-       checked={true}
+       disabled={item?.Process_YN === 'Y'}
+       checked={checkProcessStatus(item?.ID)}
        id={index}
        type='checkbox'
       />
@@ -116,9 +109,7 @@ const DueMrvListing = ({
    </div>
 
    {Object.keys(column)?.map(key => (
-    <div
-     key={key}
-     className='ml-3 mrv_list items-center grid grid-cols-12 gap-1'>
+    <div key={key} className='ml-3 mrv_list items-center grid grid-cols-12 gap-1'>
      <p className='col-span-6 key_font'>{column[key]}</p>
      <p className='col-span-6 value_font'>{item[key]}</p>
     </div>
@@ -129,9 +120,7 @@ const DueMrvListing = ({
  return (
   <div className={`MRV_card MRV_card--flex ${isSlide ? '' : 'overflow-y-auto p-2'}`}>
    {isSlide ? (
-    <Slider {...settings}>
-     {tableData?.map((item, index) => renderCards(item, index))}
-    </Slider>
+    <Slider {...settings}>{tableData?.map((item, index) => renderCards(item, index))}</Slider>
    ) : (
     tableData?.map((item, index) => renderCards(item, index))
    )}
