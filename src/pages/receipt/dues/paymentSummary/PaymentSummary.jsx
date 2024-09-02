@@ -37,10 +37,11 @@ const PaymentSummary = () => {
    showNotification.ERROR('Paid Amount should not be less than Amount to be paid');
    return;
   }
-
-  if (!RH_POL_NO) {
-   showNotification.ERROR('Please Select Policy Number');
-   return;
+  if (RH_LC_AMT > RH_BATCH_LC_AMT) {
+   if (!RH_POL_NO) {
+    showNotification.ERROR('Please Select Policy Number');
+    return;
+   }
   }
 
   try {
@@ -78,6 +79,9 @@ const PaymentSummary = () => {
       placeholder='amount'
       value={paidValue?.receiptHeader?.formFields?.RH_LC_AMT}
       readOnly={false}
+      onBlur={e => {
+       if (e.target.value <= RH_BATCH_LC_AMT) handleChange('RH_POL_NO', null);
+      }}
       onChange={e => {
        handleChange('RH_LC_AMT', e.target.value);
       }}

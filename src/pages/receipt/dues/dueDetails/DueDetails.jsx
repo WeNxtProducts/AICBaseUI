@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'antd';
-import { colHeader, dueDates } from '../../../../components/tableComponents/sampleData';
 import DueMrvListing from '../../dueMrvListing/DueMrvListing';
 import DueInfo from './DueInfo';
 import { ReceiptContext } from '../../Receipt';
@@ -9,7 +8,7 @@ import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 
 const DueDetails = () => {
- const { id: tranId, selectedPolicy, setAmountSummary } = useContext(ReceiptContext);
+ const { id: tranId, selectedPolicy, setAmountSummary, setIsModified } = useContext(ReceiptContext);
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const getDuesDetails = useApiRequests('getDuesDetails', 'POST');
  const reeiptHeaderGet = useApiRequests('getReceiptHeader', 'POST');
@@ -69,7 +68,8 @@ const DueDetails = () => {
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
-    const { RH_BATCH_LC_AMT = 0, RH_LC_AMT, RH_POL_NO = '' } = response.Data;
+    const { RH_BATCH_LC_AMT = 0, RH_LC_AMT, RH_POL_NO = '', RH_FLEX_03 = false } = response.Data;
+    setIsModified(RH_FLEX_03 === 'Y');
     setAmountSummary({
      receiptHeader: {
       formFields: {

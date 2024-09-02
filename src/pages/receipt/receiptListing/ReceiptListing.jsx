@@ -18,7 +18,7 @@ const ReceiptListing = () => {
  const listingAPI = useApiRequests('getListing', 'GET');
  const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const deleteRceipt = useApiRequests('modernClaimDelete', 'POST');
- const receiptSearch = useApiRequests('claimListSearch', 'GET');
+ const receiptSearch = useApiRequests('receiptSearch', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
  const [loader, setLoader] = useState(false);
@@ -109,11 +109,11 @@ const ReceiptListing = () => {
   handleListingApi(calculateOffset(page) + 1);
  };
 
- const handleUsesearch = async (searchText, offset, page) => {
+ const handleUsesearch = async (searchTerm, offset, page) => {
   setLoader(true);
   try {
-   const response = await receiptSearch('', {
-    searchText,
+   const response = await receiptSearch({
+    searchTerm,
     limit,
     offset,
     queryId: currentMenuId?.listingQueryId,

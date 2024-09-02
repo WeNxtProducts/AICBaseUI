@@ -316,6 +316,22 @@ const POST_API_URL = {
   url: '/receiptHdr/update',
   baseURL: 'CLAIMURL',
  },
+ receiptSearch: {
+  url: '/receiptHdr/search',
+  baseURL: 'CLAIMURL',
+ },
+ getPayDetails: {
+  url: '/receiptDetail/get',
+  baseURL: 'CLAIMURL',
+ },
+ savePayDetails: {
+  url: '/receiptDetail/save',
+  baseURL: 'CLAIMURL',
+ },
+ updatePayDetails: {
+  url: '/receiptDetail/update',
+  baseURL: 'CLAIMURL',
+ },
 };
 
 export default POST_API_URL;

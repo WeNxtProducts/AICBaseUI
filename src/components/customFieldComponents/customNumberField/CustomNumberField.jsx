@@ -36,8 +36,10 @@ const CustomNumberField = ({
  disabled = false,
  readOnly = false,
  format = 'amount',
- onBlur
+ maxLength = '',
+ onBlur,
 }) => {
+ const [textAlign, setTextAlign] = useState('right');
  const [formattedValue, setFormattedValue] = useState(value?.toString() || '');
  const inputRef = useRef(null);
 
@@ -48,6 +50,9 @@ const CustomNumberField = ({
  };
 
  useEffect(() => {
+  if (format === 'card') {
+   setTextAlign('left');
+  }
   if (firstFieldRef?.current) {
    firstFieldRef.current.focus();
   }
@@ -59,8 +64,16 @@ const CustomNumberField = ({
   } else if (format === 'amount') {
    const mainVal = formatCurrency(value?.toString());
    setFormattedValue(mainVal);
+  } else if (format === 'card') {
+   setFormattedValue(value);
   }
  }, [value]);
+
+ const handleCardNumberChange = e => {
+  let value = e.replace(/\D/g, '');
+  value = value.slice(0, 16);
+  return value.replace(/(\d{4})(?=\d)/g, '$1 ');
+ };
 
  const handleInputChange = e => {
   if (format === 'number') {
@@ -93,6 +106,20 @@ const CustomNumberField = ({
      });
     }
    }
+  } else if (format === 'card') {
+   let inputValue = e.target.value;
+   const rawValue = inputValue.replace(/,/g, '');
+
+   setFormattedValue(handleCardNumberChange(inputValue));
+   if (onChange) {
+    onChange({
+     ...e,
+     target: {
+      ...e.target,
+      value: rawValue,
+     },
+    });
+   }
   }
  };
 
@@ -107,10 +134,14 @@ const CustomNumberField = ({
      }
     }}
     type='text'
-    onBlur={e => onBlur(e)}
+    style={{ textAlign }}
+    onBlur={e => {
+     if (onBlur) onBlur(e);
+    }}
     className='custom-form-fields number-field'
     placeholder={placeholder}
     readOnly={readOnly}
+    maxLength={maxLength}
     value={formattedValue}
     onChange={handleInputChange}
     disabled={disabled}
