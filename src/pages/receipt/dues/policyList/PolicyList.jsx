@@ -4,32 +4,7 @@ import { Checkbox } from 'antd';
 import useApiRequests from '../../../../services/useApiRequests';
 
 const PolicyListView = () => {
- const {
-  multiSelect,
-  id: tranId,
-  policyList,
-  setpolicyList,
-  selectedPolicy,
-  setSelectedPolicy,
- } = useContext(ReceiptContext);
- const getpolicylist = useApiRequests('getPreClaimDate', 'POST');
-
- const handlePolicyList = async () => {
-  const payload = { queryParams: { tranId } };
-  try {
-   const response = await getpolicylist(payload, { queryId: 212 });
-   setpolicyList(response?.Data);
-   if (response?.Data?.length > 0) {
-    setSelectedPolicy(response?.Data[0]?.RP_POL_NO);
-   }
-  } catch (err) {
-   console.error(err);
-  }
- };
-
- useEffect(() => {
-  if (tranId) handlePolicyList();
- }, [tranId]);
+ const { multiSelect, policyList, selectedPolicy, setSelectedPolicy } = useContext(ReceiptContext);
 
  return (
   <div className=''>
