@@ -18,9 +18,7 @@ const Dues = () => {
     <DueHeader />
     <DueDetails />
    </div>
-   {/* <div className='submit_section mt-3 col-span-12 flex justify-end'>
-    <Button className='submit_btn'>Submit</Button>
-   </div> */}
+
    {amountSummary !== null && (
     <div className='col-span-12'>
      <PaymentSummary />

@@ -88,7 +88,7 @@ const CreitCardForm = ({ values, setFieldValue, handleOnChange, bankList }) => {
       name={`RD_BANK_REF_NO`}
       size='large'
       placeholder={'Txn no'}
-      value={values?.RD_CHQ_BANK_CODE}
+      value={values?.RD_BANK_REF_NO}
       onChange={e => handleOnChange('RD_BANK_REF_NO', e.target.value, setFieldValue)}
      />
      <ErrorMessage name='RD_BANK_REF_NO' component='div' className='error-message' />

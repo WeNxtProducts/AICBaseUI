@@ -7,6 +7,8 @@ import useApiRequests from './../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { ReceiptContext } from '../Receipt';
 import Loader from './../../../components/loader/Loader';
+import { setReceiptId } from '../../../globalStore/slices/ReceiptId';
+import { useDispatch } from 'react-redux';
 
 const serchMethods = [
  { value: 207, label: 'Customer Code ', rKey: 'C' },
@@ -16,7 +18,13 @@ const serchMethods = [
 ];
 
 const CaptureFields = () => {
- const { id: tranId, setAmountSummary, isModified, setIsModified } = useContext(ReceiptContext);
+ const {
+  id: tranId,
+  setAmountSummary,
+  setHeaderStatus,
+  setIsModified,
+ } = useContext(ReceiptContext);
+ const dispatch = useDispatch();
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const reeiptHeaderGet = useApiRequests('getReceiptHeader', 'POST');
  const receiptSave = useApiRequests('receiptSave', 'POST');
@@ -50,6 +58,7 @@ const CaptureFields = () => {
      RH_FLEX_03 = false,
      RH_POL_NO = '',
     } = response.Data;
+    setHeaderStatus(response.Data);
     setIsModified(RH_FLEX_03 === 'Y');
     setValues({
      receiptHeader: {
@@ -154,8 +163,9 @@ const CaptureFields = () => {
     showNotification.ERROR(response?.status_msg);
     setLoader(false);
    } else if (response?.status === 'SUCCESS') {
-    showNotification.SUCCESS(response?.status_msg);
+    // showNotification.SUCCESS(response?.status_msg);
     console.log('response : ', response?.Data?.Id, response?.status_msg);
+    dispatch(setReceiptId(response?.Data?.Id));
     procedureCall(response?.Data?.Id, response?.status_msg);
    }
   } catch (err) {

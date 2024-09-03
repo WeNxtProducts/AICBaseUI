@@ -10,7 +10,13 @@ import showNotification from '../../../../components/notification/Notification';
 import { formatNumber } from './../../../../components/commonHelper/CurrentFormatter';
 
 const PaymentSummary = () => {
- const { id: tranId, policyList, amountSummary, setIsModified } = useContext(ReceiptContext);
+ const {
+  id: tranId,
+  policyList,
+  amountSummary,
+  setIsModified,
+  setAmountSummary,
+ } = useContext(ReceiptContext);
  const {
   RH_BATCH_LC_AMT = 0,
   RH_LC_AMT = '',
@@ -50,6 +56,15 @@ const PaymentSummary = () => {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
     setIsModified(true);
+    setAmountSummary({
+     receiptHeader: {
+      formFields: {
+       RH_BATCH_LC_AMT: RH_BATCH_LC_AMT,
+       RH_LC_AMT: RH_LC_AMT,
+       RH_POL_NO: RH_POL_NO,
+      },
+     },
+    });
     showNotification.SUCCESS(response?.status_msg);
    }
   } catch (err) {

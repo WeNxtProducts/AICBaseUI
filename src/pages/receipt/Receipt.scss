@@ -1,5 +1,6 @@
 @import '../../styles/components/react-slick-style.scss';
 @import '../../styles/components/mrvStyleDue.scss';
+@import '../../styles/variable';
 
 @mixin font-style($color, $font-size, $font-weight, $letter-spacing) {
  color: $color;
@@ -274,6 +275,22 @@
  .sub_btn {
   @extend %save-btn;
   margin-top: 30px;
+  border-radius: 8px;
+  padding: 4px 10px;
+  width: 15%;
+ }
+ .add-buttons {
+  background-color: $save-button-forms;
+  .icon-style {
+   font-size: 16px;
+  }
+ }
+ .approve_btn {
+  @extend %save-btn;
+  font-size: 14px;
+  background-color: #59af34;
+  margin-top: 30px;
+  margin-left: 20px;
   border-radius: 8px;
   padding: 4px 10px;
   width: 15%;

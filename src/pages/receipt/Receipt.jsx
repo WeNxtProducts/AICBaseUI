@@ -13,6 +13,7 @@ const Receipt = () => {
  const [selectedPolicy, setSelectedPolicy] = useState('');
  const [amountSummary, setAmountSummary] = useState(null);
  const [isModified, setIsModified] = useState(false);
+ const [headerStatus, setHeaderStatus] = useState(null);
 
  const data = {
   multiSelect,
@@ -26,6 +27,8 @@ const Receipt = () => {
   setAmountSummary,
   isModified,
   setIsModified,
+  headerStatus,
+  setHeaderStatus,
  };
 
  return (
@@ -33,9 +36,11 @@ const Receipt = () => {
    <div className='receipt'>
     <ReceiptHeader />
     <hr className='custom-divider' />
-    <div className='mt-2'>
-     <Dues />
-    </div>
+    {id && policyList?.length > 0 && (
+     <div className='mt-2'>
+      <Dues />
+     </div>
+    )}
    </div>
   </ReceiptContext.Provider>
  );
