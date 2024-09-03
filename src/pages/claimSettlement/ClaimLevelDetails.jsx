@@ -25,8 +25,7 @@ const ClaimLevelDetails = () => {
   const queryParams = { queryId: 133, tranId: selectedClaim?.CLM_TRAN_ID };
   try {
    const response = await getCoverDetails('', queryParams);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     if (selectedCover === null) setSelectedCover(response?.Data[0]);
     setCoverDetailsList(response?.Data);
@@ -38,6 +37,7 @@ const ClaimLevelDetails = () => {
 
  useEffect(() => {
   handleGetCoverList();
+  console.log('selectedCover :', selectedCover);
  }, [selectedClaim]);
 
  const handleSelectCover = item => {
@@ -68,10 +68,7 @@ const ClaimLevelDetails = () => {
    </div>
 
    {selectedCover !== null && (
-    <ClaimSummary
-     selectedCover={selectedCover}
-     handleGetCoverList={handleGetCoverList}
-    />
+    <ClaimSummary selectedCover={selectedCover} handleGetCoverList={handleGetCoverList} />
    )}
    {/* <ClaimCurrency /> */}
 
@@ -88,6 +85,7 @@ const ClaimLevelDetails = () => {
      open={openTreaty}
      handleClose={handleClose}
      claimTranId={selectedClaim?.CLM_TRAN_ID}
+     coverId={selectedCover?.ID}
     />
    )}
   </div>

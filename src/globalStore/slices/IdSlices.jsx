@@ -6,6 +6,7 @@ const initialState = {
  prodCode: '',
  freezeStatus: false,
  planCode: '',
+ stepperId: 0,
 };
 
 const IdSlices = createSlice({
@@ -27,6 +28,9 @@ const IdSlices = createSlice({
   setFreezeStatus: (state, action) => {
    state.freezeStatus = action.payload;
   },
+  setStepperId: (state, action) => {
+   state.stepperId = action.payload;
+  },
  },
 });
 
@@ -36,6 +40,7 @@ export const {
  setProdCode,
  setFreezeStatus,
  setPlanCode,
+ setStepperId,
 } = IdSlices.actions;
 
 export default IdSlices.reducer;

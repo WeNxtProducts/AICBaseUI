@@ -16,12 +16,13 @@ import {
  setFormValues,
  setFreezeStatus,
  setProdCode,
+ setStepperId,
 } from '../../globalStore/slices/IdSlices';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
 import StatusPopup from '../../components/statusPopup/StatusPopup';
-import './Quotations.scss';
 import { setCustCode, setPolNum } from '../../globalStore/slices/UnderwriterId';
+import './Quotations.scss';
 
 export const StepperContext = createContext();
 
@@ -56,7 +57,8 @@ const Quotation = () => {
  };
  const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
   statusMap[policyStatus ? 'S' : 'N'] || {};
- const { id: stepperId } = { id: Number(useParams().id) };
+ //  const { id: stepperId } = { id: Number(useParams().id) };
+ const stepperId = useSelector(state => state?.id?.stepperId);
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const updateProposalStepperStatus = useApiRequests('updateProposalStepperStatus', 'POST');
  const updateProposalFreezeStatus = useApiRequests('updateProposalFreezeStatus', 'POST');
@@ -84,10 +86,6 @@ const Quotation = () => {
  };
 
  useEffect(() => {
-  console.log('policyStatus : ', policyStatus);
- }, [policyStatus]);
-
- useEffect(() => {
   if (proposalNumber) procedureCall(false);
   if (currentMenuId?.ds_type == 2) {
    //    setPolicyStatus(true);
@@ -98,6 +96,7 @@ const Quotation = () => {
    //    dispatch(setProdCode(''));
    //    dispatch(setFormValues(null));
    //    dispatch(setFreezeStatus(false));
+   //    dispatch(setStepperId(0));
   };
  }, [proposalNumber]);
 
@@ -133,7 +132,10 @@ const Quotation = () => {
  useEffect(() => {
   if (id) {
    const flag = getNextKey(stepperData);
-   if (flag > 0 && lastUpdatedStep !== flag) stepperUpdate(flag);
+   if (flag > 0 && lastUpdatedStep !== flag) {
+    dispatch(setStepperId(flag));
+    stepperUpdate(flag);
+   }
   }
  }, [stepperData, id]);
 

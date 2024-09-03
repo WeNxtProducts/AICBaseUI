@@ -8,7 +8,13 @@ import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 
 const DueDetails = () => {
- const { id: tranId, selectedPolicy, setAmountSummary, setIsModified } = useContext(ReceiptContext);
+ const {
+  id: tranId,
+  selectedPolicy,
+  setAmountSummary,
+  setIsModified,
+  headerStatus,
+ } = useContext(ReceiptContext);
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const getDuesDetails = useApiRequests('getDuesDetails', 'POST');
  const reeiptHeaderGet = useApiRequests('getReceiptHeader', 'POST');
@@ -145,7 +151,7 @@ const DueDetails = () => {
     <p className='due_count'>
      Total Dues <span>{rowData?.length}</span>
     </p>
-    {selectedDues?.receiptProcess?.length > 0 && (
+    {selectedDues?.receiptProcess?.length > 0 && headerStatus?.RH_APPRV_STATUS !== 'A' && (
      <Button className='save-btn' onClick={() => handleSaveDueSelected()}>
       Save
      </Button>

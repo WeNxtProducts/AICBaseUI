@@ -47,28 +47,27 @@ const MRVform = ({
        <Form onSubmit={handleSubmit}>
         <div className={`items-center grid grid-cols-${grid} gap-0`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
-          const dataId =
-           formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
-          return useMemo(() => {
-           return (
-            <React.Fragment key={dataId}>
-             {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
-              <div data-id={dataId}>
-               <FieldWithValue
-                currentData={formRender?.[root]?.formFields[fieldKey]}
-                values={values}
-                setFieldValue={setFieldValue}
-                handleOnBlur={handleOnBlur}
-                lovData={lovList?.[dataId]}
-                handleChangeValue={handleChangeValue}
-                parent={root}
-                smallFont={smallFont}
-               />
-              </div>
-             )}
-            </React.Fragment>
-           );
-          }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
+          const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+          //   return useMemo(() => {
+          return (
+           <React.Fragment key={dataId}>
+            {!formRender?.[root]?.formFields[fieldKey]?.PFD_HIDE_YN && (
+             <div data-id={dataId}>
+              <FieldWithValue
+               currentData={formRender?.[root]?.formFields[fieldKey]}
+               values={values}
+               setFieldValue={setFieldValue}
+               handleOnBlur={handleOnBlur}
+               lovData={lovList?.[dataId]}
+               handleChangeValue={handleChangeValue}
+               parent={root}
+               smallFont={smallFont}
+              />
+             </div>
+            )}
+           </React.Fragment>
+          );
+          //   }, [values?.[root]?.formFields[fieldKey], lovList?.[dataId]]);
          })}
         </div>
         {action && (

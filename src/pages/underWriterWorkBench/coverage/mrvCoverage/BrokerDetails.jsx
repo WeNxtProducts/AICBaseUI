@@ -34,31 +34,39 @@ const BrokerDetails = ({ brokerId, code }) => {
   console.log('brokerId : ', brokerId, rowData);
  }, [rowData]);
 
+ const hasValidRowData = rowData => {
+  return rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0;
+ };
+
  return (
   <div className='broker_content'>
    <div className='broker_title flex items-center'>
     <p className='broker_text'>Broker Detail - {code}</p>
    </div>
-   <div className='flex items-center justify-center'>
-    <table className='custom-table'>
-     <thead>
-      <tr>
-       {columns.map(key => (
-        <th key={key}>{Heading[key]}</th>
-       ))}
-      </tr>
-     </thead>
-     <tbody>
-      {data.map((row, index) => (
-       <tr key={index}>
+   {hasValidRowData(rowData) ? (
+    <div className='flex items-center justify-center'>
+     <table className='custom-table'>
+      <thead>
+       <tr>
         {columns.map(key => (
-         <td key={key}>{row[key]}</td>
+         <th key={key}>{Heading[key]}</th>
         ))}
        </tr>
-      ))}
-     </tbody>
-    </table>
-   </div>
+      </thead>
+      <tbody>
+       {rowData.map((row, index) => (
+        <tr key={index}>
+         {columns.map(key => (
+          <td key={key}>{row[key]}</td>
+         ))}
+        </tr>
+       ))}
+      </tbody>
+     </table>
+    </div>
+   ) : (
+    <p>No Data</p>
+   )}
   </div>
  );
 };

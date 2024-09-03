@@ -45,7 +45,11 @@ const DecisionDetails = () => {
     packageName: 'WNPKG_POLICY',
    });
    if (response?.Data?.P_SUCC_YN === 'N') showNotification.ERROR(response?.status_msg);
-   if (response?.Data?.P_SUCC_YN === 'Y') {
+   if (response?.Data?.P_SUCC_YN === 'PA') {
+    showNotification.SUCCESS(response?.Data?.P_MSG);
+    return;
+   }
+   if (response?.status === 'SUCCESS') {
     showNotification.SUCCESS(msg);
    }
   } catch (err) {
@@ -78,7 +82,6 @@ const DecisionDetails = () => {
  };
 
  const handleOnSubmit = async () => {
-  console.log('values : ', values);
   const isFilled = Object.values(values).every(value => value.trim() !== '');
   if (!isFilled) {
    showNotification.WARNING('Please fill out all fields.');

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useApiRequests from '../../../services/useApiRequests';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
-import { setCurrentID, setFreezeStatus } from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFreezeStatus, setStepperId } from '../../../globalStore/slices/IdSlices';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 import showNotification from '../../../components/notification/Notification';
 
@@ -67,6 +67,7 @@ const QuotationListing = ({ label }) => {
  const handleEdit = item => {
   dispatch(setFreezeStatus(item?.Freeze_Flag === 'Y' || item?.Freeze_Flag === 'A'));
   dispatch(setCurrentID(item?.ID));
+  dispatch(setStepperId(item?.Stepper_Id));
   navigate(`/quotation/${item?.Stepper_Id}`);
  };
 

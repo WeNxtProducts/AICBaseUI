@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import './collapsePanelHeader.scss';
 import ErrorLog from '../errorLog/ErrorLog';
 import ErrorContent from '../errorLog/ErrorContent';
+import './collapsePanelHeader.scss';
 
 const CollapsePanelHeader = ({ name, saved, ds_type = 1 }) => {
  return (
@@ -15,7 +15,7 @@ const CollapsePanelHeader = ({ name, saved, ds_type = 1 }) => {
      <p>Saved!!!</p>
     </div>
    )} */}
-   {ds_type == 1 && (
+   {saved?.status && ds_type == 1 && (
     <ErrorLog classNamePopOver='error-log-popover' classNameText='error-log-status'>
      <ErrorContent />
     </ErrorLog>

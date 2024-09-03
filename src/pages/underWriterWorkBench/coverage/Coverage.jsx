@@ -13,7 +13,7 @@ const Coverage = () => {
   loading: false,
   discount: false,
   charges: false,
-  brokerAgent: true,
+  brokerAgent: false,
  });
 
  const toggleAccordion = section => {

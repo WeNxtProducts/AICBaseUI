@@ -2,10 +2,7 @@ import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import RadioChip from '../../../components/radioChip/RadioChip';
-import {
- claim_check,
- platforms,
-} from '../../../components/tableComponents/sampleData';
+import { claim_check, platforms } from '../../../components/tableComponents/sampleData';
 import {
  CustomDatePicker,
  CustomSelect,
@@ -14,25 +11,15 @@ import { Form, Formik } from 'formik';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { ClaimContext } from '../ModernClaim';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import { debounce } from 'lodash';
 import dayjs from 'dayjs';
 
 const ClaimSelect = () => {
- const {
-  id: tranId,
-  setPolicyList,
-  setelectedPolicy,
-  setLoader,
- } = useContext(ClaimContext);
+ const { id: tranId, setPolicyList, setelectedPolicy, setLoader } = useContext(ClaimContext);
  const dispatch = useDispatch();
  const formRef = useRef(null);
- const companyCode = useSelector(
-  state => state?.tokenAndMenuList?.userDetails?.companyCode,
- );
+ const companyCode = useSelector(state => state?.tokenAndMenuList?.userDetails?.companyCode);
  const queryId = { PR: 85, ID: 90, PO: 86 };
  const createClaim = useApiRequests('createClaim', 'POST');
  const getPolicyList = useApiRequests('getPolicyList', 'GET');
@@ -88,10 +75,7 @@ const ClaimSelect = () => {
 
  const handleGetPolicyList = async tranId => {
   try {
-   const response = await getPreClaimDate(
-    { queryParams: { tranId } },
-    { queryId: 117 },
-   );
+   const response = await getPreClaimDate({ queryParams: { tranId } }, { queryId: 117 });
    if (response?.status === 'FAILURE') {
     setLoader(false);
     showNotification.ERROR(response?.status_msg);
@@ -109,8 +93,7 @@ const ClaimSelect = () => {
  const claimSave = async values => {
   try {
    const response = await createClaim(values);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     // setInitialValues(pre => ({
     //  ...formRef.current.values,
@@ -130,13 +113,7 @@ const ClaimSelect = () => {
 
  const onSubmit = async values => {
   setLoader(true);
-  const {
-   CH_CLAIM_TYPE,
-   CH_CLAIM_BAS,
-   CH_CLAIM_BAS_VAL,
-   CH_LOSS_DT,
-   CH_ASSR_CODE,
-  } = values;
+  const { CH_CLAIM_TYPE, CH_CLAIM_BAS, CH_CLAIM_BAS_VAL, CH_LOSS_DT, CH_ASSR_CODE } = values;
   const payload = {
    inParams: {
     P_CLAIM_TYPE: CH_CLAIM_TYPE,
@@ -163,8 +140,7 @@ const ClaimSelect = () => {
  };
 
  const handleOnBlur = setFieldValue => {
-  const { CH_CLAIM_BAS_VAL, CH_CLAIM_BAS, CH_CLAIM_TYPE } =
-   formRef.current.values;
+  const { CH_CLAIM_BAS_VAL, CH_CLAIM_BAS, CH_CLAIM_TYPE } = formRef.current.values;
   if (CH_CLAIM_BAS === 'PR') {
    const payload = { CH_CLAIM_TYPE, CH_CLAIM_BAS_VAL };
    CH_CLAIM_BAS_VAL && handleGetPreClaimDate(payload, setFieldValue);
@@ -173,16 +149,13 @@ const ClaimSelect = () => {
     queryId: CH_CLAIM_BAS === 'ID' ? 88 : 89,
     ...(CH_CLAIM_BAS && { [CH_CLAIM_BAS]: CH_CLAIM_BAS_VAL }),
    };
-   handleGetSelectValue(queryParams, 'CH_ASSR_CODE', setFieldValue);
+   if (CH_CLAIM_BAS_VAL) handleGetSelectValue(queryParams, 'CH_ASSR_CODE', setFieldValue);
   }
  };
 
  const handleGetPreClaimDate = async (payload, setFieldValue) => {
   try {
-   const response = await getPreClaimDate(
-    { queryParams: payload },
-    { queryId: 87 },
-   );
+   const response = await getPreClaimDate({ queryParams: payload }, { queryId: 87 });
    if (response?.status === 'SUCCESS') {
     const { CH_INTIM_DT, CH_LOSS_DT, CH_ASSR_CODE } = response.Data[0];
     setFieldValue('CH_INTIM_DT', CH_INTIM_DT);
@@ -292,10 +265,7 @@ const ClaimSelect = () => {
              setFieldName(val?.label);
              setFieldValue('CH_CLAIM_BAS', val?.value);
              setFieldValue('CH_LOSS_DT', '');
-             setFieldValue(
-              'CH_INTIM_DT',
-              val?.value !== 'PR' ? dayjs().format('YYYY-MM-DD') : '',
-             );
+             setFieldValue('CH_INTIM_DT', val?.value !== 'PR' ? dayjs().format('YYYY-MM-DD') : '');
              setSelectDropDown({
               CH_CLAIM_BAS_VAL: [],
               CH_ASSR_CODE: [],
@@ -358,9 +328,7 @@ const ClaimSelect = () => {
           {tranId ? (
            <div className='flex items-center justify-between min-h-8 key_value_form'>
             <p className=''>
-             {values?.CH_LOSS_DT
-              ? dayjs(values?.CH_LOSS_DT).format('YYYY-MM-DD')
-              : ''}
+             {values?.CH_LOSS_DT ? dayjs(values?.CH_LOSS_DT).format('YYYY-MM-DD') : ''}
             </p>
            </div>
           ) : (
@@ -384,9 +352,7 @@ const ClaimSelect = () => {
           {tranId ? (
            <div className='flex items-center justify-between min-h-8 key_value_form'>
             <p className=''>
-             {values?.CH_INTIM_DT
-              ? dayjs(values?.CH_INTIM_DT).format('YYYY-MM-DD')
-              : ''}
+             {values?.CH_INTIM_DT ? dayjs(values?.CH_INTIM_DT).format('YYYY-MM-DD') : ''}
             </p>
            </div>
           ) : (

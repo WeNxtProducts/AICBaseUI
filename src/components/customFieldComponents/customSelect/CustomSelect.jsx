@@ -42,8 +42,7 @@ const CustomSelect = ({
 
  const sharedProps = {
   mode: mode,
-  // variant: "borderless",
-  showSearch,
+  showSearch: readOnly ? false : showSearch,
   allowClear: !readOnly,
   maxTagCount: 'responsive',
   filterOption: (input, option) => {

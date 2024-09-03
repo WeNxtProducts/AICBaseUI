@@ -3,9 +3,9 @@ import ClaimSettlementHeader from './ClaimSettlementHeader';
 import SettlementFromClaim from './SettlementFromClaim';
 import ClaimLevelDetails from './ClaimLevelDetails';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './ClaimSettlement.scss';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
+import './ClaimSettlement.scss';
 
 export const ClaimSettlementContext = createContext();
 

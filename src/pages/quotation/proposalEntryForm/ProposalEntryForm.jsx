@@ -121,10 +121,6 @@ const ProposalEntryForm = () => {
    if (response?.status === 'SUCCESS') {
     setProposalNumber(response?.PROPOSAL_NO);
     const menuType = currentMenuId?.ds_type == 1;
-    console.log(
-     "response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] : ",
-     response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] === (menuType ? 'S' : 'A'),
-    );
     setPolicyStatus(response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] === (menuType ? 'S' : 'A'));
     handleStateInit(response?.Data);
    } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
