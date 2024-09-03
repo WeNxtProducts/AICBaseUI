@@ -9,7 +9,12 @@ import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import '../../Quotations.scss';
-import { setFreezeStatus, setPlanCode, setProdCode } from '../../../../globalStore/slices/IdSlices';
+import {
+ setFreezeStatus,
+ setPlanCode,
+ setProdCode,
+ setStepperId,
+} from '../../../../globalStore/slices/IdSlices';
 
 const ProductList = () => {
  const dispatch = useDispatch();
@@ -62,6 +67,7 @@ const ProductList = () => {
  const handleSelectPlan = item => {
   dispatch(setFreezeStatus(false));
   dispatch(setPlanCode(item?.VALUE));
+  dispatch(setStepperId(0));
   navigate('/quotation/0');
  };
 

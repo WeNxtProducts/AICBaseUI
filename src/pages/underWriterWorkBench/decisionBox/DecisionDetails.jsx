@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import _ from 'lodash';
 import { Button } from 'antd';
 import {
  CustomSelect,
@@ -19,6 +20,14 @@ const DecisionDetails = () => {
   DECISION: '',
   REASON: '',
  });
+ const [preValues, setPreValues] = useState({
+  DECISION: '',
+  REASON: '',
+ });
+
+ const [showSave, setShowSave] = useState(true);
+
+ const areStatesEqual = _.isEqual(values, preValues);
 
  const handleGetDecisionList = async () => {
   try {
@@ -63,6 +72,7 @@ const DecisionDetails = () => {
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setValues(response?.Data[0]);
+    setPreValues(response?.Data[0]);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -116,7 +126,10 @@ const DecisionDetails = () => {
         placeholder={'select'}
         showSearch={false}
         size='medium'
-        onChange={value => handleInputChange('DECISION', value)}
+        onChange={value => {
+         // const {}
+         handleInputChange('DECISION', value);
+        }}
        />
       </div>
      </div>
@@ -135,11 +148,13 @@ const DecisionDetails = () => {
      </div>
     </div>
    )}
-   <div className='mt-4 flex justify-center'>
-    <Button className='sub_btn' onClick={() => handleOnSubmit()}>
-     Submit
-    </Button>
-   </div>
+   {showSave && (
+    <div className='mt-4 flex justify-center'>
+     <Button className='sub_btn' onClick={() => handleOnSubmit()}>
+      Submit
+     </Button>
+    </div>
+   )}
   </div>
  );
 };

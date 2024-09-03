@@ -49,22 +49,18 @@ const MRVListingQuotation = ({
      }>
      <div
       className={`action_header flex item-center justify-${action && !freeze ? 'between' : 'end'}`}>
-      {action && !freeze && (
+      {/* {action && !freeze && (
        <div
         onClick={e => {
          handleDelete(item);
         }}
         className='pl-2'>
-        {/* <Checkbox
-         checked={item?.isSelected === 'Y'}
-         onChange={e => handleDelete(item)}
-        /> */}
         <div className='mrv_checkbox'>
          <input readOnly checked={item?.isSelected === 'Y'} id={index} type='checkbox' />
          <label />
         </div>
        </div>
-      )}
+      )} */}
       <div className='flex gap-2 pe-3 p-1'>
        {isView && (
         <Tooltip title='View'>

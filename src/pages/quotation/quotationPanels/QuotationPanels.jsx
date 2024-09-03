@@ -37,14 +37,14 @@ const QuotationPanels = () => {
    }, 500);
   }
   if (isAllCompleted) {
-   if (activePanal.includes(currentStep.toString())) {
+   if (activePanal.includes(currentStep?.toString())) {
     const arr = [
-     ...activePanal.filter(step => step !== currentStep.toString()),
-     currentStep.toString(),
+     ...activePanal.filter(step => step !== currentStep?.toString()),
+     currentStep?.toString(),
     ];
     callback(arr);
    } else {
-    const arr = [...activePanal, currentStep.toString()];
+    const arr = [...activePanal, currentStep?.toString()];
     callback(arr);
    }
   }

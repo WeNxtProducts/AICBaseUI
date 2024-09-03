@@ -96,7 +96,24 @@ const MrvQuotation = ({
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
   const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
-  addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV, subId || '');
+
+  if (root === 'benificiary') {
+   const percentage = payload[root]?.formFields?.PGBEN_SHARE_PERC;
+   const totalPercentage =
+    rowData.reduce((sum, item) => {
+     if (item.ID === editMRVId) return sum;
+     return sum + (Number(item?.Percentage) || 0);
+    }, 0) + Number(percentage);
+   if (percentage > 100) {
+    showNotification.WARNING('Percentage should not exceed 100');
+    return;
+   } else if (totalPercentage > 100) {
+    showNotification.WARNING('Total percentage should not exceed 100');
+    return;
+   } else {
+    addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV, subId || '');
+   }
+  } else addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV, subId || '');
  };
 
  const handleInitData = async response => {

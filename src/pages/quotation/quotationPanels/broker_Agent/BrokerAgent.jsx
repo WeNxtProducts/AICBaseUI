@@ -108,7 +108,7 @@ const BrokerAgent = () => {
    {initialValues !== null && (
     <Formik
      initialValues={initialValues}
-     //  validationSchema={brokerValidationSchema}
+     validationSchema={brokerValidationSchema}
      onSubmit={onSubmit}>
      {({ values, setFieldValue, errors }) => {
       return (
@@ -118,17 +118,19 @@ const BrokerAgent = () => {
           <div className='grid grid-cols-8'>
            {brokerTypeShared && (
             <div className='col-span-6 flex justify-end'>
-             <button
-              type='button'
-              className='add-buttons-broker'
-              onClick={() =>
-               push({ formFields: { PBRK_BRK_CODE: '', PBRK_BRK_NAME: '', PBRK_BRK_PERC: '' } })
-              }>
-              <div className='flex items-center'>
-               <i className='bi bi-plus icon-style' />
-               <p>Add New</p>
-              </div>
-             </button>
+             {!freeze && (
+              <button
+               type='button'
+               className='add-buttons-broker'
+               onClick={() =>
+                push({ formFields: { PBRK_BRK_CODE: '', PBRK_BRK_NAME: '', PBRK_BRK_PERC: '' } })
+               }>
+               <div className='flex items-center'>
+                <i className='bi bi-plus icon-style' />
+                <p>Add New</p>
+               </div>
+              </button>
+             )}
             </div>
            )}
            <div className='col-span-8'>
@@ -200,9 +202,11 @@ const BrokerAgent = () => {
                  />
                  {brokerTypeShared && index !== 0 && (
                   <div className='ml-5'>
-                   <button type='button' onClick={() => remove(index)}>
-                    <DeleteOutlined className='delete-button' />
-                   </button>
+                   {!freeze && (
+                    <button type='button' onClick={() => remove(index)}>
+                     <DeleteOutlined className='delete-button' />
+                    </button>
+                   )}
                   </div>
                  )}
                 </div>
@@ -215,7 +219,7 @@ const BrokerAgent = () => {
          )}
         </FieldArray>
         <div className='col-span-6 flex justify-center w-full mt-5 mb-3 broker-submit-button-form'>
-         {brokerTypeShared && (
+         {brokerTypeShared && !freeze && (
           <button disabled={freeze} type='submit' className='save me-5'>
            Submit
           </button>
