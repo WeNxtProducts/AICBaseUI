@@ -47,8 +47,7 @@ const MRVListingQuotation = ({
          }`
        : `list_card pb-${root !== 'medical' && root !== 'life_assured_details' ? 2 : 0}`
      }>
-     <div
-      className={`action_header flex item-center justify-${action && !freeze ? 'between' : 'end'}`}>
+     <div className={`action_header flex item-center justify-${action && !freeze ? 'end' : 'end'}`}>
       {/* {action && !freeze && (
        <div
         onClick={e => {
@@ -62,11 +61,12 @@ const MRVListingQuotation = ({
        </div>
       )} */}
       <div className='flex gap-2 pe-3 p-1'>
-       {isView && (
+       {isView && freeze && (
         <Tooltip title='View'>
          <EyeOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
         </Tooltip>
        )}
+
        {isEdit && !freeze && (
         <Tooltip title='Edit'>
          <EditOutlined onClick={() => handleEdit(item)} className='mrv_icons' />

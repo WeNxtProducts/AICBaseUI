@@ -4,8 +4,7 @@ import showNotification from '../../../../components/notification/Notification';
 import { UWContext } from '../../UnderWriterWorkBench';
 
 const BasicPremium = () => {
- const tranId = 1,
-  policyNumber = 'PEND2024002';
+ const { tranId, policyNumber } = useContext(UWContext);
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const [preDetails, setPreDetails] = useState(null);
 

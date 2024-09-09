@@ -10,11 +10,16 @@ import DecisionDetails from './decisionBox/DecisionDetails';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
 import { useSelector } from 'react-redux';
+import { setCurrentID, setFreezeStatus, setStepperId } from '../../globalStore/slices/IdSlices';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './UnderWriterWorkBench.scss';
 
 export const UWContext = createContext();
 
 const UnderWriterWorkBench = () => {
+ const dispatch = useDispatch();
+ const navigate = useNavigate();
  const POL_NO = useSelector(state => state?.UWId?.POL_NO);
  const CustCode = useSelector(state => state?.UWId?.CustCode);
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
@@ -63,7 +68,7 @@ const UnderWriterWorkBench = () => {
    const response = await getMapQuery({ queryParams: { tranId } }, { queryId: 202 });
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    console.log('History : ', response);
+    // console.log('History : ', response);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -77,6 +82,16 @@ const UnderWriterWorkBench = () => {
   }
  }, [policyNumber]);
 
+ const navigateToQuotation = () => {
+  const foundProposal = proposalList?.find(item => item?.Policy_Number === POL_NO) ?? null;
+  if (foundProposal) {
+   dispatch(setCurrentID(foundProposal?.ID));
+   dispatch(setStepperId(6));
+   dispatch(setFreezeStatus(true));
+   navigate(`/quotation/${'0'}}`);
+  }
+ };
+
  const data = {
   tranId,
   POL_NO,
@@ -85,6 +100,7 @@ const UnderWriterWorkBench = () => {
   setPolicyNumber,
   setTranId,
   policyDetails,
+  navigateToQuotation,
  };
 
  return (

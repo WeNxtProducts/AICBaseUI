@@ -18,6 +18,7 @@ const CustomSelect = ({
  onBlur,
  readOnly = false,
  searchMsg = 'No data found',
+ allowClear = true,
 }) => {
  const fieldSize = {
   small: { code: '1/3', desc: '2/3', main: '2/5' },
@@ -43,7 +44,7 @@ const CustomSelect = ({
  const sharedProps = {
   mode: mode,
   showSearch: readOnly ? false : showSearch,
-  allowClear: !readOnly,
+  allowClear: readOnly ? false : allowClear,
   maxTagCount: 'responsive',
   filterOption: (input, option) => {
    return option.children.toLowerCase().includes(input.toLowerCase());

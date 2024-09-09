@@ -8,6 +8,7 @@ import {
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { UWContext } from '../UnderWriterWorkBench';
+import StatusPopup from '../../../components/statusPopup/StatusPopup';
 
 const DecisionDetails = () => {
  const { tranId, policyNumber } = useContext(UWContext);
@@ -16,18 +17,10 @@ const DecisionDetails = () => {
  const UWSubmit = useApiRequests('UWSubmit', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [decionList, setDecisionList] = useState([]);
- const [values, setValues] = useState({
-  DECISION: '',
-  REASON: '',
- });
- const [preValues, setPreValues] = useState({
-  DECISION: '',
-  REASON: '',
- });
-
+ const [values, setValues] = useState({ DECISION: '', REASON: '' });
+ const [preValues, setPreValues] = useState({ DECISION: '', REASON: '' });
  const [showSave, setShowSave] = useState(true);
-
- const areStatesEqual = _.isEqual(values, preValues);
+ const [successPopup, setSuccessPopup] = useState(false);
 
  const handleGetDecisionList = async () => {
   try {
@@ -60,6 +53,7 @@ const DecisionDetails = () => {
    }
    if (response?.status === 'SUCCESS') {
     showNotification.SUCCESS(msg);
+    setSuccessPopup(true);
    }
   } catch (err) {
    console.log('err : ', err);
@@ -71,8 +65,18 @@ const DecisionDetails = () => {
    const response = await getMapQuery({ queryParams: { tranId } }, { queryId: 201 });
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    setValues(response?.Data[0]);
-    setPreValues(response?.Data[0]);
+    setValues(
+     response.Data[0] || {
+      DECISION: '',
+      REASON: '',
+     },
+    );
+    setPreValues(
+     response.Data[0] || {
+      DECISION: '',
+      REASON: '',
+     },
+    );
    }
   } catch (err) {
    console.log('err : ', err);
@@ -103,13 +107,19 @@ const DecisionDetails = () => {
     if (response?.status === 'SUCCESS') {
      if (values?.DECISION === 'A') {
       handleProcedureOnDecision(response?.status_msg);
-     } else showNotification.SUCCESS(response?.status_msg);
-     console.log('values : ', response);
+     } else {
+      setSuccessPopup(true);
+      showNotification.SUCCESS(response?.status_msg);
+     }
     }
    } catch (err) {
     console.log('err : ', err);
    }
   }
+ };
+
+ const handleClose = () => {
+  setSuccessPopup(false);
  };
 
  return (
@@ -124,10 +134,12 @@ const DecisionDetails = () => {
         options={decionList}
         value={values?.DECISION || undefined}
         placeholder={'select'}
+        allowClear={false}
         showSearch={false}
         size='medium'
         onChange={value => {
-         // const {}
+         const { DECISION = '' } = preValues;
+         setShowSave(DECISION === value);
          handleInputChange('DECISION', value);
         }}
        />
@@ -148,12 +160,19 @@ const DecisionDetails = () => {
      </div>
     </div>
    )}
-   {showSave && (
-    <div className='mt-4 flex justify-center'>
-     <Button className='sub_btn' onClick={() => handleOnSubmit()}>
-      Submit
-     </Button>
-    </div>
+
+   <div className='mt-4 flex justify-center'>
+    <Button className={!showSave ? `sub_btn` : `sub_btn_dis`} onClick={() => handleOnSubmit()}>
+     Submit
+    </Button>
+   </div>
+   {successPopup && (
+    <StatusPopup
+     message='Decision Submtted Successfuly'
+     open={successPopup}
+     handleClose={handleClose}
+     status={true}
+    />
    )}
   </div>
  );

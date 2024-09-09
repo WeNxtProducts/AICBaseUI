@@ -22,6 +22,12 @@ const DetailsTable = ({
  const DMSFileUpload = useApiRequests('DMSFileUpload', 'POST');
  const DMSFileDelete = useApiRequests('DMSDelete', 'POST');
  const [expandedRows, setExpandedRows] = useState('');
+ const [statusBox, setStatusBox] = useState(false);
+
+ useEffect(() => {
+  const allReceivedStatusY = tableData.every(item => item.RECEIVED_STATUS === 'Y');
+  setStatusBox(allReceivedStatusY);
+ }, [tableData]);
 
  const updateFileKeyAtIndex = (index, newValue) => {
   setFiles(prevFiles => {
@@ -145,7 +151,15 @@ const DetailsTable = ({
    <th>
     <div className='flex items-center justify-center'>
      <span className='me-2'>Status</span>
-     {!freeze && <Checkbox onClick={e => handleBulkFlag(e.target.checked)} />}
+     {!freeze && (
+      <Checkbox
+       checked={statusBox}
+       onClick={e => {
+        setStatusBox(e.target.checked);
+        handleBulkFlag(e.target.checked);
+       }}
+      />
+     )}
     </div>
    </th>
    <th>Upload</th>

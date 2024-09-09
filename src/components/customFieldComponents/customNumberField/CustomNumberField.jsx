@@ -50,7 +50,7 @@ const CustomNumberField = ({
  };
 
  useEffect(() => {
-  if (format === 'card') {
+  if (format === 'card' || format === 'number') {
    setTextAlign('left');
   }
   if (firstFieldRef?.current) {
@@ -77,7 +77,10 @@ const CustomNumberField = ({
 
  const handleInputChange = e => {
   if (format === 'number') {
-   onChange(e);
+   const value = e.target.value;
+   if (!isNaN(value) && value.trim() !== '') {
+    onChange(e);
+   }
   } else if (format === 'amount') {
    let inputValue = e.target.value;
 
