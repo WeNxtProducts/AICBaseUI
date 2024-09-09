@@ -35,6 +35,7 @@ const ProposalEntryForm = () => {
   planCode,
   rules,
   setPolicyStatus,
+  setIsPremCalc,
   policyStatus,
  } = useContext(StepperContext);
  const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
@@ -119,6 +120,7 @@ const ProposalEntryForm = () => {
   try {
    const response = await getQuotation('', queryParams);
    if (response?.status === 'SUCCESS') {
+    setIsPremCalc(response?.POL_PREM_CALC_YN === 'Y');
     setProposalNumber(response?.PROPOSAL_NO);
     const menuType = currentMenuId?.ds_type == 1;
     setPolicyStatus(response[menuType ? 'POL_WF_STS' : 'POL_STATUS'] === (menuType ? 'S' : 'A'));
@@ -318,7 +320,7 @@ const ProposalEntryForm = () => {
    <div className='flex items-center justify-between pl-1'>
     <div className='flex items-center'>
      <p className='header-font'>{`${currentMenuId?.ds_type == 1 ? 'Proposal Entry' : 'Policy'}`}</p>
-     {proposalNumber && <p className='pol-number mt-1 ml-10'>{`${proposalNumber}`}</p>}
+     {proposalNumber && <p className='pol-number mt-1'>{`${proposalNumber}`}</p>}
     </div>
     <ErrorLog
      classNamePopOver='premium-log-popover'

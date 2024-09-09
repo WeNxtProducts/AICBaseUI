@@ -32,8 +32,14 @@
      font-weight: 700;
     }
     .pol-number {
+     margin-left: 20px;
+     background-color: #e6f4ff;
+     padding: 4px 20px;
+     border-radius: 5px;
      font-size: 14px;
+     color: #3f8fff;
      font-weight: 600;
+     border: 1px solid #3f8fff;
     }
     .freeze-font {
      color: #272e3b;
@@ -91,6 +97,13 @@
  }
  .sub_btn {
   @include btn-style(#0382c8, #ffffff, #0382c8, 'left');
+ }
+ .sub_btn_dis {
+  background-color: #f5f5f5;
+  color: #d7d7d7;
+  cursor: not-allowed;
+  pointer-events: none;
+  width: 14%;
  }
 
  .custom-checkbox {

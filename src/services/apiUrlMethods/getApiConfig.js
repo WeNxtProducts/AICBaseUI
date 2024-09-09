@@ -52,7 +52,7 @@ const GET_API_URL = {
  },
  getPolicyList: {
   url: '/ltclaim/getListOfPolicies',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  getPreClaimDate: {
   url: '/common/getMapQuery',
@@ -74,7 +74,7 @@ const GET_API_URL = {
  },
  getModernClaim: {
   url: '/ltclaim/claimHdrGet',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimListSearch: {
   url: '/common/claimListSearch',

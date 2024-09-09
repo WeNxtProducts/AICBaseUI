@@ -77,7 +77,7 @@ const Quotation = () => {
  const [dropDown, setDropDown] = useState(QuotationLov);
  const [proposalNumber, setProposalNumber] = useState('');
  const [successPopup, setSuccessPopup] = useState(false);
- const [isPremCalc, setIsPremCalc] = useState(true);
+ const [isPremCalc, setIsPremCalc] = useState(false);
  const [premDetails, setPremDetails] = useState(null);
  const [userRole, setUserRole] = useState('');
 
@@ -115,12 +115,19 @@ const Quotation = () => {
  };
 
  const freezeUpdate = async flag => {
-  const queryParams = { flag: flag ? 'Y' : 'N', tranId: id };
+  const queryParams = {
+   flag: flag ? 'Y' : 'N',
+   tranId: id,
+   ...(flag && { POL_PREM_CALC_YN: 'N' }),
+  };
   try {
    const response = await updateProposalFreezeStatus('', queryParams);
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
+    if (!flag) {
+     setIsPremCalc(false);
+    }
     showNotification.SUCCESS(response?.status_msg);
     dispatch(setFreezeStatus(flag));
    }
@@ -176,6 +183,7 @@ const Quotation = () => {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
     handleGetPremiumDetails();
+    if (load) setIsPremCalc(true);
    }
    setLoader(false);
   } catch (err) {
@@ -247,11 +255,10 @@ const Quotation = () => {
       <i className='bi bi-arrow-left-short' />
       <p>Back</p>
      </div>
-     {/* {currentMenuId?.ds_type == 1 && ( */}
+
      <div>
       <span className={`status_notify ${statusClass}`}>{statusText}</span>
      </div>
-     {/* )} */}
     </div>
     {currentMenuId?.ds_type == 1 && (
      <Button
@@ -283,10 +290,9 @@ const Quotation = () => {
 
         <Button
          disabled={!freeze}
-         className='sub_btn'
+         className={isPremCalc ? `sub_btn` : `sub_btn_dis`}
          onClick={() => {
           handlePolicySubmit();
-          //   setSuccessPopup(true);
          }}>
          Final Submit
         </Button>

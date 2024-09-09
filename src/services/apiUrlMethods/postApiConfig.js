@@ -67,19 +67,19 @@ const POST_API_URL = {
  },
  createClaim: {
   url: '/ltclaim/claimSave',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateClaim: {
   url: '/ltclaim/claimUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveEstimate: {
   url: '/claimest/claimEstSave',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  editEstimate: {
   url: '/claimest/updateLtClaimEstimate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  createEmail: {
   url: '/emailTemplate/createTemplate',
@@ -127,143 +127,143 @@ const POST_API_URL = {
  },
  claimBfcryCreate: {
   url: '/claimBfcry/claimBfcry_creates',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimBfcryUpdate: {
   url: '/claimBfcry/updateLtClaimBeneficiary',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimBfcryDelete: {
   url: '/claimBfcry/deletesclaimBfcryByid',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimChargeCreate: {
   url: '/claimchrgs/claimChrgsSave',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimChargeUpdate: {
   url: '/claimchrgs/updateClaimCharges',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimChargeDelete: {
   url: '/claimchrgs/deleteclaimchrgsByid',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimCoverCreate: {
   url: '/claimest/claimEstSave',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimCoverUpdate: {
   url: '/claimest/updateLtClaimEstimate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimCoverDelete: {
   url: '/claimest/deleteclaimestByid',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimDeductionUpdate: {
   url: '/ltclaim/claimDeductionsave',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  processApproveOrReject: {
   url: '/ltclaim/saveClaimFlagDetails',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  invokeClaimsProcedure: {
   url: '/common/invokeProcedure',
  },
  modernClaimDelete: {
   url: '/ltclaim/claimHdrDelete',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  claimLevelDetailsUpdate: {
   url: '/ltclaim/saveClaimFlagDetails',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateCoverAmount: {
   url: '/claimPaid/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveProposalEntry: {
   url: '/policy/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateProposalEntry: {
   url: '/policy/policyUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveLifeAssuredDetails: {
   url: '/polEmployee/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateLifeAssuredDetails: {
   url: '/polEmployee/polEmployeeUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveRidersDetails: {
   url: '/polEmpCover/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateRidersDetails: {
   url: '/polEmpCover/polEmpCoverUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveMedicalDetails: {
   url: '/medexFeeDtl/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateMedicalDetails: {
   url: '/medexFeeDtl/updateMedExFeeDtl',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
 
  saveBeneficiaryDetails: {
   url: '/polBeneficiary/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateBeneficiaryDetails: {
   url: '/polBeneficiary/polBeneficiaryUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveChargesDetails: {
   url: '/polCharge/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateChargesDetails: {
   url: '/polCharge/polChargeUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveDisLoadDetails: {
   url: '/polDiscLoad/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateDisLoadDetails: {
   url: '/polDiscLoad/polDiscLoadUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveConditionsDetails: {
   url: '/condition/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateConditionsDetails: {
   url: '/condition/update',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateProposalChecklistFlag: {
   url: 'docToDoList/statusFlagUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateProposalChecklistFlagBulk: {
   url: 'docToDoList/statusFlagBulkUpdate',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateProposalStepperStatus: {
   url: '/policy/updateStepperFlag',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateProposalFreezeStatus: {
   url: '/policy/updateFreezeFlag',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  DMSFileUpload: {
   url: '/dms/uploadMultiple',
@@ -279,58 +279,58 @@ const POST_API_URL = {
  },
  getBrokerList: {
   url: '/polBroker/getPolBrokerByid',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  policySubmit: {
   url: '/policy/onSubmit',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  UWSubmit: {
   url: '/policy/uwSubmit',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  sessionMaintain: {
   url: '/auth/expire-session',
  },
  saveBrokers: {
   url: '/polBroker/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  receiptSave: {
   url: '/receiptHdr/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  getReceiptHeader: {
   url: '/receiptHdr/get',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  getDuesDetails: {
   url: '/receiptProcess/get',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  saveDueSelected: {
   url: '/receiptProcess/update',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updateReceiptHdr: {
   url: '/receiptHdr/update',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  receiptSearch: {
   url: '/receiptHdr/search',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  getPayDetails: {
   url: '/receiptDetail/get',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  savePayDetails: {
   url: '/receiptDetail/save',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  updatePayDetails: {
   url: '/receiptDetail/update',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
 };
 
