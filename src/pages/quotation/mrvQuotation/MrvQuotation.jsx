@@ -127,7 +127,7 @@ const MrvQuotation = ({
     if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE === 'P') {
      const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
      let response;
-     if (!freeze) response = await handleGetData(payload, 190);
+     response = await handleGetData(payload, 190);
      const newState = {
       ...orderedData,
       life_assured_details: {
