@@ -261,13 +261,32 @@
 
     .alteration {
      //  border: 1px solid red;
-
      .add-buttons-edorsement {
       background-color: $save-button-forms;
       .icon-style {
        font-size: 16px;
       }
      }
+    }
+   }
+  }
+ }
+ .alterationPages {
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
+
+  .alteration_type {
+   .type_select_box {
+    margin-top: 20px;
+    > p:first-child {
+     color: #4d5e80;
+     font-weight: 500;
+     font-size: 16px;
+     line-height: 18px;
     }
    }
   }

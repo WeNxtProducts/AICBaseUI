@@ -1577,3 +1577,55 @@ export const currCode = [
   value: 'ETB',
  },
 ];
+
+export const endorsementType = [
+ { value: 'F', label: 'Finance Endorsement' },
+ { value: 'N', label: 'Non- Finance Endorsement' },
+];
+
+export const financeType = [
+ {
+  key: 0,
+  title: 'Change in Premium',
+  desc: 'User Can change the premium of the policy.',
+  option: false,
+ },
+ {
+  key: 1,
+  title: 'Change in SA',
+  desc: 'User Can change the SA of the policy.',
+  option: false,
+ },
+ {
+  key: 2,
+  title: 'Change in MOP',
+  desc: 'User Can change the MOP of the policy.',
+  option: false,
+ },
+ {
+  key: 3,
+  title: 'Add/Delete Rider',
+  option: true,
+ },
+ {
+  key: 4,
+  title: 'Cancellation',
+  desc: 'User Can change the Cancel of the policy.',
+  option: false,
+ },
+ {
+  key: 5,
+  title: 'Change in term',
+  desc: 'User Can change the term of the policy.',
+  option: false,
+ },
+];
+
+export const nonFinanceType = [
+ {
+  key: 6,
+  title: 'Change Basic Info',
+  desc: 'User Can change the basic info of the policy.',
+  option: false,
+ },
+];

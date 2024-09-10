@@ -1,15 +1,19 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, lazy, useEffect, useState } from 'react';
 import EndorsementHeader from './endorsementHeader/EndorsementHeader';
 import EndorsemenHistory from './endorsemenHistory/EndorsemenHistory';
 import EndorsementFlow from './endorsementFlow/EndorsementFlow';
 import './Endorsement.scss';
-import AlterationPages from './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages';
+const AlterationPages = lazy(() =>
+ import(
+  './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages'
+ ),
+);
 
 export const EndorsementContext = createContext();
 
 const Endorsement = () => {
  const [policyDetails, setPolicyDetails] = useState({});
- const [showAlteration, setShowAlteration] = useState(false);
+ const [showAlteration, setShowAlteration] = useState(true);
 
  const data = { policyDetails, showAlteration, setShowAlteration };
 
@@ -23,15 +27,15 @@ const Endorsement = () => {
  return (
   <EndorsementContext.Provider value={data}>
    <div className='endorsement mb-5'>
-    {showAlteration ? (
+    <div style={{ display: showAlteration ? 'block' : 'none' }}>
      <AlterationPages />
-    ) : (
-     <div className='main_wrapper'>
-      <EndorsementHeader />
-      <EndorsemenHistory />
-      <EndorsementFlow />
-     </div>
-    )}
+    </div>
+
+    <div style={{ display: showAlteration ? 'none' : 'block' }} className='main_wrapper'>
+     <EndorsementHeader />
+     <EndorsemenHistory />
+     <EndorsementFlow />
+    </div>
    </div>
   </EndorsementContext.Provider>
  );

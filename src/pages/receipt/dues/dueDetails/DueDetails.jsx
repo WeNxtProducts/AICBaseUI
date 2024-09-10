@@ -149,7 +149,7 @@ const DueDetails = () => {
   <div className='due_details'>
    <div className='header'>
     <p className='due_count'>
-     Total Dues <span>{rowData?.length}</span>
+     Total Dues <span>{hasValidRowData(rowData) ? rowData?.length : 0}</span>
     </p>
     {selectedDues?.receiptProcess?.length > 0 && headerStatus?.RH_APPRV_STATUS !== 'A' && (
      <Button className='save-btn' onClick={() => handleSaveDueSelected()}>
@@ -157,7 +157,7 @@ const DueDetails = () => {
      </Button>
     )}
    </div>
-   {rowData?.length > 0 && (
+   {hasValidRowData(rowData) ? (
     <div className='due_content'>
      <DueMrvListing
       tableColumn={columnData}
@@ -170,6 +170,8 @@ const DueDetails = () => {
      />
      {dueDetail !== null && <DueInfo dueDetail={dueDetail} />}
     </div>
+   ) : (
+    <p>No Dues</p>
    )}
   </div>
  );
