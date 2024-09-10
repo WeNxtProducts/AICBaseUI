@@ -290,5 +290,33 @@
     }
    }
   }
+
+  .change_page {
+   //    border: 1px solid red;
+   padding: 10px;
+
+   .page-header {
+    user-select: none;
+    border: 1.5px solid #e9edf5;
+    margin: 10px auto;
+    width: 95%;
+    padding: 20px;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+
+    .head_label {
+     font-size: 14px;
+     font-weight: 500;
+     line-height: 20px;
+     color: #4d5e80;
+    }
+    .head_value {
+     font-size: 16px;
+     font-weight: 600;
+     line-height: 10px;
+     color: #4d5e80;
+    }
+   }
+  }
  }
 }

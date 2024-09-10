@@ -9,7 +9,7 @@ const Alteration = ({ currentTab, dataLoaded }) => {
  const rowData = alterData;
 
  useEffect(() => {
-  if (dataLoaded) console.log('Alteration ');
+//   if (dataLoaded) console.log('Alteration ');
  }, [dataLoaded]);
 
  const handleNavigateToAlterations = () => {
