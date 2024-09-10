@@ -23,7 +23,7 @@ const PremiumDetails = () => {
 
  useEffect(() => {
   handleGetPremiumDetails();
- }, []);
+ }, [policyNumber]);
 
  const renderPremiums = (label, fc = 0, lc = 0) => (
   <div className='w-full flex mt-2'>

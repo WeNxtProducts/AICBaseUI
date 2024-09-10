@@ -1537,30 +1537,6 @@ export const alterData = [
   fm_date: '12-Dec-2023',
   to_date: '12-Dec-2024',
  },
- {
-  alterNo: 3,
-  alterDate: '12/12/2022',
-  endCodeDesc: 'ED003 - General Endorsement',
-  status: 'P',
-  fm_date: '12-Dec-2023',
-  to_date: '12-Dec-2024',
- },
- {
-  alterNo: 4,
-  alterDate: '12/12/2022',
-  endCodeDesc: 'ED003 - General Endorsement',
-  status: 'P',
-  fm_date: '12-Dec-2023',
-  to_date: '12-Dec-2024',
- },
- {
-  alterNo: 5,
-  alterDate: '12/12/2022',
-  endCodeDesc: 'ED003 - General Endorsement',
-  status: 'P',
-  fm_date: '12-Dec-2023',
-  to_date: '12-Dec-2024',
- },
 ];
 
 export const currCode = [

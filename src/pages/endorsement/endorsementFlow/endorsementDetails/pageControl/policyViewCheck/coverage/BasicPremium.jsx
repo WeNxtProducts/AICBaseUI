@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import showNotification from '../../../../../../../components/notification/Notification';
 import useApiRequests from '../../../../../../../services/useApiRequests';
 
 const BasicPremium = () => {
- const { policyNumber = {} } = useContext('');
+ const policyNumber = 'PEND2024002';
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const [preDetails, setPreDetails] = useState(null);
 

@@ -119,14 +119,15 @@ const MrvQuotation = ({
  const handleInitData = async response => {
   const orderedData = sortObjectByPFDSeqNo(response);
   if (!freeze || freeze) {
-   if (root === 'life_assured_details' && !freeze) {
+   if (root === 'life_assured_details') {
     const { POL_ASSURED_NAME, POL_ASSR_CODE } = formValues.frontForm.formFields;
-    const { PEMP_MEMBER_TYPE } = orderedData.life_assured_details.formFields;
+    const { PEMP_MEMBER_TYPE, PEMP_NAME, PEMP_ID } = orderedData.life_assured_details.formFields;
     const makeDropdown = { ...dropDown };
 
     if (PEMP_MEMBER_TYPE?.PFD_FLD_VALUE === 'P') {
      const payload = { queryParams: { CUST_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE } };
-     const response = await handleGetData(payload, 190);
+     let response;
+     if (!freeze) response = await handleGetData(payload, 190);
      const newState = {
       ...orderedData,
       life_assured_details: {
@@ -144,17 +145,20 @@ const MrvQuotation = ({
         },
         PEMP_CATG_CODE: {
          ...orderedData.life_assured_details.formFields.PEMP_CATG_CODE,
-         PFD_FLD_VALUE: response?.PEMP_CATG_CODE,
+         PFD_FLD_VALUE: response?.PEMP_CATG_CODE || '',
         },
         PEMP_DOB: {
          ...orderedData.life_assured_details.formFields.PEMP_DOB,
-         PFD_FLD_VALUE: response?.PEMP_DOB,
+         PFD_FLD_VALUE: response?.PEMP_DOB || '',
         },
        },
       },
      };
      makeDropdown.PEMP_ID = [
-      { value: POL_ASSR_CODE?.PFD_FLD_VALUE, label: POL_ASSURED_NAME?.PFD_FLD_VALUE },
+      {
+       value: POL_ASSR_CODE?.PFD_FLD_VALUE || PEMP_ID?.PFD_FLD_VALUE,
+       label: POL_ASSURED_NAME?.PFD_FLD_VALUE || PEMP_NAME?.PFD_FLD_VALUE,
+      },
      ];
      setQuotationMRV({ [root]: newState[root] });
      setQuotationMRVInitialValues({ [root]: newState[root] });
@@ -164,6 +168,7 @@ const MrvQuotation = ({
      const { PEMP_NAME, PEMP_ID } = orderedData.life_assured_details.formFields;
      makeDropdown.PEMP_ID = [{ value: PEMP_ID?.PFD_FLD_VALUE, label: PEMP_NAME?.PFD_FLD_VALUE }];
     }
+
     setDropDown(makeDropdown);
    } else if (root === 'benificiary') {
     const { PGBEN_BNF_NAME, PGBEN_BNF_CODE } = orderedData.benificiary.formFields;
@@ -229,6 +234,7 @@ const MrvQuotation = ({
  //  }, [rowData]);
 
  useEffect(() => {
+  setEditMRVId('');
   if ((root !== 'benificiary' && tranId) || (root === 'benificiary' && subId)) {
    handleInitData(QuotationJSON);
    MRVListing();

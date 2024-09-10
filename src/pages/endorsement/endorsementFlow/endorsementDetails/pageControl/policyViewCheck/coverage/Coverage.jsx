@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import CustomAccordion from './../../../../../../../components/customAccordion/CustomAccordion';
-import BasicPremium from '../../../../../../underWriterWorkBench/coverage/basicPremium/BasicPremium';
+import BasicPremium from './BasicPremium';
 import MRVData from './MRVData';
 
 const Coverage = () => {

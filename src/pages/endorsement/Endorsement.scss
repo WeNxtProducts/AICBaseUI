@@ -258,6 +258,17 @@
       }
      }
     }
+
+    .alteration {
+     //  border: 1px solid red;
+
+     .add-buttons-edorsement {
+      background-color: $save-button-forms;
+      .icon-style {
+       font-size: 16px;
+      }
+     }
+    }
    }
   }
  }
