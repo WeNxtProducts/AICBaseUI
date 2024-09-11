@@ -1629,3 +1629,25 @@ export const nonFinanceType = [
   option: false,
  },
 ];
+export const termSelect = [
+ {
+  label: 'Half Yearly',
+  value: 'H',
+ },
+ {
+  label: 'Monthly',
+  value: 'M',
+ },
+ {
+  label: 'Quarterly',
+  value: 'Q',
+ },
+ {
+  label: 'Single',
+  value: 'S',
+ },
+ {
+  label: 'Yearly',
+  value: 'Y',
+ },
+];

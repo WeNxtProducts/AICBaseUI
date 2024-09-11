@@ -38,6 +38,9 @@ const POST_API_URL = {
  getMRVlisting: {
   url: '/common/getMrvListing',
  },
+ getMRVlistingPayload: {
+  url: '/common/newMrvListing',
+ },
  createDept: {
   url: '/auth/deptsubmit',
  },

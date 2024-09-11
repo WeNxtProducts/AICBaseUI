@@ -5,6 +5,13 @@ import ChangePage from './changePage/ChangePage';
 
 export const AlterationContext = createContext();
 
+// {
+//     key: 4,
+//     title: 'Cancellation',
+//     desc: 'User Can change the Cancel of the policy.',
+//     option: false,
+// }
+
 const AlterationPages = () => {
  const { setShowAlteration, showAlteration } = useContext(EndorsementContext);
  const [alterationType, setAlterationType] = useState('F');

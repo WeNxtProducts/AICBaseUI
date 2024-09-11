@@ -3,9 +3,9 @@ import { Button } from 'antd';
 import DueMrvListing from '../../dueMrvListing/DueMrvListing';
 import DueInfo from './DueInfo';
 import { ReceiptContext } from '../../Receipt';
-import useMRVListing from '../../../../components/mrvListing/useMRVListing';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
+import useMRVListingPayload from '../../../../components/mrvListing/useMRVListingPayload';
 
 const DueDetails = () => {
  const {
@@ -15,7 +15,7 @@ const DueDetails = () => {
   setIsModified,
   headerStatus,
  } = useContext(ReceiptContext);
- const { rowData, columnData, handleMRVListing } = useMRVListing();
+ const { rowData, columnData, handleMRVListingPayload } = useMRVListingPayload();
  const getDuesDetails = useApiRequests('getDuesDetails', 'POST');
  const reeiptHeaderGet = useApiRequests('getReceiptHeader', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
@@ -25,7 +25,7 @@ const DueDetails = () => {
  const [selectedDues, setSelectedDues] = useState([]);
 
  const handleInitStage = () => {
-  handleMRVListing(213, tranId, selectedPolicy);
+  handleMRVListingPayload({ queryId: 213, tranId, emptranId: selectedPolicy });
   setDueDetail(null);
   setEditMRVId('');
   setSelectedDues([]);

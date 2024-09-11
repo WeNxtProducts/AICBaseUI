@@ -137,33 +137,39 @@ const ProposalEntryForm = () => {
   else handleStateInit(QuotationJSON);
  }, []);
 
- const procedureCall = async data => {
-  const { P_POL_END_NO_IDX = 0, Id: P_POL_TRAN_ID } = data;
-  const { ds_type, ds_code } = currentMenuId;
-  const payload = {
-   inParams: {
-    P_POL_PROD_CODE: prodCode || '',
-    P_POL_DS_TYPE: ds_type || '',
-    P_POL_DS_CODE: ds_code || '',
-    P_POL_TRAN_ID,
-    P_POL_ISSUE_DT: dayjs().format(`YYYY-MM-DD HH:mm:ss`),
-    P_POL_END_NO_IDX: P_POL_END_NO_IDX || 0,
-   },
-  };
+ const procedureCall = async (payload, procedureName, packageName) => {
   try {
-   const response = await invokeClaimsProcedure(payload, {
-    procedureName: 'POL_DEF_PROD_COVER',
-    packageName: 'WNPKG_POLICY',
-   });
+   const response = await invokeClaimsProcedure(payload, { procedureName, packageName });
    if (response?.status === 'FAILURE') {
     showNotification.ERROR(response?.status_msg);
    } else if (response?.status === 'SUCCESS') {
-    setProposalNumber(response?.Data?.P_POL_NO || '');
+    if (!tranId) setProposalNumber(response?.Data?.P_POL_NO || '');
     handleNext();
    }
    setLoader(false);
   } catch (err) {
    setLoader(false);
+  }
+ };
+
+ const procedurePayload = datId => {
+  if (!tranId) {
+   const { P_POL_END_NO_IDX = 0, Id: P_POL_TRAN_ID } = datId;
+   const { ds_type, ds_code } = currentMenuId;
+   const payload = {
+    inParams: {
+     P_POL_PROD_CODE: prodCode || '',
+     P_POL_DS_TYPE: ds_type || '',
+     P_POL_DS_CODE: ds_code || '',
+     P_POL_TRAN_ID,
+     P_POL_ISSUE_DT: dayjs().format(`YYYY-MM-DD HH:mm:ss`),
+     P_POL_END_NO_IDX: P_POL_END_NO_IDX || 0,
+    },
+   };
+   procedureCall(payload, 'POL_DEF_PROD_COVER', 'WNPKG_POLICY');
+  } else if (tranId) {
+   const payload = { inParams: { P_POL_TRAN_ID: datId } };
+   procedureCall(payload, 'P_UPD_POL_DTLS', 'WNPKG_POLICY');
   }
  };
 
@@ -186,11 +192,10 @@ const ProposalEntryForm = () => {
    }
    if (response?.status === 'SUCCESS') {
     if (!tranId) {
-     //  setProposalNumber(response?.Data?.PROPOSAL_NO || '');
      dispatch(setCurrentID(response?.Data?.Id));
-     procedureCall(response?.Data);
+     procedurePayload(response?.Data);
     } else if (tranId) {
-     handleNext();
+     procedurePayload(tranId);
     }
     showNotification.SUCCESS(response?.status_msg);
    }

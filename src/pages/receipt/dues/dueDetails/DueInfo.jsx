@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DueInfo = ({ dueDetail }) => {
- const { RP_CURR_CODE = '', RP_DUE_DT = '', RP_PYBL_LC_AMT = 0, RP_PYBL_FC_AMT = 0 } = dueDetail;
+ const { RP_CURR_CODE = '-', RP_DUE_DT = 0, RP_PYBL_LC_AMT = 0, RP_PYBL_FC_AMT = 0 } = dueDetail;
  const renderFields = (label, val) => (
   <div className='col-span-1 grid grid-cols-4 items-center'>
    <p className='col-span-1 form-label'>{label}</p>
