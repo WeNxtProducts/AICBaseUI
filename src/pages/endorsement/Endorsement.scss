@@ -403,6 +403,10 @@
        width: 50%;
        table-layout: fixed;
       }
+      .alter_left_half {
+       width: 95%;
+       table-layout: fixed;
+      }
      }
 
      .nav_buttons {
@@ -414,11 +418,16 @@
 
       button {
        background-color: #0382c8;
-       padding: 3px 15px;
+       padding: 3px 20px;
        border-radius: 4px;
        color: #ffffff;
        min-width: 10%;
       }
+     }
+     .nav_buttons_right {
+      justify-content: flex-end;
+      margin-right: 5%;
+      gap: 20px;
      }
 
      .mdified_data {
@@ -461,6 +470,22 @@
          }
         }
        }
+      }
+     }
+
+     .cancel_summary {
+      border-left: 1px solid #C6C2DE;
+      > p:first-of-type {
+       color: #4d5e80;
+       font-weight: 700;
+       font-size: 21px;
+       line-height: 27px;
+      }
+      > p:nth-of-type(2) {
+       color: #4d5e80;
+       font-weight: 600;
+       font-size: 14px;
+       line-height: 16px;
       }
      }
     }

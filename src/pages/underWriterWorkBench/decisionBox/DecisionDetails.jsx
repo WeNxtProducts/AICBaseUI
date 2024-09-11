@@ -55,6 +55,9 @@ const DecisionDetails = () => {
     showNotification.SUCCESS(msg);
     setSuccessPopup(true);
    }
+   if (response?.status === 'FAILURE') {
+    showNotification.ERROR(response?.status_msg);
+   }
   } catch (err) {
    console.log('err : ', err);
   }
@@ -65,6 +68,8 @@ const DecisionDetails = () => {
    const response = await getMapQuery({ queryParams: { tranId } }, { queryId: 201 });
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
+    console.log('response.Data[0] : ', response.Data[0]);
+
     setValues(
      response.Data[0] || {
       DECISION: '',
@@ -96,13 +101,22 @@ const DecisionDetails = () => {
  };
 
  const handleOnSubmit = async () => {
-  const isFilled = Object.values(values).every(value => value.trim() !== '');
+  console.log('values : ', values);
+  const isFilled = Object.values(values).every(value =>
+   typeof value === 'string' ? value.trim() !== '' : value !== '',
+  );
+  console.log('isFilled: ', isFilled);
   if (!isFilled) {
    showNotification.WARNING('Please fill out all fields.');
    return;
   } else {
    try {
-    const response = await UWSubmit('', { ...values, tranId });
+    const { ID, ...restValues } = values;
+    const response = await UWSubmit('', {
+     ...restValues,
+     tranId,
+     ...(values?.ID ? { id: values?.ID } : {}),
+    });
     if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
     if (response?.status === 'SUCCESS') {
      if (values?.DECISION === 'A') {
