@@ -60,7 +60,6 @@ const CustomNumberField = ({
 
  useEffect(() => {
   if (format === 'number') {
-   console.log('format  : ', format);
    setFormattedValue(value);
   } else if (format === 'amount') {
    const mainVal = formatCurrency(value?.toString());
