@@ -6,6 +6,7 @@ import {
 import { termSelect } from '../../../../../../../../../components/tableComponents/sampleData';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { AlterationContext } from '../../AlterationPages';
+import PremiumCard from '../premiumCard/PremiumCard';
 
 const Cancellation = () => {
  const { alterationType, setSelectedAlteration, selectedAlteration } =
@@ -62,12 +63,8 @@ const Cancellation = () => {
       <button>Premium calc</button>
      </div>
     </div>
-    <div className='col-span-1 cancel_summary flex flex-col items-center'>
-     <p>Premium Summary</p>
-     <p>Cancellation Summary</p>
-     <div className='premium_summary'>
-      <p>hello</p>
-     </div>
+    <div className='col-span-1 cancellation_summary'>
+     <PremiumCard />
     </div>
    </div>
   </div>

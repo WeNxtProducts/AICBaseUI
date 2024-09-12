@@ -13,7 +13,6 @@ import utc from 'dayjs/plugin/utc';
 import { useSelector } from 'react-redux';
 import useParamLov from '../../../components/useParamLov/useParamLov';
 import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
-import { InfoCircleOutlined } from '@ant-design/icons';
 import ErrorLog from '../../../components/errorLog/ErrorLog';
 import ErrorContent from '../../../components/errorLog/ErrorContent';
 import PremiumDetails from './PremiumDetails';
@@ -206,7 +205,6 @@ const ProposalEntryForm = () => {
  };
 
  const onSubmit = async values => {
-  //handleNext();
   dispatch(setFormValues(values));
   const val = deepCopy(values);
   const modifiedData = extractFieldValuesInPlace(val);
@@ -217,6 +215,16 @@ const ProposalEntryForm = () => {
 
  const handleChangeValue = (value, path, setFieldValue, parent, values, currentData, col_name) => {
   setFieldValue(path, value);
+
+  if (col_name === 'POL_ASSR_CUST_FLAG') {
+   const flag = value === 'Yes';
+   let updatedState = changeState(proposalEntry, 'POL_ASSR_CODE', 'PFD_EDIT_YN', !flag);
+   updatedState = changeState(updatedState, 'POL_ASSR_CODE', 'PFD_MANDATORY_YN', !flag);
+   setProposalEntry(updatedState);
+   if (flag) {
+    handleCust_code(values, setFieldValue);
+   }
+  }
 
   if (col_name === 'POL_FM_DT') {
    setFieldValue(
@@ -260,9 +268,9 @@ const ProposalEntryForm = () => {
   if (key === 'POL_CUST_CODE') {
    setFieldValue(`frontForm.formFields.${'POL_CUST_NAME'}.PFD_FLD_VALUE`, label);
    const flag = values?.frontForm?.formFields?.POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
-   if (flag) {
-    handleCust_code(values, setFieldValue);
-   }
+   //    if (flag) {
+   //     handleCust_code(values, setFieldValue);
+   //    }
   }
 
   if (key === 'POL_ASSR_CODE') {
@@ -271,9 +279,9 @@ const ProposalEntryForm = () => {
 
   if (key === 'POL_ASSR_CUST_FLAG') {
    const flag = values?.frontForm?.formFields?.POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'Yes';
-   let updatedState = changeState(proposalEntry, 'POL_ASSR_CODE', 'PFD_EDIT_YN', !flag);
-   updatedState = changeState(updatedState, 'POL_ASSR_CODE', 'PFD_MANDATORY_YN', !flag);
-   setProposalEntry(updatedState);
+   //    let updatedState = changeState(proposalEntry, 'POL_ASSR_CODE', 'PFD_EDIT_YN', !flag);
+   //    updatedState = changeState(updatedState, 'POL_ASSR_CODE', 'PFD_MANDATORY_YN', !flag);
+   //    setProposalEntry(updatedState);
    if (flag) {
     handleCust_code(values, setFieldValue);
    }

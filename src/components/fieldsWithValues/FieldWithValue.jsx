@@ -131,6 +131,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
+           PFD_COLUMN_NAME,
           );
          }}
         />

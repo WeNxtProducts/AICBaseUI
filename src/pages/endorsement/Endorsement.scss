@@ -31,6 +31,13 @@
  line-height: 20px;
 }
 
+@mixin premium-card-style($color, $weight, $size, $line-height) {
+ color: $color;
+ font-weight: $weight;
+ font-size: $size;
+ line-height: $line-height;
+}
+
 @mixin table-th-style() {
  padding: 4px 12px;
  background-color: #f7f9fccc;
@@ -473,19 +480,22 @@
       }
      }
 
-     .cancel_summary {
-      border-left: 1px solid #C6C2DE;
+     .cancellation_summary {
+      border-left: 1px solid #c6c2de;
+     }
+
+     .premium_cards {
       > p:first-of-type {
-       color: #4d5e80;
-       font-weight: 700;
-       font-size: 21px;
-       line-height: 27px;
+       @include premium-card-style(#4d5e80, 700, 21px, 27px);
       }
       > p:nth-of-type(2) {
-       color: #4d5e80;
-       font-weight: 600;
-       font-size: 14px;
-       line-height: 16px;
+       @include premium-card-style(#4d5e80, 600, 14px, 16px);
+      }
+
+      .premium_summary {
+       margin: auto;
+       width: 95%;
+       border: 1px solid red;
       }
      }
     }

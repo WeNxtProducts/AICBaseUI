@@ -241,7 +241,7 @@ const MrvQuotation = ({
   } else {
    handleInitData(QuotationJSON);
   }
- }, [tranId, subId, freeze]);
+ }, [tranId, subId, freeze, isPremCalc]);
 
  const handleChangeValue = (value, path, setFieldValue, values) => {
   setFieldValue(path, value);
