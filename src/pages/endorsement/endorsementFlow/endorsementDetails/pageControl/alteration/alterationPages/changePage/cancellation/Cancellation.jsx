@@ -66,6 +66,11 @@ const Cancellation = () => {
     <div className='col-span-1 cancellation_summary'>
      <PremiumCard />
     </div>
+    <div className='col-span-2 footer_divider mt-3' />
+    <div className='col-span-2 nav_buttons'>
+     <button>Print</button>
+     <button>Proceed To UW</button>
+    </div>
    </div>
   </div>
  );
