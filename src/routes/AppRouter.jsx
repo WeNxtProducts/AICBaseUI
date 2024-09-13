@@ -56,7 +56,7 @@ const AppRouter = () => {
      path='/agTable'
      element={
       <Suspense fallback={<div>AG GRID TABLE</div>}>
-        <AgGridTables />
+       <AgGridTables />
       </Suspense>
      }
     />
