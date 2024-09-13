@@ -4,8 +4,8 @@ import RightSideForm from './RightSideForm';
 import useMobileDetect from '../../components/useMobileDetect/useMobileDetect';
 
 const NewLoginForm = () => {
-//  const isMobile = useMobileDetect();
- 
+ //  const isMobile = useMobileDetect();
+
  return (
   <div className='flex h-screen new_login_style'>
    <div className='leftside'>

@@ -37,9 +37,7 @@ const CustomTable = ({ data, columns }) => {
   if (groupedColumns.length === 0) return { '': data };
 
   return data.reduce((acc, row) => {
-   const key = groupedColumns
-    .map(col => `${col.title}: ${row[col.field]}`)
-    .join(', ');
+   const key = groupedColumns.map(col => `${col.title}: ${row[col.field]}`).join(', ');
    if (!acc[key]) {
     acc[key] = [];
    }
@@ -97,8 +95,7 @@ const CustomTable = ({ data, columns }) => {
      padding: '10px',
      marginBottom: '10px',
     }}>
-    Drag columns here to group:{' '}
-    {groupedColumns.map(col => col.title).join(', ')}
+    Drag columns here to group: {groupedColumns.map(col => col.title).join(', ')}
    </div>
    <table style={{ borderCollapse: 'collapse', width: '100%' }}>
     <thead>

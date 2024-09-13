@@ -30,13 +30,9 @@ const PolicyTabs = () => {
      {/* <PolicyDetails /> */}
      <MRVClaim // getClaimCoverDis ClaimCoverDetailsList
       queryID={`${
-       formValues?.CH_CLAIM_TYPE !== 'O'
-        ? 'getClaimCoverDis'
-        : 'ClaimCoverDetailsList'
+       formValues?.CH_CLAIM_TYPE !== 'O' ? 'getClaimCoverDis' : 'ClaimCoverDetailsList'
       }`}
-      root={`${
-       formValues?.CH_CLAIM_TYPE !== 'O' ? 'ClaimCoverDis' : 'ClaimCover'
-      }`}
+      root={`${formValues?.CH_CLAIM_TYPE !== 'O' ? 'ClaimCoverDis' : 'ClaimCover'}`}
       mrvGet='getClaimCoverDetailsEdit'
       screenCode='CLAIMENTRY'
       screenName='CLAIMENTRY'

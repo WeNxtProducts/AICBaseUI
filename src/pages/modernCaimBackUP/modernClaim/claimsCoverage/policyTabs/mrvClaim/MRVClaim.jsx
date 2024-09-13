@@ -8,10 +8,7 @@ import {
 } from '../../../../../components/commonHelper/DataSend';
 import { sortObjectByPFDSeqNo } from '../../../../../components/commonHelper/SortBySequence';
 import { getQueryId } from '../../../../../components/commonHelper/QueryIdFetch';
-import {
- extractValues,
- mergeDropdownData,
-} from '../../../../../components/commonHelper/ParamLov';
+import { extractValues, mergeDropdownData } from '../../../../../components/commonHelper/ParamLov';
 import Loader from '../../../../../components/loader/Loader';
 import ConfirmationModal from '../../../../../components/confirmationModal/ConfirmationModal';
 import { ClaimContext } from '../../../ModernClaim';
@@ -29,13 +26,7 @@ const MRVClaim = ({
  editRow,
  deleteRow,
 }) => {
- const {
-  ClaimsJson,
-  id: tranId,
-  formValues,
-  setDropDown,
-  dropDown,
- } = useContext(ClaimContext);
+ const { ClaimsJson, id: tranId, formValues, setDropDown, dropDown } = useContext(ClaimContext);
  const { mrvListingId } = ClaimsJson;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const mrvGetById = useApiRequests(mrvGet, 'GET');
@@ -53,8 +44,7 @@ const MRVClaim = ({
   try {
    const params = editMRVId ? { editMRVId } : { tranId };
    const response = await addOrUpdate(payload, '', params);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
     // setEditMRVId(response?.data?.Id);
@@ -215,9 +205,7 @@ const MRVClaim = ({
      <MRVListingScreen tableColumn={bankColumn} tableData={bankData} />
     </div>
    </div>
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

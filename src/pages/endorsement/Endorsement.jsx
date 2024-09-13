@@ -3,10 +3,11 @@ import EndorsementHeader from './endorsementHeader/EndorsementHeader';
 import EndorsemenHistory from './endorsemenHistory/EndorsemenHistory';
 import EndorsementFlow from './endorsementFlow/EndorsementFlow';
 import './Endorsement.scss';
-const AlterationPages = lazy(() =>
- import(
-  './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages'
- ),
+const AlterationPages = lazy(
+ () =>
+  import(
+   './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages'
+  ),
 );
 
 export const EndorsementContext = createContext();

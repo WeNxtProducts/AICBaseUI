@@ -11,7 +11,7 @@ const DeductionAndBonus = () => {
     </div>
     <div className='divider' />
     <div className='right-half'>
-     <Bonus listingId={122} page='Bonus'/>
+     <Bonus listingId={122} page='Bonus' />
     </div>
    </div>
   </div>

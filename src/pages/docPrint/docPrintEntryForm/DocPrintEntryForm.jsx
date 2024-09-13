@@ -1,15 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { DocPrintContext } from '../DocPrint';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../components/commonHelper/DataSend';
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import useApiRequests from '../../../services/useApiRequests';
 import { useDispatch } from 'react-redux';
 import showNotification from '../../../components/notification/Notification';
@@ -17,12 +11,7 @@ import Loader from '../../../components/loader/Loader';
 import MainForm from '../../../components/mainForm/MainForm';
 
 const DocPrintEntryForm = () => {
- const {
-  DoctPrintJSON,
-  id: tranId,
-  dropDown,
-  setDropDown,
- } = useContext(DocPrintContext);
+ const { DoctPrintJSON, id: tranId, dropDown, setDropDown } = useContext(DocPrintContext);
  const dispatch = useDispatch();
  const createDoc = useApiRequests('createDoc', 'POST');
  const updateDoc = useApiRequests('updateDoc', 'POST');
@@ -66,8 +55,7 @@ const DocPrintEntryForm = () => {
   setLoader(true);
   try {
    const response = await addOrUpdate(payload, '', tranId && { tranId });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     if (!tranId) dispatch(setCurrentID(response?.data?.Id));
     showNotification.SUCCESS(response?.status_msg);
@@ -87,14 +75,7 @@ const DocPrintEntryForm = () => {
   addOrUpdateDoc(payload, tranId ? updateDoc : createDoc);
  };
 
- const handleChangeValue = (
-  value,
-  path,
-  setFieldValue,
-  parent,
-  values,
-  currentData,
- ) => {
+ const handleChangeValue = (value, path, setFieldValue, parent, values, currentData) => {
   setFieldValue(path, value);
  };
 

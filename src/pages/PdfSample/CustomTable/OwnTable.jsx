@@ -77,9 +77,7 @@ const TableComponent = () => {
         <button>{isCollapsed ? '+' : '-'}</button>
        </span>
       </td>
-      <td
-       colSpan={3}
-       style={{ fontWeight: 'bold', backgroundColor: '#f0f0f0' }}>
+      <td colSpan={3} style={{ fontWeight: 'bold', backgroundColor: '#f0f0f0' }}>
        {`${groupBy[level]} : ${key}`}
       </td>
      </tr>
@@ -109,17 +107,10 @@ const TableComponent = () => {
   if (!destination) return;
 
   // Prevent moving items within the same droppable area
-  if (
-   source.droppableId === destination.droppableId &&
-   source.index === destination.index
-  )
-   return;
+  if (source.droppableId === destination.droppableId && source.index === destination.index) return;
 
   // Moving from columns to groupBy
-  if (
-   source.droppableId === 'columns' &&
-   destination.droppableId === 'groupBy'
-  ) {
+  if (source.droppableId === 'columns' && destination.droppableId === 'groupBy') {
    const column = columns[source.index];
    if (!groupBy.some(item => item.id === column.id)) {
     console.log('[...groupBy, column?.id] : ', [...groupBy, column?.id]);
@@ -168,10 +159,7 @@ const TableComponent = () => {
     </Droppable>
     <table className='own_table'>
      <thead>
-      <Droppable
-       droppableId='columns'
-       direction='horizontal'
-       isDropDisabled={true}>
+      <Droppable droppableId='columns' direction='horizontal' isDropDisabled={true}>
        {provided => (
         <tr ref={provided.innerRef} {...provided.droppableProps}>
          <th></th>

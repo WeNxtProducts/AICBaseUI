@@ -50,16 +50,12 @@ const CustomPasswordField = ({
      passwordVisible ? (
       <EyeOutlined onClick={() => handleTogglePasswordVisibility(false)} />
      ) : (
-      <EyeInvisibleOutlined
-       onClick={() => handleTogglePasswordVisibility(true)}
-      />
+      <EyeInvisibleOutlined onClick={() => handleTogglePasswordVisibility(true)} />
      )
     }
     type={passwordVisible ? 'text' : 'password'}
    />
-   {openModal && (
-    <AdminPasswordModal open={openModal} handleClose={handleClose} />
-   )}
+   {openModal && <AdminPasswordModal open={openModal} handleClose={handleClose} />}
   </div>
  );
 };

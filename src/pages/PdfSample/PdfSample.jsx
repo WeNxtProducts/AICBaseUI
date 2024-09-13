@@ -106,10 +106,7 @@ const PdfSample = () => {
      );
     });
 
-    const totalAge = items.reduce(
-     (sum, item) => sum + (parseFloat(item.age) || 0),
-     0,
-    );
+    const totalAge = items.reduce((sum, item) => sum + (parseFloat(item.age) || 0), 0);
 
     // Add total row
     body.push([
@@ -213,9 +210,7 @@ const PdfSample = () => {
   if (groupBy) {
    Object.entries(groupedData).forEach(([key, items], index) => {
     // Add group header
-    const groupHeaderRow = worksheet.addRow(
-     [key].concat(Array(tableColumns.length - 1).fill('')),
-    );
+    const groupHeaderRow = worksheet.addRow([key].concat(Array(tableColumns.length - 1).fill('')));
     groupHeaderRow.eachCell({ includeEmpty: true }, cell => {
      cell.font = { bold: true };
      cell.alignment = { horizontal: 'center' };
@@ -227,10 +222,7 @@ const PdfSample = () => {
     });
 
     // Calculate total for 'age' column
-    const totalAge = items.reduce(
-     (sum, item) => sum + (parseFloat(item.age) || 0),
-     0,
-    );
+    const totalAge = items.reduce((sum, item) => sum + (parseFloat(item.age) || 0), 0);
 
     // Add total row
     worksheet.addRow(['Total', totalAge, '']);
@@ -254,8 +246,7 @@ const PdfSample = () => {
   // Save to file
   const buffer = await workbook.xlsx.writeBuffer();
   const blob = new Blob([buffer], {
-   type:
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;',
+   type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;',
   });
   const link = document.createElement('a');
   if (link.download !== undefined) {
@@ -294,9 +285,7 @@ const PdfSample = () => {
  };
 
  const toggleGroup = key => {
-  setExpandedGroups(prev =>
-   prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key],
-  );
+  setExpandedGroups(prev => (prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]));
  };
 
  const renderTableRows = () => {

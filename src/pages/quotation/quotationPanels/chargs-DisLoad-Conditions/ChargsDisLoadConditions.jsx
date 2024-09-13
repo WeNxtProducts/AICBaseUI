@@ -15,11 +15,7 @@ const ChargsDisLoadConditions = ({ tranId }) => {
  return (
   <div className='chargs-Dis-load-Conditions sampleTabs'>
    <div className='sticky-tabs'>
-    <Tabs
-     size='small'
-     centered={true}
-     activeKey={activeTabKey}
-     onChange={handleTabChange}>
+    <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
      <TabPane key='1' tab={<TabPanelHeader name='Charges' />}>
       <MrvQuotation
        queryID='getChargesList'

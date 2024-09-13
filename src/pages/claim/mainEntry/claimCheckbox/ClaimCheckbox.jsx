@@ -5,7 +5,7 @@ const ClaimCheckbox = () => {
  return (
   <div className='claim-checkbox'>
    <div className='inner_layer flex items-start'>
-    <input type='checkbox' className='cursor-pointer'/>
+    <input type='checkbox' className='cursor-pointer' />
     <div className='ml-1'>
      <p className='policy-number-style'>Policy No: P/09/102/30393/039383</p>
      <p className='policy-desc-style'>Policy short description </p>

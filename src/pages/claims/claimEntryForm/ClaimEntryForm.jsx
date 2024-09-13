@@ -3,21 +3,12 @@ import { ClaimStepperContext } from '../Claims';
 import MainForm from '../../../components/mainForm/MainForm';
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
 import Loader from '../../../components/loader/Loader';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from './../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from './../../../components/commonHelper/DataSend';
 import showNotification from '../../../components/notification/Notification';
 import useApiRequests from '../../../services/useApiRequests';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
-import {
- extractValues,
- mergeDropdownData,
-} from '../../../components/commonHelper/ParamLov';
+import { extractValues, mergeDropdownData } from '../../../components/commonHelper/ParamLov';
 
 const ClaimEntryForm = () => {
  const {
@@ -73,8 +64,7 @@ const ClaimEntryForm = () => {
  const addOrUpdateClaim = async (payload, addOrUpdate) => {
   try {
    const response = await addOrUpdate(payload, '', tranId && { tranId });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleNext();
     if (!tranId) dispatch(setCurrentID(response?.data?.Id));
@@ -96,14 +86,7 @@ const ClaimEntryForm = () => {
   addOrUpdateClaim(payload, tranId ? updateClaim : createClaim);
  };
 
- const handleChangeValue = (
-  value,
-  path,
-  setFieldValue,
-  parent,
-  values,
-  currentData,
- ) => {
+ const handleChangeValue = (value, path, setFieldValue, parent, values, currentData) => {
   setFieldValue(path, value);
  };
 

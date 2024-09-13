@@ -12,9 +12,7 @@ import showNotification from '../../components/notification/Notification';
 const ApiToJson = () => {
  const lovToJson = useApiRequests('lovToJson', 'GET');
  const listingAPI = useApiRequests('getListing', 'GET');
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
  const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,10 +59,8 @@ const ApiToJson = () => {
   };
   try {
    const response = await lovToJson('', queryParams);
-   if (response?.status == 'SUCCESS')
-    showNotification.SUCCESS(response?.status_msg);
-   if (response?.Status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status == 'SUCCESS') showNotification.SUCCESS(response?.status_msg);
+   if (response?.Status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
   } catch (err) {
    console.log('err  : ', err);
@@ -114,10 +110,7 @@ const ApiToJson = () => {
     <div className='w-full'>
      <p className='search-title'>API To JSON</p>
      <div className='search-bar mt-2'>
-      <TextInputWithSearchIcon
-       placeholder='Search'
-       onChange={handleInputChange}
-      />
+      <TextInputWithSearchIcon placeholder='Search' onChange={handleInputChange} />
      </div>
     </div>
    </div>
@@ -145,11 +138,7 @@ const ApiToJson = () => {
     </>
    )}
    {isModalOpen && (
-    <ApiToJsonModal
-     open={isModalOpen}
-     currentData={currentData}
-     handleClose={handleClose}
-    />
+    <ApiToJsonModal open={isModalOpen} currentData={currentData} handleClose={handleClose} />
    )}
   </div>
  );

@@ -77,8 +77,7 @@ const ModernMRV = ({
 
         <div className={`items-center grid grid-cols-${grid} gap-y-3`}>
          {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
-          const dataId =
-           formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+          const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
           return useMemo(() => {
            return (
             <React.Fragment key={dataId}>

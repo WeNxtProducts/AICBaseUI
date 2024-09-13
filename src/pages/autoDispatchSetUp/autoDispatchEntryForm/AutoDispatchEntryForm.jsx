@@ -4,25 +4,14 @@ import { AutoDispatchContext } from '../AutoDispatchSetUp';
 import { useDispatch } from 'react-redux';
 import useApiRequests from '../../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import showNotification from '../../../components/notification/Notification';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../components/commonHelper/DataSend';
 import Loader from '../../../components/loader/Loader';
 import MainForm from '../../../components/mainForm/MainForm';
 
 const DocPrintEntryForm = () => {
- const {
-  AutoDispatchJSON,
-  id: tranId,
-  dropDown,
-  setDropDown,
- } = useContext(AutoDispatchContext);
+ const { AutoDispatchJSON, id: tranId, dropDown, setDropDown } = useContext(AutoDispatchContext);
  const dispatch = useDispatch();
  const createAutoDispatch = useApiRequests('createAutoDispatch', 'POST');
  const updateAutoDispatch = useApiRequests('updateAutoDispatch', 'POST');
@@ -66,8 +55,7 @@ const DocPrintEntryForm = () => {
   setLoader(true);
   try {
    const response = await addOrUpdate(payload, '', tranId && { tranId });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     if (!tranId) dispatch(setCurrentID(response?.data?.Id));
     showNotification.SUCCESS(response?.status_msg);
@@ -87,14 +75,7 @@ const DocPrintEntryForm = () => {
   addOrUpdateDoc(payload, tranId ? updateAutoDispatch : createAutoDispatch);
  };
 
- const handleChangeValue = (
-  value,
-  path,
-  setFieldValue,
-  parent,
-  values,
-  currentData,
- ) => {
+ const handleChangeValue = (value, path, setFieldValue, parent, values, currentData) => {
   setFieldValue(path, value);
  };
 

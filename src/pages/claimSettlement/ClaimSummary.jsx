@@ -34,8 +34,7 @@ const ClaimSummary = ({ selectedCover, handleGetCoverList }) => {
   };
   try {
    const response = await updateCoverAmount(payload, {}, { ID });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleGetCoverList();
     showNotification.SUCCESS(response?.status_msg);
@@ -60,8 +59,7 @@ const ClaimSummary = ({ selectedCover, handleGetCoverList }) => {
     procedureName: 'CLAIM_APPROVAL',
     packageName: 'WNPKG_CLAIM_ACCOUNT',
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleGetCoverList();
     showNotification.SUCCESS(response?.status_msg);
@@ -133,10 +131,7 @@ const ClaimSummary = ({ selectedCover, handleGetCoverList }) => {
     {coverDetails !== null && (
      <div className='col-span-10 grid grid-cols-2 gap-3'>
       {renderRow('Cover Code', coverDetails?.Cover_Code)}
-      {renderRow(
-       'Payment Date',
-       dayjs(coverDetails?.Payment_Date).format('YYYY-MM-DD'),
-      )}
+      {renderRow('Payment Date', dayjs(coverDetails?.Payment_Date).format('YYYY-MM-DD'))}
       {renderInput('Settlement Amount', coverDetails?.Foreign_Currency_Amount)}
       {renderRow('LC Amount', coverDetails?.Foreign_Currency_Amount)}
       {renderInput('Settlement Confirmation', coverDetails?.Status)}
@@ -145,14 +140,10 @@ const ClaimSummary = ({ selectedCover, handleGetCoverList }) => {
     <div className='col-span-2'>
      <div className='action-buttons'>
       <div className='flex flex-col items-center gap-3'>
-       <Button
-        disabled={coverDetails?.Status === 'P'}
-        onClick={() => handleSave()}>
+       <Button disabled={coverDetails?.Status === 'P'} onClick={() => handleSave()}>
         Save
        </Button>
-       <Button
-        disabled={coverDetails?.Status === 'P'}
-        onClick={() => procedureCall()}>
+       <Button disabled={coverDetails?.Status === 'P'} onClick={() => procedureCall()}>
         Approve
        </Button>
       </div>

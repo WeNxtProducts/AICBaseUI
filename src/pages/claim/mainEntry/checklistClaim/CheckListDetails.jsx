@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { checklistDetailsColumn, checklistDetailsData } from '../../../../components/tableComponents/sampleData';
+import {
+ checklistDetailsColumn,
+ checklistDetailsData,
+} from '../../../../components/tableComponents/sampleData';
 import { TextInputWithSearchIcon } from '../../../../components/commonExportsFields/CommonExportsFields';
 import UploadDocuments from './UploadDocuments';
 import DetailsTable from './DetailsTable';
@@ -30,10 +33,7 @@ const CheckListDetails = () => {
   <div className=''>
    <p className='table-header-checklist mb-2'>Checklist Details</p>
    <div className='flex items-center'>
-    <Button
-     className='filter-button'
-     type='primary'
-     icon={<i className='bi bi-funnel-fill' />}>
+    <Button className='filter-button' type='primary' icon={<i className='bi bi-funnel-fill' />}>
      Filter
     </Button>
     <div className='w-ful text-search'>
@@ -51,9 +51,7 @@ const CheckListDetails = () => {
      handleUpload={handleUpload}
     />
    </div>
-   {openUpload && (
-    <UploadDocuments open={openUpload} handleClose={handleClose} />
-   )}
+   {openUpload && <UploadDocuments open={openUpload} handleClose={handleClose} />}
   </div>
  );
 };

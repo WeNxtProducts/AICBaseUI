@@ -19,15 +19,11 @@ const ApproveOrRejectModal = ({
  selectedPolicy,
  tranId,
 }) => {
- const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } =
-  selectedPolDetails;
+ const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } = selectedPolDetails;
  const getLovList = useApiRequests('getLovList', 'GET');
  const getParamLov = useApiRequests('getParamLov', 'GET');
  const getPolClaimDetails = useApiRequests('getPreClaimDate', 'POST');
- const processApproveOrReject = useApiRequests(
-  'claimLevelDetailsUpdate',
-  'POST',
- );
+ const processApproveOrReject = useApiRequests('claimLevelDetailsUpdate', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const [Open, setOpen] = useState(false);
  const [values, setValues] = useState({
@@ -51,8 +47,7 @@ const ApproveOrRejectModal = ({
  const handleGetLovList = async (queryParams, key, apiCalls) => {
   try {
    const response = await apiCalls({}, queryParams);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setReasonDropDown(pre => ({
      ...pre,
@@ -91,8 +86,7 @@ const ApproveOrRejectModal = ({
     { queryParams: { tranId, CLM_POL_NO: selectedPolicy } },
     { queryId: 119 },
    );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setSelectedPolDetails(response?.Data[0]);
     setFreeze(response?.Data[0]?.CLM_FRZ_YN === 'Y');
@@ -112,8 +106,7 @@ const ApproveOrRejectModal = ({
   };
   try {
    const response = await processApproveOrReject('', queryParams);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     if (values?.CLM_STATUS === 'A') callProcedure();
     else if (values?.CLM_STATUS !== 'A') handlePolClaimDetails();
@@ -132,8 +125,7 @@ const ApproveOrRejectModal = ({
     procedureName: 'P_CLM_APPRV_PRCSS',
     packageName: 'WNPKG_CLAIM',
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handlePolClaimDetails();
     // onSave();

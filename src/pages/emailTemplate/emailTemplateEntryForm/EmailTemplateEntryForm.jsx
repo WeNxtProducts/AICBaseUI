@@ -1,14 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../components/commonHelper/DataSend';
 import { MailTemplateContext } from '../EmailTemplate';
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
 import useApiRequests from '../../../services/useApiRequests';
 import Loader from '../../../components/loader/Loader';
@@ -16,12 +10,7 @@ import showNotification from '../../../components/notification/Notification';
 import MainForm from './../../../components/mainForm/MainForm';
 
 const EmailTemplateEntryForm = () => {
- const {
-  EmailTemplateJSON,
-  id: tranId,
-  dropDown,
-  formValues,
- } = useContext(MailTemplateContext);
+ const { EmailTemplateJSON, id: tranId, dropDown, formValues } = useContext(MailTemplateContext);
  const dispatch = useDispatch();
  const createEmail = useApiRequests('createEmail', 'POST');
  const updateEmail = useApiRequests('updateEmail', 'POST');
@@ -65,8 +54,7 @@ const EmailTemplateEntryForm = () => {
   setLoader(true);
   try {
    const response = await addOrUpdate(payload, '', tranId && { tranId });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     if (!tranId) dispatch(setCurrentID(response?.data?.Id));
     showNotification.SUCCESS(response?.status_msg);
@@ -86,14 +74,7 @@ const EmailTemplateEntryForm = () => {
   addOrUpdateEmail(payload, tranId ? updateEmail : createEmail);
  };
 
- const handleChangeValue = (
-  value,
-  path,
-  setFieldValue,
-  parent,
-  values,
-  currentData,
- ) => {
+ const handleChangeValue = (value, path, setFieldValue, parent, values, currentData) => {
   setFieldValue(path, value);
  };
 

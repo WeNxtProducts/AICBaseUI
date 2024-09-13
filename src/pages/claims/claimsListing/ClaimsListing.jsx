@@ -6,10 +6,7 @@ import Loader from '../../../components/loader/Loader';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
 import TableComponent from '../../../components/tableComponents/TableComponent';
 import useApiRequests from '../../../services/useApiRequests';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 import showNotification from '../../../components/notification/Notification';
 import { debounce } from 'lodash';
@@ -18,9 +15,7 @@ const ClaimListing = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const listingAPI = useApiRequests('getListing', 'GET');
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const deleteClaim = useApiRequests('modernClaimDelete', 'POST');
  const claimSearch = useApiRequests('claimListSearch', 'GET');
  const [rowData, setRowData] = useState([]);
@@ -62,8 +57,7 @@ const ClaimListing = () => {
   try {
    const response = await deleteClaim('', { tranId: deleteId?.ID });
    setDeleteId(null);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleListingApi(0, 1);
     showNotification.SUCCESS(response?.status_msg);
@@ -181,9 +175,7 @@ const ClaimListing = () => {
      />
     </div>
    )}
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

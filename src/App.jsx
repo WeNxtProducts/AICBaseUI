@@ -6,6 +6,7 @@ import Header from './pages/header/Header';
 import './App.scss';
 
 const App = () => {
+ //npx prettier --write .
  const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`];
  const location = useLocation();
  const [currentPath, setCurrentPath] = useState(true);

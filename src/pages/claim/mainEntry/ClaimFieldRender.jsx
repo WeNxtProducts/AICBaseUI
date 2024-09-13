@@ -4,20 +4,9 @@ import {
  CustomInput,
 } from '../../../components/commonExportsFields/CommonExportsFields';
 
-const ClaimFieldRender = ({
- fieldInfo,
- handleChangeValue,
- values,
- keyField,
-}) => {
- const {
-  PFD_FLD_NAME,
-  PFD_COLUMN_NAME,
-  PFD_DATA_TYPE,
-  PFD_MANDATORY_YN,
-  PFD_HINT,
-  PFD_EDIT_YN,
- } = fieldInfo;
+const ClaimFieldRender = ({ fieldInfo, handleChangeValue, values, keyField }) => {
+ const { PFD_FLD_NAME, PFD_COLUMN_NAME, PFD_DATA_TYPE, PFD_MANDATORY_YN, PFD_HINT, PFD_EDIT_YN } =
+  fieldInfo;
 
  return (
   <div className='current-field p-2 flex items-center'>

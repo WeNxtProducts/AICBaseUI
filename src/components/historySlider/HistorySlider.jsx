@@ -33,9 +33,7 @@ const HistorySlider = ({ items }) => {
       transform: `translateX(-${(currentIndex * 100) / itemsToShow}%)`,
      }}>
      {items.map((item, index) => (
-      <div
-       className='slider-item flex items-center justify-around'
-       key={item?.id}>
+      <div className='slider-item flex items-center justify-around' key={item?.id}>
        <div>
         <p className='item_label'>{item?.label}</p>
         <p className='item_date'>{item?.date}</p>
@@ -51,9 +49,7 @@ const HistorySlider = ({ items }) => {
    </div>
    <RightOutlined
     className={`arrow ${
-     currentIndex >= items.length - itemsToShow
-      ? 'right-arrow-dis'
-      : 'right-arrow'
+     currentIndex >= items.length - itemsToShow ? 'right-arrow-dis' : 'right-arrow'
     }`}
     onClick={handleNext}
     disabled={currentIndex >= items.length - itemsToShow}

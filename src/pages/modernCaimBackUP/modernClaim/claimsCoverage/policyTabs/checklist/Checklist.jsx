@@ -1,10 +1,7 @@
 import React from 'react';
 import ListDetails from './ListDetails';
 import MRVListingScreen from '../MRVListingScreen';
-import {
- bankColumn,
- bankData,
-} from '../../../../../components/tableComponents/sampleData';
+import { bankColumn, bankData } from '../../../../../components/tableComponents/sampleData';
 
 const Checklist = () => {
  return (

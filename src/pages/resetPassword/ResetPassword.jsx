@@ -63,8 +63,7 @@ const ResetPassword = () => {
      ...values,
      //  name: userDetails?.userName,
     });
-    if (response?.Status === 'FAILURE')
-     showNotification.ERROR(response?.status_msg);
+    if (response?.Status === 'FAILURE') showNotification.ERROR(response?.status_msg);
     else if (response?.Status === 'SUCCESS') {
      handleLogout();
     }
@@ -79,12 +78,8 @@ const ResetPassword = () => {
    <div className='password-reset-fields'>
     <div className='main-content'>
      <p className='pass-reset-style select-none label-font'>Password Reset</p>
-     <p className='pass-sub-style mt-1 select-none label-font'>
-      Your New Password should
-     </p>
-     <p className='pass-sub-style select-none label-font'>
-      different from old password
-     </p>
+     <p className='pass-sub-style mt-1 select-none label-font'>Your New Password should</p>
+     <p className='pass-sub-style select-none label-font'>different from old password</p>
      <ResetPasswordIcon className='custom-svg' />
      <div className='form-content'>
       {currentPath && (

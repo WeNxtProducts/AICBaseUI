@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 const paymentValidaionSchema = Yup.object().shape({
  RD_PAY_MODE: Yup.string().required('Payment mode is required'),
  RD_FC_AMT: Yup.number().required('FC Amount is required'),
-//  RD_LC_AMT: Yup.number().required('LC Amount is required'),
+ //  RD_LC_AMT: Yup.number().required('LC Amount is required'),
 
  RD_BANK_REF_NO: Yup.string()
   .label()

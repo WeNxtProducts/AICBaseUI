@@ -3,10 +3,7 @@ import { Button, Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useApiRequests from '../../../services/useApiRequests';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import showNotification from '../../../components/notification/Notification';
 import Loader from '../../../components/loader/Loader';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
@@ -17,9 +14,7 @@ const TemplateListing = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const listingAPI = useApiRequests('getListing', 'GET');
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const deleteEmailTemplate = useApiRequests('deleteEmailTemplate', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
@@ -63,8 +58,7 @@ const TemplateListing = () => {
   try {
    const response = await deleteEmailTemplate('', { templateId: deleteId?.ID });
    setDeleteId(null);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleListingApi(0, 1);
     showNotification.SUCCESS(response?.status_msg);
@@ -119,10 +113,7 @@ const TemplateListing = () => {
     <div className='w-full'>
      <p className='search-title'>Email Template List</p>
      <div className='search-bar mt-2'>
-      <TextInputWithSearchIcon
-       placeholder='Search'
-       onChange={handleInputChange}
-      />
+      <TextInputWithSearchIcon placeholder='Search' onChange={handleInputChange} />
      </div>
     </div>
     <div>
@@ -158,9 +149,7 @@ const TemplateListing = () => {
      />
     </div>
    )}
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

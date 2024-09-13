@@ -2,10 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Divider } from 'antd';
 import { useDispatch } from 'react-redux';
 import RadioChip from '../../../components/radioChip/RadioChip';
-import {
- claim_check,
- platforms,
-} from '../../../components/tableComponents/sampleData';
+import { claim_check, platforms } from '../../../components/tableComponents/sampleData';
 import {
  CustomDatePicker,
  CustomInput,
@@ -34,8 +31,7 @@ const ClaimSelect = () => {
  const handleGetPolicyList = async sysId => {
   try {
    const response = await getPolicyList('', { sysId: 16 });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setPolicyList(response?.Data?.Policy_Numbers);
    }
@@ -47,8 +43,7 @@ const ClaimSelect = () => {
  const onSubmit = async values => {
   try {
    const response = await createClaim(values);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleGetPolicyList(response?.Data?.Id);
     if (!tranId) dispatch(setCurrentID(response?.Data?.Id));

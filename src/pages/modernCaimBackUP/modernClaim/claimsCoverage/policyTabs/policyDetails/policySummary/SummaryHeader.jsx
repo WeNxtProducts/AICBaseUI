@@ -1,5 +1,5 @@
-import { Checkbox, Select } from "antd";
-import { notification_options } from "../../../../../../components/tableComponents/sampleData";
+import { Checkbox, Select } from 'antd';
+import { notification_options } from '../../../../../../components/tableComponents/sampleData';
 
 const SummaryHeader = () => {
  return (
@@ -18,9 +18,7 @@ const SummaryHeader = () => {
     <Select className='reason_select_box' placeholder='Reason'>
      {notification_options?.map(item => (
       <Select.Option key={item.value} value={item.value}>
-       {`${item?.value}${
-        item?.value !== item?.label ? ` - ${item?.label}` : ''
-       }`}
+       {`${item?.value}${item?.value !== item?.label ? ` - ${item?.label}` : ''}`}
       </Select.Option>
      ))}
     </Select>

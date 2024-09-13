@@ -24,7 +24,9 @@ $white: #ffffff;
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid transparent;
-  transition: height 0.3s ease, border-color 1s ease;
+  transition:
+   height 0.3s ease,
+   border-color 1s ease;
   box-sizing: border-box;
 
   &:hover {
@@ -69,8 +71,11 @@ $white: #ffffff;
      justify-content: space-between;
      padding: 3px 3px 3px 10px;
      border-radius: 8px;
-     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out,
-      border-radius 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+     transition:
+      transform 0.3s ease-in-out,
+      background-color 0.3s ease-in-out,
+      border-radius 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
      &:hover {
       background-color: #f9f4f4;
       transform: scale(1.05);

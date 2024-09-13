@@ -8,11 +8,7 @@ import useApiRequests from '../../../../../services/useApiRequests';
 import showNotification from '../../../../../components/notification/Notification';
 
 const Checklist = () => {
- const {
-  ClaimsJson,
-  id: tranId,
-  selectedPolDetails,
- } = useContext(ClaimContext);
+ const { ClaimsJson, id: tranId, selectedPolDetails } = useContext(ClaimContext);
  const { CLM_TRAN_ID } = selectedPolDetails;
  const { mrvListingId } = ClaimsJson;
  const { rowData, columnData, handleMRVListing } = useMRVListing();
@@ -40,8 +36,7 @@ const Checklist = () => {
     { queryParams: { CLM_TRAN_ID: CLM_TRAN_ID, GROUP_CODE: item?.Group_Code } },
     { queryId: 129 },
    );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setListItemData(response?.Data);
    }

@@ -1,13 +1,7 @@
 import React from 'react';
 import FieldWithValue from '../../../components/fieldsWithValues/FieldWithValue';
 
-const SummaryForm = ({
- values,
- setFieldValue,
- handleChangeValue,
- formData,
- root,
-}) => {
+const SummaryForm = ({ values, setFieldValue, handleChangeValue, formData, root }) => {
  const { frontForm } = formData;
  const { formFields = {} } = formData[root];
 

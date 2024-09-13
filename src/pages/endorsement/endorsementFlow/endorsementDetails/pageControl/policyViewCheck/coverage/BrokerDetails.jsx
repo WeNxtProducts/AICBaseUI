@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import useMRVListing from '../../../../../../../components/mrvListing/useMRVListing';
 
-
 const BrokerDetails = ({ brokerId, code }) => {
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const data = [

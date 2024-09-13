@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, Select } from 'antd';
 import './CodeWithNumber.scss';
 
-const CodeWithNumber = ({
- size = 'large',
- name,
- value,
- onChange,
- disabled = false,
-}) => {
+const CodeWithNumber = ({ size = 'large', name, value, onChange, disabled = false }) => {
  const [phoneNumber, setPhoneNumber] = useState({
   code: '',
   number: '',
@@ -25,9 +19,7 @@ const CodeWithNumber = ({
 
  useEffect(() => {
   const splitString = String(value);
-  const splitNumbers = splitString?.includes('+')
-   ? splitString?.split('-')
-   : ['', splitString];
+  const splitNumbers = splitString?.includes('+') ? splitString?.split('-') : ['', splitString];
   setPhoneNumber({
    code: splitNumbers[0] || '',
    number: splitNumbers[1] || '',
@@ -45,9 +37,7 @@ const CodeWithNumber = ({
  };
 
  return (
-  <div
-   name={name}
-   className={`flex w-${fieldSize[size].main} code-with-number-field`}>
+  <div name={name} className={`flex w-${fieldSize[size].main} code-with-number-field`}>
    <div className={`w-${fieldSize[size].code}`}>
     <Select
      className='code-select-fields'

@@ -9,11 +9,11 @@ const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const ReceiptListing = lazy(() => import('../pages/receipt/receiptListing/ReceiptListing'));
 const Endorsement = lazy(() => import('../pages/endorsement/Endorsement'));
 const ClaimListing = lazy(() => import('../pages/claims/claimsListing/ClaimsListing'));
-const UnderWriterWorkBench = lazy(() =>
- import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
+const UnderWriterWorkBench = lazy(
+ () => import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
 );
-const ProductList = lazy(() =>
- import('../pages/quotation/quotationListing/productList/ProductList'),
+const ProductList = lazy(
+ () => import('../pages/quotation/quotationListing/productList/ProductList'),
 );
 const Receipt = lazy(() => import('../pages/receipt/Receipt'));
 const QuotationListing = lazy(() => import('../pages/quotation/quotationListing/QuotationListing'));
@@ -22,21 +22,21 @@ const Quote = lazy(() => import('../pages/quote/Quote'));
 const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() => import('../pages/autoDispatchSetUp/AutoDispatchSetUp'));
 
-const AutoDispatchListing = lazy(() =>
- import('../pages/autoDispatchSetUp/autoDispatchListing/AutoDispatchListing'),
+const AutoDispatchListing = lazy(
+ () => import('../pages/autoDispatchSetUp/autoDispatchListing/AutoDispatchListing'),
 );
 const ModernClaim = lazy(() => import('../pages/modernClaim/ModernClaim'));
 const DocPrint = lazy(() => import('../pages/docPrint/DocPrint'));
 const DocPrintListing = lazy(() => import('../pages/docPrint/docPrintListing/DocPrintListing'));
 const EmailTemplate = lazy(() => import('../pages/emailTemplate/EmailTemplate'));
-const EmailTemplateListing = lazy(() =>
- import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
+const EmailTemplateListing = lazy(
+ () => import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
 );
-const TemplateListing = lazy(() =>
- import('../pages/emailTemplate/templateListing/TemplateListing'),
+const TemplateListing = lazy(
+ () => import('../pages/emailTemplate/templateListing/TemplateListing'),
 );
-const CustomerListingScreen = lazy(() =>
- import('../pages/customerListingScreens/customerListingScreen'),
+const CustomerListingScreen = lazy(
+ () => import('../pages/customerListingScreens/customerListingScreen'),
 );
 const NewLoginForm = lazy(() => import('../pages/newLoginForm/NewLoginForm'));
 const ResetPassword = lazy(() => import('../pages/resetPassword/ResetPassword'));
@@ -56,7 +56,7 @@ const AppRouter = () => {
      path='/agTable'
      element={
       <Suspense fallback={<div>AG GRID TABLE</div>}>
-       <AgGridTables />
+        <AgGridTables />
       </Suspense>
      }
     />
@@ -109,6 +109,14 @@ const AppRouter = () => {
       </Suspense>
      }
     />
+    <Route
+     path='/endorsement'
+     element={
+      <Suspense fallback={<Loader />}>
+       <Endorsement />
+      </Suspense>
+     }
+    />
 
     {/* ProtectedRoute */}
 
@@ -122,14 +130,6 @@ const AppRouter = () => {
       }
      />
 
-     <Route
-      path='/endorsement'
-      element={
-       <Suspense fallback={<Loader />}>
-        <Endorsement />
-       </Suspense>
-      }
-     />
      <Route
       path='/receipt'
       element={

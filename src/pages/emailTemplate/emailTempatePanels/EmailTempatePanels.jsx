@@ -14,11 +14,7 @@ const EmailTempatePanels = () => {
 
  return (
   <div className='mt-4'>
-   <Collapse
-    expandIconPosition='end'
-    activeKey={activePanal}
-    onChange={callback}
-    size='small'>
+   <Collapse expandIconPosition='end' activeKey={activePanal} onChange={callback} size='small'>
     <Panel
      data-id='panel-1'
      header={<CollapsePanelHeader color='#e9ecef' name='Email Parameters' />}

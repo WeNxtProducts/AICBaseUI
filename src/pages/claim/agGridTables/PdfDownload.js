@@ -133,8 +133,7 @@ const createLayout = numberOfHeaderRows => ({
   return rowIndex % 2 === 0 ? EVEN_ROW_COLOR : ODD_ROW_COLOR;
  },
  //vLineHeight not used here.
- vLineWidth: (rowIndex, node) =>
-  rowIndex === 0 || rowIndex === node.table.widths.length ? 1 : 0,
+ vLineWidth: (rowIndex, node) => (rowIndex === 0 || rowIndex === node.table.widths.length ? 1 : 0),
  hLineColor: (rowIndex, node) =>
   rowIndex === 0 || rowIndex === node.table.body.length
    ? PDF_OUTER_BORDER_COLOR

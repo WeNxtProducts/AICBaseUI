@@ -6,12 +6,8 @@ import MainForm from '../../../../components/mainForm/MainForm';
 const ClaimEstimateForm = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
   useContext(ClaimStepperContext);
- const [claimEstimateDetails, setClaimEstimateDetails] = useState(
-  claim?.accordions,
- );
- const [claimEstimateInitialValues, setClaimEstimateInitialValues] = useState(
-  claim?.accordions,
- );
+ const [claimEstimateDetails, setClaimEstimateDetails] = useState(claim?.accordions);
+ const [claimEstimateInitialValues, setClaimEstimateInitialValues] = useState(claim?.accordions);
 
  const onSubmit = values => {
   handleNext();

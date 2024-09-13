@@ -3,12 +3,7 @@ import { Dropdown } from 'antd';
 import flags from '../../../assets/Flag_of_the_United_Kingdom.png';
 import './LanguageSelectField.scss';
 
-const LanguageSelectField = ({
- options = [],
- value,
- onChange,
- size = 'large',
-}) => {
+const LanguageSelectField = ({ options = [], value, onChange, size = 'large' }) => {
  const fieldSize = {
   small: { code: '1/4', desc: '3/4', main: '2/5' },
   medium: { code: '1/4', desc: '3/4', main: '3/5' }, // 3/4
@@ -23,8 +18,7 @@ const LanguageSelectField = ({
  const [preValue, setPreValue] = useState('');
 
  useEffect(() => {
-  if (inputContainerRef.current)
-   setPopoverWidth(inputContainerRef.current.offsetWidth);
+  if (inputContainerRef.current) setPopoverWidth(inputContainerRef.current.offsetWidth);
  }, []);
 
  useEffect(() => {

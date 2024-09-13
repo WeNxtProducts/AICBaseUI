@@ -39,12 +39,7 @@ const SlidingCards = () => {
    <div className='container'>
     {cards.map((card, index) => (
      <div key={card.id} className='card_wrapper'>
-      <input
-       type='radio'
-       name='slide'
-       id={card.id}
-       defaultChecked={index === 0}
-      />
+      <input type='radio' name='slide' id={card.id} defaultChecked={index === 0} />
       <label htmlFor={card.id} className={`card ${card.id}check`}>
        {/* <img src={card?.img} /> */}
        <div className='row'>

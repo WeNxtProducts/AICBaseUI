@@ -1,10 +1,7 @@
 import React from 'react';
 import { PrinterOutlined } from '@ant-design/icons';
 import MRVListingScreen from '../../MRVListingScreen';
-import {
- bankData,
- bankColumn,
-} from './../../../../../../components/tableComponents/sampleData';
+import { bankData, bankColumn } from './../../../../../../components/tableComponents/sampleData';
 
 const PolicyListing = () => {
  return (

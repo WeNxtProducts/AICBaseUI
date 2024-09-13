@@ -22,7 +22,7 @@ const QuotationPanels = () => {
   id: tranId,
   proposalNumber,
   freeze,
-  isPremCalc
+  isPremCalc,
  } = useContext(StepperContext);
  const ds_type = useSelector(state => state?.tokenAndMenuList?.currentMenuId?.ds_type);
  const getPrimaryLifeAssuredId = useApiRequests('getPreClaimDate', 'POST');

@@ -35,15 +35,9 @@ const MRVListingScreen = ({
     <div
      data-id={item?.[highlightKey]}
      key={item?.[highlightKey]}
-     className={
-      selectedRow == item?.[highlightKey]
-       ? 'list_card_highlighted_row'
-       : 'list_card'
-     }>
+     className={selectedRow == item?.[highlightKey] ? 'list_card_highlighted_row' : 'list_card'}>
      <div
-      className={`action_header flex item-center justify-${
-       action && !freeze ? 'between' : 'end'
-      }`}>
+      className={`action_header flex item-center justify-${action && !freeze ? 'between' : 'end'}`}>
       {action && !freeze && (
        <div
         onClick={e => {
@@ -55,12 +49,7 @@ const MRVListingScreen = ({
          onChange={e => handleDelete(item)}
         /> */}
         <div className='mrv_checkbox'>
-         <input
-          readOnly
-          checked={item?.isSelected === 'Y'}
-          id={index}
-          type='checkbox'
-         />
+         <input readOnly checked={item?.isSelected === 'Y'} id={index} type='checkbox' />
          <label />
         </div>
        </div>
@@ -78,19 +67,14 @@ const MRVListingScreen = ({
        )}
        {isDelete && !freeze && (
         <Tooltip title='Delete'>
-         <DeleteOutlined
-          onClick={() => handleDelete(item)}
-          className='mrv_icons delete_mrv_row'
-         />
+         <DeleteOutlined onClick={() => handleDelete(item)} className='mrv_icons delete_mrv_row' />
         </Tooltip>
        )}
       </div>
      </div>
 
      {Object.keys(column)?.map(key => (
-      <div
-       key={key}
-       className='ml-3 mrv_list items-center grid grid-cols-12 mb-1'>
+      <div key={key} className='ml-3 mrv_list items-center grid grid-cols-12 mb-1'>
        <p className='col-span-6 key_font'>{column[key]}</p>
        <p className='col-span-6 value_font'>{item[key]}</p>
       </div>

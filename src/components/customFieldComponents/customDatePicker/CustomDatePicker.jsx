@@ -26,7 +26,7 @@ const CustomDatePicker = ({
   // Disable dates before the minimum date
   return current && current < minDate.setHours(0, 0, 0, 0);
  };
- 
+
  const handleChange = (date, dateString) => {
   if (onChange) {
    onChange(dateString); // Pass the selected date string to the parent component

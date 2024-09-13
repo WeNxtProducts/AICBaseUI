@@ -57,10 +57,7 @@ const ModernMRVFieldWithValue = ({
  return (
   <div className='col-span-1 grid grid-cols-3 items-center'>
    <div className='col-span-1'>
-    <p
-     className={`${
-      smallFont ? 'label_small_font' : 'label-font'
-     }  select-none`}>
+    <p className={`${smallFont ? 'label_small_font' : 'label-font'}  select-none`}>
      {PFD_FLD_NAME}
      {PFD_MANDATORY_YN && <span className='mandatory-symbol'>*</span>}
     </p>

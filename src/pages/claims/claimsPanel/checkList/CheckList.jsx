@@ -7,7 +7,7 @@ const CheckList = () => {
  return (
   <div className='checklist p-3'>
    <CheckListTable />
-   <Divider className='table-divider'/>
+   <Divider className='table-divider' />
    <CheckListDetails />
   </div>
  );

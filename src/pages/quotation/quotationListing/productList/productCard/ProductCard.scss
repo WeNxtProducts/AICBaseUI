@@ -78,7 +78,9 @@
   .card-overlay-content {
    transform: translateY(20px);
    opacity: 0;
-   transition: transform 0.2s ease 0.2s, opacity 0.2s ease 0.2s;
+   transition:
+    transform 0.2s ease 0.2s,
+    opacity 0.2s ease 0.2s;
   }
  }
 
@@ -128,7 +130,7 @@
 .plan_card {
  cursor: pointer;
  position: relative;
-//  width: 300px; // Adjust width as needed
+ //  width: 300px; // Adjust width as needed
  height: 200px; // Adjust height as needed
  overflow: hidden;
  border-radius: 8px;

@@ -9,7 +9,9 @@
   padding: 0.6rem 0.6rem 0.6rem 12px; // Add padding-left
   border: 1px solid #4d5e80;
   border-radius: 6px !important; // Add border-radius
-  transition: border-color 0.2s ease, box-shadow 0.2s ease; // Add transition for box-shadow
+  transition:
+   border-color 0.2s ease,
+   box-shadow 0.2s ease; // Add transition for box-shadow
   color: black;
 
   &:focus,
@@ -27,7 +29,9 @@
    box-shadow: none !important;
    border: 1px solid #4d5e80;
    border-radius: 6px !important; // Add border-radius
-   transition: border-color 0.2s ease, box-shadow 0.2s ease; // Add transition for box-shadow
+   transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease; // Add transition for box-shadow
    color: black;
   }
   .ant-select-selector:hover,

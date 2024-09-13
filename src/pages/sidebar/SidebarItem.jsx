@@ -57,10 +57,7 @@ export default function SidebarItem({ item, isExpanded }) {
 
  if (item?.childrens) {
   return (
-   <div
-    className={
-     open ? 'sidebar-item open cursor-pointer' : 'sidebar-item cursor-pointer'
-    }>
+   <div className={open ? 'sidebar-item open cursor-pointer' : 'sidebar-item cursor-pointer'}>
     <div
      onClick={() => handleMenuSelected()}
      className={
@@ -72,16 +69,12 @@ export default function SidebarItem({ item, isExpanded }) {
       {item?.menuIconPath && (
        <i
         className={`${item?.menuIconPath} ${
-         menuSelected?.includes(item?.menuId)
-          ? 'icon-color-selected'
-          : 'icon-color'
+         menuSelected?.includes(item?.menuId) ? 'icon-color-selected' : 'icon-color'
         }`}></i>
       )}
       <span
        //  onClick={() => handleMenuSelected()}
-       className={
-        activateClassName ? 'sidebar-text select-none' : 'hidden select-none'
-       }>
+       className={activateClassName ? 'sidebar-text select-none' : 'hidden select-none'}>
        {item?.menuOptionDesc}
       </span>
      </span>
@@ -93,12 +86,7 @@ export default function SidebarItem({ item, isExpanded }) {
     </div>
     <div className='sidebar-content'>
      {item?.childrens.map((child, index) => (
-      <SidebarItem
-       key={index}
-       item={child}
-       isExpanded={isExpanded}
-       parent={item}
-      />
+      <SidebarItem key={index} item={child} isExpanded={isExpanded} parent={item} />
      ))}
     </div>
    </div>
@@ -119,16 +107,12 @@ export default function SidebarItem({ item, isExpanded }) {
       {item.menuIconPath && (
        <i
         className={`${item.menuIconPath} ${
-         menuSelected?.includes(item?.menuId)
-          ? 'icon-color-selected'
-          : 'icon-color'
+         menuSelected?.includes(item?.menuId) ? 'icon-color-selected' : 'icon-color'
         }`}></i>
       )}
       <span
        className={
-        activateClassName
-         ? 'sidebar-text sidebar-text-sub select-none'
-         : 'hidden select-none'
+        activateClassName ? 'sidebar-text sidebar-text-sub select-none' : 'hidden select-none'
        }>
        {item.menuOptionDesc}
       </span>

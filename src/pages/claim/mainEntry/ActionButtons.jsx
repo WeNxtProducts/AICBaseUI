@@ -34,11 +34,7 @@ const ActionButtons = () => {
     />
    )}
    {openChecklist && (
-    <ChecklistClaim
-     title='Checklist'
-     openModal={openChecklist}
-     handleCloseModal={handleClose}
-    />
+    <ChecklistClaim title='Checklist' openModal={openChecklist} handleCloseModal={handleClose} />
    )}
   </div>
  );

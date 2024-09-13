@@ -6,12 +6,7 @@ import {
 } from '../../../../components/commonExportsFields/CommonExportsFields';
 import FileUpload from '../../../fileUpload/FileUpload';
 
-const DetailsTable = ({
- tableColumn = {},
- tableData = [],
- handleSelect,
- handleUpload,
-}) => {
+const DetailsTable = ({ tableColumn = {}, tableData = [], handleSelect, handleUpload }) => {
  const [expandedRows, setExpandedRows] = useState('');
  const dropdownOptions = [
   { label: 'Yes', value: 'Yes' },
@@ -87,9 +82,7 @@ const DetailsTable = ({
 
   if (expandedRows.includes(item.key)) {
    itemRows.push(
-    <tr
-     data-id={`claim-row-expanded-${item.key}`}
-     key={`claim-row-expanded-${item.key}`}>
+    <tr data-id={`claim-row-expanded-${item.key}`} key={`claim-row-expanded-${item.key}`}>
      <td colSpan='6' className='claim_row_expand'>
       <div className='Upload_documents_claim_checklist mb-3'>
        <FileUpload />

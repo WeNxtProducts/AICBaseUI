@@ -12,13 +12,7 @@ import './AgGridTables.scss';
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 const TextFieldRenderer = props => {
- return (
-  <input
-   type='text'
-   value={props.value}
-   onChange={e => props.setValue(e.target.value)}
-  />
- );
+ return <input type='text' value={props.value} onChange={e => props.setValue(e.target.value)} />;
 };
 
 const CustomCellRenderer = param => {

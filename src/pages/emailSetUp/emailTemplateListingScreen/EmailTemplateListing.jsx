@@ -3,10 +3,7 @@ import { Button, Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useApiRequests from '../../../services/useApiRequests';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 import showNotification from '../../../components/notification/Notification';
 import Loader from '../../../components/loader/Loader';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
@@ -17,9 +14,7 @@ const EmailTemplateListing = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const listingAPI = useApiRequests('getListing', 'GET');
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const deleteClaim = useApiRequests('deleteClaim', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
@@ -63,8 +58,7 @@ const EmailTemplateListing = () => {
   try {
    const response = await deleteClaim('', {}, { id: deleteId?.ID });
    setDeleteId(null);
-   if (response?.Status === 'FAILURE')
-    showNotification.ERROR(response?.Message);
+   if (response?.Status === 'FAILURE') showNotification.ERROR(response?.Message);
    if (response?.Status === 'SUCCESS') {
     handleListingApi(0, 1);
     showNotification.SUCCESS(response?.Message);
@@ -118,10 +112,7 @@ const EmailTemplateListing = () => {
     <div className='w-full'>
      <p className='search-title'>Email Template List</p>
      <div className='search-bar mt-2'>
-      <TextInputWithSearchIcon
-       placeholder='Search'
-       onChange={handleInputChange}
-      />
+      <TextInputWithSearchIcon placeholder='Search' onChange={handleInputChange} />
      </div>
     </div>
     <div>
@@ -157,9 +148,7 @@ const EmailTemplateListing = () => {
      />
     </div>
    )}
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

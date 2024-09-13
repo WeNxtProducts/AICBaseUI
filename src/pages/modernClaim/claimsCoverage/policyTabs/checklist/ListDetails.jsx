@@ -46,11 +46,7 @@ const ListDetails = ({ listItemData }) => {
    </div> */}
    <div className='mt-4'>
     {rowData?.length > 0 && (
-     <DetailsTable
-      tableData={rowData}
-      handleSelect={handleSelect}
-      handleUpload={handleUpload}
-     />
+     <DetailsTable tableData={rowData} handleSelect={handleSelect} handleUpload={handleUpload} />
     )}
    </div>
   </div>
