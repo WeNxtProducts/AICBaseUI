@@ -6,29 +6,29 @@ import ChangePage from './changePage/ChangePage';
 export const AlterationContext = createContext();
 
 const AlterationPages = () => {
- const { setShowAlteration, showAlteration } = useContext(EndorsementContext);
- const [alterationType, setAlterationType] = useState('F');
- const [selectedAlteration, setSelectedAlteration] = useState({
-  key: 4,
-  title: 'Cancellation',
-  desc: 'User Can change the Cancel of the policy.',
-  option: false,
- });
+    const { setShowAlteration, showAlteration } = useContext(EndorsementContext);
+    const [alterationType, setAlterationType] = useState('F');
+    const [selectedAlteration, setSelectedAlteration] = useState({
+        key: 0,
+        title: 'Change in Premium',
+        desc: 'User Can change the premium of the policy.',
+        option: false,
+    });
 
- const data = {
-  alterationType,
-  setAlterationType,
-  setSelectedAlteration,
-  selectedAlteration,
- };
+    const data = {
+        alterationType,
+        setAlterationType,
+        setSelectedAlteration,
+        selectedAlteration,
+    };
 
- return (
-  <AlterationContext.Provider value={data}>
-   <div className='alterationPages'>
-    {selectedAlteration === null ? <AlterationType /> : <ChangePage />}
-   </div>
-  </AlterationContext.Provider>
- );
+    return (
+        <AlterationContext.Provider value={data}>
+            <div className='alterationPages'>
+                {selectedAlteration === null ? <AlterationType /> : <ChangePage />}
+            </div>
+        </AlterationContext.Provider>
+    );
 };
 
 export default AlterationPages;
