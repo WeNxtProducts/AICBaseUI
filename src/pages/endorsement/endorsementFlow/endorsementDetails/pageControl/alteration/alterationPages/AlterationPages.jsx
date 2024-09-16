@@ -9,10 +9,9 @@ const AlterationPages = () => {
     const { setShowAlteration, showAlteration } = useContext(EndorsementContext);
     const [alterationType, setAlterationType] = useState('F');
     const [selectedAlteration, setSelectedAlteration] = useState({
-        key: 0,
-        title: 'Change in Premium',
-        desc: 'User Can change the premium of the policy.',
-        option: false,
+        key: 3,
+        title: 'Add/Delete Rider',
+        option: true,
     });
 
     const data = {

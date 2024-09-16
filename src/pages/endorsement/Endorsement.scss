@@ -311,7 +311,7 @@
 
   .change_page {
    //    border: 1px solid red;
-   padding: 10px;
+   padding: 10px 1px;
 
    .page-header {
     user-select: none;
@@ -481,6 +481,91 @@
 
      .footer_divider {
       border-top: 1px solid #c6c2de;
+     }
+
+     .border_left_divider {
+      background-color: #f3f4f5;
+      .MRV_card {
+       max-height: 350px;
+       min-height: 350px;
+       overflow-y: auto;
+       .list_card,
+       .list_card_highlighted_row {
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        user-select: none;
+        padding-bottom: 3px;
+        margin-top: 5px;
+        border-radius: 5px;
+        .mrv_list {
+         .key_font,
+         .value_font {
+          color: #000000;
+          font-weight: 400;
+          font-size: 13px;
+          line-height: 18px;
+         }
+         .value_font {
+          font-weight: 300;
+         }
+        }
+        .mrv_icons {
+         cursor: pointer;
+         color: #ffffff;
+        }
+        .delete_mrv_row:hover {
+         color: red;
+        }
+       }
+       .list_card_highlighted_row {
+        background-color: #c3e6f9;
+       }
+       .list_card {
+        background-color: #ffffff;
+       }
+       .action_header {
+        border-radius: 5px 5px 0 0;
+        margin-bottom: 10px;
+        padding: 1px;
+        background-color: #0382c8;
+
+        .mrv_checkbox {
+         input[type='checkbox'] {
+          display: none;
+         }
+
+         input[type='checkbox'] + label {
+          margin-top: 7px;
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          padding: 4px;
+          border: 1px solid white;
+          background-color: white;
+          cursor: pointer;
+          position: relative;
+         }
+
+         input[type='checkbox'] + label::after {
+          content: '';
+          position: absolute;
+          top: 5%;
+          left: 30%;
+          transform: translate(-50%, -50%);
+          width: 5px;
+          height: 9px;
+          border: solid black;
+          border-width: 0 1.9px 1.9px 0;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          transform: rotate(43deg);
+         }
+
+         input[type='checkbox']:checked + label::after {
+          opacity: 1;
+         }
+        }
+       }
+      }
      }
     }
    }
