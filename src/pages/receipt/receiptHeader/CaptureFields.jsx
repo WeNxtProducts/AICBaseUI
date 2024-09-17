@@ -129,10 +129,10 @@ const CaptureFields = () => {
             const response = await invokeClaimsProcedure(payload, {
                 procedureName: 'P_POPULATE_ELIGIBLE_RCPT',
             });
-            if (response?.status?.P_SUCC_YN === 'Y') {
-                dispatch(setReceiptId(response?.Data?.Id));
+            if (response?.Data?.P_SUCC_YN === 'Y') {
+                dispatch(setReceiptId(id));
                 showNotification.SUCCESS(msg);
-            } else if (response?.status?.P_SUCC_YN === 'N') {
+            } else if (response?.Data?.P_SUCC_YN === 'N') {
                 showNotification.ERROR(response?.status_msg);
             }
             setLoader(false);
@@ -165,7 +165,6 @@ const CaptureFields = () => {
                 setLoader(false);
             } else if (response?.status === 'SUCCESS') {
                 // showNotification.SUCCESS(response?.status_msg);
-                console.log('response : ', response?.Data?.Id, response?.status_msg);
                 // dispatch(setReceiptId(response?.Data?.Id));
                 procedureCall(response?.Data?.Id, response?.status_msg);
             }
