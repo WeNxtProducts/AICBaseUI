@@ -28,7 +28,7 @@ const CaptureFields = () => {
     const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const reeiptHeaderGet = useApiRequests('getReceiptHeader', 'POST');
     const receiptSave = useApiRequests('receiptSave', 'POST');
-    const getParamLov = useApiRequests('getParamLov', 'GET');
+    const newparamlov = useApiRequests('newparamlov', 'POST');
     const [loader, setLoader] = useState(false);
     const [values, setValues] = useState({
         receiptHeader: {
@@ -86,8 +86,8 @@ const CaptureFields = () => {
     };
 
     useEffect(() => {
-        handleGetHeader();
-    }, []);
+        if (tranId) handleGetHeader();
+    }, [tranId]);
 
     const handleSearchMethodChange = e => {
         setSelectedSearch(e.target.value);
@@ -108,7 +108,7 @@ const CaptureFields = () => {
     const onHandleSearch = debounce(async val => {
         if (val?.length > 0) {
             try {
-                const response = await getParamLov('', {
+                const response = await newparamlov({
                     queryId: selectedSearch,
                     searchTerm: val,
                 });

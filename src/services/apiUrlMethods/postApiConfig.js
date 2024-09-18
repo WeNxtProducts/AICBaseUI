@@ -335,6 +335,9 @@ const POST_API_URL = {
   url: '/receiptDetail/update',
   baseURL: 'CRUD',
  },
+ newparamlov: {
+  url: '/common/newparamlov',
+ },
 };
 
 export default POST_API_URL;
