@@ -38,7 +38,7 @@ const PaymentSummary = () => {
     }, [policyList]);
 
     const handleSubmit = async () => {
-        const { RH_BATCH_LC_AMT = 0, RH_LC_AMT = '', RH_POL_NO } = paidValue.receiptHeader.formFields;
+        const { RH_LC_AMT = '', RH_POL_NO } = paidValue.receiptHeader.formFields;
 
         if (RH_LC_AMT < RH_BATCH_LC_AMT) {
             showNotification.ERROR('Paid Amount should not be less than Amount to be paid');
