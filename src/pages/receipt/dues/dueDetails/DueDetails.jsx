@@ -49,6 +49,8 @@ const DueDetails = () => {
                         RP_TRAN_ID: selectedData.ID,
                         RP_POL_NO: selectedData.POL_NO,
                         RP_PROCESS_YN: selectedData?.Process_YN,
+                        RP_PYBL_LC_AMT: selectedData?.LC_Amount,
+                        RP_PYBL_FC_AMT: selectedData?.FC_Amount
                     },
                 })),
             };
