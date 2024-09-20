@@ -10,10 +10,10 @@ const ReceiptListing = lazy(() => import('../pages/receipt/receiptListing/Receip
 const Endorsement = lazy(() => import('../pages/endorsement/Endorsement'));
 const ClaimListing = lazy(() => import('../pages/claims/claimsListing/ClaimsListing'));
 const UnderWriterWorkBench = lazy(
- () => import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
+    () => import('../pages/underWriterWorkBench/UnderWriterWorkBench'),
 );
 const ProductList = lazy(
- () => import('../pages/quotation/quotationListing/productList/ProductList'),
+    () => import('../pages/quotation/quotationListing/productList/ProductList'),
 );
 const Receipt = lazy(() => import('../pages/receipt/Receipt'));
 const QuotationListing = lazy(() => import('../pages/quotation/quotationListing/QuotationListing'));
@@ -23,20 +23,20 @@ const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() => import('../pages/autoDispatchSetUp/AutoDispatchSetUp'));
 
 const AutoDispatchListing = lazy(
- () => import('../pages/autoDispatchSetUp/autoDispatchListing/AutoDispatchListing'),
+    () => import('../pages/autoDispatchSetUp/autoDispatchListing/AutoDispatchListing'),
 );
 const ModernClaim = lazy(() => import('../pages/modernClaim/ModernClaim'));
 const DocPrint = lazy(() => import('../pages/docPrint/DocPrint'));
 const DocPrintListing = lazy(() => import('../pages/docPrint/docPrintListing/DocPrintListing'));
 const EmailTemplate = lazy(() => import('../pages/emailTemplate/EmailTemplate'));
 const EmailTemplateListing = lazy(
- () => import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
+    () => import('../pages/emailSetUp/emailTemplateListingScreen/EmailTemplateListing'),
 );
 const TemplateListing = lazy(
- () => import('../pages/emailTemplate/templateListing/TemplateListing'),
+    () => import('../pages/emailTemplate/templateListing/TemplateListing'),
 );
 const CustomerListingScreen = lazy(
- () => import('../pages/customerListingScreens/customerListingScreen'),
+    () => import('../pages/customerListingScreens/customerListingScreen'),
 );
 const NewLoginForm = lazy(() => import('../pages/newLoginForm/NewLoginForm'));
 const ResetPassword = lazy(() => import('../pages/resetPassword/ResetPassword'));
@@ -49,243 +49,243 @@ const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/Surr
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
 
 const AppRouter = () => {
- return (
-  <div>
-   <Routes>
-    <Route
-     path='/agTable'
-     element={
-      <Suspense fallback={<div>AG GRID TABLE</div>}>
-       <AgGridTables />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/virtualscroll'
-     element={
-      <Suspense fallback={<div>VirtualScroll</div>}>
-       <VirtualScroll />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/'
-     element={
-      <Suspense fallback={<div>Login</div>}>
-       <NewLoginForm />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/login'
-     element={
-      <Suspense fallback={<div>Login</div>}>
-       <NewLoginForm />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/resetpassword'
-     element={
-      <Suspense fallback={<div>Loading...</div>}>
-       <ResetPassword />
-      </Suspense>
-     }
-    />
+    return (
+        <div>
+            <Routes>
+                <Route
+                    path='/agTable'
+                    element={
+                        <Suspense fallback={<div>AG GRID TABLE</div>}>
+                            <AgGridTables />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/virtualscroll'
+                    element={
+                        <Suspense fallback={<div>VirtualScroll</div>}>
+                            <VirtualScroll />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/'
+                    element={
+                        <Suspense fallback={<div>Login</div>}>
+                            <NewLoginForm />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/login'
+                    element={
+                        <Suspense fallback={<div>Login</div>}>
+                            <NewLoginForm />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/resetpassword'
+                    element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <ResetPassword />
+                        </Suspense>
+                    }
+                />
 
-    <Route
-     path='/reports'
-     element={
-      <Suspense fallback={<div>Report...</div>}>
-       <ReportList />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/quote'
-     element={
-      <Suspense fallback={<div>QUOTE...</div>}>
-       <Quote />
-      </Suspense>
-     }
-    />
-    <Route
-     path='/endorsement'
-     element={
-      <Suspense fallback={<Loader />}>
-       <Endorsement />
-      </Suspense>
-     }
-    />
+                <Route
+                    path='/reports'
+                    element={
+                        <Suspense fallback={<div>Report...</div>}>
+                            <ReportList />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/quote'
+                    element={
+                        <Suspense fallback={<div>QUOTE...</div>}>
+                            <Quote />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/endorsement'
+                    element={
+                        <Suspense fallback={<Loader />}>
+                            <Endorsement />
+                        </Suspense>
+                    }
+                />
 
-    {/* ProtectedRoute */}
+                {/* ProtectedRoute */}
 
-    <Route element={<ProtectedRoute />}>
-     <Route
-      path='/receiptList'
-      element={
-       <Suspense fallback={<Loader />}>
-        <ReceiptListing />
-       </Suspense>
-      }
-     />
+                <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/receiptList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ReceiptListing />
+                            </Suspense>
+                        }
+                    />
 
-     <Route
-      path='/receipt'
-      element={
-       <Suspense fallback={<Loader />}>
-        <Receipt />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/productList'
-      element={
-       <Suspense fallback={<Loader />}>
-        <ProductList />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/policyList'
-      element={
-       <Suspense fallback={<div>Listing...</div>}>
-        <QuotationListing label='Policy' />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/quotationList'
-      element={
-       <Suspense fallback={<div>Listing...</div>}>
-        <QuotationListing label='Proposal' />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/quotation/:id'
-      element={
-       <Suspense fallback={<Loader />}>
-        <Quotation />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/policy/:id'
-      element={
-       <Suspense fallback={<Loader />}>
-        <Quotation />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/quote'
-      element={
-       <Suspense fallback={<div>QUOTE...</div>}>
-        <Quote />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/underwriterworkbench'
-      element={
-       <Suspense fallback={<div>UnderWriterWorkBench...</div>}>
-        <UnderWriterWorkBench />
-       </Suspense>
-      }
-     />
+                    <Route
+                        path='/receipt'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <Receipt />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/productList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ProductList />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/policyList'
+                        element={
+                            <Suspense fallback={<div>Listing...</div>}>
+                                <QuotationListing label='Policy' search='policySearch' />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/quotationList'
+                        element={
+                            <Suspense fallback={<div>Listing...</div>}>
+                                <QuotationListing label='Proposal' search='quotationSearch' />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/quotation/:id'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <Quotation />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/policy/:id'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <Quotation />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/quote'
+                        element={
+                            <Suspense fallback={<div>QUOTE...</div>}>
+                                <Quote />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/underwriterworkbench'
+                        element={
+                            <Suspense fallback={<div>UnderWriterWorkBench...</div>}>
+                                <UnderWriterWorkBench />
+                            </Suspense>
+                        }
+                    />
 
-     <Route
-      path='/autoDispatchSetUp'
-      element={
-       <Suspense fallback={<div>DocPrint SetUp...</div>}>
-        <AutoDispatchSetUp />
-       </Suspense>
-      }
-     />
+                    <Route
+                        path='/autoDispatchSetUp'
+                        element={
+                            <Suspense fallback={<div>DocPrint SetUp...</div>}>
+                                <AutoDispatchSetUp />
+                            </Suspense>
+                        }
+                    />
 
-     <Route
-      path='/autoDispatch'
-      element={
-       <Suspense fallback={<div>DocPrint SetUp...</div>}>
-        <AutoDispatchListing />
-       </Suspense>
-      }
-     />
+                    <Route
+                        path='/autoDispatch'
+                        element={
+                            <Suspense fallback={<div>DocPrint SetUp...</div>}>
+                                <AutoDispatchListing />
+                            </Suspense>
+                        }
+                    />
 
-     <Route
-      path='/docPrint'
-      element={
-       <Suspense fallback={<div>DocPrint SetUp...</div>}>
-        <DocPrint />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/docPrintList'
-      element={
-       <Suspense fallback={<div>DocPrint SetUp...</div>}>
-        <DocPrintListing />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/claim'
-      element={
-       <Suspense fallback={<div>Claims...</div>}>
-        <Claim />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/emailtemplate'
-      element={
-       <Suspense fallback={<div>Email SetUp</div>}>
-        <EmailTemplate />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/getTemplateList'
-      element={
-       <Suspense fallback={<div>Email SetUp</div>}>
-        <TemplateListing />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/surrenderprocessing'
-      element={
-       <Suspense fallback={<div>surrenderprocessing...</div>}>
-        <SurrenderProcessing />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/claims'
-      element={
-       <Suspense fallback={<div>Claims...</div>}>
-        <ModernClaim />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/surrenderpayment'
-      element={
-       <Suspense fallback={<div>SurrenderPayment...</div>}>
-        <SurrenderPayment />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/claimsEntryList'
-      element={
-       <Suspense fallback={<div>Claim Listing...</div>}>
-        <ClaimListing />
-       </Suspense>
-      }
-     />
-     {/* <Route
+                    <Route
+                        path='/docPrint'
+                        element={
+                            <Suspense fallback={<div>DocPrint SetUp...</div>}>
+                                <DocPrint />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/docPrintList'
+                        element={
+                            <Suspense fallback={<div>DocPrint SetUp...</div>}>
+                                <DocPrintListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/claim'
+                        element={
+                            <Suspense fallback={<div>Claims...</div>}>
+                                <Claim />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/emailtemplate'
+                        element={
+                            <Suspense fallback={<div>Email SetUp</div>}>
+                                <EmailTemplate />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/getTemplateList'
+                        element={
+                            <Suspense fallback={<div>Email SetUp</div>}>
+                                <TemplateListing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/surrenderprocessing'
+                        element={
+                            <Suspense fallback={<div>surrenderprocessing...</div>}>
+                                <SurrenderProcessing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/claims'
+                        element={
+                            <Suspense fallback={<div>Claims...</div>}>
+                                <ModernClaim />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/surrenderpayment'
+                        element={
+                            <Suspense fallback={<div>SurrenderPayment...</div>}>
+                                <SurrenderPayment />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/claimsEntryList'
+                        element={
+                            <Suspense fallback={<div>Claim Listing...</div>}>
+                                <ClaimListing />
+                            </Suspense>
+                        }
+                    />
+                    {/* <Route
       path='/surrenderprocessing'
       element={
        <Suspense fallback={<div>ClaimSettlement...</div>}>
@@ -293,58 +293,58 @@ const AppRouter = () => {
        </Suspense>
       }
      /> */}
-     <Route
-      path='/cashbackprocessing'
-      element={
-       <Suspense fallback={<div>ClaimSettlement...</div>}>
-        <CashbackProcessing />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/claimSettlement'
-      element={
-       <Suspense fallback={<div>ClaimSettlement...</div>}>
-        <ClaimSettlement />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/resetpassword_profile'
-      element={
-       <Suspense fallback={<div>Loading...</div>}>
-        <ResetPassword />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/Dashboard'
-      element={
-       <Suspense fallback={<div>Loading...</div>}>
-        <Dashboard />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/customerList'
-      element={
-       <Suspense fallback={<div>Loading...</div>}>
-        <CustomerListingScreen />
-       </Suspense>
-      }
-     />
-     <Route
-      path='/apitojson'
-      element={
-       <Suspense fallback={<div>Loading...</div>}>
-        <ApiToJson />
-       </Suspense>
-      }
-     />
-    </Route>
-   </Routes>
-  </div>
- );
+                    <Route
+                        path='/cashbackprocessing'
+                        element={
+                            <Suspense fallback={<div>ClaimSettlement...</div>}>
+                                <CashbackProcessing />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/claimSettlement'
+                        element={
+                            <Suspense fallback={<div>ClaimSettlement...</div>}>
+                                <ClaimSettlement />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/resetpassword_profile'
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <ResetPassword />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/Dashboard'
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <Dashboard />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/customerList'
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <CustomerListingScreen />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/apitojson'
+                        element={
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <ApiToJson />
+                            </Suspense>
+                        }
+                    />
+                </Route>
+            </Routes>
+        </div>
+    );
 };
 
 export default AppRouter;

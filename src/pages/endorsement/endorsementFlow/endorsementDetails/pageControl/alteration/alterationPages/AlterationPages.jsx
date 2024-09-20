@@ -24,7 +24,8 @@ const AlterationPages = () => {
     return (
         <AlterationContext.Provider value={data}>
             <div className='alterationPages'>
-                {selectedAlteration === null ? <AlterationType /> : <ChangePage />}
+                {/* {selectedAlteration === null ? <AlterationType /> : <ChangePage />} */}
+                <AlterationType /> 
             </div>
         </AlterationContext.Provider>
     );

@@ -8,8 +8,13 @@ const AddtionDeletionRider = () => {
         useContext(AlterationContext);
     const { key } = selectedAlteration;
 
+    const handlePrev = () => {
+        setSelectedAlteration(null);
+    };
+
     return (
         <div className='alter_change_page'>
+            <button onClick={() => handlePrev()}>Back</button>
             <div className='flex items-center'>
                 <p className='change_style'>Endorsement Details</p>
                 <div className='prem_calc_msg'>

@@ -323,6 +323,14 @@ const POST_API_URL = {
   url: '/receiptHdr/search',
   baseURL: 'CRUD',
  },
+ quotationSearch: {
+  url: '/policy/search',
+  baseURL: 'CRUD',
+ },
+ policySearch: {
+  url: '/policy/polSearch',
+  baseURL: 'CRUD',
+ },
  getPayDetails: {
   url: '/receiptDetail/get',
   baseURL: 'CRUD',
