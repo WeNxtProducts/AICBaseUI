@@ -27,15 +27,15 @@ const AlterCard = ({ rowData }) => {
       <div className='e_card_footer mt-4'>
        <div className='status_item'>
         <p className='content_label'>Status</p>
-        <p className='content_value mt-1'>Success</p>
+        <p className='content_value'>Success</p>
        </div>
        <div className='status_item'>
         <p className='content_label'>Alter Fm Dt</p>
-        <p className='content_value mt-1'>{item?.fm_date}</p>
+        <p className='content_value'>{item?.fm_date}</p>
        </div>
        <div className='status_item'>
         <p className='content_label'>Alter To Dt</p>
-        <p className='content_value mt-1'>{item?.to_date}</p>
+        <p className='content_value'>{item?.to_date}</p>
        </div>
       </div>
      </div>

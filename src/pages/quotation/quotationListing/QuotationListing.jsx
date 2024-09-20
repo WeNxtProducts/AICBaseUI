@@ -135,7 +135,7 @@ const QuotationListing = ({ label, search: searchApi }) => {
         debounce((searchTerm) => {
             if (searchTerm?.length > 0) handleUsesearch(searchTerm, 1, 1);
             else handleListingApi(0);
-        }, 400), []
+        }, 400), [currentMenuId]
     );
 
     return (
