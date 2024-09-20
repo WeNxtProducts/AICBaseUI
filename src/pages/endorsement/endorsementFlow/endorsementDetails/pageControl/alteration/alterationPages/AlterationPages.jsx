@@ -8,12 +8,7 @@ export const AlterationContext = createContext();
 const AlterationPages = () => {
     const { setShowAlteration, showAlteration } = useContext(EndorsementContext);
     const [alterationType, setAlterationType] = useState('F');
-    const [selectedAlteration, setSelectedAlteration] = useState({
-        key: 6,
-        title: 'Change Basic Info',
-        desc: 'User Can change the basic info of the policy.',
-        option: false,
-    },);
+    const [selectedAlteration, setSelectedAlteration] = useState(null);
 
     const data = {
         alterationType,

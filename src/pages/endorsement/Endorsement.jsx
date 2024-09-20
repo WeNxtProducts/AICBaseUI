@@ -14,7 +14,7 @@ export const EndorsementContext = createContext();
 
 const Endorsement = () => {
  const [policyDetails, setPolicyDetails] = useState({});
- const [showAlteration, setShowAlteration] = useState(true);
+ const [showAlteration, setShowAlteration] = useState(false);
 
  const data = { policyDetails, showAlteration, setShowAlteration };
 
