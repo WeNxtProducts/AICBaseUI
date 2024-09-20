@@ -24,8 +24,12 @@ const PaymentSummary = () => {
         RH_POL_NO = 0,
     } = amountSummary.receiptHeader.formFields;
     const updaeAmount = useApiRequests('updateReceiptHdr', 'POST');
-    const [paidValue, setPaidValue] = useState(amountSummary);
+    const [paidValue, setPaidValue] = useState({});
     const [dropdown, setDropdown] = useState([]);
+
+    useEffect(() => {
+        setPaidValue(amountSummary)
+    }, [amountSummary])
 
     useEffect(() => {
         if (policyList?.length > 0) {
