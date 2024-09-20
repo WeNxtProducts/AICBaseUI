@@ -179,7 +179,7 @@ const ReceiptListing = () => {
                     />
                 </div>
             ) : (
-                <EmptyTable msg='Receipt' />
+                <EmptyTable msg='Receipt' searchVal={search}/>
             )}
             {rowData?.length > 0 && (
                 <div className='float-right mt-4'>

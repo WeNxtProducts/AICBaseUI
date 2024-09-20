@@ -189,7 +189,7 @@ const QuotationListing = ({ label, search: searchApi }) => {
                     </div>
                 </>
             ) : (
-                <EmptyTable msg={label} />
+                <EmptyTable msg={label} searchVal={search} />
             )}
             {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
         </div>

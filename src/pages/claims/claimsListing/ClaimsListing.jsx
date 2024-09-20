@@ -173,7 +173,7 @@ const ClaimListing = () => {
                     />
                 </div>
             ) : (
-                <EmptyTable msg='Claims' />
+                <EmptyTable msg='Claims' searchVal={search} />
             )}
             {rowData?.length > 0 && (
                 <div className='float-right mt-4'>
