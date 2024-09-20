@@ -327,6 +327,10 @@ const POST_API_URL = {
   url: '/policy/search',
   baseURL: 'CRUD',
  },
+ claimListSearch: {
+  url: '/ltclaim/search',
+  baseURL: 'CRUD',
+ },
  policySearch: {
   url: '/policy/polSearch',
   baseURL: 'CRUD',

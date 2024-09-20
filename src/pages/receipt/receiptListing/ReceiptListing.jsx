@@ -123,7 +123,6 @@ const ReceiptListing = () => {
                 setCurrent(page);
                 setCount(response?.count);
                 setRowData(response?.Data);
-
             } else if (response?.status === "FAILURE") {
                 handleListingApi(0);
                 showNotification.ERROR(response?.status_msg)

@@ -76,9 +76,6 @@ const GET_API_URL = {
   url: '/ltclaim/claimHdrGet',
   baseURL: 'CRUD',
  },
- claimListSearch: {
-  url: '/common/claimListSearch',
- },
  getLifeAssuredDetails: {
   url: '/common/polEmployeeEdit',
  },

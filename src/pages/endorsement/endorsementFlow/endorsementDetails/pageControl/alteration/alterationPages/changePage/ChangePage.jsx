@@ -6,6 +6,7 @@ import SAChange from './SAChange/SAChange';
 import MOPChange from './MOPChange/MOPChange';
 import Cancellation from './cancellation/Cancellation';
 import AddtionDeletionRider from './addtionDeletionRider/AddtionDeletionRider';
+import BasicInfoChange from './basicInfoChange/BasicInfoChange';
 
 const ChangePage = () => {
     const { alterationType, selectedAlteration } = useContext(AlterationContext);
@@ -26,6 +27,7 @@ const ChangePage = () => {
                 {selectedAlteration?.key === 3 && <AddtionDeletionRider />}
                 {selectedAlteration?.key === 4 && <Cancellation />}
                 {selectedAlteration?.key === 5 && <MOPChange />}
+                {selectedAlteration?.key === 6 && <BasicInfoChange />}
             </div>
         </div>
     );

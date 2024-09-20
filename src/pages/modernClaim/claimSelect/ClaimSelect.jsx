@@ -242,6 +242,7 @@ const ClaimSelect = () => {
           <RadioChip
            main='CH_CLAIM_TYPE'
            items={platforms}
+           tagSize='110'
            selectedValue={values?.CH_CLAIM_TYPE}
            onSelectionChange={val => {
             !tranId && setFieldValue('CH_CLAIM_TYPE', val?.value);

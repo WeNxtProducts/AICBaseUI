@@ -13,7 +13,7 @@ const AddtionDeletionRider = () => {
     };
 
     return (
-        <div className='alter_change_page'>
+        <div className='alter_change_page alter_change_page_rider'>
             <button onClick={() => handlePrev()}>Back</button>
             <div className='flex items-center'>
                 <p className='change_style'>Endorsement Details</p>
@@ -27,7 +27,7 @@ const AddtionDeletionRider = () => {
                     <p>form</p>
                 </div>
 
-                <div className='col-span-2 p-3 border_left_divider'>
+                <div className='col-span-2 pl-1 border_left_divider'>
                     <EndorementListing
                         tableColumn={bankColumn}
                         tableData={bankData}
