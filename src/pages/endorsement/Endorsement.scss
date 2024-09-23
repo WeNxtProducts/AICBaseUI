@@ -300,6 +300,43 @@
       }
      }
     }
+    .alter_claim,
+    .alter_loan,
+    .alter_maturity {
+     .form-label {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #4d5e80;
+     }
+     .form-value {
+      border: 1px solid #d2d5da;
+      background-color: #ffffff;
+      padding: 5px 0px 5px 10px;
+      border-radius: 8px;
+      color: #4b5563;
+      font-size: 12px;
+      font-weight: 400;
+     }
+     .summary_title {
+      color: #4d5e80;
+      font-size: 18px;
+      font-weight: 700;
+     }
+    }
+    .alter_maturity {
+     .maturity_btn {
+      button:nth-child(1) {
+       background-color: #0382c8;
+       color: white;
+      }
+      button:nth-child(2) {
+       background-color: #ffffff;
+       border: 1px solid #0382c8;
+       color: #0382c8;
+      }
+     }
+    }
    }
   }
  }
