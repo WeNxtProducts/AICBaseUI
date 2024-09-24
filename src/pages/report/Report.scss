@@ -1,0 +1,35 @@
+.report {
+//  border: 1px solid red;
+
+ .table-header {
+  background-color: #f1f1f1;
+  font-weight: bold;
+//   border-bottom: 2px solid #ddd;
+ }
+
+ .table-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 0 10px;
+ }
+
+ .table-row:nth-child(even) {
+  background-color: #f9f9f9;
+ }
+
+ .table-row:nth-child(odd) {
+  background-color: #ffffff;
+ }
+
+ .table-cell {
+  padding: 10px;
+  flex: 1;
+ }
+
+ .table-header-cell {
+  padding: 10px;
+  flex: 1;
+  border-right: 1px solid #ccc;
+ }
+}

@@ -16,15 +16,6 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
         console.log("handleNavigateToAlterations")
     };
 
-    const renderFields = (label, val) => (
-        <div className='col-span-1 grid grid-cols-5 items-center'>
-            <p className='col-span-2 form-label'>{label}</p>
-            <div className='col-span-2 form-value'>
-                <p className='float-right pe-3'>{formatNumber(val)}</p>
-            </div>
-        </div>
-    );
-
     return (
         <div className='alteration alter_maturity'>
             <div className='mb-5'>

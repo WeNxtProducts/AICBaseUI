@@ -6,6 +6,7 @@ import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const Report = lazy(() => import('../pages/report/Report'));
 const ReceiptListing = lazy(() => import('../pages/receipt/receiptListing/ReceiptListing'));
 const Endorsement = lazy(() => import('../pages/endorsement/Endorsement'));
 const ClaimListing = lazy(() => import('../pages/claims/claimsListing/ClaimsListing'));
@@ -52,6 +53,14 @@ const AppRouter = () => {
     return (
         <div>
             <Routes>
+                <Route
+                    path='/report'
+                    element={
+                        <Suspense fallback={<div>Report</div>}>
+                            <Report />
+                        </Suspense>
+                    }
+                />
                 <Route
                     path='/agTable'
                     element={
