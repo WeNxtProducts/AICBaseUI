@@ -6,6 +6,7 @@ import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const EndoListing = lazy(() => import('../pages/endorsement/endoListing/EndoListing'));
 const Report = lazy(() => import('../pages/report/Report'));
 const ReceiptListing = lazy(() => import('../pages/receipt/receiptListing/ReceiptListing'));
 const Endorsement = lazy(() => import('../pages/endorsement/Endorsement'));
@@ -160,6 +161,14 @@ const AppRouter = () => {
                         element={
                             <Suspense fallback={<div>Listing...</div>}>
                                 <QuotationListing label='Policy' search='policySearch' />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/endorsementList'
+                        element={
+                            <Suspense fallback={<div>Endorsement Listing...</div>}>
+                                <EndoListing />
                             </Suspense>
                         }
                     />

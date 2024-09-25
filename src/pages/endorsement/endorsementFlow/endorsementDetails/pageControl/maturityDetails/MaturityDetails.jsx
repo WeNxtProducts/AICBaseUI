@@ -9,7 +9,7 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
     const rowData = alterData;
 
     useEffect(() => {
-        if (dataLoaded) console.log('Maturity details ');
+        // if (dataLoaded) console.log('Maturity details ');
     }, [dataLoaded]);
 
     const handleNavigateToAlterations = () => {

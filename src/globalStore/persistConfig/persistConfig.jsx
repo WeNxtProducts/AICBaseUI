@@ -4,15 +4,15 @@ import rootReducer from './rootReducer';
 import { encrypt, decrypt } from '../cryptoUtils/cryptoUtil';
 
 const persistConfig = {
- key: 'root',
- storage,
- transforms: [
-  {
-   in: state => encrypt(state),
-   out: state => decrypt(state),
-  },
- ],
- whitelist: ['menuSelected', 'tokenAndMenuList', 'id', 'UWId', 'Receipt'],
+    key: 'root',
+    storage,
+    transforms: [
+        {
+            in: state => encrypt(state),
+            out: state => decrypt(state),
+        },
+    ],
+    whitelist: ['menuSelected', 'tokenAndMenuList', 'id', 'UWId', 'Receipt', 'Endo'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

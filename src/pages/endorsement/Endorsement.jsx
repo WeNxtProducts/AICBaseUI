@@ -3,43 +3,44 @@ import EndorsementHeader from './endorsementHeader/EndorsementHeader';
 import EndorsemenHistory from './endorsemenHistory/EndorsemenHistory';
 import EndorsementFlow from './endorsementFlow/EndorsementFlow';
 import './Endorsement.scss';
+import { useSelector } from 'react-redux';
 const AlterationPages = lazy(
- () =>
-  import(
-   './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages'
-  ),
+  () =>
+    import(
+      './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages'
+    ),
 );
 
 export const EndorsementContext = createContext();
 
 const Endorsement = () => {
- const [policyDetails, setPolicyDetails] = useState({});
- const [showAlteration, setShowAlteration] = useState(false);
+  const EndoDetail = useSelector(state => state?.Endo);
+  const { POL_NO, tranId } = EndoDetail
+  const [showAlteration, setShowAlteration] = useState(false);
 
- const data = { policyDetails, showAlteration, setShowAlteration };
+  const data = {
+    showAlteration, setShowAlteration, POL_NO, tranId
+  };
 
- useEffect(() => {
-  const panel = document.querySelector(`[data-id='endorsement_flow']`);
-  if (panel) {
-   panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
- }, []);
+  useEffect(() => {
+    console.log("EndoDetail : ", EndoDetail)
+  }, []);
 
- return (
-  <EndorsementContext.Provider value={data}>
-   <div className='endorsement mb-5'>
-    <div style={{ display: showAlteration ? 'block' : 'none' }}>
-     <AlterationPages />
-    </div>
+  return (
+    <EndorsementContext.Provider value={data}>
+      <div className='endorsement mb-5'>
+        <div style={{ display: showAlteration ? 'block' : 'none' }}>
+          <AlterationPages />
+        </div>
 
-    <div style={{ display: showAlteration ? 'none' : 'block' }} className='main_wrapper'>
-     <EndorsementHeader />
-     <EndorsemenHistory />
-     <EndorsementFlow />
-    </div>
-   </div>
-  </EndorsementContext.Provider>
- );
+        <div style={{ display: showAlteration ? 'none' : 'block' }} className='main_wrapper'>
+          <EndorsementHeader />
+          <EndorsemenHistory />
+          <EndorsementFlow />
+        </div>
+      </div>
+    </EndorsementContext.Provider>
+  );
 };
 
 export default Endorsement;

@@ -50,7 +50,7 @@ const VirtualizedTable = ({ data }) => {
                 </div>
                 <List
                     height={400}
-                    itemCount={data.length}
+                    itemCount={data?.length}
                     itemSize={50}
                     width={tableWidth}
                     itemData={data}
