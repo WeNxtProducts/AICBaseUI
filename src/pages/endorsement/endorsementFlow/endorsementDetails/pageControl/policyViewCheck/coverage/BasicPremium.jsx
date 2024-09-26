@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import showNotification from '../../../../../../../components/notification/Notification';
 import useApiRequests from '../../../../../../../services/useApiRequests';
 
-const BasicPremium = () => {
- const policyNumber = 'PEND2024002';
+const BasicPremium = ({policyNumber}) => {
  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
  const [preDetails, setPreDetails] = useState(null);
 
  const handleGetBasicPremium = async () => {
   try {
-   const response = await getMapQuery({ queryParams: { POL_NO: policyNumber } }, { queryId: 165 });
+   const response = await getMapQuery({ queryParams: { POL_NO: policyNumber } }, { queryId: 223 });
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setPreDetails(response?.Data[0]);

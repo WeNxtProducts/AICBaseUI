@@ -11,7 +11,7 @@ import { TextInputWithSearchIcon } from '../../../components/commonExportsFields
 import TableComponent from '../../../components/tableComponents/TableComponent';
 import EmptyTable from '../../../components/emptyTable/EmptyTable';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
-import { setEndoId, setPol } from '../../../globalStore/slices/EndorsementId';
+import { setCustCode, setEndoId, setPol } from '../../../globalStore/slices/EndorsementId';
 
 const EndoListing = ({ label, search: searchApi }) => {
     const dispatch = useDispatch();
@@ -69,6 +69,7 @@ const EndoListing = ({ label, search: searchApi }) => {
     const handleEdit = item => {
         dispatch(setEndoId(item?.ID));
         dispatch(setPol(item?.['Pol No']));
+        dispatch(setCustCode(item?.Customer_Code))
         navigate(`/endorsement`);
     };
 
@@ -152,7 +153,7 @@ const EndoListing = ({ label, search: searchApi }) => {
                             }} />
                     </div>
                 </div>
-                {label === 'Proposal' && (
+                {/* {label === 'Proposal' && (
                     <div>
                         <Button
                             onClick={() => handleNavigate()}
@@ -162,7 +163,7 @@ const EndoListing = ({ label, search: searchApi }) => {
                             Add {label}
                         </Button>
                     </div>
-                )}
+                )} */}
             </div>
             {rowData?.length > 0 ? (
                 <>

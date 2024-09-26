@@ -1,3 +1,12 @@
+@mixin status-style($bg-color, $text-color, $before-bg-color) {
+ background-color: $bg-color;
+ color: $text-color;
+
+ &::before {
+  background-color: $before-bg-color;
+ }
+}
+
 .status_notify {
  margin-left: 10px;
  font-weight: 600;
@@ -19,23 +28,13 @@
  }
 }
 .approved {
- background-color: #ecfdf3;
- color: #037847;
- &::before {
-  background-color: #14ba6d;
- }
+ @include status-style(#ecfdf3, #037847, #14ba6d);
 }
+
 .pending {
- background-color: #f2f4f7;
- color: #6c778b;
- &::before {
-  background-color: #6c778b;
- }
+ @include status-style(#f2f4f7, #6c778b, #6c778b);
 }
+
 .partial {
- background-color: #fffbe6;
- color: #ffc53d;
- &::before {
-  background-color: #ffc53d;
- }
+ @include status-style(#fffbe6, #ffc53d, #ffc53d);
 }

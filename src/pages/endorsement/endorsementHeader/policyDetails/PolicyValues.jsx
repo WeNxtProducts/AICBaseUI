@@ -35,6 +35,15 @@ const PolicyValues = () => {
                     <div className='details mt-2'>
                         <div className='w-full flex items-center'>
                             <div className='w-2/5'>
+                                <p className='label-style'>Policy Number</p>
+                            </div>
+                            <div className='w-3/5'>
+                                <p className='value-style'>{policyHistory?.POL_NO || ''}</p>
+                            </div>
+                        </div>
+
+                        <div className='w-full flex items-center'>
+                            <div className='w-2/5'>
                                 <p className='label-style'>Assured Name</p>
                             </div>
                             <div className='w-3/5'>

@@ -15,15 +15,15 @@ export const EndorsementContext = createContext();
 
 const Endorsement = () => {
   const EndoDetail = useSelector(state => state?.Endo);
-  const { POL_NO, tranId } = EndoDetail
+  const { POL_NO, tranId, CUST_CODE } = EndoDetail
   const [showAlteration, setShowAlteration] = useState(false);
 
   const data = {
-    showAlteration, setShowAlteration, POL_NO, tranId
+    showAlteration, setShowAlteration, POL_NO, tranId, CUST_CODE
   };
 
   useEffect(() => {
-    console.log("EndoDetail : ", EndoDetail)
+    // console.log("EndoDetail : ", EndoDetail)
   }, []);
 
   return (

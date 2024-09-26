@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
  tranId: '',
  POL_NO: '',
+ CUST_CODE: '',
 };
 
 const EndorsementSlices = createSlice({
@@ -15,9 +16,12 @@ const EndorsementSlices = createSlice({
   setPol: (state, action) => {
    state.POL_NO = action.payload;
   },
+  setCustCode: (state, action) => {
+   state.CUST_CODE = action.payload;
+  },
  },
 });
 
-export const { setEndoId, setPol } = EndorsementSlices.actions;
+export const { setEndoId, setPol, setCustCode } = EndorsementSlices.actions;
 
 export default EndorsementSlices.reducer;
