@@ -58,6 +58,8 @@ const CaptureFields = () => {
                     RH_FLEX_03 = false,
                     RH_POL_NO = '',
                 } = response.Data;
+                setSelectedSearch(RH_RCPT_BAS === 'C' ? 207 : RH_RCPT_BAS === 'L' ? 210
+                    : RH_RCPT_BAS === 'PO' ? 208 : RH_RCPT_BAS === 'PR' ? 209 : 207)
                 setHeaderStatus(response.Data);
                 setIsModified(RH_FLEX_03 === 'Y');
                 setValues({
