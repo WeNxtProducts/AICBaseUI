@@ -75,7 +75,8 @@ const InstallmentModal = ({ open, handleClose, tranId, POL_NO }) => {
                                                         formatNumber(item[currentValue])
                                                         : ['Paid_Date', 'Payment_Date']?.includes(currentValue)
                                                             ? item[currentValue] ? dayjs(item[currentValue]).format(`YYYY-MM-DD`) : ''
-                                                            : currentValue === 'Paid_Flag' ? renderFlag(item[currentValue]) : ''}
+                                                            : currentValue === 'Paid_Flag' ? renderFlag(item[currentValue])
+                                                                : item[currentValue]}
                                                 </td>
                                             );
                                         })}
