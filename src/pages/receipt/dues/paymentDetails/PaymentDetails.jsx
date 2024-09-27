@@ -138,6 +138,11 @@ const PaymentDetails = () => {
             } else if (response?.Data?.P_SUCC_YN === 'N') {
                 showNotification.ERROR(response?.Data?.P_ERR_MSG);
             }
+            if (response?.status === 'SUCCESS') {
+                showNotification.SUCCESS(response?.status_msg);
+            } else if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            }
         } catch (err) {
             console.log('err : ', err);
         }
