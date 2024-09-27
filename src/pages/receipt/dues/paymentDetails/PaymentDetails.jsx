@@ -6,6 +6,7 @@ import { ReceiptContext } from '../../Receipt';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 import { Button } from 'antd';
+import Loader from '../../../../components/loader/Loader';
 
 const paymentMethods = [
     { value: 'P', label: 'Cash' },
@@ -44,6 +45,7 @@ const PaymentDetails = () => {
     const { rowData, columnData, handleMRVListing } = useMRVListing();
     const [editMRVId, setEditMRVId] = useState('');
     const [mainValue, setMainValue] = useState(null);
+    const [loader, setLoader] = useState(false)
 
     const MRVListing = () => {
         handleMRVListing(214, tranId);
@@ -61,6 +63,7 @@ const PaymentDetails = () => {
     };
 
     const handleEdit = async item => {
+        setLoader(true)
         try {
             const response = await getPayDetails('', {
                 tranId: item?.ID,
@@ -68,26 +71,33 @@ const PaymentDetails = () => {
             if (response?.status === 'SUCCESS') {
                 setEditMRVId(item?.ID);
                 setMainValue(response?.Data);
+                setLoader(false)
             } else if (response?.status === 'FAILURE') {
+                setLoader(false)
                 showNotification.ERROR(response?.status_msg);
             }
         } catch (err) {
-            console.log('err : ', err);
+            setLoader(false)
+            showNotification.ERROR('Something went Wrong!!!');
         }
     };
 
     const addOrUpdate = async (apiCall, payload) => {
+        setLoader(true)
         try {
             const params = editMRVId ? { editMRVId } : { tranId };
             const response = await apiCall(payload, {}, params);
             if (response?.status === 'SUCCESS') {
+                setLoader(false)
                 MRVListing();
                 showNotification.SUCCESS(response?.status_msg);
             } else if (response?.status === 'FAILURE') {
+                setLoader(false)
                 showNotification.ERROR(response?.status_msg);
             }
         } catch (err) {
-            console.log('err : ', err);
+            setLoader(false)
+            showNotification.ERROR('Something went Wrong!!!');
         }
     };
 
@@ -123,12 +133,14 @@ const PaymentDetails = () => {
     };
 
     const approveReceipt = async () => {
+        setLoader(true)
         const payload = { inParams: { P_RH_TRAN_ID: tranId } };
         try {
             const response = await invokeClaimsProcedure(payload, {
                 procedureName: 'P_RCPT_APPRV',
                 packageName: 'WNPKG_RECEIPT',
             });
+            setLoader(false)
             if (response?.Data?.P_SUCC_YN === 'Y') {
                 showNotification.SUCCESS(response?.Data?.P_ERR_MSG);
                 setHeaderStatus(prevState => ({
@@ -144,12 +156,14 @@ const PaymentDetails = () => {
                 showNotification.ERROR(response?.status_msg);
             }
         } catch (err) {
-            console.log('err : ', err);
+            setLoader(false)
+            showNotification.ERROR('Something went Wrong!!!');
         }
     };
 
     return (
         <div className='pay_details mt-10'>
+            {loader && <Loader />}
             <div className='grid grid-cols-8'>
                 <div className='col-span-6'>
                     <div className='flex items-center justify-between mt-3'>
