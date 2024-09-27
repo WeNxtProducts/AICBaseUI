@@ -4,6 +4,7 @@
 @import '../../styles/components/circle-tick.scss';
 @import '../../styles/components/preium-card-style.scss';
 @import '../../styles/components/StatusColors.scss';
+@import '../../styles/components/personalDetails.scss';
 
 %label-style {
  color: #4d5e80;
@@ -327,11 +328,12 @@
     }
     .alter_maturity {
      .maturity_btn {
-      button:nth-child(1) {
+      button:nth-child(2) {
        background-color: #0382c8;
        color: white;
       }
-      button:nth-child(2) {
+      button:nth-child(3),
+      button:nth-child(1) {
        background-color: #ffffff;
        border: 1px solid #0382c8;
        color: #0382c8;
@@ -725,6 +727,43 @@
     display: table;
     width: 100%;
     table-layout: fixed;
+   }
+  }
+ }
+}
+
+.confirm_surrender {
+ .modal-content {
+  p {
+   font-size: 16px;
+   font-weight: 500;
+   text-align: center;
+   margin-bottom: 20px;
+  }
+
+  .button-group {
+   display: flex;
+   justify-content: center;
+   gap: 15px;
+   margin-top: 20px;
+
+   .no-button,
+   .yes-button {
+    width: 100px;
+   }
+
+   .yes-button {
+    background-color: #1890ff;
+    color: #fff;
+    border: none;
+
+    &:hover {
+     background-color: #40a9ff;
+    }
+   }
+
+   .no-button {
+    border: 1px solid #d9d9d9;
    }
   }
  }

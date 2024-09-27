@@ -6,6 +6,7 @@ import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const SurrenderMaturity = lazy(() => import('../pages/surrenderMaturity/SurrenderMaturity'));
 const EndoListing = lazy(() => import('../pages/endorsement/endoListing/EndoListing'));
 const Report = lazy(() => import('../pages/report/Report'));
 const ReceiptListing = lazy(() => import('../pages/receipt/receiptListing/ReceiptListing'));
@@ -131,6 +132,15 @@ const AppRouter = () => {
                 {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/surrender_maturity'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <SurrenderMaturity />
+                            </Suspense>
+                        }
+                    />
+
                     <Route
                         path='/receiptList'
                         element={

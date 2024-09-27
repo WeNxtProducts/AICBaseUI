@@ -6,6 +6,7 @@ import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 import ListDetails from './ListDetails';
 import MRVListingQuotation from '../../mrvQuotation/MRVHelper/MRVListing';
+import '../../../../styles/components/MRV_Card.scss';
 
 const Checklist = ({ tranId, proposalNumber, queryID, freeze }) => {
  //  const { QuotationJSON } = useContext(StepperContext);

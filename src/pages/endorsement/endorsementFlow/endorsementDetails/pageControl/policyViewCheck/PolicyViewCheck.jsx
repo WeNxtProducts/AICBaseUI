@@ -12,7 +12,7 @@ const PolicyViewCheck = ({ currentTab, dataLoaded }) => {
     const [tranIdPolicy, setTranIdPolicy] = useState('')
 
     useEffect(() => {
-        if (dataLoaded) console.log('PolicyViewCheck ');
+        // if (dataLoaded) console.log('PolicyViewCheck ');
     }, [dataLoaded]);
 
     return (

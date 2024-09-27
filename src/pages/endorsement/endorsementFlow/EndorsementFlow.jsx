@@ -5,7 +5,7 @@ import EndorsementDetails from './endorsementDetails/EndorsementDetails';
 export const PageHandleContext = createContext();
 
 const EndorsementFlow = () => {
- const [selected, setSelected] = useState(0);
+ const [selected, setSelected] = useState(4);
 
  const data = {
   selected,
