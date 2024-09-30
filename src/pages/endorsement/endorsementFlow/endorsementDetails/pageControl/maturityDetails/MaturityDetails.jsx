@@ -1,18 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Divider } from 'antd';
-import { alterData } from '../../../../../../components/tableComponents/sampleData';
-import { formatNumber } from '../../../../../../components/commonHelper/CurrentFormatter';
 import MaturityCards from './MaturityCards';
 import { CustomDatePicker, CustomSelect } from '../../../../../../components/commonExportsFields/CommonExportsFields';
 import { EndorsementContext } from '../../../../Endorsement';
 import useMRVListingPayload from '../../../../../../components/mrvListing/useMRVListingPayload';
 import dayjs from 'dayjs';
 import ConfirmSurrenderModal from './ConfirmSurrenderModal';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setSurrMatId } from '../../../../../../globalStore/slices/SurrenderMaturityId';
 
 const MaturityDetails = ({ currentTab, dataLoaded }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { POL_NO, tranId } = useContext(EndorsementContext);
     const { rowData = [], columnData, handleMRVListingPayload } = useMRVListingPayload();
-    const [addNew, setAddNew] = useState(true)
+    const [addNew, setAddNew] = useState(false)
     const [confirmSurrModal, setConfirmSurrModal] = useState(false)
 
     useEffect(() => {
@@ -45,6 +48,12 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
         if (decision) {
             setAddNew(false)
         }
+    }
+
+    const proceedTOSurrenderMaturity = (item) => {
+        console.log("item : ", item)
+        dispatch(setSurrMatId(item?.ID))
+        navigate('/surrender_maturity')
     }
 
     return (
@@ -128,7 +137,8 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
 
             {hasValidRowData(rowData) &&
                 <div className='mt-5'>
-                    <MaturityCards rowData={rowData} />
+                    <MaturityCards rowData={rowData}
+                        proceedTOSurrenderMaturity={proceedTOSurrenderMaturity} />
                 </div>
             }
 

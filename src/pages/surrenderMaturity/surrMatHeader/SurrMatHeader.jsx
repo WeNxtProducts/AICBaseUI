@@ -6,7 +6,7 @@ import { formatNumber } from './../../../components/commonHelper/CurrentFormatte
 import { SurrMatContext } from '../SurrenderMaturity';
 
 const SurrMatHeader = () => {
-    const { POL_NO, tranId } = useContext(SurrMatContext);
+    const { POL_NO } = useContext(SurrMatContext);
     const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
     const [policyHistory, setPolicyHistory] = useState(null);
 
@@ -24,7 +24,7 @@ const SurrMatHeader = () => {
 
     useEffect(() => {
         if (POL_NO) handlePoicyHistory()
-    }, [POL_NO, tranId])
+    }, [POL_NO])
 
     return (
         <div className='personal-values p-3'>

@@ -5,7 +5,8 @@ import stepperData from '../slices/StepperData';
 import IdSlices from '../slices/IdSlices';
 import UnderWriterSlices from '../slices/UnderwriterId';
 import ReceiptSlices from '../slices/ReceiptId';
-import EndorsementSlices from '../slices/EndorsementId'
+import EndorsementSlices from '../slices/EndorsementId';
+import SurrenderMaturitySlices from '../slices/SurrenderMaturityId';
 
 const rootReducer = combineReducers({
     menuSelected: menuSelected,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     id: IdSlices,
     UWId: UnderWriterSlices,
     Receipt: ReceiptSlices,
-    Endo: EndorsementSlices
+    Endo: EndorsementSlices,
+    SurrId: SurrenderMaturitySlices
 });
 
 export default rootReducer;

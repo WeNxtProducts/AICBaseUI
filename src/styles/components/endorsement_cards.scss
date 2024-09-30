@@ -46,6 +46,20 @@
      font-size: 13px;
      line-height: 20px;
     }
+    .surr_mat_proceed {
+     background-color: #ffffff;
+     padding: 0px 10px;
+     border: 3px solid #0382c8;
+     font-size: 13px;
+     font-weight: 500;
+     color: #0382c8;
+     border-radius: 7px;
+     transition: transform 0.3s ease, background-color 0.3s ease;
+     &:hover {
+      transform: scale(1.05);
+      background-color: #e6f7ff;
+     }
+    }
    }
 
    .e_content {

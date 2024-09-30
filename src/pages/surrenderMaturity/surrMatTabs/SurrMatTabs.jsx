@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import TabPanelHeader from '../../../components/collapsePanelHeader/TabPanelHeader';
 import { SurrMatContext } from '../SurrenderMaturity';
 import Checklist from './checkList/CheckList';
+import SurrPayment from './surrPayment/SurrPayment';
 
 const { TabPane } = Tabs;
 
@@ -19,7 +20,7 @@ const SurrMatTabs = () => {
             <div className='sticky-tabs'>
                 <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                     <TabPane key='1' tab={<TabPanelHeader name='Payment Details' />}>
-                        <p>Details</p>
+                        <SurrPayment />
                     </TabPane>
                     <TabPane key='2' tab={<TabPanelHeader name='Checklist' />}>
                         <Checklist tranId={tranId} proposalNumber={POL_NO}

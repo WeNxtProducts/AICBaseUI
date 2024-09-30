@@ -4,7 +4,7 @@ import React from 'react';
 import { formatNumber } from '../../../../../../components/commonHelper/CurrentFormatter';
 import dayjs from 'dayjs';
 
-const MaturityCards = ({ rowData, selectedRow = 1 }) => {
+const MaturityCards = ({ rowData, selectedRow, proceedTOSurrenderMaturity }) => {
     return (
         <div className='endorsement_cards loan_cards'>
             <div className='e_card grid grid-cols-12 gap-3'>
@@ -15,9 +15,8 @@ const MaturityCards = ({ rowData, selectedRow = 1 }) => {
                             <p className='title_style'>Surr/Mat -&nbsp;
                                 {String(index + 1).padStart(2, '0')}
                             </p>
-                            <p><Tooltip title='View'>
-                                <EyeOutlined className='mrv_icons' />
-                            </Tooltip></p>
+                            <button onClick={() => proceedTOSurrenderMaturity(item)}
+                                className='surr_mat_proceed'>Proceed</button>
                         </div>
                         <div className='e_content mt-2'>
                             <div className='grid grid-cols-5 mt-2'>
