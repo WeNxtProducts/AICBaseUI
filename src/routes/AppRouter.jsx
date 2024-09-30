@@ -4,6 +4,7 @@ import ProtectedRoute from './PrivateRoute';
 import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
+import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const SurrenderMaturity = lazy(() => import('../pages/surrenderMaturity/SurrenderMaturity'));
@@ -54,6 +55,7 @@ const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderP
 const AppRouter = () => {
     return (
         <div>
+            <ScrollToTop />
             <Routes>
                 <Route
                     path='/report'
