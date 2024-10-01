@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import ConfirmSurrenderModal from './ConfirmSurrenderModal';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSurrMatId } from '../../../../../../globalStore/slices/SurrenderMaturityId';
+import { setSurrMatId, setSurrRefNo } from '../../../../../../globalStore/slices/SurrenderMaturityId';
 import useApiRequests from '../../../../../../services/useApiRequests';
 import showNotification from '../../../../../../components/notification/Notification';
 
@@ -74,7 +74,6 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
     }
 
     const handleClose = (decision) => {
-        console.log('decision : ', decision)
         setConfirmSurrModal(false)
         if (decision) {
             handleSurrenderProcedure()
@@ -82,8 +81,8 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
     }
 
     const proceedTOSurrenderMaturity = (item) => {
-        console.log("item : ", item)
         dispatch(setSurrMatId(item?.ID))
+        dispatch(setSurrRefNo(item?.Surr_Mat_Ref_No))
         navigate('/surrender_maturity')
     }
 

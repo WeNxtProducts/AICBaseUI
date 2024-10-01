@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import SurrMatTabs from './surrMatTabs/SurrMatTabs';
 import './SurrenderMaturity.scss';
 import { useNavigate } from 'react-router-dom';
+import PolTagDisplay from '../../components/polTagDisplay/PolTagDisplay';
 
 export const SurrMatContext = createContext();
 
@@ -12,11 +13,12 @@ const SurrenderMaturity = () => {
     const EndoDetail = useSelector(state => state?.Endo);
     const { POL_NO, tranId, CUST_CODE } = EndoDetail
     const surrId = useSelector(state => state?.SurrId);
+    const { tranId: surrID, surrRefNo } = surrId
 
-    const data = { POL_NO, tranId, CUST_CODE };
+    const data = { POL_NO, tranId, CUST_CODE, surrRefNo, surrID };
 
     useEffect(() => {
-        console.log("surrId : ", surrId)
+        console.log("surrId : ", surrRefNo)
     }, [])
 
     const handleBack = () => {
@@ -26,14 +28,17 @@ const SurrenderMaturity = () => {
     return (
         <SurrMatContext.Provider value={data}>
             <div className='surrender_maturity'>
-                <div className='flex items-center justify-between mb-1'>
-                    <p className='mb-2 top_style'>Surrender/Maturity</p>
+                <div className='flex items-center justify-between'>
+                    <div className='flex items-center'>
+                        <p className='top_style'>Surrender/Maturity</p>
+                        <PolTagDisplay label={POL_NO} />
+                    </div>
                     <button onClick={() => handleBack()} className="arrow-back-btn">
                         Back to history
                     </button>
                 </div>
                 <div className='surr_header'>
-                    <SurrMatHeader />
+                    {/* <SurrMatHeader /> */}
                 </div>
                 <SurrMatTabs />
             </div>

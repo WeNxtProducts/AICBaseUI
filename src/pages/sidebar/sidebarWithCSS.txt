@@ -1,0 +1,203 @@
+.jsx
+
+import React, { useState } from "react";
+import "./Sidebar.css";
+
+const Sidebar = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const menuItems = [
+    { icon: "🏠", title: "Home" },
+    {
+      icon: "📁",
+      title: "Projects",
+      subItems: [
+        {
+          icon: "📄",
+          title: "Project 1",
+          subItems: [
+            { icon: "📝", title: "Tasks" },
+            { icon: "👥", title: "Team" },
+          ],
+        },
+        {
+          icon: "📄",
+          title: "Project 2",
+          subItems: [
+            { icon: "📊", title: "Analytics" },
+            { icon: "💰", title: "Budget" },
+          ],
+        },
+      ],
+    },
+    { icon: "📊", title: "Analytics" },
+    {
+      icon: "⚙️",
+      title: "Settings",
+      subItems: [
+        { icon: "👤", title: "Profile" },
+        {
+          icon: "🔒",
+          title: "Security",
+          subItems: [
+            { icon: "🔑", title: "Passwords" },
+            { icon: "📱", title: "Two-Factor Auth" },
+          ],
+        },
+      ],
+    },
+  ];
+
+  return (
+    <div
+      className={`sidebar ${isExpanded ? "expanded" : ""}`}
+      onMouseEnter={() => setIsExpanded(true)}
+      onMouseLeave={() => setIsExpanded(false)}
+    >
+      <ul>
+        {menuItems.map((item, index) => (
+          <MenuItem
+            key={index}
+            item={item}
+            isExpanded={isExpanded}
+            level={0}
+            isLastChild={index === menuItems.length - 1}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const MenuItem = ({ item, isExpanded, level, isLastChild }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const renderLevelLines = () => {
+    return Array.from({ length: level }, (_, index) => (
+      <div
+        key={index}
+        className={`level-line ${
+          isLastChild && index === level - 1 ? "last-child" : ""
+        }`}
+        style={{ left: `${(index + 1) * 20}px` }}
+      />
+    ));
+  };
+
+  return (
+    <li>
+      <div
+        className={`menu-item ${isOpen ? "open" : ""}`}
+        onClick={() => item.subItems && setIsOpen(!isOpen)}
+      >
+        {renderLevelLines()}
+        <span
+          className={`icon ${level === 0 ? "top-level" : ""}`}
+          style={{ marginLeft: `${level * 20}px` }}
+        >
+          {item.icon}
+        </span>
+        {isExpanded && <span className="title">{item.title}</span>}
+        {item.subItems && isExpanded && (
+          <span className="arrow">{isOpen ? "▼" : "▶"}</span>
+        )}
+      </div>
+      {item.subItems && isOpen && isExpanded && (
+        <ul>
+          {item.subItems.map((subItem, index) => (
+            <MenuItem
+              key={index}
+              item={subItem}
+              isExpanded={isExpanded}
+              level={level + 1}
+              isLastChild={index === item.subItems.length - 1}
+            />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
+
+export default Sidebar;
+
+
+
+.css
+
+.sidebar {
+  width: 60px;
+  transition: width 0.3s ease;
+  background-color: #f8f9fa;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.expanded {
+  width: 250px;
+  overflow: auto;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.menu-item.open {
+  background-color: #e9ecef;
+}
+
+.level-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-image: linear-gradient(to bottom, #007bff 50%, transparent 50%);
+  background-size: 100% 8px;
+  opacity: 0.5;
+}
+
+.level-line.last-child {
+  bottom: 50%;
+}
+
+.icon {
+  margin-right: 15px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.icon.top-level {
+  background-color: #007bff;
+  color: white;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 10px;
+  transition: transform 0.2s;
+}

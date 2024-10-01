@@ -45,7 +45,7 @@ const SurrMrvList = ({
                         }
                     }}
                     className='pl-2 flex items-center'>
-                    {isSlide &&
+                    {/* {isSlide &&
                         <div className='mrv_checkbox'>
                             <input
                                 readOnly
@@ -56,8 +56,8 @@ const SurrMrvList = ({
                             />
                             <label />
                         </div>
-                    }
-                    {isSlide && <p className='pl-3 count_style'>Due {index + 1}</p>}
+                    } */}
+                    {isSlide && <p className='pl-3 count_style'>Life Assured Detail - {index + 1}</p>}
                 </div>
 
                 <div className='flex gap-2 pe-3 p-1'>
@@ -82,12 +82,16 @@ const SurrMrvList = ({
         <div className={`MRV_card MRV_card--slide ${isSlide ? '' : 'overflow-y-auto p-2'}`}>
             {isSlide ? (
                 <div className='surrender_swiper'>
-                    <div className="swiper-button image-swiper-button-next">
-                        <IoIosArrowForward />
-                    </div>
-                    <div className="swiper-button image-swiper-button-prev">
-                        <IoIosArrowBack />
-                    </div>
+                    {tableData?.length > 4 &&
+                        <>
+                            <div className="swiper-button image-swiper-button-next">
+                                <IoIosArrowForward />
+                            </div>
+                            <div className="swiper-button image-swiper-button-prev">
+                                <IoIosArrowBack />
+                            </div>
+                        </>
+                    }
                     <Swiper
                         navigation={{
                             nextEl: ".image-swiper-button-next",

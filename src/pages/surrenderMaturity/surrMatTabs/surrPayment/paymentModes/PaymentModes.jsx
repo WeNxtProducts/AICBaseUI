@@ -29,7 +29,7 @@ const initialForm = {
     RD_BANK_ACNT_NAME: '',
 };
 
-const PaymentModes = () => {
+const PaymentModes = ({ surrMatValues }) => {
     const [mainValue, setMainValue] = useState(null);
 
     useEffect(() => {

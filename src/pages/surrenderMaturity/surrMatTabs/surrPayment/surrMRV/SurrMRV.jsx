@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import useMRVListingPayload from '../../../../../components/mrvListing/useMRVListingPayload';
 import SurrMrvList from '../SurrMrvList';
+import { SurrMatContext } from '../../../SurrenderMaturity';
 
 const SurrMRV = ({ editMRVId, setEditMRVId }) => {
+    const { POL_NO, tranId } = useContext(SurrMatContext);
     const { rowData, columnData, handleMRVListingPayload } = useMRVListingPayload();
 
     useEffect(() => {
-        handleMRVListingPayload({ queryId: 224, tranId: 'PO/TM1//000081' });
+        handleMRVListingPayload({ queryId: 234, tranId });
     }, []);
 
     const hasValidRowData = rowData => {

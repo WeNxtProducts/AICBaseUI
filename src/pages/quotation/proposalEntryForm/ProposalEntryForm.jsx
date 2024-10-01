@@ -16,6 +16,7 @@ import { calculateDateAfterYears } from '../../../components/commonHelper/Curren
 import ErrorLog from '../../../components/errorLog/ErrorLog';
 import ErrorContent from '../../../components/errorLog/ErrorContent';
 import PremiumDetails from './PremiumDetails';
+import PolTagDisplay from '../../../components/polTagDisplay/PolTagDisplay';
 
 dayjs.extend(utc);
 
@@ -335,7 +336,7 @@ const ProposalEntryForm = () => {
             <div className='flex items-center justify-between pl-1'>
                 <div className='flex items-center'>
                     <p className='header-font'>{`${currentMenuId?.ds_type == 1 ? 'Proposal Entry' : 'Policy'}`}</p>
-                    {proposalNumber && <p className='pol-number mt-1'>{`${proposalNumber}`}</p>}
+                    {proposalNumber && <PolTagDisplay label={proposalNumber} />}
                 </div>
                 <ErrorLog
                     classNamePopOver='premium-log-popover'

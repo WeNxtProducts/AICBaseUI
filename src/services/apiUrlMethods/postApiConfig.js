@@ -350,6 +350,10 @@ const POST_API_URL = {
  newparamlov: {
   url: '/common/newparamlov',
  },
+ surrMatGet: {
+  url: '/surrMattValues/get',
+  baseURL: 'CRUD',
+ },
 };
 
 export default POST_API_URL;
