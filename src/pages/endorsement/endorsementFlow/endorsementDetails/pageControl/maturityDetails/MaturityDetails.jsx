@@ -9,14 +9,28 @@ import ConfirmSurrenderModal from './ConfirmSurrenderModal';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSurrMatId } from '../../../../../../globalStore/slices/SurrenderMaturityId';
+import useApiRequests from '../../../../../../services/useApiRequests';
+import showNotification from '../../../../../../components/notification/Notification';
 
 const MaturityDetails = ({ currentTab, dataLoaded }) => {
+    const { POL_NO, tranId, policyHistory } = useContext(EndorsementContext);
+    const { POL_FM_DT, POL_TO_DT } = policyHistory;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { POL_NO, tranId } = useContext(EndorsementContext);
+    const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const { rowData = [], columnData, handleMRVListingPayload } = useMRVListingPayload();
     const [addNew, setAddNew] = useState(false)
     const [confirmSurrModal, setConfirmSurrModal] = useState(false)
+    const values = {
+        inParams: {
+            P_POL_NO_FM: POL_NO,
+            P_POL_NO_TO: POL_NO,
+            P_FM_DT: dayjs(POL_FM_DT).format("YYYY-MM-DD"),
+            P_TO_DT: dayjs(POL_TO_DT).format("YYYY-MM-DD"),
+            P_SURR_TYPE: 'S',
+            P_SURR_DATE: dayjs().format('YYYY-MM-DD'),
+        }
+    }
 
     useEffect(() => {
         if (tranId) {
@@ -42,11 +56,28 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
         setAddNew(true)
     };
 
+    const handleSurrenderProcedure = async () => {
+        try {
+            const response = await invokeClaimsProcedure(values, {
+                procedureName: 'CALC_PAIDUP_VALUE',
+                packageName: 'WNPKG_SURR_PRCSS',
+            });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                setAddNew(false)
+                handleMRVListingPayload({ queryId: 230, tranId });
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const handleClose = (decision) => {
         console.log('decision : ', decision)
         setConfirmSurrModal(false)
         if (decision) {
-            setAddNew(false)
+            handleSurrenderProcedure()
         }
     }
 
@@ -65,7 +96,7 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
                         className='add-buttons-edorsement'
                         type='primary'
                         icon={<i className='bi bi-plus icon-style' />}>
-                        Add New
+                        Add Surrender
                     </Button>
                 </div>
             ) : (
@@ -78,10 +109,10 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
                                 <div className='col-span-3'>
                                     <CustomSelect
                                         name={`pol_from`}
-                                        options={[]}
+                                        options={[{ value: POL_NO, label: POL_NO }]}
                                         showSearch={true}
                                         placeholder='policy No.'
-                                        value={POL_NO}
+                                        value={values?.inParams?.P_POL_NO_FM}
                                         readOnly={true}
                                         size='large'
                                         onChange={e => {
@@ -99,7 +130,7 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
                                         name='as_on_date'
                                         placeholder='date'
                                         size='large'
-                                        value={dayjs()}
+                                        value={dayjs(values?.inParams?.P_SURR_DATE)}
                                         disabled={true}
                                         onChange={date => {
                                             console.log("date : ", date)
@@ -114,9 +145,10 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
                                 <div className='col-span-3'>
                                     <CustomSelect
                                         name={`surr_type`}
-                                        options={[]}
-                                        showSearch={true}
+                                        options={[{ value: 'S', label: 'Surreder' }]}
+                                        showSearch={false}
                                         placeholder='select'
+                                        value={values?.inParams?.P_SURR_TYPE}
                                         size='large'
                                         onChange={e => {
                                             console.log(e);
@@ -128,7 +160,7 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
                         <div className='maturity_btn col-span-2 flex justify-center gap-3 mt-3'>
                             <Button onClick={() => setAddNew(false)}>Cancel</Button>
                             <Button>Print Quote</Button>
-                            <Button onClick={() => setConfirmSurrModal(true)}>Ok</Button>
+                            <Button onClick={() => setConfirmSurrModal(true)}>Process</Button>
                         </div>
                     </div>
                     <Divider />

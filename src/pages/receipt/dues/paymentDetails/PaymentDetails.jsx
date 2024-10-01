@@ -151,9 +151,11 @@ const PaymentDetails = () => {
                 showNotification.ERROR(response?.Data?.P_ERR_MSG);
             }
             if (response?.status === 'SUCCESS') {
-                showNotification.SUCCESS(response?.status_msg);
+                if (response?.status_msg)
+                    showNotification.SUCCESS(response?.status_msg);
             } else if (response?.status === 'FAILURE') {
-                showNotification.ERROR(response?.status_msg);
+                if (response?.status_msg)
+                    showNotification.ERROR(response?.status_msg);
             }
         } catch (err) {
             setLoader(false)

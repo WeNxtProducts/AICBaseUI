@@ -4,6 +4,8 @@ import EndorsemenHistory from './endorsemenHistory/EndorsemenHistory';
 import EndorsementFlow from './endorsementFlow/EndorsementFlow';
 import './Endorsement.scss';
 import { useSelector } from 'react-redux';
+import useApiRequests from '../../services/useApiRequests';
+import showNotification from '../../components/notification/Notification';
 const AlterationPages = lazy(
   () =>
     import(
@@ -16,15 +18,30 @@ export const EndorsementContext = createContext();
 const Endorsement = () => {
   const EndoDetail = useSelector(state => state?.Endo);
   const { POL_NO, tranId, CUST_CODE } = EndoDetail
+  const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
   const [showAlteration, setShowAlteration] = useState(false);
+  const [policyHistory, setPolicyHistory] = useState(null);
 
   const data = {
-    showAlteration, setShowAlteration, POL_NO, tranId, CUST_CODE
+    showAlteration, setShowAlteration, POL_NO, tranId, CUST_CODE,
+    policyHistory, setPolicyHistory
+  };
+
+  const handlePoicyHistory = async () => {
+    try {
+      const response = await getMapQuery({ queryParams: { POL_NO } }, { queryId: 220 });
+      if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+      if (response?.status === 'SUCCESS') {
+        setPolicyHistory(response?.Data[0])
+      }
+    } catch (err) {
+      console.log('err : ', err);
+    }
   };
 
   useEffect(() => {
-    // console.log("EndoDetail : ", EndoDetail)
-  }, []);
+    if (POL_NO) handlePoicyHistory()
+  }, [POL_NO, tranId])
 
   return (
     <EndorsementContext.Provider value={data}>
@@ -36,7 +53,9 @@ const Endorsement = () => {
         <div style={{ display: showAlteration ? 'none' : 'block' }} className='main_wrapper'>
           <EndorsementHeader />
           <EndorsemenHistory />
-          <EndorsementFlow />
+          {policyHistory !== null &&
+            <EndorsementFlow />
+          }
         </div>
       </div>
     </EndorsementContext.Provider>

@@ -133,7 +133,9 @@ const PayForm = ({ options, currentValue, handleSaveOrUpdate, approveReceipt, he
                                 </div>
                                 {headerStatus?.RH_APPRV_STATUS !== 'A' &&
                                     <div className='flex justify-center'>
-                                        <button className='sub_btn' type='submit'>
+                                        <button className='sub_btn' type='submit' onClick={() => setTimeout(() => {
+                                            resetForm()
+                                        }, 100)}>
                                             Pay
                                         </button>
                                         <button className='approve_btn' type='button' onClick={() => approveReceipt()}>
@@ -145,8 +147,9 @@ const PayForm = ({ options, currentValue, handleSaveOrUpdate, approveReceipt, he
                         );
                     }}
                 </Formik>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 

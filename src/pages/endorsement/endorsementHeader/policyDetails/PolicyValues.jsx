@@ -6,25 +6,7 @@ import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 
 const PolicyValues = () => {
-    const { POL_NO, tranId } = useContext(EndorsementContext);
-    const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
-    const [policyHistory, setPolicyHistory] = useState(null);
-
-    const handlePoicyHistory = async () => {
-        try {
-            const response = await getMapQuery({ queryParams: { POL_NO } }, { queryId: 220 });
-            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
-            if (response?.status === 'SUCCESS') {
-                setPolicyHistory(response?.Data[0])
-            }
-        } catch (err) {
-            console.log('err : ', err);
-        }
-    };
-
-    useEffect(() => {
-        if (POL_NO) handlePoicyHistory()
-    }, [POL_NO, tranId])
+    const { POL_NO, tranId, policyHistory } = useContext(EndorsementContext);
 
     return (
         <div className='personal-values p-3'>
