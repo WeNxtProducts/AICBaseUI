@@ -1,8 +1,8 @@
 .jsx
 
 
-import React, { useState, useEffect } from "react";
-import "./sidebar.scss";
+import React, { useState, useEffect } from 'react';
+import './sidebar.scss';
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -10,41 +10,41 @@ const Sidebar = () => {
   const [openMenus, setOpenMenus] = useState([]);
 
   const menuItems = [
-    { icon: "🏠", title: "Home" },
+    { icon: '🏠', title: 'Home with a very long title' },
     {
-      icon: "📁",
-      title: "Projects",
+      icon: '📁',
+      title: 'Projects',
       subItems: [
         {
-          icon: "📄",
-          title: "Project 1",
+          icon: '📄',
+          title: 'Project 1',
           subItems: [
-            { icon: "📝", title: "Tasks" },
-            { icon: "👥", title: "Team" },
+            { icon: '📝', title: 'Tasks' },
+            { icon: '👥', title: 'Team' },
           ],
         },
         {
-          icon: "📄",
-          title: "Project 2",
+          icon: '📄',
+          title: 'Project 2',
           subItems: [
-            { icon: "📊", title: "Analytics" },
-            { icon: "💰", title: "Budget" },
+            { icon: '📊', title: 'Analytics' },
+            { icon: '💰', title: 'Budget' },
           ],
         },
       ],
     },
-    { icon: "📊", title: "Analytics" },
+    { icon: '📊', title: 'Analytics' },
     {
-      icon: "⚙️",
-      title: "Settings",
+      icon: '⚙️',
+      title: 'Settings',
       subItems: [
-        { icon: "👤", title: "Profile" },
+        { icon: '👤', title: 'Profile' },
         {
-          icon: "🔒",
-          title: "Security",
+          icon: '🔒',
+          title: 'Security',
           subItems: [
-            { icon: "🔑", title: "Passwords" },
-            { icon: "📱", title: "Two-Factor Auth" },
+            { icon: '🔑', title: 'Passwords' },
+            { icon: '📱', title: 'Two-Factor Auth' },
           ],
         },
       ],
@@ -65,7 +65,7 @@ const Sidebar = () => {
 
   const handleToggle = (path, isOpen) => {
     setOpenMenus((prevOpenMenus) => {
-      const pathString = path.join("/");
+      const pathString = path.join('/');
       if (isOpen) {
         return [...prevOpenMenus, pathString];
       } else {
@@ -76,7 +76,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`sidebar ${isExpanded ? "expanded" : ""}`}
+      className={`sidebar ${isExpanded ? 'expanded' : ''}`}
       onMouseEnter={() => handleExpand(true)}
       onMouseLeave={() => handleExpand(false)}
     >
@@ -109,8 +109,8 @@ const MenuItem = ({
   onSelect,
   onToggle,
 }) => {
-  const isSelected = selectedPath.join("/") === path.join("/");
-  const isOpen = openMenus.includes(path.join("/"));
+  const isSelected = selectedPath.join('/') === path.join('/');
+  const isOpen = openMenus.includes(path.join('/'));
   const hasSelectedChild =
     selectedPath.length > level && selectedPath[level] === item.title;
 
@@ -137,22 +137,22 @@ const MenuItem = ({
   return (
     <li className={`level-${level}`}>
       <div
-        className={`menu-item ${isOpen ? "open" : ""} ${
-          isSelected ? "selected" : ""
+        className={`menu-item ${isOpen ? 'open' : ''} ${
+          isSelected ? 'selected' : ''
         }`}
         onClick={handleClick}
       >
         {renderLevelLines()}
-        <span className={`icon ${level === 0 ? "level-0" : ""}`}>
+        <span className={`icon ${level === 0 ? 'level-0' : ''}`}>
           {item.icon}
         </span>
         {isExpanded && <span className="title">{item.title}</span>}
         {item.subItems && isExpanded && (
-          <span className="arrow">{isOpen ? "▼" : "▶"}</span>
+          <span className="arrow">{isOpen ? '▼' : '▶'}</span>
         )}
       </div>
       {item.subItems && (
-        <ul className={`sub-menu ${isOpen && isExpanded ? "open" : ""}`}>
+        <ul className={`sub-menu ${isOpen && isExpanded ? 'open' : ''}`}>
           {item.subItems.map((subItem, index) => (
             <MenuItem
               key={index}
@@ -194,7 +194,7 @@ $selected-color: #818cf8;
   left: 0;
   top: 0;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   width: 70px;
 
   &.expanded {
@@ -260,6 +260,10 @@ $selected-color: #818cf8;
     font-weight: 500;
     opacity: 1;
     transition: opacity 0.2s ease;
+    white-space: nowrap; // Keep the text on one line
+    overflow: hidden; // Hide overflowing text
+    text-overflow: ellipsis; // Show ellipsis when text overflows
+    max-width: 160px; // Control the width where ellipsis should appear
   }
 
   .arrow {

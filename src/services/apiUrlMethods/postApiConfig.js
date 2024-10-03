@@ -354,6 +354,10 @@ const POST_API_URL = {
   url: '/surrMattValues/get',
   baseURL: 'CRUD',
  },
+ getLoanDetails: {
+  url: '/loan/get',
+  baseURL: 'CRUD',
+ },
 };
 
 export default POST_API_URL;
