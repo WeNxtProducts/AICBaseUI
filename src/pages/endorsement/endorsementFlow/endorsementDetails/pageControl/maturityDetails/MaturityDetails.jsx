@@ -40,7 +40,7 @@ const MaturityDetails = ({ currentTab, dataLoaded }) => {
 
     useEffect(() => {
         if (rowData?.length > 0) {
-            console.log("rowData : ", rowData)
+            // console.log("rowData : ", rowData)
         }
     }, [rowData]);
 
