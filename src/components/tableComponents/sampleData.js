@@ -266,27 +266,7 @@ export const tableColumn = [
  {
   label: 'Main Account',
   value: 'mainAccount',
- },
- {
-  label: 'Sub Type',
-  value: 'subType',
- },
- {
-  label: 'Division',
-  value: 'division',
- },
- {
-  label: 'Department',
-  value: 'department',
- },
- {
-  label: 'Analysis - 1',
-  value: 'analysis1',
- },
- {
-  label: 'Analysis - 2',
-  value: 'analysis2',
- },
+ }
 ];
 
 export const genderOptions = [

@@ -7,45 +7,48 @@ const ReportForm = ({ fieldList, onSubmit }) => {
     const [initValues, setInitValues] = useState(null);
 
     useEffect(() => {
+        // console.log("fieldList : ", fieldList)
         setInitValues(fieldList);
     }, [fieldList]);
 
     return (
         <div className='report_form'>
-
-            <Formik
-                initialValues={initValues}
-                values={initValues}
-                onSubmit={onSubmit}
-                enableReinitialize={true}>
-                {({ handleSubmit, values, setFieldValue }) => {
-                    return (
-                        <Form onSubmit={handleSubmit}>
-                            <div className={`items-start grid grid-cols-${2} gap-0`}>
-                                {fieldList?.map((item, index) => {
-                                    const dataId = item?.param_RepColunmName
-                                    return useMemo(() => {
-                                        return (
-                                            <React.Fragment key={dataId}>
-                                                <div data-id={dataId}>
-                                                    <ReportFields
-                                                        currentData={item}
-                                                        index={index}
-                                                        values={values}
-                                                        setFieldValue={setFieldValue}
-                                                    />
-                                                </div>
-                                            </React.Fragment>
-                                        );
-                                    }, []);
-                                })}
-                            </div>
-                            <button type='submit'>Submit</button>
-                        </Form>
-                    )
-                }}
-            </Formik>
+            {initValues !== null &&
+                <Formik
+                    initialValues={initValues}
+                    values={initValues}
+                    onSubmit={onSubmit}
+                    enableReinitialize={true}>
+                    {({ handleSubmit, values, setFieldValue }) => {
+                        return (
+                            <Form onSubmit={handleSubmit}>
+                                <div className={`items-start grid grid-cols-${2} gap-3 mt-3`}>
+                                    {Object.keys(fieldList)?.map((fieldKey, index) => {
+                                        const dataId = fieldKey
+                                        return useMemo(() => {
+                                            return (
+                                                <React.Fragment key={dataId}>
+                                                    <div data-id={dataId}>
+                                                        <ReportFields
+                                                            currentData={fieldList?.[fieldKey]}
+                                                            values={values}
+                                                            setFieldValue={setFieldValue}
+                                                            parent={fieldKey}
+                                                        />
+                                                    </div>
+                                                </React.Fragment>
+                                            );
+                                        }, [values[fieldKey]?.param_Field_Value]);
+                                    })}
+                                </div>
+                                <button className='mt-5' type='submit'>Submit</button>
+                            </Form>
+                        )
+                    }}
+                </Formik>
+            }
         </div>
+
     )
 }
 

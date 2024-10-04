@@ -35,7 +35,7 @@ const respone = [
     {
         "param_RepColunmName": "REP_VALUE_6",
         "param_Field_Name": "User Id To",
-        "param_DataType": "LOV",
+        "param_DataType": "TEXT",
         "param_Field_Required": "TRUE",
         "param_Field_Order": "6"
     }
@@ -52,7 +52,15 @@ const Report = () => {
     };
 
     useEffect(() => {
-        setFieldList(sortAndAddFieldValue(respone))
+        // setFieldList(sortAndAddFieldValue(respone))
+        const fieldObject = respone.reduce((acc, field) => {
+            acc[field.param_RepColunmName] = {
+                ...field,
+                param_Field_Value: ''
+            };
+            return acc;
+        }, {});
+        setFieldList(fieldObject)
     }, [])
 
     const onSubmit = (values) => {
