@@ -1,72 +1,69 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { FixedSizeList as List } from 'react-window';
-import reportsJSON from '../../getFormFields/reportsSam.json';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Report.scss';
+import ReportForm from './reportForm/ReportForm';
 
-const Row = ({ index, style, data }) => {
-    const row = data[index];
-    return (
-        <div className={`table-row ${index % 2 === 0 ? 'even' : 'odd'}`} style={style}>
-            <div className="table-cell">{row?.POL_PROP_NO}</div>
-            <div className="table-cell">{row?.POL_ASSURED_NAME}</div>
-            <div className="table-cell">{row?.BANKNAME}</div>
-            <div className="table-cell">{row?.POL_APPRV_STATUS}</div>
-            <div className="table-cell">{row?.CREATED_BY}</div>
-            <div className="table-cell">{row?.RECP_DT}</div>
-            <div className="table-cell">{row?.PREMIUM_COUNT}</div>
-            <div className="table-cell">{row?.DEP_DOC_NO}</div>
-            <div className="table-cell">{row?.TRAN_CODE}</div>
-            <div className="table-cell">{row?.ACTUAL_PREM}</div>
-            <div className="table-cell">{row?.COLLECTED_PREM}</div>
-        </div>
-    );
-};
-
-const VirtualizedTable = ({ data }) => {
-    const [tableWidth, setTableWidth] = useState(0);
-    const tableRef = useRef(null);
-
-    useEffect(() => {
-        if (tableRef.current) {
-            setTableWidth(tableRef.current.scrollWidth);
-        }
-    }, []);
-
-    return (
-        <div className="table-container-report" ref={tableRef}>
-            <div className="table-content" style={{ width: tableWidth }}>
-                <div className="table-header">
-                    <div className="table-cell">POL_PROP_NO</div>
-                    <div className="table-cell">POL_ASSURED_NAME</div>
-                    <div className="table-cell">BANKNAME</div>
-                    <div className="table-cell">POL_APPRV_STATUS</div>
-                    <div className="table-cell">CREATED_BY</div>
-                    <div className="table-cell">RECP_DT</div>
-                    <div className="table-cell">PREMIUM_COUNT</div>
-                    <div className="table-cell">DEP_DOC_NO</div>
-                    <div className="table-cell">TRAN_CODE</div>
-                    <div className="table-cell">ACTUAL_PREM</div>
-                    <div className="table-cell">COLLECTED_PREM</div>
-                </div>
-                <List
-                    height={400}
-                    itemCount={data?.length}
-                    itemSize={50}
-                    width={tableWidth}
-                    itemData={data}
-                    className="window-scroll"
-                >
-                    {Row}
-                </List>
-            </div>
-        </div>
-    );
-};
+const respone = [
+    {
+        "param_RepColunmName": "REP_VALUE_5",
+        "param_Field_Name": "User Id From",
+        "param_DataType": "LOV",
+        "param_Field_Required": "TRUE",
+        "param_Field_Order": "5"
+    },
+    {
+        "param_RepColunmName": "REP_VALUE_3",
+        "param_Field_Name": "Transaction Date From",
+        "param_DataType": "DATE",
+        "param_Field_Required": "TRUE",
+        "param_Field_Order": "3"
+    },
+    {
+        "param_RepColunmName": "REP_VALUE_2",
+        "param_Field_Name": "Policy No To",
+        "param_DataType": "LOV",
+        "param_Field_Required": "TRUE",
+        "param_Field_Order": "2"
+    },
+    {
+        "param_RepColunmName": "REP_VALUE_1",
+        "param_Field_Name": "Policy No From ",
+        "param_DataType": "LOV",
+        "param_Field_Required": "TRUE",
+        "param_Field_Order": "1"
+    },
+    {
+        "param_RepColunmName": "REP_VALUE_6",
+        "param_Field_Name": "User Id To",
+        "param_DataType": "LOV",
+        "param_Field_Required": "TRUE",
+        "param_Field_Order": "6"
+    }
+]
 
 const Report = () => {
+    const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
+    const [fieldList, setFieldList] = useState(null)
+
+    const sortAndAddFieldValue = (fields) => {
+        return fields
+            .map(field => ({ ...field, param_Field_Value: "" }))
+            .sort((a, b) => parseInt(a.param_Field_Order) - parseInt(b.param_Field_Order));
+    };
+
+    useEffect(() => {
+        setFieldList(sortAndAddFieldValue(respone))
+    }, [])
+
+    const onSubmit = (values) => {
+        console.log("onSubmit : ", values)
+    }
+
     return (
-        <div>
-            <VirtualizedTable data={reportsJSON} />
+        <div className='report_page'>
+            <p className='top_style'>{currentMenuId?.menuOptionDesc}</p>
+
+            {fieldList !== null && <ReportForm fieldList={fieldList} onSubmit={onSubmit} />}
         </div>
     );
 };

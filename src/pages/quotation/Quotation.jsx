@@ -231,7 +231,7 @@ const Quotation = () => {
  const handleNavigateUW = () => {
   //   if (userRole === 'ADM') {
   dispatch(setPolNum(proposalNumber));
-  dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_ASSR_CODE?.PFD_FLD_VALUE));
+  dispatch(setCustCode(formValues?.frontForm?.formFields?.POL_CUST_CODE?.PFD_FLD_VALUE));
   navigate('/underwriterworkbench');
   //   }
  };

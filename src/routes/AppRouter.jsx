@@ -58,7 +58,7 @@ const AppRouter = () => {
             <ScrollToTop />
             <Routes>
                 <Route
-                    path='/report'
+                    path='/rep1'
                     element={
                         <Suspense fallback={<div>Report</div>}>
                             <Report />
