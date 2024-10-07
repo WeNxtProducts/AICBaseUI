@@ -1631,3 +1631,65 @@ export const termSelect = [
   value: 'Y',
  },
 ];
+
+// {
+//   "formFields": {
+//       "POL_CUST_CODE": {
+//           "PFD_FLD_VALUE": "",
+//       },
+//       "POL_ASSR_CUST_FLAG": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_ASSR_CODE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_ASSURED_NAME": {
+//           "PFD_FLD_VALUE": "",
+//       },
+//       "POL_PERIOD": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_FM_DT": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_SRC_OF_BUS": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_SA_CURR_CODE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_MODE_OF_PYMT": {
+//           "PFD_FLD_VALUE": "",
+//       },
+//       "POL_NO_OF_INST": {
+//         "PFD_FLD_VALUE": "",
+//       },
+//       "POL_FC_ANN_SAL": {
+//        "PFD_FLD_VALUE": "",
+//       },
+//       "POL_FC_SA": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_TO_DT": {
+//         "PFD_FLD_VALUE": "",
+//       },
+//       "POL_PYMT_TYPE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_AGENT_CODE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_PREM_PAY_YRS": {
+//         "PFD_FLD_VALUE": "",
+//       },
+//       "POL_UW_YEAR": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_CUST_NAME": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_AGENT_COMM_BASIS": {
+//         "PFD_FLD_VALUE": "",
+//       }
+//   }
+// }

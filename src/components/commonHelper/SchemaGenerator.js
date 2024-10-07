@@ -121,3 +121,97 @@ export const brokerValidationSchema = Yup.object().shape({
 //  loss_date: Yup.date().required('Loss date is required').nullable(),
 //  init_date: Yup.date().required('Initial date is required').nullable(),
 // });
+
+export const quotationSchema = Yup.object().shape({
+ frontForm: Yup.object().shape({
+  formFields: Yup.object().shape({
+   POL_CUST_CODE: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Customer code is required'),
+   }),
+   POL_ASSR_CUST_FLAG: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Flag is required'),
+   }),
+   POL_ASSR_CODE: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Assured Code is required'),
+   }),
+   POL_ASSURED_NAME: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Assured Name is required'),
+   }),
+   POL_PERIOD: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.number()
+     .required('Period is required')
+     .min(1, 'Period must be greater than 5')
+     .max(100, 'Period must be less than 10'),
+   }),
+   POL_FM_DT: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string()
+     .required('From date is required')
+     .test('is-future-date', 'Date should not be outdated', function (value) {
+      const dateValue = new Date(value);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return dateValue >= today;
+     }),
+   }),
+   POL_SRC_OF_BUS: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Source of the Bussiness is required'),
+   }),
+   POL_SA_CURR_CODE: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Currency is required'),
+   }),
+   POL_MODE_OF_PYMT: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Mode of Payment is required'),
+   }),
+   POL_NO_OF_INST: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('No of Installment is required'),
+   }),
+   POL_FC_ANN_SAL: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Annual Salary is required'),
+   }),
+   POL_FC_SA: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Sum Assured is required'),
+   }),
+   POL_TO_DT: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('To Date is required'),
+   }),
+   POL_PYMT_TYPE: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Payment Type is required'),
+   }),
+   POL_AGENT_CODE: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().test(
+     'conditional-requirement',
+     'AGENT CODE is required when source of bussiness is Broker/Agent',
+     function (value) {
+      const POL_SRC_OF_BUS = this.options.context.frontForm.formFields.POL_SRC_OF_BUS.PFD_FLD_VALUE;
+      if (POL_SRC_OF_BUS === '075') {
+       return !!value;
+      }
+      return true;
+     },
+    ),
+   }),
+   POL_PREM_PAY_YRS: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Premium Paying Years is required'),
+   }),
+   POL_UW_YEAR: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('UW Year is required'),
+   }),
+   POL_CUST_NAME: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().required('Customer Name is required'),
+   }),
+   POL_AGENT_COMM_BASIS: Yup.object().shape({
+    PFD_FLD_VALUE: Yup.string().test(
+     'conditional-requirement',
+     'Commission Basis is required when source of bussiness is Broker/Agent',
+     function (value) {
+      const POL_SRC_OF_BUS = this.options.context.frontForm.formFields.POL_SRC_OF_BUS.PFD_FLD_VALUE;
+      if (POL_SRC_OF_BUS === '075') {
+       return !!value;
+      }
+      return true;
+     },
+    ),
+   }),
+  }),
+ }),
+});
