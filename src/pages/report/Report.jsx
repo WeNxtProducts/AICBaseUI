@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Report.scss';
 import ReportForm from './reportForm/ReportForm';
+import { reportValues, transformAndSortFields } from './../../components/commonHelper/DataSend';
+import useApiRequests from '../../services/useApiRequests';
+import showNotification from '../../components/notification/Notification';
 
 const respone = [
     {
@@ -43,34 +46,37 @@ const respone = [
 
 const Report = () => {
     const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
+    const getReportList = useApiRequests('getReportList', 'POST');
     const [fieldList, setFieldList] = useState(null)
 
-    const sortAndAddFieldValue = (fields) => {
-        return fields
-            .map(field => ({ ...field, param_Field_Value: "" }))
-            .sort((a, b) => parseInt(a.param_Field_Order) - parseInt(b.param_Field_Order));
-    };
-
     useEffect(() => {
-        // setFieldList(sortAndAddFieldValue(respone))
-        const fieldObject = respone.reduce((acc, field) => {
-            acc[field.param_RepColunmName] = {
-                ...field,
-                param_Field_Value: ''
-            };
-            return acc;
-        }, {});
-        setFieldList(fieldObject)
+        setFieldList(transformAndSortFields(respone))
     }, [])
 
+    const handleGetReportList = async values => {
+        try {
+            const response = await getReportList(
+                { REP_GL_ID: 'REP01-1', ...values }
+            );
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                console.log('handleGetReportList : ', response);
+            }
+        } catch (err) {
+            console.log('err : ', err);
+        }
+    };
+
     const onSubmit = (values) => {
-        console.log("onSubmit : ", values)
+        const transformedValues = reportValues(values)
+        handleGetReportList(transformedValues)
+        console.log("onSubmit : ", transformedValues)
     }
 
     return (
         <div className='report_page'>
             <p className='top_style'>{currentMenuId?.menuOptionDesc}</p>
-
             {fieldList !== null && <ReportForm fieldList={fieldList} onSubmit={onSubmit} />}
         </div>
     );

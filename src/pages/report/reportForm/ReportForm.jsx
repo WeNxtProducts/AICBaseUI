@@ -41,7 +41,9 @@ const ReportForm = ({ fieldList, onSubmit }) => {
                                         }, [values[fieldKey]?.param_Field_Value]);
                                     })}
                                 </div>
-                                <button className='mt-5' type='submit'>Submit</button>
+                                <div className='mt-7 flex justify-center'>
+                                    <button className='submit-btn' type='submit'>Submit</button>
+                                </div>
                             </Form>
                         )
                     }}

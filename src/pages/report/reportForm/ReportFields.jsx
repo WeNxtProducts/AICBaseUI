@@ -24,39 +24,39 @@ const ReportFields = ({ currentData, values, setFieldValue, parent }) => {
             borderRadius: '8px',
             border: '1px solid #cecece',
             boxShadow: state.isFocused ? '0 0 5px rgba(3, 130, 200, 0.7)' : 'none',
-            padding: '0 4px',       // Adjust outer padding
-            minHeight: '32px',      // Minimum height for the select input
-            height: '32px',         // Set a fixed height
+            padding: '0 4px',
+            minHeight: '32px',
+            height: '32px',
             '&:hover': {
                 border: '1px solid #2c99d6',
             },
         }),
         valueContainer: (provided) => ({
             ...provided,
-            padding: '0 0',       // Set inner padding to zero
-            margin: '0',          // Remove margins to pull text closer
+            padding: '0 0',
+            margin: '0',
             display: 'flex',
-            alignItems: 'center', // Center items vertically in the value container
+            alignItems: 'center',
         }),
         input: (provided) => ({
             ...provided,
-            margin: '0',          // Remove input margins
-            padding: '0',         // Remove extra padding from the input
-            lineHeight: 'normal', // Adjust line-height to help with centering
-            fontSize: '12px',     // Reduce font size here
+            margin: '0',
+            padding: '0',
+            lineHeight: 'normal',
+            fontSize: '12px',
         }),
         placeholder: (provided) => ({
             ...provided,
             color: '#999',
-            lineHeight: '30px', // Match line-height to the control height
-            fontSize: '14px',    // Reduce font size here
+            lineHeight: '30px',
+            fontSize: '14px',
             marginTop: '-6px'
         }),
         singleValue: (provided) => ({
             ...provided,
             color: '#333',
-            lineHeight: '30px', // Match line-height to the control height
-            fontSize: '14px',    // Reduce font size here
+            lineHeight: '30px',
+            fontSize: '14px',
             marginTop: '-6px'
         }),
         option: (provided, state) => ({
@@ -66,8 +66,8 @@ const ReportFields = ({ currentData, values, setFieldValue, parent }) => {
             '&:hover': {
                 backgroundColor: '#cce4f6',
             },
-            lineHeight: '20px', // Match line-height to the option height
-            fontSize: '12px',    // Reduce font size here
+            lineHeight: '20px',
+            fontSize: '12px',
         }),
         indicatorSeparator: (provided) => ({
             ...provided,

@@ -147,7 +147,7 @@ const ClaimSelect = () => {
     } else if (CH_CLAIM_BAS !== 'PR') {
       const queryParams = {
         queryId: CH_CLAIM_BAS === 'ID' ? 88 : 89,
-        ...(CH_CLAIM_BAS && { [CH_CLAIM_BAS]: CH_CLAIM_BAS_VAL }),
+        ...(CH_CLAIM_BAS && { [CH_CLAIM_BAS]: CH_CLAIM_BAS_VAL, searchTerm: CH_CLAIM_BAS_VAL })
       };
       if (CH_CLAIM_BAS_VAL) handleGetSelectValue(queryParams, 'CH_ASSR_CODE', setFieldValue);
     }

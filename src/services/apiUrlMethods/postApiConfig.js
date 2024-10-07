@@ -358,6 +358,10 @@ const POST_API_URL = {
   url: '/loan/get',
   baseURL: 'CRUD',
  },
+ getReportList: {
+  url: '/RepotBuilder/generateGrid',
+  baseURL: 'DOCPRINT',
+ },
 };
 
 export default POST_API_URL;
