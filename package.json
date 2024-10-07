@@ -37,6 +37,7 @@
   "esbuild-plugin-react-virtualized": "^1.0.4",
   "exceljs": "^4.4.0",
   "formik": "^2.4.5",
+  "hoist-non-react-statics": "^3.3.2",
   "lodash": "^4.17.21",
   "pdfmake": "^0.2.10",
   "react": "^18.2.0",

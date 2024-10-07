@@ -7,7 +7,6 @@ const ReportForm = ({ fieldList, onSubmit }) => {
     const [initValues, setInitValues] = useState(null);
 
     useEffect(() => {
-        // console.log("fieldList : ", fieldList)
         setInitValues(fieldList);
     }, [fieldList]);
 
