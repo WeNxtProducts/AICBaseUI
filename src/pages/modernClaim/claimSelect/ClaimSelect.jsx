@@ -173,8 +173,9 @@ const ClaimSelect = () => {
       if (response?.status === 'SUCCESS') {
         const list =
           key === 'CH_ASSR_CODE'
-            ? response?.Data['CH_ASSR_CODE']
+            ? response?.Data['ASSURED_CODE']
             : response?.Data[formRef?.current?.values?.CH_CLAIM_BAS];
+        console.log("list : ", list)
         if (setFieldValue && list?.length === 1) {
           setFieldValue('CH_ASSR_CODE', list[0]?.value);
         }
