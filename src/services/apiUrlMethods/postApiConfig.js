@@ -362,6 +362,9 @@ const POST_API_URL = {
   url: '/RepotBuilder/generateGrid',
   baseURL: 'DOCPRINT',
  },
+ getRulesJSON: {
+  url: '/common/rulesJson',
+ },
 };
 
 export default POST_API_URL;

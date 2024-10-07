@@ -13,6 +13,12 @@ const App = () => {
     const [currentPath, setCurrentPath] = useState(true);
     const token = useSelector(state => state?.tokenAndMenuList?.token);
     const [sampleVar, setSampleVar] = useState(10)
+    const Rules = useSelector(state => state?.rules);
+
+    // useEffect(() => {
+    //     if (Rules?.rulesJSON !== null)
+    //         console.log("Rulessss  : ", Rules?.rulesJSON)
+    // }, [Rules])
 
     useEffect(() => {
         const checkPaths = ignorePaths.includes(location.pathname);

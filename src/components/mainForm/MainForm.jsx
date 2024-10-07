@@ -19,6 +19,7 @@ const MainForm = ({
     handleOnBlur,
     handleOnSearch,
     freeze = false,
+    rules
 }) => {
     const [initValues, setInitValues] = useState(null);
     const [validation, setValidation] = useState(null);
@@ -40,7 +41,7 @@ const MainForm = ({
         // const validationSchema = createYupSchema({
         //     [root]: formRender[root],
         // });
-        setValidation(quotationSchema);
+        setValidation(quotationSchema(rules));
     }, [formRender]);
 
     const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val, label = '') => {

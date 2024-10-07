@@ -38,6 +38,7 @@ const ProposalEntryForm = () => {
         setIsPremCalc,
         policyStatus,
     } = useContext(StepperContext);
+    const Rules = useSelector(state => state?.rules?.rulesJSON?.ALL);
     const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
     const { onSearch } = useParamLov();
     const getQuotation = useApiRequests('getQuotation', 'GET');
@@ -47,6 +48,12 @@ const ProposalEntryForm = () => {
     const [proposalEntry, setProposalEntry] = useState(null);
     const [proposalEntryInitialValues, setProposalEntryInitialValues] = useState(null);
     const [loader, setLoader] = useState(false);
+
+    // useEffect(() => {
+    //     if (Rules !== null)
+    //         console.log("Rulessss  : ", Rules)
+    // }, [Rules])
+
 
     const dataAssign = orderedData => {
         setProposalEntryInitialValues({ frontForm: orderedData?.frontForm });
@@ -366,6 +373,7 @@ const ProposalEntryForm = () => {
                         freeze={freeze}
                         handleOnBlur={handleOnBlur}
                         handleOnSearch={handleOnSearch}
+                        rules={Rules}
                     />
                 </div>
             )}

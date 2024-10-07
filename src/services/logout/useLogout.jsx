@@ -9,6 +9,7 @@ import {
 import { setMenu } from '../../globalStore/slices/MenuSlices';
 import { storeEncryptedData } from '../../globalStore/cryptoUtils/cryptoUtil';
 import { useSelector } from 'react-redux';
+import { setRulesJSON } from '../../globalStore/slices/RulesSlices';
 
 const useLogout = () => {
  const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const useLogout = () => {
     dispatch(setSidebarList([]));
     dispatch(setCurrentMenuId({}));
     dispatch(setUserDetails({}));
+    dispatch(setRulesJSON(null));
     return true;
    } else return false;
   } catch (err) {

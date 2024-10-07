@@ -11,6 +11,7 @@ import {
 import { setMenu } from '../../globalStore/slices/MenuSlices';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { setRulesJSON } from '../../globalStore/slices/RulesSlices';
 
 axios.defaults.baseURL = import.meta.env.WENXT_BASEURL;
 
@@ -47,6 +48,7 @@ const useCustomAxios = () => {
      dispatch(setSidebarList([]));
      dispatch(setCurrentMenuId({}));
      dispatch(setUserDetails({}));
+     dispatch(setRulesJSON(null));
      //  setTimeout(() => {
      //   window.location.href = '/login';
      //   navigate('/login');
