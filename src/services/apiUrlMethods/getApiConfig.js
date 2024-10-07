@@ -100,6 +100,10 @@ const GET_API_URL = {
  getProposalChecklist: {
   url: '/common/claimsDocToDoListEdit',
  },
+ reportBuilderFormList: {
+  url: '/RepotBuilder/report',
+  baseURL: 'DOCPRINT',
+ },
 };
 
 export default GET_API_URL;

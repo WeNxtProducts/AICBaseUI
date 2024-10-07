@@ -1,62 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import './Report.scss';
 import ReportForm from './reportForm/ReportForm';
 import { reportValues, transformAndSortFields } from './../../components/commonHelper/DataSend';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
-
-const respone = [
-    {
-        "param_RepColunmName": "REP_VALUE_5",
-        "param_Field_Name": "User Id From",
-        "param_DataType": "LOV",
-        "param_Field_Required": "TRUE",
-        "param_Field_Order": "5"
-    },
-    {
-        "param_RepColunmName": "REP_VALUE_3",
-        "param_Field_Name": "Transaction Date From",
-        "param_DataType": "DATE",
-        "param_Field_Required": "TRUE",
-        "param_Field_Order": "3"
-    },
-    {
-        "param_RepColunmName": "REP_VALUE_2",
-        "param_Field_Name": "Policy No To",
-        "param_DataType": "LOV",
-        "param_Field_Required": "TRUE",
-        "param_Field_Order": "2"
-    },
-    {
-        "param_RepColunmName": "REP_VALUE_1",
-        "param_Field_Name": "Policy No From ",
-        "param_DataType": "LOV",
-        "param_Field_Required": "TRUE",
-        "param_Field_Order": "1"
-    },
-    {
-        "param_RepColunmName": "REP_VALUE_6",
-        "param_Field_Name": "User Id To",
-        "param_DataType": "TEXT",
-        "param_Field_Required": "TRUE",
-        "param_Field_Order": "6"
-    }
-]
+import './Report.scss';
 
 const Report = () => {
     const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
+    const reportBuilderFormList = useApiRequests('reportBuilderFormList', 'GET');
     const getReportList = useApiRequests('getReportList', 'POST');
     const [fieldList, setFieldList] = useState(null)
 
+    const handleReportBuilderFormList = async values => {
+        try {
+            const response = await reportBuilderFormList(
+                '', {}, { id: currentMenuId?.listingQueryId }
+            );
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                setFieldList(transformAndSortFields(response?.data))
+            }
+        } catch (err) {
+            console.log('err : ', err);
+        }
+    };
+
     useEffect(() => {
-        setFieldList(transformAndSortFields(respone))
+        handleReportBuilderFormList()
     }, [])
 
     const handleGetReportList = async values => {
         try {
             const response = await getReportList(
-                { REP_GL_ID: 'REP01-1', ...values }
+                { REP_GL_ID: currentMenuId?.listingQueryId, ...values }
             );
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);

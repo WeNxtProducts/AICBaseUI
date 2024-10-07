@@ -86,15 +86,6 @@ export const brokerValidationSchema = Yup.object().shape({
 //   .then(valid => console.log("Valid"))
 //   .catch(err => console.error(err));
 
-// const initialValues = {
-//  claim_type: 'death',
-//  claim_based: 'preclaimNo',
-//  preclaimNo: '',
-//  reference_no: '',
-//  loss_date: '',
-//  init_date: '',
-// };
-
 // const validationSchema = Yup.object().shape({
 //  claim_type: Yup.string()
 //   .oneOf(['death', 'anotherClaimType'])
@@ -140,8 +131,8 @@ export const quotationSchema = Yup.object().shape({
    POL_PERIOD: Yup.object().shape({
     PFD_FLD_VALUE: Yup.number()
      .required('Period is required')
-     .min(1, 'Period must be greater than 5')
-     .max(100, 'Period must be less than 10'),
+     .min(5, 'Period must be greater than 5')
+     .max(10, 'Period must be less than 10'),
    }),
    POL_FM_DT: Yup.object().shape({
     PFD_FLD_VALUE: Yup.string()
