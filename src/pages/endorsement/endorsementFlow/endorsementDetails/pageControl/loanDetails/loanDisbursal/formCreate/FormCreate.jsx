@@ -21,7 +21,9 @@ const FormCreate = ({
     setDropDown,
     dropDown,
     freeze,
-    setShowDisbursal
+    setShowDisbursal,
+    POL_NO,
+    tranId
 }) => {
     const mrvGetById = useApiRequests(mrvGet, 'GET');
     const getParamLov = useApiRequests('getParamLov', 'GET');
@@ -52,7 +54,15 @@ const FormCreate = ({
     const onSubmit = values => {
         const val = deepCopy(values);
         const modifiedData = extractFieldValuesInPlace(val);
-        const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
+        const payload = {
+            [root]: {
+                formFields: {
+                    ...modifiedData[root]?.formFields,
+                    LOAN_POL_TRAN_ID: tranId,
+                    LOAN_POL_NO: POL_NO
+                }
+            }
+        };
         addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
     };
 

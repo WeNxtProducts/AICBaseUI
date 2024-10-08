@@ -86,6 +86,24 @@ const PolicyValues = () => {
                                 <p className='value-style'>{policyHistory?.POL_PREM_PAY_YRS || ''}</p>
                             </div>
                         </div>
+
+                        <div className='w-full flex items-center'>
+                            <div className='w-2/5'>
+                                <p className='label-style'>Policy Premium</p>
+                            </div>
+                            <div className='w-3/5'>
+                                <p className='value-style'>{formatNumber(policyHistory?.POLICY_PREM) || ''}</p>
+                            </div>
+                        </div>
+
+                        <div className='w-full flex items-center'>
+                            <div className='w-2/5'>
+                                <p className='label-style'>Deposit Premium</p>
+                            </div>
+                            <div className='w-3/5'>
+                                <p className='value-style'>{formatNumber(policyHistory?.DEP_RECVD) || ''}</p>
+                            </div>
+                        </div>
                     </div>
                 </>
             }

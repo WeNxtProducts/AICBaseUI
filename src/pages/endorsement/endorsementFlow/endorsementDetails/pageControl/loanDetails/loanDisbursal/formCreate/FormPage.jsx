@@ -110,7 +110,7 @@ const FormPage = ({
                                         </button>
                                         {!freeze && (
                                             <button disabled={freeze} type='submit' className='save ml-9'>
-                                                {addOrUpdate ? 'Approval' : 'Approval'}
+                                                {addOrUpdate ? 'Submit' : 'Submit'}
                                             </button>
                                         )}
                                     </div>

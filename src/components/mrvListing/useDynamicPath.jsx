@@ -5,7 +5,17 @@ const useDynamicPath = (path) => {
 
     useEffect(() => {
         const importQuotationJSON = async () => {
-            const quotationJSON = await import(path);
+            let quotationJSON;
+            switch (path) {
+                case 'TM1':
+                    quotationJSON = await import('../../getFormFields/QUOTATIONENTRY_getFieldList.json');
+                    break;
+                case 'path2':
+                    quotationJSON = await import('../../getFormFields/QUOTATIONENTRY_getFieldList.json');
+                    break;
+                default:
+                    throw new Error(`Unknown path: ${path}`);
+            }
             setJSONData(quotationJSON.default);
         };
         importQuotationJSON();

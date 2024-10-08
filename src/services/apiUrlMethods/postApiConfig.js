@@ -365,6 +365,9 @@ const POST_API_URL = {
  getRulesJSON: {
   url: '/common/rulesJson',
  },
+ getProRules: {
+  url: '/common/boundaryConds',
+ },
 };
 
 export default POST_API_URL;

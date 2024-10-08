@@ -3,8 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Formik, Form, useFormikContext } from 'formik';
 import FieldWithValue from '../fieldsWithValues/FieldWithValue';
 import { createYupSchema } from '../commonHelper/SchemaGenerator';
-
-import { quotationSchema } from './../commonHelper/SchemaGenerator';
+import { quotationSchema } from '../../pages/quotation/quotationPanels/quotationSchema/QuotationSchema';
 
 const MainForm = ({
     initialValues,
@@ -19,7 +18,7 @@ const MainForm = ({
     handleOnBlur,
     handleOnSearch,
     freeze = false,
-    rules
+    schemaValidation,
 }) => {
     const [initValues, setInitValues] = useState(null);
     const [validation, setValidation] = useState(null);
@@ -38,10 +37,14 @@ const MainForm = ({
     }, [initValues]);
 
     useEffect(() => {
-        // const validationSchema = createYupSchema({
-        //     [root]: formRender[root],
-        // });
-        setValidation(quotationSchema(rules));
+        if (schemaValidation) {
+            setValidation(schemaValidation);
+        } else {
+            const validationSchema = createYupSchema({
+                [root]: formRender[root],
+            });
+            setValidation(validationSchema);
+        }
     }, [formRender]);
 
     const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val, label = '') => {

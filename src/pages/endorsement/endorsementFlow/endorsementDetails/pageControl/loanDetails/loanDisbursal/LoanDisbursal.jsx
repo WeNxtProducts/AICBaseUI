@@ -1,27 +1,34 @@
 import React, { useState } from 'react'
 import FormCreate from './formCreate/FormCreate'
-import ClaimsJson from '../../../../../../../getFormFields/CLAIMENTRY_getFieldList_1.json'
 import ClaimsLOVJson from '../../../../../../../getFormFields/CLAIMENTRY_getLOVList_1.json'
+import loanDisbursalJSON from '../../../../../../../getFormFields/LOAN_DISBURSAL.json';
 
-const LoanDisbursal = ({ setShowDisbursal }) => {
-    const [dropDown, setDropDown] = useState(ClaimsLOVJson);
+const LoanDisbursal = ({ setShowDisbursal, POL_NO, tranId }) => {
+    const [dropDown, setDropDown] = useState({
+        LOAN_REPAY_FREQ: [
+            { label: "Half Yearly", value: "H" },
+            { label: "Monthly", value: "M" },
+            { label: "Quarterly", value: "Q" },
+            { label: "Single", value: "S" },
+            { label: "Yearly", value: "Y" }
+        ],
+    });
 
     return (
         <div>
             <p className='summary_title'>Loan Disbursal</p>
             <FormCreate
-                root='ClaimCharges'
+                root='loan'
                 mrvGet='getClaimChargesDetailsEdit'
-                screenCode='CLAIMENTRY'
-                screenName='CLAIMENTRY'
                 saveRow='claimChargeCreate'
                 editRow='claimChargeUpdate'
                 deleteRow='claimChargeDelete'
-                ClaimsJson={ClaimsJson}
+                ClaimsJson={loanDisbursalJSON}
                 setDropDown={setDropDown}
                 dropDown={dropDown}
                 freeze={false}
                 setShowDisbursal={setShowDisbursal}
+                POL_NO={POL_NO} tranId={tranId}
             />
         </div>
     )

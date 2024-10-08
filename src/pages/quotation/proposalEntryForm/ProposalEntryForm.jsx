@@ -17,42 +17,31 @@ import ErrorLog from '../../../components/errorLog/ErrorLog';
 import ErrorContent from '../../../components/errorLog/ErrorContent';
 import PremiumDetails from './PremiumDetails';
 import PolTagDisplay from '../../../components/polTagDisplay/PolTagDisplay';
+import { quotationSchema } from '../quotationPanels/quotationSchema/QuotationSchema';
 
 dayjs.extend(utc);
 
 const ProposalEntryForm = () => {
     const dispatch = useDispatch();
-    const {
-        handleNext,
-        id: tranId,
-        QuotationJSON,
-        dropDown,
-        setDropDown,
-        prodCode,
-        proposalNumber,
-        setProposalNumber,
-        freeze,
-        planCode,
-        rules,
-        setPolicyStatus,
-        setIsPremCalc,
-        policyStatus,
+    const { handleNext, id: tranId, QuotationJSON, dropDown, setDropDown,
+        prodCode, proposalNumber, setProposalNumber, freeze, planCode, rules, setPolicyStatus,
+        setIsPremCalc, policyStatus, userRules, proRules
     } = useContext(StepperContext);
-    const Rules = useSelector(state => state?.rules?.rulesJSON?.ALL);
     const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
     const { onSearch } = useParamLov();
     const getQuotation = useApiRequests('getQuotation', 'GET');
     const saveQuotation = useApiRequests('saveProposalEntry', 'POST');
     const updateQuotation = useApiRequests('updateProposalEntry', 'POST');
     const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
+    const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
     const [proposalEntry, setProposalEntry] = useState(null);
     const [proposalEntryInitialValues, setProposalEntryInitialValues] = useState(null);
     const [loader, setLoader] = useState(false);
 
     // useEffect(() => {
-    //     if (Rules !== null)
-    //         console.log("Rulessss  : ", Rules)
-    // }, [Rules])
+    //     if (userRules !== null)
+    //         console.log("Rulessss  : ", userRules)
+    // }, [userRules])
 
 
     const dataAssign = orderedData => {
@@ -270,7 +259,20 @@ const ProposalEntryForm = () => {
         }));
     };
 
-    const handleOnBlur = (currentData, values, setFieldValue, val, label) => {
+    const handleGetData = async (payload, qId) => {
+        try {
+            const response = await getMapQuery(payload, { queryId: qId });
+            if (response?.status === 'SUCCESS') {
+                return response?.Data[0];
+            } else if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            }
+        } catch (err) {
+            console.log('err  : ', err);
+        }
+    };
+
+    const handleOnBlur = async (currentData, values, setFieldValue, val, label) => {
         const key = currentData?.PFD_COLUMN_NAME;
         console.log("key : ", key)
 
@@ -280,6 +282,13 @@ const ProposalEntryForm = () => {
             if (flag) {
                 const updatedState = changeState(values, 'POL_CUST_NAME', 'PFD_FLD_VALUE', label);
                 handleCust_code(updatedState, setFieldValue);
+                // if (val) {
+                //     const payload = { queryParams: { ASSR_CODE: val } };
+                //     const validateAge = await handleGetData(payload, 190);
+                //     if (validateAge) {
+                //         console.log("validateAge : ", validateAge)
+                //     }
+                // }
             }
         }
 
@@ -371,9 +380,11 @@ const ProposalEntryForm = () => {
                         addOrUpdate={!!tranId}
                         lovList={dropDown}
                         freeze={freeze}
+                        schemaValidation={quotationSchema(userRules, proRules, !tranId)}
                         handleOnBlur={handleOnBlur}
                         handleOnSearch={handleOnSearch}
-                        rules={Rules}
+                        userRules={userRules}
+                        proRules={proRules}
                     />
                 </div>
             )}

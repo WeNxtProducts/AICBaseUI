@@ -117,6 +117,7 @@ const FormFieldsRender = ({
                                 />
                             );
                         case 'number':
+                        case 'amount':
                             return (
                                 <CustomNumberField
                                     firstFieldRef={firstFieldRef}
@@ -124,6 +125,7 @@ const FormFieldsRender = ({
                                     placeholder={PFD_HINT}
                                     size='medium'
                                     value={value?.PFD_FLD_VALUE}
+                                    format={PFD_DATA_TYPE}
                                     readOnly={freeze}
                                     disabled={!PFD_EDIT_YN}
                                     onChange={e => {

@@ -95,7 +95,8 @@ const LoanDetails = ({ currentTab, dataLoaded }) => {
                 )
                 :
                 (
-                    <LoanDisbursal setShowDisbursal={setShowDisbursal} />
+                    <LoanDisbursal setShowDisbursal={setShowDisbursal}
+                        POL_NO={POL_NO} tranId={tranId} />
                 )
             }
 

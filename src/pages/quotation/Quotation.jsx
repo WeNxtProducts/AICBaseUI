@@ -28,7 +28,10 @@ import './Quotations.scss';
 export const StepperContext = createContext();
 
 const Quotation = () => {
-    const QuotationJSON = useDynamicPath('../../getFormFields/QUOTATIONENTRY_getFieldList.json');
+    const planCode = useSelector(state => state?.id?.planCode);
+    const proRules = useSelector(state => state?.id?.proRules);
+    const userRules = useSelector(state => state?.rules?.rulesJSON?.ALL);
+    const QuotationJSON = useDynamicPath(planCode);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const rules = {
@@ -59,7 +62,6 @@ const Quotation = () => {
     };
     const { class: statusClass = 'pending', text: statusText = 'Not Submitted' } =
         statusMap[policyStatus ? 'S' : 'N'] || {};
-    //  const { id: stepperId } = { id: Number(useParams().id) };
     const stepperId = useSelector(state => state?.id?.stepperId);
     const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const updateProposalStepperStatus = useApiRequests('updateProposalStepperStatus', 'POST');
@@ -73,7 +75,7 @@ const Quotation = () => {
     const formValues = useSelector(state => state?.id?.formValues);
     const freeze = useSelector(state => state?.id?.freezeStatus);
     const prodCode = useSelector(state => state?.id?.prodCode);
-    const planCode = useSelector(state => state?.id?.planCode);
+
     const [loader, setLoader] = useState(false);
     const [showUnderWriter, setShowUnderWriter] = useState(false);
     const [dropDown, setDropDown] = useState(QuotationLov);
@@ -88,9 +90,9 @@ const Quotation = () => {
     };
 
     useEffect(() => {
+        // console.log("proRules : ", proRules)s
         if (proposalNumber) {
             handleGetPremiumDetails();
-            // procedureCall(false)
         }
         if (currentMenuId?.ds_type == 2) {
             //    setPolicyStatus(true);
@@ -99,9 +101,11 @@ const Quotation = () => {
         return () => {
             //    dispatch(setCurrentID(''));
             //    dispatch(setProdCode(''));
+            //    dispatch(setPlanCode(''));
             //    dispatch(setFormValues(null));
             //    dispatch(setFreezeStatus(false));
             //    dispatch(setStepperId(0));
+            //    dispatch(setProRules(null))
         };
     }, [proposalNumber]);
 
@@ -174,6 +178,8 @@ const Quotation = () => {
         setPolicyStatus,
         policyStatus,
         premDetails,
+        proRules,
+        userRules
     };
 
     const procedureCall = async load => {

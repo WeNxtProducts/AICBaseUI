@@ -34,8 +34,9 @@ const MrvQuotation = ({
   isDelete = true,
   subId = '',
   medicalId = '',
+  schemaValidation
 }) => {
-  const { QuotationJSON, formValues, setDropDown, dropDown, freeze, handleNext, rules, isPremCalc } =
+  const { QuotationJSON, formValues, setDropDown, dropDown, freeze, handleNext, userRules, isPremCalc, proRules } =
     useContext(StepperContext);
   const { mrvListingId } = QuotationJSON;
   const { rowData, columnData, handleMRVListing } = useMRVListing();
@@ -59,7 +60,6 @@ const MrvQuotation = ({
 
   const nextStep = () => {
     if (root !== 'life_assured_details') {
-      console.log('next : ', root);
       handleNext();
     } else if (root === 'life_assured_details') {
       if (hasValidRowData(rowData)) {
@@ -473,7 +473,7 @@ const MrvQuotation = ({
             }
 
             const age = response?.PGBEN_AGE;
-            if (age < rules.PGBEN_AGE.below || age > rules.PGBEN_AGE.above) {
+            if (age < 18 || age > 60) {
               changeState('benificiary', 'PGBEN_GUARDIAN_NAME', 'PFD_MANDATORY_YN', true);
             }
           }
@@ -566,6 +566,7 @@ const MrvQuotation = ({
             <MRVQuotationForm
               initialValues={quotationMRVInitialValues}
               formRender={quotationMRV}
+              schemaValidation={schemaValidation}
               root={root}
               lovList={dropDown}
               onSubmit={onSubmit}
