@@ -67,6 +67,7 @@ const RightSideForm = () => {
   }, []);
 
   const handleGetRules = async (userId) => {
+    setLoader(true);
     try {
       const response = await getRulesJSON({ userId });
       if (response?.status === 'SUCCESS') {
@@ -102,6 +103,8 @@ const RightSideForm = () => {
       }
     } catch (err) {
       console.error('login error : ', err);
+    } finally {
+      setLoader(false);
     }
   };
 
