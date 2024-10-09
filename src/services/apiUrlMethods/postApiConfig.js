@@ -368,6 +368,21 @@ const POST_API_URL = {
  getProRules: {
   url: '/common/boundaryConds',
  },
+
+ saveLoanDetails: {
+  url: '/loan/save',
+  baseURL: 'CRUD',
+ },
+
+ updateLoanDetails: {
+  url: '/loan/update',
+  baseURL: 'CRUD',
+ },
+
+ deleteLoanDetails: {
+  url: '/loan/delete',
+  baseURL: 'CRUD',
+ },
 };
 
 export default POST_API_URL;

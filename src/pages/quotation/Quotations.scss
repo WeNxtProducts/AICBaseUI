@@ -157,6 +157,62 @@
    }
   }
  }
+ .sub-broker-list {
+  .broker-wrapper {
+   position: relative;
+
+   .broker-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .broker-details {
+     color: #333;
+     font-family: 'Roboto', sans-serif;
+
+     strong {
+      color: #4d5e80; // Accent color for strong text
+      font-weight: 600; // Slightly bolder for emphasis
+     }
+    }
+
+    .collapse-icon {
+     background: none;
+     border: none;
+     cursor: pointer;
+     font-size: 18px; // Moderate icon size
+     color: #4d5e80; // Color for the icon
+     transition: transform 0.3s ease;
+
+     &.rotate-icon {
+      transform: rotate(90deg); // Rotate when collapsed
+     }
+    }
+
+    .children {
+     margin-top: 8px; // Slight margin for children
+     padding-left: 20px; // Indentation for children
+     border-left: 1px dashed #e0e0e0; // Dashed line for child indicator
+    }
+   }
+
+   .action-sub {
+    border-left: 1px solid #4d5e80;
+   }
+  }
+ }
+}
+.info-icon {
+ color: #0382c8;
+ font-size: 16px;
 }
 
 .product_listing {

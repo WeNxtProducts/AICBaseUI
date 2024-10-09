@@ -19,10 +19,10 @@ const LoanDisbursal = ({ setShowDisbursal, POL_NO, tranId }) => {
             <p className='summary_title'>Loan Disbursal</p>
             <FormCreate
                 root='loan'
-                mrvGet='getClaimChargesDetailsEdit'
-                saveRow='claimChargeCreate'
-                editRow='claimChargeUpdate'
-                deleteRow='claimChargeDelete'
+                mrvGet='getLoanMrv'
+                saveRow='saveLoanDetails'
+                editRow='updateLoanDetails'
+                deleteRow='deleteLoanDetails'
                 ClaimsJson={loanDisbursalJSON}
                 setDropDown={setDropDown}
                 dropDown={dropDown}

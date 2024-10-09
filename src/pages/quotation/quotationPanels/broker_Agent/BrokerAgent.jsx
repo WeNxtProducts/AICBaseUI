@@ -6,11 +6,13 @@ import {
 } from '../../../../components/commonExportsFields/CommonExportsFields';
 import { FieldArray, Form, Formik, ErrorMessage } from 'formik';
 import { brokerValidationSchema } from '../../../../components/commonHelper/SchemaGenerator';
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, InfoCircleOutlined, RightOutlined } from '@ant-design/icons';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 import Loader from '../../../../components/loader/Loader';
 import BrokerTree from './brokerTree/BrokerTree';
+import { Popover } from 'antd';
+import BrokerRates from './BrokerRates';
 
 const BrokerAgent = () => {
     const {
@@ -29,6 +31,7 @@ const BrokerAgent = () => {
     const [agentList, setAgentList] = useState([]);
     const [loader, setLoader] = useState(false);
     const [initialValues, setInitialValues] = useState(null);
+    const [collapsedBrokers, setCollapsedBrokers] = useState({});
 
     const handleGetBrokerList = async () => {
         try {
@@ -103,10 +106,135 @@ const BrokerAgent = () => {
         }
     };
 
+    const initialValuess = {
+        polBrokerDetails: [
+            {
+                "formFields": {
+                    "PBRK_BRK_CODE": "100065",
+                    "PBRK_BRK_PERC": 10,
+                    "PBRK_BRK_NAME": "DHIRA  SHAMIM",
+                    children: [
+                        {
+                            "PBRK_BRK_CODE": "100066",
+                            PBRK_BRK_DESGNATION: 'Manager',
+                            "PBRK_BRK_PERC": 10,
+                            children: [
+                                {
+                                    "PBRK_BRK_CODE": "100067",
+                                    PBRK_BRK_DESGNATION: 'Manager',
+                                    "PBRK_BRK_PERC": 100,
+
+                                    children: [
+                                        {
+                                            "PBRK_BRK_CODE": "100068",
+                                            PBRK_BRK_DESGNATION: 'Manager',
+                                            "PBRK_BRK_PERC": 200,
+                                        },
+                                        {
+                                            "PBRK_BRK_CODE": "100076",
+                                            PBRK_BRK_DESGNATION: 'Manager',
+                                            "PBRK_BRK_PERC": 10,
+                                        },
+                                    ]
+                                },
+                            ]
+                        },
+                        {
+                            "PBRK_BRK_CODE": "100071",
+                            PBRK_BRK_DESGNATION: 'Manager',
+                            "PBRK_BRK_PERC": 10,
+                        },
+                    ]
+                }
+            },
+            {
+                "formFields": {
+                    "PBRK_BRK_CODE": "100074",
+                    "PBRK_BRK_PERC": 100,
+                    "PBRK_BRK_NAME": "CHARLES MBANGWA",
+                    children: [
+                        {
+                            "PBRK_BRK_CODE": "100075",
+                            PBRK_BRK_DESGNATION: 'Manager',
+                            "PBRK_BRK_PERC": 10,
+                        },
+                    ]
+                }
+            }
+        ]
+    }
+
+    const toggleCollapse = (brokerId) => {
+        setCollapsedBrokers(prevState => ({
+            ...prevState,
+            [brokerId]: !prevState[brokerId] // Toggle the collapse state
+        }));
+    };
+
+    const renderBrokers = (brokers, level = 1) => {
+        return (
+            <div className='sub-broker-list col-span-6'>
+                {brokers.map((broker) => {
+                    const brokerId = `${broker.PBRK_BRK_CODE}-${level}`;
+                    const isCollapsed = collapsedBrokers[brokerId] ?? false;
+
+                    return (
+                        <div key={brokerId} className='broker-wrapper'>
+                            <div
+                                className='broker-card mt-2 grid grid-cols-12 gap-x-1'
+                                style={{ marginLeft: `${level * 15}px` }}
+                            >
+
+                                <div className='broker-details col-span-11 flex items-center justify-between pe-4'>
+                                    <p className='m-0'><strong>Code:</strong> {broker.PBRK_BRK_CODE}</p>
+                                    <p className='m-0'><strong>Designation:</strong> {broker.PBRK_BRK_DESGNATION}</p>
+                                    <p className='m-0'><strong>Percentage:</strong> {broker.PBRK_BRK_PERC}%</p>
+                                </div>
+
+                                <div className='col-span-1 action-sub'>
+                                    <div className='flex items-center justify-between'>
+                                        <div className='mt-1 m-auto'>
+                                            <Popover
+                                                overlayClassName={'broker_details_Popover'}
+                                                content={<BrokerRates brokerId={'100066'} code={'100066'} />}
+                                                trigger='hover'>
+                                                <InfoCircleOutlined className='info-icon' />
+                                            </Popover>
+                                        </div>
+                                        <div>
+                                            {broker?.children && broker?.children.length > 0 && (
+                                                <button
+                                                    type='button'
+                                                    className={`collapse-icon ${isCollapsed ? 'rotate-icon' : ''}`}
+                                                    onClick={() => toggleCollapse(brokerId)}
+                                                >
+                                                    <RightOutlined />
+                                                </button>
+                                            )}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            {/* Render Children */}
+                            {isCollapsed && broker.children && broker.children.length > 0 && (
+                                <div className='children'>
+                                    {renderBrokers(broker.children, level + 1)}
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    };
+
     return (
         <div className='broker_agent p-3'>
             {loader && <Loader />}
-            {/* <BrokerTree /> */}
             {initialValues !== null && (
                 <Formik
                     initialValues={initialValues}
@@ -136,86 +264,104 @@ const BrokerAgent = () => {
                                                 </div>
                                             )}
                                             <div className='col-span-8'>
-                                                {values?.polBrokerDetails?.map((broker, index) => (
-                                                    <div className='grid grid-cols-2 gap-x-7 mt-3' key={index}>
-                                                        <div className='col-span-1'>
-                                                            <div className='flex items-center'>
-                                                                <div className='w-2/12'>
-                                                                    <p className='label-font select-none'>
-                                                                        Agent Code <span className='mandatory-symbol'>*</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div className='w-8/12 fields-error'>
-                                                                    <CustomDropDown
-                                                                        name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
-                                                                        options={agentList[index] || []}
-                                                                        readOnly={freeze}
-                                                                        value={broker?.formFields?.PBRK_BRK_CODE || undefined}
-                                                                        onSearch={e => {
-                                                                            onHandleSearch(e, index);
-                                                                        }}
-                                                                        onChange={e =>
-                                                                            setFieldValue(`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`, e)
-                                                                        }
-                                                                        onBlur={(e, label) =>
-                                                                            onBlurHandler(
-                                                                                label,
-                                                                                `polBrokerDetails.${index}.formFields.PBRK_BRK_NAME`,
-                                                                                setFieldValue,
-                                                                            )
-                                                                        }
-                                                                        format='codedescsearch'
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
-                                                                        component='div'
-                                                                        className='error-message'
-                                                                    />
+                                                {values?.polBrokerDetails?.map((broker, index) => {
+                                                    const hasChildren = broker?.formFields?.children?.length > 0;
+                                                    return (
+                                                        <div className='grid grid-cols-2 gap-x-7 mt-3' key={index}>
+                                                            <div className='col-span-1'>
+                                                                <div className='flex items-center'>
+                                                                    <div className='w-2/12'>
+                                                                        <p className='label-font select-none'>
+                                                                            Agent Code <span className='mandatory-symbol'>*</span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className='w-8/12 fields-error'>
+                                                                        <CustomDropDown
+                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
+                                                                            options={agentList[index] || []}
+                                                                            readOnly={freeze}
+                                                                            value={broker?.formFields?.PBRK_BRK_CODE || undefined}
+                                                                            onSearch={e => {
+                                                                                onHandleSearch(e, index);
+                                                                            }}
+                                                                            onChange={e =>
+                                                                                setFieldValue(`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`, e)
+                                                                            }
+                                                                            onBlur={(e, label) =>
+                                                                                onBlurHandler(
+                                                                                    label,
+                                                                                    `polBrokerDetails.${index}.formFields.PBRK_BRK_NAME`,
+                                                                                    setFieldValue,
+                                                                                )
+                                                                            }
+                                                                            format='codedescsearch'
+                                                                        />
+                                                                        <ErrorMessage
+                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
+                                                                            component='div'
+                                                                            className='error-message'
+                                                                        />
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div className='col-span-1'>
-                                                            <div className='flex items-center'>
-                                                                <div className='w-2/12'>
-                                                                    <p className='label-font select-none'>
-                                                                        Percentage <span className='mandatory-symbol'>*</span>
-                                                                    </p>
-                                                                </div>
-                                                                <div className='w-8/12 fields-error flex items-center'>
-                                                                    <CustomNumberField
-                                                                        name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
-                                                                        placeholder='0'
-                                                                        format='number'
-                                                                        size='small'
-                                                                        readOnly={freeze}
-                                                                        value={broker?.formFields?.PBRK_BRK_PERC}
-                                                                        onChange={e => {
-                                                                            setFieldValue(
-                                                                                `polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`,
-                                                                                e.target.value,
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                    <ErrorMessage
-                                                                        name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
-                                                                        component='div'
-                                                                        className='error-message'
-                                                                    />
-                                                                    {brokerTypeShared && index !== 0 && (
-                                                                        <div className='ml-5'>
-                                                                            {!freeze && (
-                                                                                <button type='button' onClick={() => remove(index)}>
-                                                                                    <DeleteOutlined className='delete-button' />
-                                                                                </button>
-                                                                            )}
+                                                            <div className='col-span-1'>
+                                                                <div className='flex items-center'>
+                                                                    <div className='w-2/12'>
+                                                                        <p className='label-font select-none'>
+                                                                            Percentage <span className='mandatory-symbol'>*</span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div className='w-8/12 fields-error flex items-center'>
+                                                                        <CustomNumberField
+                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
+                                                                            placeholder='0'
+                                                                            format='number'
+                                                                            size='small'
+                                                                            readOnly={freeze}
+                                                                            value={broker?.formFields?.PBRK_BRK_PERC}
+                                                                            onChange={e => {
+                                                                                setFieldValue(
+                                                                                    `polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`,
+                                                                                    e.target.value,
+                                                                                );
+                                                                            }}
+                                                                        />
+                                                                        <ErrorMessage
+                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
+                                                                            component='div'
+                                                                            className='error-message'
+                                                                        />
+
+                                                                        <div className='ml-3'>
+                                                                            <Popover
+                                                                                overlayClassName={'broker_details_Popover'}
+                                                                                content={<BrokerRates brokerId={'100066'} code={'100066'} />}
+                                                                                trigger='hover'>
+                                                                                <InfoCircleOutlined className='info-icon' />
+                                                                            </Popover>
                                                                         </div>
-                                                                    )}
+
+                                                                        {brokerTypeShared && index !== 0 && (
+                                                                            <div className='ml-5'>
+                                                                                {!freeze && (
+                                                                                    <button type='button' onClick={() => remove(index)}>
+                                                                                        <DeleteOutlined className='delete-button' />
+                                                                                    </button>
+                                                                                )}
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <div className='col-span-2 grid grid-cols-8'>
+                                                                {hasChildren &&
+                                                                    renderBrokers(broker?.formFields?.children)
+                                                                }
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ))}
+                                                    )
+                                                })}
                                             </div>
                                         </div>
                                     )}
