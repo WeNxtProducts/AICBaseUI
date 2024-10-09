@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const MultiRowTable = lazy(() => import('../pages/multiRowTable/MultiRowTable'));
 const SurrenderMaturity = lazy(() => import('../pages/surrenderMaturity/SurrenderMaturity'));
 const EndoListing = lazy(() => import('../pages/endorsement/endoListing/EndoListing'));
 const Report = lazy(() => import('../pages/report/Report'));
@@ -57,6 +58,15 @@ const AppRouter = () => {
         <div>
             <ScrollToTop />
             <Routes>
+                <Route
+                    path='/multiRowTable'
+                    element={
+                        <Suspense fallback={<div>MultiRowTable</div>}>
+                            <MultiRowTable />
+                        </Suspense>
+                    }
+                />
+
                 <Route
                     path='/rep1'
                     element={
