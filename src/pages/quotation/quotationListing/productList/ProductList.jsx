@@ -85,6 +85,7 @@ const ProductList = () => {
 
    const handleSelectPlan = item => {
       // dispatch(setProRules())
+      console.log("item?.VALUE : ",item?.VALUE)
       handleGetProductRuleJSON(item?.VALUE)
    };
 

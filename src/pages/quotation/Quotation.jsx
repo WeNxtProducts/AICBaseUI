@@ -8,7 +8,7 @@ import useStepper from '../../components/customStepper/useStepper';
 import CustomStepper from '../../components/customStepper/CustomStepper';
 // import { proposalStepper } from '../../components/tableComponents/sampleData';
 import Loader from '../../components/loader/Loader';
-// import QuotationJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
+import QuotationJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
 import QuotationLov from '../../getFormFields/QUOTATIONENTRY_getLOVList.json';
 import UnderWriterWorkBench from '../underWriterWorkBench/UnderWriterWorkBench';
 import {
@@ -31,7 +31,7 @@ const Quotation = () => {
     const planCode = useSelector(state => state?.id?.planCode);
     const proRules = useSelector(state => state?.id?.proRules);
     const userRules = useSelector(state => state?.rules?.rulesJSON?.ALL);
-    const QuotationJSON = useDynamicPath(planCode);
+    // const QuotationJSON = useDynamicPath(planCode);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const rules = {

@@ -383,6 +383,10 @@ const POST_API_URL = {
   url: '/loan/delete',
   baseURL: 'CRUD',
  },
+ deleteBroker: {
+  url: '/polBroker/delete',
+  baseURL: 'CRUD',
+ },
 };
 
 export default POST_API_URL;

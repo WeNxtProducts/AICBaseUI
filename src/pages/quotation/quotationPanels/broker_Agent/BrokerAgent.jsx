@@ -26,6 +26,8 @@ const BrokerAgent = () => {
     const getParamLov = useApiRequests('getParamLov', 'GET');
     const saveBrokers = useApiRequests('saveBrokers', 'POST');
     const getBrokerList = useApiRequests('getBrokerList', 'POST');
+    const deleteBroker = useApiRequests('deleteBroker', 'POST');
+    const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const brokerTypeShared =
         formValues?.frontForm?.formFields?.POL_AGENT_COMM_BASIS?.PFD_FLD_VALUE === 'S';
     const [agentList, setAgentList] = useState([]);
@@ -87,24 +89,85 @@ const BrokerAgent = () => {
         return totalPercentage <= 100;
     };
 
+    const procedureCall = async (newBroker, modifiedBroker, values) => {
+        setLoader(true);
+        const payload = { inParams: newBroker[0] };
+        try {
+            const response = await invokeClaimsProcedure(payload, {
+                procedureName: 'P_INS_BROK',
+                packageName: 'WNPKG_POLICY',
+            });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                if (modifiedBroker?.length > 0) {
+                    updateBrokerPercentage(values)
+                } else if (modifiedBroker?.length === 0) {
+                    showNotification.SUCCESS(response?.status_msg);
+                }
+            }
+        } catch (err) {
+            setLoader(false);
+        } finally {
+            setLoader(false);
+        }
+    };
+
+    const updateBrokerPercentage = async (modifiedBroker) => {
+        try {
+            const response = await saveBrokers(modifiedBroker, {}, { tranId });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                handleGetBrokerList()
+                showNotification.SUCCESS(response?.status_msg);
+            }
+        } catch (err) {
+            return null;
+        }
+    }
+
     const onSubmit = async values => {
         const isValid = validateBrokerPercentages(values);
 
         if (!isValid) {
             showNotification.WARNING('Percentage should not exceed 100');
         } else if (isValid) {
-            try {
-                const response = await saveBrokers(values, {}, { tranId });
-                if (response?.status === 'FAILURE') {
-                    showNotification.ERROR(response?.status_msg);
-                } else if (response?.status === 'SUCCESS') {
-                    showNotification.SUCCESS(response?.status_msg);
+            const noPolTranId = values?.polBrokerDetails.filter(item => !item?.formFields?.PBRK_TRAN_ID);
+
+            const modifiedPercentage = values?.polBrokerDetails.filter(newItem => {
+                const oldItem = initialValues?.polBrokerDetails.find(old => old.formFields.PBRK_BRK_CODE === newItem.formFields.PBRK_BRK_CODE);
+                return oldItem && newItem.formFields.PBRK_BRK_PERC != oldItem.formFields.PBRK_BRK_PERC;
+            });
+
+            if (noPolTranId?.length > 0) {
+                const transformedData = noPolTranId.map(item => ({
+                    P_POL_TRAN_ID: tranId,
+                    P_POL_AGENT_CODE: item.formFields.PBRK_BRK_CODE
+                }));
+                procedureCall(transformedData, modifiedPercentage, values)
+            } else if (noPolTranId?.length === 0) {
+                if (modifiedPercentage?.length > 0) {
+                    updateBrokerPercentage(values)
                 }
-            } catch (err) {
-                return null;
             }
         }
     };
+
+    const handleDeleteBroker = async (brokerId) => {
+        console.log("brokerId : ", brokerId)
+        try {
+            const response = await deleteBroker('', {}, { id: brokerId });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                handleGetBrokerList()
+                showNotification.SUCCESS(response?.status_msg);
+            }
+        } catch (err) {
+            return null;
+        }
+    }
 
     const initialValuess = {
         polBrokerDetails: [
@@ -332,20 +395,31 @@ const BrokerAgent = () => {
                                                                             component='div'
                                                                             className='error-message'
                                                                         />
-
-                                                                        <div className='ml-3'>
-                                                                            <Popover
-                                                                                overlayClassName={'broker_details_Popover'}
-                                                                                content={<BrokerRates brokerId={'100066'} code={'100066'} />}
-                                                                                trigger='hover'>
-                                                                                <InfoCircleOutlined className='info-icon' />
-                                                                            </Popover>
-                                                                        </div>
+                                                                        {broker?.formFields?.PBRK_TRAN_ID &&
+                                                                            <div className='ml-3'>
+                                                                                <Popover
+                                                                                    overlayClassName={'broker_details_Popover'}
+                                                                                    content={<BrokerRates brokerId={broker?.formFields?.PBRK_BRK_CODE}
+                                                                                        code={broker?.formFields?.PBRK_BRK_CODE}
+                                                                                        brokerName={broker?.formFields?.PBRK_BRK_NAME}
+                                                                                    />
+                                                                                    }
+                                                                                    trigger='hover'>
+                                                                                    <InfoCircleOutlined className='info-icon' />
+                                                                                </Popover>
+                                                                            </div>
+                                                                        }
 
                                                                         {brokerTypeShared && index !== 0 && (
                                                                             <div className='ml-5'>
                                                                                 {!freeze && (
-                                                                                    <button type='button' onClick={() => remove(index)}>
+                                                                                    <button type='button' onClick={() => {
+                                                                                        if (broker?.formFields?.PBRK_TRAN_ID) {
+                                                                                            handleDeleteBroker(broker?.formFields?.PBRK_TRAN_ID)
+                                                                                        } else if (!broker?.formFields?.PBRK_TRAN_ID) {
+                                                                                            remove(index)
+                                                                                        }
+                                                                                    }}>
                                                                                         <DeleteOutlined className='delete-button' />
                                                                                     </button>
                                                                                 )}
