@@ -399,7 +399,7 @@ const BrokerAgent = () => {
                                                                             <div className='ml-3'>
                                                                                 <Popover
                                                                                     overlayClassName={'broker_details_Popover'}
-                                                                                    content={<BrokerRates brokerId={broker?.formFields?.PBRK_BRK_CODE}
+                                                                                    content={<BrokerRates brokerId={broker?.formFields?.PBRK_TRAN_ID}
                                                                                         code={broker?.formFields?.PBRK_BRK_CODE}
                                                                                         brokerName={broker?.formFields?.PBRK_BRK_NAME}
                                                                                     />

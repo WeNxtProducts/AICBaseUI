@@ -47,7 +47,8 @@ export default defineConfig(({ mode }) => {
    esbuildOptions: {
     plugins: [fixReactVirtualized],
    },
-   include: ['react', 'react-dom', 'antd'],
+   include: ['react', 'react-dom'],
+   //    include: ['react', 'react-dom', 'antd'],
   },
  };
 });

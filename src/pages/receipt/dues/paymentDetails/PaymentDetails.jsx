@@ -7,6 +7,7 @@ import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 import { Button } from 'antd';
 import Loader from '../../../../components/loader/Loader';
+import { useSelector } from 'react-redux';
 
 const paymentMethods = [
     { value: 'P', label: 'Cash' },
@@ -38,6 +39,7 @@ const initialForm = {
 
 const PaymentDetails = () => {
     const { id: tranId, amountSummary, setHeaderStatus, headerStatus } = useContext(ReceiptContext);
+    const token = useSelector(state => state?.tokenAndMenuList?.token);
     const getPayDetails = useApiRequests('getPayDetails', 'POST');
     const savePayDetails = useApiRequests('savePayDetails', 'POST');
     const updatePayDetails = useApiRequests('updatePayDetails', 'POST');
@@ -134,7 +136,7 @@ const PaymentDetails = () => {
 
     const approveReceipt = async () => {
         setLoader(true)
-        const payload = { inParams: { P_RH_TRAN_ID: tranId } };
+        const payload = { inParams: { P_RH_TRAN_ID: tranId, P_LOG_TOKEN: token } };
         try {
             const response = await invokeClaimsProcedure(payload, {
                 procedureName: 'P_RCPT_APPRV',

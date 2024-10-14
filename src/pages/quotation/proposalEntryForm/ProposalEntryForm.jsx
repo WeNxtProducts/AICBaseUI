@@ -210,7 +210,7 @@ const ProposalEntryForm = () => {
         addOrUpdateClaim(payload, tranId ? updateQuotation : saveQuotation);
     };
 
-    const handleChangeValue = (value, path, setFieldValue, parent, values, currentData, col_name) => {
+    const handleChangeValue = async (value, path, setFieldValue, parent, values, currentData, col_name) => {
         setFieldValue(path, value);
 
         if (col_name === 'POL_ASSR_CUST_FLAG') {
@@ -224,10 +224,21 @@ const ProposalEntryForm = () => {
         }
 
         if (col_name === 'POL_FM_DT') {
+            const { POL_ASSR_CODE } = values.frontForm.formFields
             setFieldValue(
                 'frontForm.formFields.POL_TO_DT.PFD_FLD_VALUE',
                 calculateDateAfterYears(value, values?.frontForm.formFields.POL_PERIOD.PFD_FLD_VALUE),
             );
+            if (POL_ASSR_CODE?.PFD_FLD_VALUE) {
+                const payload = {
+                    inParams: { P_ASSR_CODE: POL_ASSR_CODE?.PFD_FLD_VALUE, P_START_DT: value }
+                }
+                const validateAge = await procedureCallAgeCheck(payload);
+                if (!validateAge) {
+                    setFieldValue('frontForm.formFields.POL_ASSR_CODE.PFD_FLD_VALUE', '');
+                    setFieldValue('frontForm.formFields.POL_ASSURED_NAME.PFD_FLD_VALUE', '');
+                }
+            }
         }
     };
 
@@ -259,22 +270,49 @@ const ProposalEntryForm = () => {
         }));
     };
 
-    const handleGetData = async (payload, qId) => {
+    const procedureCallAgeCheck = async (payload) => {
         try {
-            const response = await getMapQuery(payload, { queryId: qId });
-            if (response?.status === 'SUCCESS') {
-                return response?.Data[0];
+            const response = await invokeClaimsProcedure(payload,
+                { procedureName: 'PR_AGE_CAL' }
+            );
+            if (response?.status === "SUCCESS") {
+                const { PROD_MAX_AGE } = proRules
+                const { P_AGE } = response.Data
+                if (P_AGE) {
+                    if (P_AGE <= PROD_MAX_AGE) {
+                        console.log("validateAge : ", P_AGE)
+                        return true
+                    } else if (P_AGE > PROD_MAX_AGE) {
+                        showNotification.WARNING(`Assured code age should be less than ${PROD_MAX_AGE}`);
+                        return false
+                    }
+                }
             } else if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
+                return false
             }
+            setLoader(false);
         } catch (err) {
-            console.log('err  : ', err);
+            setLoader(false);
         }
     };
 
+    const commonAgeCheck = async (val, setFieldValue, POL_FM_DT) => {
+        if (val && POL_FM_DT?.PFD_FLD_VALUE) {
+            const payload = {
+                inParams: { P_ASSR_CODE: val, P_START_DT: POL_FM_DT?.PFD_FLD_VALUE }
+            }
+            const validateAge = await procedureCallAgeCheck(payload);
+            if (!validateAge) {
+                setFieldValue('frontForm.formFields.POL_ASSR_CODE.PFD_FLD_VALUE', '');
+                setFieldValue('frontForm.formFields.POL_ASSURED_NAME.PFD_FLD_VALUE', '');
+            }
+        }
+    }
+
     const handleOnBlur = async (currentData, values, setFieldValue, val, label) => {
         const key = currentData?.PFD_COLUMN_NAME;
-        console.log("key : ", key)
+        // console.log("key : ", key)
 
         if (key === 'POL_CUST_CODE') {
             setFieldValue(`frontForm.formFields.${'POL_CUST_NAME'}.PFD_FLD_VALUE`, label);
@@ -282,18 +320,22 @@ const ProposalEntryForm = () => {
             if (flag) {
                 const updatedState = changeState(values, 'POL_CUST_NAME', 'PFD_FLD_VALUE', label);
                 handleCust_code(updatedState, setFieldValue);
-                // if (val) {
-                //     const payload = { queryParams: { ASSR_CODE: val } };
-                //     const validateAge = await handleGetData(payload, 190);
-                //     if (validateAge) {
-                //         console.log("validateAge : ", validateAge)
-                //     }
-                // }
+                const { POL_FM_DT } = values.frontForm.formFields
+                if (val && POL_FM_DT?.PFD_FLD_VALUE) {
+                    commonAgeCheck(val, setFieldValue, POL_FM_DT)
+                }
             }
         }
 
         if (key === 'POL_ASSR_CODE') {
             setFieldValue(`frontForm.formFields.${'POL_ASSURED_NAME'}.PFD_FLD_VALUE`, label);
+            const flag = values?.frontForm?.formFields?.POL_ASSR_CUST_FLAG?.PFD_FLD_VALUE === 'No';
+            if (flag) {
+                const { POL_FM_DT } = values.frontForm.formFields
+                if (val && POL_FM_DT?.PFD_FLD_VALUE) {
+                    commonAgeCheck(val, setFieldValue, POL_FM_DT)
+                }
+            }
         }
 
         if (key === 'POL_ASSR_CUST_FLAG') {
