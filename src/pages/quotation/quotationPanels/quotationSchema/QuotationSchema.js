@@ -36,14 +36,14 @@ export const quotationSchema = (userRules, proRules, isSave) => {
 
        if (isSave) {
         switch (ASD_FLAG) {
-         case '1':
+         case '2':
           // Test for future dates only
           if (!dateValue.isSame(today) && dateValue.isBefore(today)) {
            return this.createError({ message: 'Date should not be outdated' });
           }
           return true;
 
-         case '2':
+         case '1':
           // Allow dates from minDate with no restriction on future dates
           if (!dateValue.isSame(minDate) && !dateValue.isAfter(minDate)) {
            return this.createError({

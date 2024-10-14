@@ -3,7 +3,7 @@ import { Table, Input } from 'antd';
 import { useDebounce } from 'use-debounce';
 import './index.scss';
 
-const data = Array.from({ length: 1000 }, (_, i) => ({
+const data = Array.from({ length: 150000 }, (_, i) => ({
   key: i,
   name: `John Doe ${i}`,
   age: Math.floor(Math.random() * 60) + 18,
