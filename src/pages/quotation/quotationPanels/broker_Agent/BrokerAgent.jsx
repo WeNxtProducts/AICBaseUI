@@ -86,7 +86,7 @@ const BrokerAgent = () => {
             const percentage = parseFloat(broker.formFields.PBRK_BRK_PERC) || 0;
             return acc + percentage;
         }, 0);
-        return totalPercentage <= 100;
+        return totalPercentage <= 1000000000;
     };
 
     const procedureCall = async (newBroker, modifiedBroker, values) => {
@@ -100,11 +100,18 @@ const BrokerAgent = () => {
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
-                if (modifiedBroker?.length > 0) {
-                    updateBrokerPercentage(values)
-                } else if (modifiedBroker?.length === 0) {
-                    showNotification.SUCCESS(response?.status_msg);
-                }
+                // if (modifiedBroker?.length > 0) {
+
+                // values?.polBrokerDetails.forEach(detail => {
+                //     if (!detail.formFields.PBRK_TRAN_ID) {
+                //         detail.formFields.PBRK_TRAN_ID = -1;
+                //     }
+                // });
+
+                updateBrokerPercentage(values)
+                // } else if (modifiedBroker?.length === 0) {
+                //     showNotification.SUCCESS(response?.status_msg);
+                // }
             }
         } catch (err) {
             setLoader(false);
@@ -154,10 +161,9 @@ const BrokerAgent = () => {
         }
     };
 
-    const handleDeleteBroker = async (brokerId) => {
-        console.log("brokerId : ", brokerId)
+    const handleDeleteBroker = async (brokerId, parentId) => {
         try {
-            const response = await deleteBroker('', {}, { id: brokerId });
+            const response = await deleteBroker('', {}, { brokerId, parentId });
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
@@ -176,17 +182,17 @@ const BrokerAgent = () => {
         }));
     };
 
-    const renderBrokers = (brokers, level = 1) => {
+    const renderBrokers = (brokers, level = 0, parentId) => {
         return (
-            <div className='sub-broker-list col-span-6'>
-                {brokers.map((broker) => {
+            <div className='sub-broker-list col-span-7 grid grid-cols-8'>
+                {brokers.map((broker, index) => {
                     const brokerId = `${broker.PBRK_BRK_CODE}-${level}`;
                     const isCollapsed = collapsedBrokers[brokerId] ?? false;
 
                     return (
-                        <div key={brokerId} className='broker-wrapper'>
+                        <div key={`${brokerId}-${level}-${index}-child`} className='broker-wrapper col-span-7 grid grid-cols-12'>
                             <div
-                                className='broker-card mt-2 grid grid-cols-12 gap-x-1'
+                                className='broker-card mt-2 grid grid-cols-12 gap-x-1 col-span-11'
                                 style={{ marginLeft: `${level * 15}px` }}
                             >
 
@@ -225,11 +231,21 @@ const BrokerAgent = () => {
 
                             </div>
 
+                            <div className='ml-5 col-span-1 flex items-center'>
+                                {!freeze && (
+                                    <button type='button' onClick={() => {
+                                        handleDeleteBroker(broker?.PBRK_TRAN_ID, parentId)
+                                    }}>
+                                        <DeleteOutlined className='delete-button' />
+                                    </button>
+                                )}
+                            </div>
+
 
                             {/* Render Children */}
                             {isCollapsed && broker.children && broker.children.length > 0 && (
                                 <div className='children'>
-                                    {renderBrokers(broker.children, level + 1)}
+                                    {renderBrokers(broker.children, level + 1, parentId)}
                                 </div>
                             )}
                         </div>
@@ -246,7 +262,9 @@ const BrokerAgent = () => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={brokerValidationSchema}
-                    onSubmit={onSubmit}>
+                    onSubmit={onSubmit}
+                    enableReinitialize={true}
+                >
                     {({ values, setFieldValue, errors }) => {
                         return (
                             <Form>
@@ -274,7 +292,7 @@ const BrokerAgent = () => {
                                                 {values?.polBrokerDetails?.map((broker, index) => {
                                                     const hasChildren = broker?.formFields?.children?.length > 0;
                                                     return (
-                                                        <div className='grid grid-cols-2 gap-x-7 mt-3' key={index}>
+                                                        <div className='grid grid-cols-2 gap-x-7 mt-3' key={`${index}-parent`}>
                                                             <div className='col-span-1'>
                                                                 <div className='flex items-center'>
                                                                     <div className='w-2/12'>
@@ -354,7 +372,7 @@ const BrokerAgent = () => {
                                                                             </div>
                                                                         }
 
-                                                                        {brokerTypeShared && index !== 0 && (
+                                                                        {/* {brokerTypeShared && index !== 0 && (
                                                                             <div className='ml-5'>
                                                                                 {!freeze && (
                                                                                     <button type='button' onClick={() => {
@@ -368,13 +386,13 @@ const BrokerAgent = () => {
                                                                                     </button>
                                                                                 )}
                                                                             </div>
-                                                                        )}
+                                                                        )} */}
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className='col-span-2 grid grid-cols-8'>
                                                                 {hasChildren &&
-                                                                    renderBrokers(broker?.formFields?.children)
+                                                                    renderBrokers(broker?.formFields?.children, 1, broker?.formFields?.PBRK_TRAN_ID)
                                                                 }
                                                             </div>
                                                         </div>

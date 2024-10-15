@@ -383,6 +383,54 @@ const MrvQuotation = ({
     }));
   };
 
+  const procedureCallAgeCheck = async (payload) => {
+    try {
+      const response = await invokeClaimsProcedure(payload,
+        { procedureName: 'PR_AGE_CAL' }
+      );
+      if (response?.status === "SUCCESS") {
+        const { PROD_MAX_AGE } = proRules
+        const { P_AGE } = response.Data
+        if (P_AGE) {
+          if (P_AGE <= PROD_MAX_AGE) {
+            console.log("validateAge : ", P_AGE)
+            return true
+          } else if (P_AGE > PROD_MAX_AGE) {
+            showNotification.WARNING(`Assured code age should be less than ${PROD_MAX_AGE}`);
+            return false
+          }
+        }
+      } else if (response?.status === 'FAILURE') {
+        showNotification.ERROR(response?.status_msg);
+        return false
+      }
+      setLoader(false);
+    } catch (err) {
+      setLoader(false);
+    }
+  };
+
+  const commonAgeCheck = async (val, setFieldValue, POL_FM_DT) => {
+    if (val && POL_FM_DT?.PFD_FLD_VALUE) {
+      const payload = {
+        inParams: { P_ASSR_CODE: val, P_START_DT: POL_FM_DT?.PFD_FLD_VALUE }
+      }
+      const validateAge = await procedureCallAgeCheck(payload);
+      if (!validateAge) {
+        setFieldValue('life_assured_details.formFields.PEMP_ID.PFD_FLD_VALUE', '');
+        setFieldValue('life_assured_details.formFields.PEMP_NAME.PFD_FLD_VALUE', '');
+      } else if (validateAge) {
+        const payload = { queryParams: { CUST_CODE: val } };
+        const response = await handleGetData(payload, 190);
+        for (let key in response) {
+          if (Object.prototype.hasOwnProperty.call(response, key)) {
+            setFieldValue(`life_assured_details.formFields.${key}.PFD_FLD_VALUE`, response[key]);
+          }
+        }
+      }
+    }
+  }
+
   const handleOnBlur = async (currentData, values, setFieldValue, val, label) => {
     if (!freeze) {
       const key = currentData?.PFD_COLUMN_NAME;
@@ -445,13 +493,18 @@ const MrvQuotation = ({
         if (key === 'PEMP_ID') {
           setFieldValue(`life_assured_details.formFields.${'PEMP_NAME'}.PFD_FLD_VALUE`, label);
           if (formValues !== null && val) {
-            const payload = { queryParams: { CUST_CODE: val } };
-            const response = await handleGetData(payload, 190);
-            for (let key in response) {
-              if (Object.prototype.hasOwnProperty.call(response, key)) {
-                setFieldValue(`life_assured_details.formFields.${key}.PFD_FLD_VALUE`, response[key]);
-              }
+            console.log("formValues : ", formValues?.frontForm?.formFields?.POL_FM_DT)
+            const { POL_FM_DT } = formValues.frontForm.formFields
+            if (val && POL_FM_DT?.PFD_FLD_VALUE) {
+              commonAgeCheck(val, setFieldValue, POL_FM_DT)
             }
+            // const payload = { queryParams: { CUST_CODE: val } };
+            // const response = await handleGetData(payload, 190);
+            // for (let key in response) {
+            //   if (Object.prototype.hasOwnProperty.call(response, key)) {
+            //     setFieldValue(`life_assured_details.formFields.${key}.PFD_FLD_VALUE`, response[key]);
+            //   }
+            // }
           }
         }
       } else if (root === 'benificiary') {
