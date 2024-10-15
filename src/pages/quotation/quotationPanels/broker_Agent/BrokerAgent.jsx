@@ -86,7 +86,7 @@ const BrokerAgent = () => {
             const percentage = parseFloat(broker.formFields.PBRK_BRK_PERC) || 0;
             return acc + percentage;
         }, 0);
-        return totalPercentage <= 1000000000;
+        return totalPercentage <= 100;
     };
 
     const procedureCall = async (newBroker, modifiedBroker, values) => {
