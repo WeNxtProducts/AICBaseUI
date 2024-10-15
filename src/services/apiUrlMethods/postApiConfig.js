@@ -296,7 +296,7 @@ const POST_API_URL = {
   url: '/auth/expire-session',
  },
  updateBrokers: {
-  url: '/polBrokerUpdate',
+  url: '/polBroker/polBrokerUpdate',
   baseURL: 'CRUD',
  },
  receiptSave: {

@@ -125,7 +125,7 @@ const BrokerAgent = () => {
 
     const updateBrokerPercentage = async (modifiedBroker) => {
         try {
-            const response = await updateBrokers(modifiedBroker, {}, { tranId });
+            const response = await updateBrokers(modifiedBroker);
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
