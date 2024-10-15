@@ -191,8 +191,8 @@ const BrokerAgent = () => {
                             >
 
                                 <div className='broker-details col-span-11 flex items-center justify-between pe-4'>
+                                    <p className='m-0'><strong>Name:</strong> {broker.PBRK_BRK_NAME}</p>
                                     <p className='m-0'><strong>Code:</strong> {broker.PBRK_BRK_CODE}</p>
-                                    <p className='m-0'><strong>Designation:</strong> {broker.PBRK_BRK_DESGNATION}</p>
                                     <p className='m-0'><strong>Percentage:</strong> {broker.PBRK_BRK_PERC}%</p>
                                 </div>
 
