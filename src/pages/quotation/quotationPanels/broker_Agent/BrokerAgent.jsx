@@ -169,64 +169,6 @@ const BrokerAgent = () => {
         }
     }
 
-    const initialValuess = {
-        polBrokerDetails: [
-            {
-                "formFields": {
-                    "PBRK_BRK_CODE": "100065",
-                    "PBRK_BRK_PERC": 10,
-                    "PBRK_BRK_NAME": "DHIRA  SHAMIM",
-                    children: [
-                        {
-                            "PBRK_BRK_CODE": "100066",
-                            PBRK_BRK_DESGNATION: 'Manager',
-                            "PBRK_BRK_PERC": 10,
-                            children: [
-                                {
-                                    "PBRK_BRK_CODE": "100067",
-                                    PBRK_BRK_DESGNATION: 'Manager',
-                                    "PBRK_BRK_PERC": 100,
-
-                                    children: [
-                                        {
-                                            "PBRK_BRK_CODE": "100068",
-                                            PBRK_BRK_DESGNATION: 'Manager',
-                                            "PBRK_BRK_PERC": 200,
-                                        },
-                                        {
-                                            "PBRK_BRK_CODE": "100076",
-                                            PBRK_BRK_DESGNATION: 'Manager',
-                                            "PBRK_BRK_PERC": 10,
-                                        },
-                                    ]
-                                },
-                            ]
-                        },
-                        {
-                            "PBRK_BRK_CODE": "100071",
-                            PBRK_BRK_DESGNATION: 'Manager',
-                            "PBRK_BRK_PERC": 10,
-                        },
-                    ]
-                }
-            },
-            {
-                "formFields": {
-                    "PBRK_BRK_CODE": "100074",
-                    "PBRK_BRK_PERC": 100,
-                    "PBRK_BRK_NAME": "CHARLES MBANGWA",
-                    children: [
-                        {
-                            "PBRK_BRK_CODE": "100075",
-                            PBRK_BRK_DESGNATION: 'Manager',
-                            "PBRK_BRK_PERC": 10,
-                        },
-                    ]
-                }
-            }
-        ]
-    }
-
     const toggleCollapse = (brokerId) => {
         setCollapsedBrokers(prevState => ({
             ...prevState,
@@ -259,7 +201,9 @@ const BrokerAgent = () => {
                                         <div className='mt-1 m-auto'>
                                             <Popover
                                                 overlayClassName={'broker_details_Popover'}
-                                                content={<BrokerRates brokerId={'100066'} code={'100066'} />}
+                                                content={<BrokerRates brokerId={broker?.PBRK_TRAN_ID}
+                                                    code={broker?.PBRK_BRK_CODE}
+                                                    brokerName={broker?.PBRK_BRK_NAME} />}
                                                 trigger='hover'>
                                                 <InfoCircleOutlined className='info-icon' />
                                             </Popover>

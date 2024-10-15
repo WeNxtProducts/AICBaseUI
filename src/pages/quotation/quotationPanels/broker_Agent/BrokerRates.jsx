@@ -26,7 +26,7 @@ const BrokerRates = ({ brokerId, code, brokerName }) => {
     return (
         <div className='broker_content'>
             <div className='broker_title flex items-center'>
-                <p className='broker_text'>{brokerName} -  {brokerId}</p>
+                <p className='broker_text'>{brokerName} -  {code}</p>
             </div>
             {hasValidRowData(rowData) ? (
                 <div className='flex items-center justify-center'>
