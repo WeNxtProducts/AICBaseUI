@@ -295,8 +295,8 @@ const POST_API_URL = {
  sessionMaintain: {
   url: '/auth/expire-session',
  },
- saveBrokers: {
-  url: '/polBroker/save',
+ updateBrokers: {
+  url: '/polBrokerUpdate',
   baseURL: 'CRUD',
  },
  receiptSave: {

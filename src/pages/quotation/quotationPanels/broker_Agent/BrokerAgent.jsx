@@ -24,7 +24,7 @@ const BrokerAgent = () => {
         id: tranId,
     } = useContext(StepperContext);
     const getParamLov = useApiRequests('getParamLov', 'GET');
-    const saveBrokers = useApiRequests('saveBrokers', 'POST');
+    const updateBrokers = useApiRequests('updateBrokers', 'POST');
     const getBrokerList = useApiRequests('getBrokerList', 'POST');
     const deleteBroker = useApiRequests('deleteBroker', 'POST');
     const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
@@ -102,11 +102,14 @@ const BrokerAgent = () => {
             } else if (response?.status === 'SUCCESS') {
                 // if (modifiedBroker?.length > 0) {
 
-                // values?.polBrokerDetails.forEach(detail => {
-                //     if (!detail.formFields.PBRK_TRAN_ID) {
-                //         detail.formFields.PBRK_TRAN_ID = -1;
-                //     }
-                // });
+                values?.polBrokerDetails.forEach(detail => {
+                    if (detail.formFields?.children) {
+                        delete detail.formFields.children;
+                    }
+                    if (!detail.formFields.PBRK_TRAN_ID) {
+                        detail.formFields.PBRK_TRAN_ID = response?.Data?.P_BROK_ID;
+                    }
+                });
 
                 updateBrokerPercentage(values)
                 // } else if (modifiedBroker?.length === 0) {
@@ -122,7 +125,7 @@ const BrokerAgent = () => {
 
     const updateBrokerPercentage = async (modifiedBroker) => {
         try {
-            const response = await saveBrokers(modifiedBroker, {}, { tranId });
+            const response = await updateBrokers(modifiedBroker, {}, { tranId });
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
