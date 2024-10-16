@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const MedicalFee = lazy(() => import('../pages/medicalFee/MedicalFee'));
 const MultiRowTable = lazy(() => import('../pages/multiRowTable/MultiRowTable'));
 const SurrenderMaturity = lazy(() => import('../pages/surrenderMaturity/SurrenderMaturity'));
 const EndoListing = lazy(() => import('../pages/endorsement/endoListing/EndoListing'));
@@ -141,9 +142,20 @@ const AppRouter = () => {
                     }
                 />
 
+
                 {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/medicalFee'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <MedicalFee />
+                            </Suspense>
+                        }
+                    />
+
+
                     <Route
                         path='/surrender_maturity'
                         element={

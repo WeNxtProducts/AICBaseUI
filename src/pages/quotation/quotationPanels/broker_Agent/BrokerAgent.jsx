@@ -166,7 +166,7 @@ const BrokerAgent = () => {
 
     const handleDeleteBroker = async (brokerId, parentId) => {
         try {
-            const response = await deleteBroker('', {}, { brokerId, parentId });
+            const response = await deleteBroker('', {}, { brokerId, parentId: parentId?.formFields?.children[0]?.PBRK_TRAN_ID });
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
@@ -234,7 +234,7 @@ const BrokerAgent = () => {
 
                             </div>
 
-                            <div className='ml-5 col-span-1 flex items-center'>
+                            {/* <div className='ml-5 col-span-1 flex items-center'>
                                 {!freeze && (
                                     <button type='button' onClick={() => {
                                         handleDeleteBroker(broker?.PBRK_TRAN_ID, parentId)
@@ -242,7 +242,7 @@ const BrokerAgent = () => {
                                         <DeleteOutlined className='delete-button' />
                                     </button>
                                 )}
-                            </div>
+                            </div> */}
 
 
                             {/* Render Children */}
@@ -375,12 +375,12 @@ const BrokerAgent = () => {
                                                                             </div>
                                                                         }
 
-                                                                        {/* {brokerTypeShared && index !== 0 && (
+                                                                        {brokerTypeShared && index !== 0 && (
                                                                             <div className='ml-5'>
                                                                                 {!freeze && (
                                                                                     <button type='button' onClick={() => {
                                                                                         if (broker?.formFields?.PBRK_TRAN_ID) {
-                                                                                            handleDeleteBroker(broker?.formFields?.PBRK_TRAN_ID)
+                                                                                            handleDeleteBroker(broker?.formFields?.PBRK_TRAN_ID, broker)
                                                                                         } else if (!broker?.formFields?.PBRK_TRAN_ID) {
                                                                                             remove(index)
                                                                                         }
@@ -389,7 +389,7 @@ const BrokerAgent = () => {
                                                                                     </button>
                                                                                 )}
                                                                             </div>
-                                                                        )} */}
+                                                                        )}
                                                                     </div>
                                                                 </div>
                                                             </div>
