@@ -30,6 +30,8 @@ const BrokerAgent = () => {
     const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const brokerTypeShared =
         formValues?.frontForm?.formFields?.POL_AGENT_COMM_BASIS?.PFD_FLD_VALUE === 'S';
+    const brokerCodeChange =
+        formValues?.frontForm?.formFields?.POL_AGENT_CODE?.PFD_FLD_VALUE;
     const [agentList, setAgentList] = useState([]);
     const [loader, setLoader] = useState(false);
     const [initialValues, setInitialValues] = useState(null);
@@ -39,6 +41,7 @@ const BrokerAgent = () => {
         try {
             const response = await getBrokerList('', { tranId });
             if (response?.status === 'SUCCESS') {
+                // if (response?.Data?.polBrokerDetails?.length > 0) {
                 setInitialValues(response?.Data);
                 const agentList = response?.Data?.polBrokerDetails.reduce((acc, broker, index) => {
                     acc[index] = [
@@ -47,6 +50,9 @@ const BrokerAgent = () => {
                     return acc;
                 }, {});
                 setAgentList(agentList);
+                // } else {
+                //     setInitialValues(null)
+                // }
             } else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             setLoader(false);
         } catch (err) {
@@ -56,7 +62,7 @@ const BrokerAgent = () => {
 
     useEffect(() => {
         handleGetBrokerList();
-    }, []);
+    }, [brokerCodeChange]);
 
     const onHandleSearch = async (val, index) => {
         try {
@@ -103,9 +109,9 @@ const BrokerAgent = () => {
                 // if (modifiedBroker?.length > 0) {
 
                 values?.polBrokerDetails.forEach(detail => {
-                    if (detail.formFields?.children) {
-                        delete detail.formFields.children;
-                    }
+                    // if (detail.formFields?.children) {
+                    //     delete detail.formFields.children;
+                    // }
                     if (!detail.formFields.PBRK_TRAN_ID) {
                         detail.formFields.PBRK_TRAN_ID = response?.Data?.P_BROK_ID;
                     }
@@ -150,6 +156,12 @@ const BrokerAgent = () => {
                 return oldItem && newItem.formFields.PBRK_BRK_PERC != oldItem.formFields.PBRK_BRK_PERC;
             });
 
+            values?.polBrokerDetails.forEach(detail => {
+                if (detail.formFields?.children) {
+                    delete detail.formFields.children;
+                }
+            });
+
             if (noPolTranId?.length > 0) {
                 const transformedData = noPolTranId.map(item => ({
                     P_POL_TRAN_ID: tranId,
@@ -164,9 +176,15 @@ const BrokerAgent = () => {
         }
     };
 
-    const handleDeleteBroker = async (brokerId, parentId) => {
+    const extractBrokerIds = (node) => [
+        ...(node.PBRK_TRAN_ID ? [node.PBRK_TRAN_ID] : []),
+        ...(node.children?.flatMap(extractBrokerIds) || [])
+    ];
+
+    const handleDeleteBroker = async (mainBroker) => {
+        const brokerIds = extractBrokerIds(mainBroker.formFields);
         try {
-            const response = await deleteBroker('', {}, { brokerId, parentId: parentId?.formFields?.children[0]?.PBRK_TRAN_ID });
+            const response = await deleteBroker({ polBrokerIds: brokerIds });
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
@@ -187,22 +205,22 @@ const BrokerAgent = () => {
 
     const renderBrokers = (brokers, level = 0, parentId) => {
         return (
-            <div className='sub-broker-list col-span-7 grid grid-cols-8'>
+            <div className='sub-broker-list col-span-6'>
                 {brokers.map((broker, index) => {
                     const brokerId = `${broker.PBRK_BRK_CODE}-${level}`;
                     const isCollapsed = collapsedBrokers[brokerId] ?? false;
 
                     return (
-                        <div key={`${brokerId}-${level}-${index}-child`} className='broker-wrapper col-span-7 grid grid-cols-12'>
+                        <div key={`${brokerId}-${level}-${index}-child`} className='broker-wrapper'>
                             <div
                                 className='broker-card mt-2 grid grid-cols-12 gap-x-1 col-span-11'
                                 style={{ marginLeft: `${level * 15}px` }}
                             >
 
-                                <div className='broker-details col-span-11 flex items-center justify-between pe-4'>
-                                    <p className='m-0'><strong>Name:</strong> {broker.PBRK_BRK_NAME}</p>
-                                    <p className='m-0'><strong>Code:</strong> {broker.PBRK_BRK_CODE}</p>
-                                    <p className='m-0'><strong>Percentage:</strong> {broker.PBRK_BRK_PERC}%</p>
+                                <div className='broker-details col-span-11 grid grid-cols-6 items-center pe-4'>
+                                    <p className='m-0 col-span-2'><strong>Name:</strong> {broker.PBRK_BRK_NAME}</p>
+                                    <p className='m-0 col-span-2 mx-auto'><strong>Code:</strong> {broker.PBRK_BRK_CODE}</p>
+                                    <p className='m-0 col-span-2 mx-auto'><strong>Percentage:</strong> {broker.PBRK_BRK_PERC}%</p>
                                 </div>
 
                                 <div className='col-span-1 action-sub'>
@@ -261,7 +279,7 @@ const BrokerAgent = () => {
     return (
         <div className='broker_agent p-3'>
             {loader && <Loader />}
-            {initialValues !== null && (
+            {initialValues !== null ? (
                 <Formik
                     initialValues={initialValues}
                     validationSchema={brokerValidationSchema}
@@ -291,117 +309,119 @@ const BrokerAgent = () => {
                                                     )}
                                                 </div>
                                             )}
-                                            <div className='col-span-8'>
-                                                {values?.polBrokerDetails?.map((broker, index) => {
-                                                    const hasChildren = broker?.formFields?.children?.length > 0;
-                                                    return (
-                                                        <div className='grid grid-cols-2 gap-x-7 mt-3' key={`${index}-parent`}>
-                                                            <div className='col-span-1'>
-                                                                <div className='flex items-center'>
-                                                                    <div className='w-2/12'>
-                                                                        <p className='label-font select-none'>
-                                                                            Agent Code <span className='mandatory-symbol'>*</span>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div className='w-8/12 fields-error'>
-                                                                        <CustomDropDown
-                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
-                                                                            options={agentList[index] || []}
-                                                                            readOnly={freeze}
-                                                                            value={broker?.formFields?.PBRK_BRK_CODE || undefined}
-                                                                            onSearch={e => {
-                                                                                onHandleSearch(e, index);
-                                                                            }}
-                                                                            onChange={e =>
-                                                                                setFieldValue(`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`, e)
-                                                                            }
-                                                                            onBlur={(e, label) =>
-                                                                                onBlurHandler(
-                                                                                    label,
-                                                                                    `polBrokerDetails.${index}.formFields.PBRK_BRK_NAME`,
-                                                                                    setFieldValue,
-                                                                                )
-                                                                            }
-                                                                            format='codedescsearch'
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
-                                                                            component='div'
-                                                                            className='error-message'
-                                                                        />
+                                            {values?.polBrokerDetails?.length > 0 &&
+                                                <div className='col-span-8'>
+                                                    {values?.polBrokerDetails?.map((broker, index) => {
+                                                        const hasChildren = broker?.formFields?.children?.length > 0;
+                                                        return (
+                                                            <div className='grid grid-cols-2 gap-x-7 mt-3' key={`${index}-parent`}>
+                                                                <div className='col-span-1'>
+                                                                    <div className='flex items-center'>
+                                                                        <div className='w-2/12'>
+                                                                            <p className='label-font select-none'>
+                                                                                Agent Code <span className='mandatory-symbol'>*</span>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div className='w-8/12 fields-error'>
+                                                                            <CustomDropDown
+                                                                                name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
+                                                                                options={agentList[index] || []}
+                                                                                readOnly={freeze}
+                                                                                value={broker?.formFields?.PBRK_BRK_CODE || undefined}
+                                                                                onSearch={e => {
+                                                                                    onHandleSearch(e, index);
+                                                                                }}
+                                                                                onChange={e =>
+                                                                                    setFieldValue(`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`, e)
+                                                                                }
+                                                                                onBlur={(e, label) =>
+                                                                                    onBlurHandler(
+                                                                                        label,
+                                                                                        `polBrokerDetails.${index}.formFields.PBRK_BRK_NAME`,
+                                                                                        setFieldValue,
+                                                                                    )
+                                                                                }
+                                                                                format='codedescsearch'
+                                                                            />
+                                                                            <ErrorMessage
+                                                                                name={`polBrokerDetails.${index}.formFields.PBRK_BRK_CODE`}
+                                                                                component='div'
+                                                                                className='error-message'
+                                                                            />
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div className='col-span-1'>
-                                                                <div className='flex items-center'>
-                                                                    <div className='w-2/12'>
-                                                                        <p className='label-font select-none'>
-                                                                            Percentage <span className='mandatory-symbol'>*</span>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div className='w-8/12 fields-error flex items-center'>
-                                                                        <CustomNumberField
-                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
-                                                                            placeholder='0'
-                                                                            format='number'
-                                                                            size='small'
-                                                                            readOnly={freeze}
-                                                                            value={broker?.formFields?.PBRK_BRK_PERC}
-                                                                            onChange={e => {
-                                                                                setFieldValue(
-                                                                                    `polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`,
-                                                                                    e.target.value,
-                                                                                );
-                                                                            }}
-                                                                        />
-                                                                        <ErrorMessage
-                                                                            name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
-                                                                            component='div'
-                                                                            className='error-message'
-                                                                        />
-                                                                        {broker?.formFields?.PBRK_TRAN_ID &&
-                                                                            <div className='ml-3'>
-                                                                                <Popover
-                                                                                    overlayClassName={'broker_details_Popover'}
-                                                                                    content={<BrokerRates brokerId={broker?.formFields?.PBRK_TRAN_ID}
-                                                                                        code={broker?.formFields?.PBRK_BRK_CODE}
-                                                                                        brokerName={broker?.formFields?.PBRK_BRK_NAME}
-                                                                                    />
-                                                                                    }
-                                                                                    trigger='hover'>
-                                                                                    <InfoCircleOutlined className='info-icon' />
-                                                                                </Popover>
-                                                                            </div>
-                                                                        }
-
-                                                                        {brokerTypeShared && index !== 0 && (
-                                                                            <div className='ml-5'>
-                                                                                {!freeze && (
-                                                                                    <button type='button' onClick={() => {
-                                                                                        if (broker?.formFields?.PBRK_TRAN_ID) {
-                                                                                            handleDeleteBroker(broker?.formFields?.PBRK_TRAN_ID, broker)
-                                                                                        } else if (!broker?.formFields?.PBRK_TRAN_ID) {
-                                                                                            remove(index)
+                                                                <div className='col-span-1'>
+                                                                    <div className='flex items-center'>
+                                                                        <div className='w-2/12'>
+                                                                            <p className='label-font select-none'>
+                                                                                Percentage <span className='mandatory-symbol'>*</span>
+                                                                            </p>
+                                                                        </div>
+                                                                        <div className='w-8/12 fields-error flex items-center'>
+                                                                            <CustomNumberField
+                                                                                name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
+                                                                                placeholder='0'
+                                                                                format='number'
+                                                                                size='small'
+                                                                                readOnly={freeze}
+                                                                                value={broker?.formFields?.PBRK_BRK_PERC}
+                                                                                onChange={e => {
+                                                                                    setFieldValue(
+                                                                                        `polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`,
+                                                                                        e.target.value,
+                                                                                    );
+                                                                                }}
+                                                                            />
+                                                                            <ErrorMessage
+                                                                                name={`polBrokerDetails.${index}.formFields.PBRK_BRK_PERC`}
+                                                                                component='div'
+                                                                                className='error-message'
+                                                                            />
+                                                                            {broker?.formFields?.PBRK_TRAN_ID &&
+                                                                                <div className='ml-3'>
+                                                                                    <Popover
+                                                                                        overlayClassName={'broker_details_Popover'}
+                                                                                        content={<BrokerRates brokerId={broker?.formFields?.PBRK_TRAN_ID}
+                                                                                            code={broker?.formFields?.PBRK_BRK_CODE}
+                                                                                            brokerName={broker?.formFields?.PBRK_BRK_NAME}
+                                                                                        />
                                                                                         }
-                                                                                    }}>
-                                                                                        <DeleteOutlined className='delete-button' />
-                                                                                    </button>
-                                                                                )}
-                                                                            </div>
-                                                                        )}
+                                                                                        trigger='hover'>
+                                                                                        <InfoCircleOutlined className='info-icon' />
+                                                                                    </Popover>
+                                                                                </div>
+                                                                            }
+
+                                                                            {brokerTypeShared && (
+                                                                                <div className='ml-5'>
+                                                                                    {!freeze && (
+                                                                                        <button type='button' onClick={() => {
+                                                                                            if (broker?.formFields?.PBRK_TRAN_ID) {
+                                                                                                handleDeleteBroker(broker)
+                                                                                            } else if (!broker?.formFields?.PBRK_TRAN_ID) {
+                                                                                                remove(index)
+                                                                                            }
+                                                                                        }}>
+                                                                                            <DeleteOutlined className='delete-button' />
+                                                                                        </button>
+                                                                                    )}
+                                                                                </div>
+                                                                            )}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                                <div className='col-span-2 grid grid-cols-8'>
+                                                                    {hasChildren &&
+                                                                        renderBrokers(broker?.formFields?.children, 1, broker?.formFields?.PBRK_TRAN_ID)
+                                                                    }
+                                                                </div>
                                                             </div>
-                                                            <div className='col-span-2 grid grid-cols-8'>
-                                                                {hasChildren &&
-                                                                    renderBrokers(broker?.formFields?.children, 1, broker?.formFields?.PBRK_TRAN_ID)
-                                                                }
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                })}
-                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            }
                                         </div>
                                     )}
                                 </FieldArray>
@@ -420,8 +440,11 @@ const BrokerAgent = () => {
                         );
                     }}
                 </Formik>
-            )}
-        </div>
+            ) : (
+                <p className='text-base font-medium hover:font-bold cursor-default'>No Broker Found</p>
+            )
+            }
+        </div >
     );
 };
 

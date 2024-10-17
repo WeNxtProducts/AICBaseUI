@@ -85,7 +85,7 @@ const ClaimCover = ({
  };
 
  useEffect(() => {
-  console.log('formValues : ', formValues);
+  console.log('formValues cover : ', formValues);
   handleInitData(ClaimsJson);
   MRVListing();
  }, []);
