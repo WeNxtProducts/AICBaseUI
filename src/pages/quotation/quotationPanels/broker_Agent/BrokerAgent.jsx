@@ -272,7 +272,7 @@ const BrokerAgent = () => {
                         return (
                             <Form>
                                 <FieldArray name='polBrokerDetails'>
-                                    {({ push, remove }) => (
+                                    {({ push, remove, insert }) => (
                                         <div className='grid grid-cols-8'>
                                             {brokerTypeShared && (
                                                 <div className='col-span-6 flex justify-end'>
@@ -281,7 +281,7 @@ const BrokerAgent = () => {
                                                             type='button'
                                                             className='add-buttons-broker'
                                                             onClick={() =>
-                                                                push({ formFields: { PBRK_BRK_CODE: '', PBRK_BRK_NAME: '', PBRK_BRK_PERC: '' } })
+                                                                insert(0, { formFields: { PBRK_BRK_CODE: '', PBRK_BRK_NAME: '', PBRK_BRK_PERC: '' } })
                                                             }>
                                                             <div className='flex items-center'>
                                                                 <i className='bi bi-plus icon-style' />
