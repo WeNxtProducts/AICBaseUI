@@ -57,6 +57,7 @@ const BrokerAgent = () => {
             setLoader(false);
         } catch (err) {
             setLoader(false);
+            showNotification.ERROR(`Can't able to get broker list`);
         }
     };
 
@@ -298,9 +299,10 @@ const BrokerAgent = () => {
                                                         <button
                                                             type='button'
                                                             className='add-buttons-broker'
-                                                            onClick={() =>
+                                                            onClick={() => {
                                                                 insert(0, { formFields: { PBRK_BRK_CODE: '', PBRK_BRK_NAME: '', PBRK_BRK_PERC: '' } })
-                                                            }>
+                                                                // push({ formFields: { PBRK_BRK_CODE: '', PBRK_BRK_NAME: '', PBRK_BRK_PERC: '' } })
+                                                            }}>
                                                             <div className='flex items-center'>
                                                                 <i className='bi bi-plus icon-style' />
                                                                 <p>Add New</p>
@@ -314,7 +316,8 @@ const BrokerAgent = () => {
                                                     {values?.polBrokerDetails?.map((broker, index) => {
                                                         const hasChildren = broker?.formFields?.children?.length > 0;
                                                         return (
-                                                            <div className='grid grid-cols-2 gap-x-7 mt-3' key={`${index}-parent`}>
+                                                            <div className='grid grid-cols-2 gap-x-7 mt-3'
+                                                                data-id={`${index}-parent`} key={`${index}-parent`}>
                                                                 <div className='col-span-1'>
                                                                     <div className='flex items-center'>
                                                                         <div className='w-2/12'>
