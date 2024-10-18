@@ -105,7 +105,7 @@ const EndoListing = ({ label, search: searchApi }) => {
 
     const onChange = page => {
         setCurrent(page);
-        handleListingApi(calculateOffset(page) + 1);
+        handleListingApi(calculateOffset(page));
     };
 
     const handleUsesearch = async (searchTerm, offset, page) => {

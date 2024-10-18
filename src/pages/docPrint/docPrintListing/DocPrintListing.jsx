@@ -102,7 +102,7 @@ const DocPrintListing = () => {
 
  const onChange = page => {
   setCurrent(page);
-  handleListingApi(calculateOffset(page) + 1);
+  handleListingApi(calculateOffset(page));
  };
 
  return (
