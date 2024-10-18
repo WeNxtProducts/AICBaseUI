@@ -9,7 +9,7 @@ import BankTransferForm from './BankTransferForm';
 import paymentValidaionSchema from './PaymentSchema';
 import { CustomNumberField } from '../../../../../components/commonExportsFields/CommonExportsFields';
 
-const PayForm = ({ options, currentValue, handleSaveOrUpdate, headerStatus }) => {
+const PayForm = ({ options, currentValue, handleSaveOrUpdate, headerStatus, approveReceipt }) => {
     const getLovList = useApiRequests('getLovList', 'GET');
     const savePayDetails = useApiRequests('savePayDetails', 'POST');
     const updatePayDetails = useApiRequests('updatePayDetails', 'POST');
@@ -126,7 +126,8 @@ const PayForm = ({ options, currentValue, handleSaveOrUpdate, headerStatus }) =>
                                                 name={`RD_FC_AMT`}
                                                 placeholder={'0'}
                                                 value={values?.RD_FC_AMT}
-                                                readOnly={headerStatus?.RH_APPRV_STATUS === 'A'}
+                                                readOnly={true}
+                                                // readOnly={headerStatus?.RH_APPRV_STATUS === 'A'}
                                                 onChange={e => handleOnChange('RD_FC_AMT', e.target.value, setFieldValue)}
                                             />
                                             <ErrorMessage name='RD_FC_AMT' component='div' className='error-message' />
@@ -150,6 +151,9 @@ const PayForm = ({ options, currentValue, handleSaveOrUpdate, headerStatus }) =>
                                     <div className='flex justify-center'>
                                         <button className='sub_btn' type='submit'>
                                             Pay
+                                        </button>
+                                        <button className='approve_btn' type='button' onClick={() => approveReceipt()}>
+                                            Approve
                                         </button>
                                     </div>
                                 }

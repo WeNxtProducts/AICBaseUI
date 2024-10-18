@@ -23,7 +23,8 @@ const FormCreate = ({
     freeze,
     setShowDisbursal,
     POL_NO,
-    tranId
+    tranId,
+    handleUpdateList
 }) => {
     const mrvGetById = useApiRequests(mrvGet, 'GET');
     const getParamLov = useApiRequests('getParamLov', 'GET');
@@ -44,6 +45,7 @@ const FormCreate = ({
             if (response?.status === 'SUCCESS') {
                 if (!editMRVId) setFormInit(!formInit);
                 showNotification.SUCCESS(response?.status_msg);
+                handleUpdateList()
             }
             setLoader(false);
         } catch (err) {

@@ -1,5 +1,3 @@
-import { EyeOutlined } from '@ant-design/icons';
-import { Tooltip } from 'antd';
 import React from 'react';
 import { formatNumber } from '../../../../../../components/commonHelper/CurrentFormatter';
 import dayjs from 'dayjs';
@@ -9,7 +7,7 @@ const MaturityCards = ({ rowData, selectedRow, proceedTOSurrenderMaturity }) => 
         <div className='endorsement_cards loan_cards'>
             <div className='e_card grid grid-cols-12 gap-3'>
                 {rowData?.map((item, index) => (
-                    <div key={item?.Surr_Mat_Ref_No} className={`alter_card col-span-4 pb-4 
+                    <div key={`${item?.Surr_Mat_Ref_No}-${index}`} className={`alter_card col-span-4 pb-4 
                         ${selectedRow === item?.Surr_Mat_Ref_No ? 'highlight_alteration_cards' : ''}`}>
                         <div className='header flex justify-between items-center'>
                             <p className='title_style'>Surr/Mat -&nbsp;

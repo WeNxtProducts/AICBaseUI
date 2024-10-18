@@ -30,25 +30,38 @@ const initialForm = {
 };
 
 const PaymentModes = ({ surrMatValues }) => {
+    const { SMV_FC_NET_PAID_AMT, SMV_LC_NET_PAID_AMT } = surrMatValues
     const [mainValue, setMainValue] = useState(null);
 
     useEffect(() => {
-        setMainValue(initialForm);
+        const initValue = {
+            ...initialForm,
+            RD_FC_AMT: SMV_FC_NET_PAID_AMT,
+            RD_LC_AMT: SMV_LC_NET_PAID_AMT,
+        }
+        setMainValue(initValue);
     }, []);
 
     const handleSaveOrUpdate = values => {
         console.log("values : ", values)
     }
 
+    const approveReceipt = () => {
+        console.log("approveReceipt");
+    }
+
     return (
         <div className='payment_modes mt-4'>
             <fieldset>
                 <legend>Payment Details</legend>
-                <PayForm
-                    options={paymentMethods}
-                    currentValue={mainValue}
-                    handleSaveOrUpdate={handleSaveOrUpdate}
-                />
+                {mainValue !== null &&
+                    <PayForm
+                        options={paymentMethods}
+                        currentValue={mainValue}
+                        handleSaveOrUpdate={handleSaveOrUpdate}
+                        approveReceipt={approveReceipt}
+                    />
+                }
             </fieldset>
         </div>
     )

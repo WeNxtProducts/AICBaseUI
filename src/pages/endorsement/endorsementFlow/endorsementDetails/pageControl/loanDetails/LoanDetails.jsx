@@ -15,6 +15,7 @@ const LoanDetails = ({ currentTab, dataLoaded }) => {
     const [showDisbursal, setShowDisbursal] = useState(false)
     const [selectedRow, setSelectedRow] = useState('')
     const [loanDetail, setLoanDetail] = useState(null)
+    const [swipeToLast, setSwipeToLast] = useState(false)
 
     useEffect(() => {
         if (dataLoaded) console.log('Loan Details ');
@@ -35,7 +36,6 @@ const LoanDetails = ({ currentTab, dataLoaded }) => {
     };
 
     const handleGetLoanDetails = async (item) => {
-        console.log("handleGetLoanDetails : ", item)
         try {
             const response = await getLoanDetails('', {
                 tranId: item?.ID
@@ -50,6 +50,12 @@ const LoanDetails = ({ currentTab, dataLoaded }) => {
             console.log(err)
 
         }
+    }
+
+    const handleUpdateList = () => {
+        handleMRVListingPayload({ queryId: 235, tranId });
+        setShowDisbursal(false)
+        setSwipeToLast(true)
     }
 
     const renderFields = (label, val) => (
@@ -79,7 +85,9 @@ const LoanDetails = ({ currentTab, dataLoaded }) => {
                         {hasValidRowData(rowData) &&
                             <div className='mt-5'>
                                 <LoanCards rowData={rowData} selectedRow={selectedRow}
-                                    handleGetLoanDetails={handleGetLoanDetails} />
+                                    handleGetLoanDetails={handleGetLoanDetails}
+                                    swipeToLast={swipeToLast}
+                                />
                             </div>
                         }
                         {loanDetail !== null &&
@@ -96,7 +104,8 @@ const LoanDetails = ({ currentTab, dataLoaded }) => {
                 :
                 (
                     <LoanDisbursal setShowDisbursal={setShowDisbursal}
-                        POL_NO={POL_NO} tranId={tranId} />
+                        POL_NO={POL_NO} tranId={tranId}
+                        handleUpdateList={handleUpdateList} />
                 )
             }
 

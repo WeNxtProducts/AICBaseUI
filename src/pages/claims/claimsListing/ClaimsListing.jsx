@@ -75,7 +75,7 @@ const ClaimListing = () => {
     };
 
     useEffect(() => {
-        handleListingApi(0);
+        handleListingApi(1);
     }, []);
 
     const handleSort = (columnName, sortOrder) => {

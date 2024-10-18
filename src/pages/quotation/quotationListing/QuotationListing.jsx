@@ -48,7 +48,7 @@ const QuotationListing = ({ label, search: searchApi }) => {
     };
 
     useEffect(() => {
-        handleListingApi(0);
+        handleListingApi(1);
         setSearch('')
     }, [label]);
 
