@@ -133,7 +133,7 @@ const QuotationListing = ({ label, search: searchApi }) => {
 
     const debouncedSearch = useCallback(
         debounce((searchTerm) => {
-            if (searchTerm?.length > 0) handleUsesearch(searchTerm, 1, 1);
+            if (searchTerm?.length > 0) handleUsesearch(searchTerm, 0, 1);
             else handleListingApi(0);
         }, 400), [currentMenuId]
     );
