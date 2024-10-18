@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { setCurrentID, setFreezeStatus, setStepperId } from '../../globalStore/slices/IdSlices';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import UWPrintDocument from './UWPrintDocument/UWPrintDocument';
 import './UnderWriterWorkBench.scss';
 
 export const UWContext = createContext();
@@ -27,6 +28,7 @@ const UnderWriterWorkBench = () => {
     const [policyNumber, setPolicyNumber] = useState('');
     const [tranId, setTranId] = useState('');
     const [policyDetails, setPolicyDetails] = useState(null);
+    const [UWPrintOpen, setUWPrintOpen] = useState(false)
 
     const handleGetProposalList = async () => {
         try {
@@ -36,7 +38,7 @@ const UnderWriterWorkBench = () => {
                 const findPol = response?.Data?.find(item => {
                     return item?.Policy_Number === POL_NO;
                 });
-                console.log("findPol : ", findPol,POL_NO,response?.Data)
+                console.log("findPol : ", findPol, POL_NO, response?.Data)
                 if (findPol) {
                     setProposalList(response?.Data);
                     setPolicyNumber(findPol?.Policy_Number);
@@ -104,10 +106,15 @@ const UnderWriterWorkBench = () => {
         navigateToQuotation,
     };
 
+    const handleClose = () => {
+        setUWPrintOpen(false)
+    }
+
     return (
         <UWContext.Provider value={data}>
             {proposalList?.length > 0 && (
                 <div className='under-writer-workbench pl-5 pr-5 pt-3 pb-2'>
+                    <button onClick={() => setUWPrintOpen(true)}>Print</button>
                     <HeaderUnderWriter />
                     <div className='historyBox grid grid-cols-12 mt-5'>
                         <div className='col-span-2 title'>Policy Status</div>
@@ -123,6 +130,8 @@ const UnderWriterWorkBench = () => {
                     {policyDetails !== null && <Coverage />}
 
                     <DecisionDetails />
+
+                    {UWPrintOpen && <UWPrintDocument open={UWPrintOpen} handleClose={handleClose} />}
                 </div>
             )}
         </UWContext.Provider>

@@ -34,20 +34,18 @@ const getColumnSearchProps = (dataIndex, searchTerm, setSearchTerm, setSortActiv
     <div>
       {dataIndex.charAt(0).toUpperCase() + dataIndex.slice(1)}
       <Input
-        ref={inputRef} // Add ref here
+        ref={inputRef}
         placeholder={`Search ${dataIndex}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onFocus={() => {
-          setSortActive(false);  // Disable sorting while focusing
+          setSortActive(false);
         }}
         onBlur={() => {
-          setSortActive(true);   // Re-enable sorting after leaving input
+          setSortActive(true);
         }}
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent triggering table row selection
-          inputRef.current.focus(); // Focus the input on click
-        }}
+        allowClear
+        onClear={() => setSearchTerm('')}
         style={{ marginTop: 8, marginBottom: 8, width: '100%' }}
         size="small"
       />
@@ -68,6 +66,7 @@ const MultiRowTable = () => {
   const [columnSearch, setColumnSearch] = useState({});
   const [filteredData, setFilteredData] = useState(data);
   const [sortActive, setSortActive] = useState(true);
+  const [selectedRows, setSelectedRows] = useState([]); // State to hold selected rows
 
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
 
@@ -122,6 +121,7 @@ const MultiRowTable = () => {
     }
   };
 
+  // Define columns
   const columns = [
     {
       title: getColumnSearchProps('name', columnSearch.name, (val) =>
@@ -168,6 +168,14 @@ const MultiRowTable = () => {
     },
   ];
 
+  // Row selection configuration
+  const rowSelection = {
+    selectedRowKeys: selectedRows.map((row) => row.key),
+    onChange: (selectedRowKeys, selectedRows) => {
+      setSelectedRows(selectedRows); // Update the state with selected rows
+    },
+  };
+
   return (
     <div className="minimalist-table-container">
       {/* Global Search Input */}
@@ -192,6 +200,7 @@ const MultiRowTable = () => {
           x: 1000,
           y: 350,
         }}
+        rowSelection={rowSelection} // Add row selection here
         rowClassName={(record, index) =>
           index % 2 === 0 ? 'minimalist-row-light' : 'minimalist-row-dark'
         }

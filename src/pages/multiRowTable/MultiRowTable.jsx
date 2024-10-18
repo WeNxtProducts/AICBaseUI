@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Table, Input } from 'antd';
+import { Table, Input, Checkbox } from 'antd';
 import { useDebounce } from 'use-debounce';
 import './index.scss';
 
@@ -14,7 +14,6 @@ const data = Array.from({ length: 150 }, (_, i) => ({
   country: `Country ${i}`,
 }));
 
-// Function to highlight the search term in text
 const highlightText = (text, searchTerm) => {
   if (!searchTerm) return text;
   const regex = new RegExp(`(${searchTerm})`, 'gi');
@@ -28,26 +27,19 @@ const highlightText = (text, searchTerm) => {
   );
 };
 
-// Helper function for column-specific search
 const getColumnSearchProps = (dataIndex, searchTerm, setSearchTerm, setSortActive, inputRef) => ({
   title: (
     <div>
       {dataIndex.charAt(0).toUpperCase() + dataIndex.slice(1)}
       <Input
-        ref={inputRef} // Add ref here
+        ref={inputRef}
         placeholder={`Search ${dataIndex}`}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        onFocus={() => {
-          setSortActive(false);  // Disable sorting while focusing
-        }}
-        onBlur={() => {
-          setSortActive(true);   // Re-enable sorting after leaving input
-        }}
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent triggering table row selection
-          inputRef.current.focus(); // Focus the input on click
-        }}
+        onFocus={() => setSortActive(false)}
+        onBlur={() => setSortActive(true)}
+        allowClear
+        onClear={() => setSearchTerm('')}
         style={{ marginTop: 8, marginBottom: 8, width: '100%' }}
         size="small"
       />
@@ -68,6 +60,10 @@ const MultiRowTable = () => {
   const [columnSearch, setColumnSearch] = useState({});
   const [filteredData, setFilteredData] = useState(data);
   const [sortActive, setSortActive] = useState(true);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  // Track all keys
+  const allRowKeys = data.map(item => item.key);
 
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
 
@@ -78,14 +74,12 @@ const MultiRowTable = () => {
   const occupationInputRef = useRef(null);
   const companyInputRef = useRef(null);
 
-  // Apply Global Search
   React.useEffect(() => {
     const filtered = data.filter((item) => {
       const globalSearchMatch = Object.values(item).some((val) =>
         val.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
       );
 
-      // Apply Column-Specific Search Filters
       const columnFilterMatch = Object.keys(columnSearch).every((key) => {
         if (!columnSearch[key]) return true;
         return item[key]
@@ -99,10 +93,6 @@ const MultiRowTable = () => {
 
     setFilteredData(filtered);
   }, [debouncedSearchTerm, columnSearch]);
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
 
   const handleTableChange = (pagination, filters, sorter) => {
     setPagination(pagination);
@@ -120,6 +110,15 @@ const MultiRowTable = () => {
         return sortedData;
       });
     }
+  };
+
+  const handleSelectChange = (selectedKeys) => {
+    setSelectedRowKeys(selectedKeys);
+    // handleSelectAll()
+  };
+
+  const handleSelectAll = () => {
+    setSelectedRowKeys(allRowKeys);
   };
 
   const columns = [
@@ -170,11 +169,10 @@ const MultiRowTable = () => {
 
   return (
     <div className="minimalist-table-container">
-      {/* Global Search Input */}
       <Input
         placeholder="Search across all columns"
         value={searchTerm}
-        onChange={handleSearch}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="minimalist-search"
         style={{ marginBottom: 16 }}
       />
@@ -186,6 +184,10 @@ const MultiRowTable = () => {
           total: filteredData.length,
           showTotal: (total) => `Total ${total} items`,
           size: 'small',
+        }}
+        rowSelection={{
+          selectedRowKeys,
+          onChange: handleSelectChange,
         }}
         onChange={handleTableChange}
         scroll={{
