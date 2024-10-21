@@ -21,6 +21,7 @@ const ModernMRV = ({
  title = '',
  freeze = false,
  formInit = false,
+ handleOnSearch
 }) => {
  const [initValues, setInitValues] = useState(null);
  const [validation, setValidation] = useState(null);
@@ -89,6 +90,7 @@ const ModernMRV = ({
                 setFieldValue={setFieldValue}
                 handleOnBlur={handleOnBlur}
                 lovData={lovList?.[dataId]}
+                handleOnSearch={handleOnSearch}
                 handleChangeValue={handleChangeValue}
                 parent={root}
                 smallFont={smallFont}

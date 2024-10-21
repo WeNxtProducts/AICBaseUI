@@ -387,6 +387,10 @@ const POST_API_URL = {
   url: '/polBroker/delete',
   baseURL: 'CRUD',
  },
+ DMSFileGenerateDocument: {
+  url: '/report/generatedocument',
+  baseURL: 'DOCPRINT',
+ },
 };
 
 export default POST_API_URL;

@@ -38,7 +38,7 @@ const UnderWriterWorkBench = () => {
                 const findPol = response?.Data?.find(item => {
                     return item?.Policy_Number === POL_NO;
                 });
-                console.log("findPol : ", findPol, POL_NO, response?.Data)
+
                 if (findPol) {
                     setProposalList(response?.Data);
                     setPolicyNumber(findPol?.Policy_Number);

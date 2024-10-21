@@ -12,7 +12,6 @@ const PolicyTabs = () => {
     const { formValues, selectedPolDetails, selectedPolicy } = useContext(ClaimContext);
     const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } = selectedPolDetails;
     const [activeTab, setActiveTab] = useState(0);
-    console.log("CLM_TRAN_ID : ", selectedPolicy)
 
     const handleTabClick = index => {
         setActiveTab(index);

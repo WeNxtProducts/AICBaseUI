@@ -15,6 +15,7 @@ import { ClaimContext } from '../../../ModernClaim';
 import MRVListingScreen from '../MRVListingScreen';
 import ModernMRV from '../../../modernMRV/ModernMRV';
 import ClaimLevelTotal from '../ClaimLevelTotal';
+import useParamLov from '../../../../../components/useParamLov/useParamLov';
 
 const MRVClaim = ({
   queryID,
@@ -44,6 +45,7 @@ const MRVClaim = ({
   const { CLM_TRAN_ID } = selectedPolDetails;
   const { mrvListingId } = ClaimsJson;
   const { rowData, columnData, handleMRVListing } = useMRVListing();
+  const { onSearch } = useParamLov();
   const mrvGetById = useApiRequests(mrvGet, 'GET');
   const getParamLov = useApiRequests('getParamLov', 'GET');
   const saveMRV = useApiRequests(saveRow, 'POST');
@@ -127,7 +129,6 @@ const MRVClaim = ({
   }, [rowData]);
 
   useEffect(() => {
-    console.log("title : ", title, CLM_TRAN_ID)
     if (CLM_TRAN_ID) {
       handleInitData(ClaimsJson);
       MRVListing();
@@ -237,6 +238,25 @@ const MRVClaim = ({
     }
   };
 
+  const handleOnSearch = async (currentData, values, setFieldValue, val) => {
+    const key = currentData?.PFD_COLUMN_NAME;
+
+    if (Object.prototype.hasOwnProperty.call(currentData, 'PFD_PARAM_4') || key === 'CE_COVER_CODE') {
+      if (["CE_COVER_CODE"].includes(key)) {
+        let payload;
+        payload = { tranId: 12, date: formValues?.CH_INS_DT, claimType: formValues?.CH_CLAIM_TYPE }
+        // CH_INTIM_DT CH_LOSS_DT
+        if (val?.length > 0) {
+          const response = await onSearch(236, val, payload);
+          setDropDown(prev => ({
+            ...prev,
+            [key]: response?.Data?.[key],
+          }));
+        }
+      }
+    }
+  };
+
   return (
     <div className='front-form claim-cover grid grid-cols-8 gap-1'>
       {loader && <Loader />}
@@ -258,6 +278,7 @@ const MRVClaim = ({
               handleChangeValue={handleChangeValue}
               resetForm={resetForm}
               handleOnBlur={handleOnBlur}
+              handleOnSearch={handleOnSearch}
               addOrUpdate={!!editMRVId}
               smallFont={true}
               title={title}

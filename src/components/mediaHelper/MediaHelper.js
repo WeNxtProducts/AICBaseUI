@@ -51,7 +51,7 @@ export const handleFileDownloadOrView = file => {
  const byteArray = new Uint8Array(file.byteArray);
 
  // Convert byteArray to Blob
- const blob = new Blob([byteArray], { type: getFileType(file.filename) });
+ const blob = new Blob([byteArray], { type: getFileType(file.filename || '') });
 
  // Create a URL for the Blob
  const url = URL.createObjectURL(blob);

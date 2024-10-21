@@ -1,9 +1,13 @@
 import { Modal } from 'antd';
 import { Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react'
-import { CustomDatePicker, CustomNumberField, CustomSelect, CustomTextArea } from '../../../components/commonExportsFields/CommonExportsFields';
+import { CustomSelect } from '../../../components/commonExportsFields/CommonExportsFields';
+import useApiRequests from '../../../services/useApiRequests';
+import showNotification from '../../../components/notification/Notification';
+import { handleFileDownloadOrView } from '../../../components/mediaHelper/MediaHelper';
 
 const UWPrintDocument = ({ open, handleClose }) => {
+    const DMSFileGenerate = useApiRequests('DMSFileGenerateDocument', 'POST');
     const [Open, setOpen] = useState(false);
     const [initialValues, setInitialValues] = useState({
         type: '',
@@ -15,7 +19,8 @@ const UWPrintDocument = ({ open, handleClose }) => {
     });
 
     const onSubmit = async values => {
-        console.log("values : ", values);
+        // console.log("values : ", values);
+        handleGetAndView();
     }
 
     useEffect(() => {
@@ -25,6 +30,24 @@ const UWPrintDocument = ({ open, handleClose }) => {
     const onClose = (decision) => {
         setOpen(false);
         handleClose(decision);
+    };
+
+    const handleGetAndView = async () => {
+        const payload = {
+            "docTemplateName": "Draft_Policy_for_GLA",
+            "tranId": "PEND2024003"
+        }
+        try {
+            const response = await DMSFileGenerate(payload);
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                const updatedItem = { filename: 'Draft_Policy_for_GLA.pdf', byteArray: response?.Data?.attachment };
+                handleFileDownloadOrView(updatedItem);
+
+            }
+        } catch (err) {
+            showNotification.ERROR('Error on Viewing file');
+        }
     };
 
     return (
