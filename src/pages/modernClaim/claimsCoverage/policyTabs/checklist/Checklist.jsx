@@ -1,43 +1,64 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListDetails from './ListDetails';
-import MRVListingScreen from '../MRVListingScreen';
 import useMRVListing from '../../../../../components/mrvListing/useMRVListing';
-import { getQueryId } from '../../../../../components/commonHelper/QueryIdFetch';
-import { ClaimContext } from '../../../ModernClaim';
 import useApiRequests from '../../../../../services/useApiRequests';
 import showNotification from '../../../../../components/notification/Notification';
+import '../../../../../styles/components/MRV_Card.scss';
+import MRVListingQuotation from '../../../../quotation/mrvQuotation/MRVHelper/MRVListing';
 
-const Checklist = () => {
- const { ClaimsJson, id: tranId, selectedPolDetails } = useContext(ClaimContext);
- const { CLM_TRAN_ID } = selectedPolDetails;
- const { mrvListingId } = ClaimsJson;
+const Checklist = ({ tranId, proposalNumber, queryID, freeze }) => {
  const { rowData, columnData, handleMRVListing } = useMRVListing();
- const getChecklist = useApiRequests('getPreClaimDate', 'POST');
+ const getChecklistDetails = useApiRequests('getPreClaimDate', 'POST');
  const [listItemData, setListItemData] = useState([]);
  const [editMRVId, setEditMRVId] = useState('');
+ const [files, setFiles] = useState([]);
+ const [first, setFirst] = useState(true);
 
  const MRVListing = () => {
-  if (CLM_TRAN_ID) {
-   const queryId = getQueryId('ClaimCheckList', mrvListingId);
-   handleMRVListing(queryId, CLM_TRAN_ID);
+  if (tranId) {
+   //const queryId = getQueryId('getCheckListList', mrvListingId);
+   handleMRVListing(queryID, tranId);
   }
  };
 
  useEffect(() => {
-  if (CLM_TRAN_ID) {
+  if (tranId) {
    MRVListing();
   }
- }, [CLM_TRAN_ID]);
+ }, [tranId]);
+
+ useEffect(() => {
+  if (first && rowData?.length > 0 && proposalNumber) {
+   handleEdit(rowData[0]);
+   setFirst(false);
+  }
+ }, [proposalNumber, rowData]);
+
+ const handleGetMediaFiles = async () => {
+  try {
+   const response = await getChecklistDetails(
+    { queryParams: { tranId: proposalNumber } },
+    { queryId: 195 },
+   );
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'SUCCESS') {
+    setFiles(response?.Data);
+   }
+  } catch (err) {
+   console.log('err : ', err);
+  }
+ };
 
  const handleEdit = async item => {
   setEditMRVId(item?.Group_Code);
   try {
-   const response = await getChecklist(
-    { queryParams: { CLM_TRAN_ID: CLM_TRAN_ID, GROUP_CODE: item?.Group_Code } },
-    { queryId: 129 },
+   const response = await getChecklistDetails(
+    { queryParams: { tranId, groupCode: item?.Group_Code } },
+    { queryId: 155 },
    );
    if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
+    handleGetMediaFiles();
     setListItemData(response?.Data);
    }
   } catch (err) {
@@ -45,24 +66,42 @@ const Checklist = () => {
   }
  };
 
+ const refreshData = () => {
+  const payload = { Group_Code: editMRVId };
+  handleEdit(payload);
+ };
+
  return (
-  <div className='grid grid-cols-7 py-1 pe-1'>
-   <div className='col-span-5 pe-2'>
-    <ListDetails listItemData={listItemData} />
+  <div className='grid grid-cols-9 py-1 pe-1 pl-2'>
+   <div className='col-span-7 pe-2'>
+    <ListDetails
+     listItemData={listItemData}
+     tranId={tranId}
+     refreshData={refreshData}
+     selectedRow={editMRVId}
+     Tran_Id={proposalNumber}
+     group_code={editMRVId}
+     files={files}
+     setFiles={setFiles}
+     handleGetMediaFiles={handleGetMediaFiles}
+     freeze={freeze}
+    />
    </div>
    <div className='col-span-2 p-2 border_left_divider'>
     {rowData?.length > 0 && (
-     <MRVListingScreen
+     <MRVListingQuotation
       tableColumn={columnData}
       tableData={rowData}
       handleEdit={handleEdit}
-      //  handleDelete={handleDelete}
-      //  selectedRow={editMRVId}
+      freeze={freeze}
+      //handleDelete={handleDelete}
+      //selectedRow={editMRVId}
       selectedRow={editMRVId}
       highlightKey='Group_Code'
      />
     )}
    </div>
+   {/* <button onClick={() => handleNext()}>handleNext</button> */}
   </div>
  );
 };

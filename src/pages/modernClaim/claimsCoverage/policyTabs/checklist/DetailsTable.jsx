@@ -1,18 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import { CloudUploadOutlined } from '@ant-design/icons';
-import FileUpload from '../../../../fileUpload/FileUpload';
-import { CustomSelect } from '../../../../../components/commonExportsFields/CommonExportsFields';
 import { Checkbox } from 'antd';
-import { checkListValue } from '../../../../../components/tableComponents/sampleData';
+import { CloudUploadOutlined } from '@ant-design/icons';
 import './DetailsTable.scss';
+import useApiRequests from '../../../../../services/useApiRequests';
+import showNotification from '../../../../../components/notification/Notification';
+import { checkListValue } from '../../../../../components/tableComponents/sampleData';
+import { CustomSelect } from '../../../../../components/commonExportsFields/CommonExportsFields';
+import FileUpload from '../../../../fileUpload/FileUpload';
 
-const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
+const DetailsTable = ({
+ files,
+ setFiles,
+ tableData = [],
+ handleSelect,
+ handleBulkFlag,
+ Tran_Id,
+ group_code,
+ handleGetMediaFiles,
+ freeze,
+}) => {
+ const DMSFileUpload = useApiRequests('DMSFileUpload', 'POST');
+ const DMSFileDelete = useApiRequests('DMSDelete', 'POST');
  const [expandedRows, setExpandedRows] = useState('');
+ const [statusBox, setStatusBox] = useState(false);
 
- const scrollToView = id => {
-  const panel = document.querySelector(`[data-id='claim-row-expanded-${id}']`);
-  if (panel) {
-   panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+ useEffect(() => {
+  const allReceivedStatusY = tableData.every(item => item.RECEIVED_STATUS === 'Y');
+  setStatusBox(allReceivedStatusY);
+ }, [tableData]);
+
+ const updateFileKeyAtIndex = (index, newValue) => {
+  setFiles(prevFiles => {
+   const updatedFiles = [...prevFiles];
+   const updatedFile = { ...updatedFiles[index], ...newValue };
+   //const { byteArray, ...updatedFile } = { ...updatedFiles[index], ...newValue };
+   updatedFiles[index] = updatedFile;
+   return updatedFiles;
+  });
+ };
+
+ const handleDelete = async payload => {
+  try {
+   const response = await DMSFileDelete(payload);
+   console.log('response : ', response);
+   if (response?.status === 'SUCCESS') {
+    handleGetMediaFiles();
+    return true;
+   } else if (response?.status === 'FAILURE') {
+    return false;
+   }
+  } catch (err) {
+   showNotification.ERROR('Error Deleting files');
+  }
+ };
+
+ const handleUpload = async (files, index) => {
+  try {
+   const response = await DMSFileUpload(files);
+   if (response?.Overall[0]?.status === 'FAILURE')
+    showNotification.ERROR(response?.Overall[0]?.status);
+   if (response?.Overall[0]?.status === 'SUCCESS') {
+    showNotification.SUCCESS(response?.Overall[0]?.status_msg);
+    updateFileKeyAtIndex(index, response?.Overall[0]?.Data);
+   }
+  } catch (err) {
+   showNotification.ERROR('Error uploading files');
   }
  };
 
@@ -27,24 +79,13 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
  };
 
  const renderRow = (item, index) => {
-  const clickCallback = () => handleRowClick(item.DTLS_TRAN_ID);
+  const clickCallback = () => handleRowClick(item.ID);
 
   const itemRows = [
    <tr key={`row-data-${item?.DTLS_TRAN_ID}`}>
-    <td>{item?.DTLS_SR_NO}</td>
-    <td>{item?.DTLS_TODO_LIST_ITEM}</td>
-    {/* <td>
-     <div className='table_textarea'>
-      <CustomTextArea
-       value={item?.Remarks}
-       placeholder={'remarks'}
-       onChange={e => {
-        handleSelect(index, 'Remarks', e.target.value);
-       }}
-      />
-     </div>
-    </td> */}
-    <td>{item?.DTLS_MANDATORY_YN}</td>
+    <td>{item?.SNO}</td>
+    <td>{item?.DESCRPTION}</td>
+    <td>{item?.Mandatory_YN}</td>
     <td>
      <div className='table_lov'>
       <CustomSelect
@@ -52,10 +93,11 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
        placeholder={'select'}
        size='medium'
        showSearch={false}
-       value={item?.DTLS_APPR_STS}
+       readOnly={freeze}
+       value={item?.RECEIVED_STATUS}
        onChange={e => {
         console.log('e : ', e);
-        handleSelect(index, 'DTLS_APPR_STS', e);
+        handleSelect(index, 'RECEIVED_STATUS', e, item);
        }}
       />
      </div>
@@ -65,19 +107,16 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
       <span
        onClick={() => {
         clickCallback();
-        // handleUpload(item);
        }}
        className='upload-icons'>
-       {/* Upload Docs */}
-       <CloudUploadOutlined />
-       {/* <UploadOutlined /> */}
+       {!freeze ? <CloudUploadOutlined /> : <span className='view_text'>View</span>}
       </span>
      </div>
     </td>
    </tr>,
   ];
 
-  if (expandedRows.includes(item.DTLS_TRAN_ID)) {
+  if (expandedRows.includes(item.ID)) {
    itemRows.push(
     <tr
      className='expanded_row'
@@ -85,7 +124,16 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
      key={`claim-row-expanded-${item.DTLS_TRAN_ID}`}>
      <td colSpan='6' className='claim_row_expand'>
       <div className='Upload_documents_claim_checklist mb-3'>
-       <FileUpload />
+       <FileUpload
+        docType={item?.DESCRPTION}
+        Tran_Id={Tran_Id}
+        group_code={group_code}
+        handleUpload={handleUpload}
+        handleDelete={handleDelete}
+        files={files}
+        setFiles={setFiles}
+        freeze={freeze}
+       />
       </div>
      </td>
     </tr>,
@@ -101,8 +149,17 @@ const DetailsTable = ({ tableData = [], handleSelect, handleUpload }) => {
    {/* <th>Remarks</th> */}
    <th>Mandatory Y/N</th>
    <th>
-    <div>
-     <span>Status</span> <Checkbox />
+    <div className='flex items-center justify-center'>
+     <span className='me-2'>Status</span>
+     {!freeze && (
+      <Checkbox
+       checked={statusBox}
+       onClick={e => {
+        setStatusBox(e.target.checked);
+        handleBulkFlag(e.target.checked);
+       }}
+      />
+     )}
     </div>
    </th>
    <th>Upload</th>
