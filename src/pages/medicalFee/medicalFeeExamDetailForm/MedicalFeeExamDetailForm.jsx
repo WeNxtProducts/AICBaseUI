@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Form, Formik } from 'formik';
+import { ErrorMessage, Form, Formik } from 'formik';
 import { CustomDatePicker, CustomSelect } from '../../../components/commonExportsFields/CommonExportsFields';
+import { medicalFeeFormSchema } from '../MedicalShema';
 
 const MedicalFeeExamDetailForm = () => {
     const [initialValues, setInitialValues] = useState({
-        pay_to: '',
-        pay_code: '',
-        pol_from_date: '',
-        pol_end_date: '',
+        medicalFee: {
+            formFields: { pay_to: '', clinic_code: '', pol_from_date: '', pol_end_date: '' }
+        }
     });
 
     const onSubmit = async values => {
@@ -21,9 +21,10 @@ const MedicalFeeExamDetailForm = () => {
                 <Formik
                     initialValues={initialValues}
                     onSubmit={onSubmit}
+                    validationSchema={medicalFeeFormSchema}
                     enableReinitialize={true}
                 >
-                    {({ handleSubmit, values, setFieldValue }) => {
+                    {({ handleSubmit, values, setFieldValue, errors }) => {
                         return (
                             <Form onSubmit={handleSubmit}>
                                 <div className='pl-1 mt-4 grid grid-cols-2 gap-5 items-start'>
@@ -36,58 +37,79 @@ const MedicalFeeExamDetailForm = () => {
                                                 options={[]}
                                                 placeholder='select'
                                                 size='medium'
-                                                value={values?.select || undefined}
+                                                value={values?.medicalFee?.formFields?.pay_to || undefined}
                                                 onChange={e => {
-                                                    setFieldValue('pay_to', e);
+                                                    setFieldValue('medicalFee.formFields.pay_to', e);
                                                 }}
+                                            />
+                                            <ErrorMessage
+                                                name={'medicalFee.formFields.pay_to'}
+                                                component='div'
+                                                className='error-message'
                                             />
                                         </div>
                                     </div>
                                     <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
                                         <div className='col-span-2'>
-                                            <p className='label-font'>Pay to code</p>
+                                            <p className='label-font'>Clinic Code</p>
                                         </div>
                                         <div className='col-span-7'>
                                             <CustomSelect
                                                 options={[]}
                                                 placeholder='select'
                                                 size='medium'
-                                                value={values?.pay_code || undefined}
+                                                value={values?.medicalFee?.formFields?.clinic_code || undefined}
                                                 onChange={e => {
-                                                    setFieldValue('pay_code', e);
+                                                    setFieldValue('medicalFee.formFields.clinic_code', e);
                                                 }}
+                                            />
+                                            <ErrorMessage
+                                                name={'medicalFee.formFields.clinic_code'}
+                                                component='div'
+                                                className='error-message'
                                             />
                                         </div>
                                     </div>
 
                                     <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
                                         <div className='col-span-2'>
-                                            <p className='label-font'>Policy From Date</p>
+                                            <p className='label-font'>From Date</p>
                                         </div>
                                         <div className='col-span-7'>
                                             <CustomDatePicker
                                                 placeholder='date'
                                                 size='medium'
-                                                value={values?.pol_from_date}
+                                                value={values?.medicalFee?.formFields?.pol_from_date}
                                                 onChange={date => {
-                                                    setFieldValue('pol_from_date', date);
+                                                    setFieldValue('medicalFee.formFields.pol_from_date', date);
                                                 }}
+                                            />
+                                            <ErrorMessage
+                                                name={'medicalFee.formFields.pol_from_date'}
+                                                component='div'
+                                                className='error-message'
                                             />
                                         </div>
                                     </div>
 
                                     <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
                                         <div className='col-span-2'>
-                                            <p className='label-font'>Policy End Date</p>
+                                            <p className='label-font'>End Date</p>
                                         </div>
                                         <div className='col-span-7'>
                                             <CustomDatePicker
                                                 placeholder='date'
                                                 size='medium'
-                                                value={values?.pol_end_date}
+                                                disabledDates={values?.medicalFee?.formFields?.pol_from_date}
+                                                value={values?.medicalFee?.formFields?.pol_end_date}
                                                 onChange={date => {
-                                                    setFieldValue('pol_end_date', date);
+                                                    setFieldValue('medicalFee.formFields.pol_end_date', date);
                                                 }}
+                                            />
+                                            <ErrorMessage
+                                                name={'medicalFee.formFields.pol_end_date'}
+                                                component='div'
+                                                className='error-message'
                                             />
                                         </div>
                                     </div>

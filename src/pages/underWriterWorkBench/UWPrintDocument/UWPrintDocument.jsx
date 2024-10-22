@@ -35,7 +35,7 @@ const UWPrintDocument = ({ open, handleClose }) => {
     const handleGetAndView = async () => {
         const payload = {
             "docTemplateName": "Draft_Policy_for_GLA",
-            "tranId": "PEND2024003"
+            "tranId": "1"
         }
         try {
             const response = await DMSFileGenerate(payload);
