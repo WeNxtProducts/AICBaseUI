@@ -12,10 +12,10 @@ import { StepperContext } from '../Quotation';
 import MRVQuotationForm from './MRVHelper/MRVQuotationForm';
 import MRVListingQuotation from './MRVHelper/MRVListing';
 import MRVModal from './MRVHelper/MRVInModal/MRVModal';
-import '../../../styles/components/MRV_Card.scss';
 import useParamLov from '../../../components/useParamLov/useParamLov';
 import dayjs from 'dayjs';
 import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
+import '../../../styles/components/MRV_Card.scss';
 
 const MrvQuotation = ({
   tranId,
@@ -74,7 +74,10 @@ const MrvQuotation = ({
 
   const addOrUpdateMRV = async (payload, addOrUpdate, lifeId) => {
     try {
-      const params = editMRVId ? { editMRVId } : { tranId, ...(lifeId && { lifeId }) };
+      const params = editMRVId ? { editMRVId } : {
+        tranId, ...(lifeId && { lifeId })
+        , ...(medicalId && { medicalId })
+      };
       const response = await addOrUpdate(payload, '', params);
       if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
       if (response?.status === 'SUCCESS') {
