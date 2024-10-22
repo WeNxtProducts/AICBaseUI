@@ -199,6 +199,8 @@ const MultiRowTable = () => {
         }
         sticky
       />
+      {/* <h1>Custom Table Web Component in React</h1>
+      <custom-table></custom-table> */}
     </div>
   );
 };
