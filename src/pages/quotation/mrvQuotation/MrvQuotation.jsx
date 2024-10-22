@@ -396,7 +396,6 @@ const MrvQuotation = ({
         const { P_AGE } = response.Data
         if (P_AGE) {
           if (P_AGE <= PROD_MAX_AGE) {
-            console.log("validateAge : ", P_AGE)
             return true
           } else if (P_AGE > PROD_MAX_AGE) {
             showNotification.WARNING(`Assured code age should be less than ${PROD_MAX_AGE}`);
