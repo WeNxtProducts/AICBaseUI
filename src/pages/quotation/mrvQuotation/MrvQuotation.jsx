@@ -636,6 +636,14 @@ const MrvQuotation = ({
               handleOnSearch={handleOnSearch}
               formInit={formInit}
               nextStep={nextStep}
+              imageData={{
+                DocType: 'proposal_medical',
+                TranId: '1',
+                module: 'medical',
+                dms_status: 'N',
+                screenName: 'proposal_medical',
+                uploadscrn: 'proposal_medical'
+              }}
             />
           )}
         </div>

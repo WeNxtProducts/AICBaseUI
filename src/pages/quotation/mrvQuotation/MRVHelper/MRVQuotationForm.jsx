@@ -23,7 +23,8 @@ const MRVQuotationForm = ({
     formInit = false,
     nextStep,
     handleOnSearch,
-    schemaValidation
+    schemaValidation,
+    imageData = null
 }) => {
     const [initValues, setInitValues] = useState(null);
     const [validation, setValidation] = useState(null);
@@ -100,6 +101,7 @@ const MRVQuotationForm = ({
                                                             parent={root}
                                                             smallFont={smallFont}
                                                             freeze={freeze}
+                                                            imageData={imageData}
                                                         />
                                                     </div>
                                                 )}

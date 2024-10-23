@@ -37,14 +37,8 @@ const FileUpload = ({
 
   setFiles(prevFiles => {
    const validPrevFiles = Array.isArray(prevFiles) ? prevFiles : [];
-   console.log('[...validPrevFiles, ...filesByteArrays] : ', [
-    ...validPrevFiles,
-    ...filesByteArrays,
-   ]);
    return [...validPrevFiles, ...filesByteArrays];
   });
-
-  //   setFiles(prevFiles => [...prevFiles, ...filesByteArrays]);
  }, []);
 
  const { getRootProps, getInputProps, isDragActive } = useDropzone({
