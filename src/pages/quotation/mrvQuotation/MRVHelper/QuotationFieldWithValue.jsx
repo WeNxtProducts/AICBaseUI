@@ -274,10 +274,10 @@ const QuotationFieldWithValue = ({
                   }}
                 />
               );
-            case 'media':
-              return (
-                <CustomMediaUpload imageData={imageData} />
-              );
+            // case 'media':
+            //   return (
+            //     <CustomMediaUpload imageData={imageData} />
+            //   );
             default:
               return null;
           }

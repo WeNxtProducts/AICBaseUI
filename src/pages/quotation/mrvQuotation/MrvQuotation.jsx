@@ -16,6 +16,7 @@ import useParamLov from '../../../components/useParamLov/useParamLov';
 import dayjs from 'dayjs';
 import { calculateDateAfterYears } from '../../../components/commonHelper/CurrentFormatter';
 import '../../../styles/components/MRV_Card.scss';
+import CustomMediaUpload from './../../../components/customFieldComponents/customMediaUpload/CustomMediaUpload';
 
 const MrvQuotation = ({
   tranId,
@@ -618,29 +619,37 @@ const MrvQuotation = ({
       <div className='propasal-entry-form col-span-8 grid grid-cols-9'>
         <div className={`col-span-${hasValidRowData(rowData) ? '7' : '9'} mt-1`}>
           {quotationMRV && Object.prototype.hasOwnProperty.call(quotationMRV, root) && (
-            <MRVQuotationForm
-              initialValues={quotationMRVInitialValues}
-              formRender={quotationMRV}
-              schemaValidation={schemaValidation}
-              root={root}
-              lovList={dropDown}
-              onSubmit={onSubmit}
-              handleChangeValue={handleChangeValue}
-              resetForm={resetForm}
-              handleOnBlur={handleOnBlur}
-              addOrUpdate={!!editMRVId}
-              smallFont={true}
-              title={title}
-              action={action}
-              freeze={freeze}
-              handleOnSearch={handleOnSearch}
-              formInit={formInit}
-              nextStep={nextStep}
-              imageData={{
-                DocType: 'proposal_medical', TranId: '1', module: 'medical', dms_status: 'N',
-                screenName: 'DMS', uploadscrn: 'MEDICAL'
-              }}
-            />
+            <>
+              <MRVQuotationForm
+                initialValues={quotationMRVInitialValues}
+                formRender={quotationMRV}
+                schemaValidation={schemaValidation}
+                root={root}
+                lovList={dropDown}
+                onSubmit={onSubmit}
+                handleChangeValue={handleChangeValue}
+                resetForm={resetForm}
+                handleOnBlur={handleOnBlur}
+                addOrUpdate={!!editMRVId}
+                smallFont={true}
+                title={title}
+                action={action}
+                freeze={freeze}
+                handleOnSearch={handleOnSearch}
+                formInit={formInit}
+                nextStep={nextStep}
+                imageData={{
+                  DocType: 'proposal_medical', TranId: '1', module: 'medical', dms_status: 'N',
+                  screenName: 'DMS', uploadscrn: 'MEDICAL'
+                }}
+              />
+              {medicalId && editMRVId &&
+                <CustomMediaUpload imageData={{
+                  DocType: 'proposal_medical', TranId: editMRVId, module: 'medical', dms_status: 'N',
+                  screenName: 'DMS', uploadscrn: 'MEDICAL'
+                }} />
+              }
+            </>
           )}
         </div>
         {hasValidRowData(rowData) && (
