@@ -90,20 +90,39 @@ const ClaimSelect = () => {
     }
   };
 
+  const callSecondProcedureAfterSave = async (claim_id_new) => {
+    const payload = {
+      inParams: {
+        P_CH_TRAN_ID: claim_id_new
+      },
+    };
+    try {
+      const response = await invokeClaimsProcedure(payload, {
+        procedureName: 'P_POPULATE_ELIGIBLE_POL',
+      });
+      if (response?.Data?.P_SUCC_YN === 'N') {
+        showNotification.ERROR(response?.Data?.P_ERR_MSG);
+        setLoader(false);
+      }
+      if (response?.Data?.P_SUCC_YN === 'Y') {
+        showNotification.SUCCESS(response?.Data?.P_ERR_MSG);
+        handleGetClaim(claim_id_new);
+        if (!tranId) dispatch(setCurrentID(claim_id_new));
+      }
+    } catch (err) {
+      setLoader(false);
+    }
+  }
+
   const claimSave = async values => {
     try {
       const response = await createClaim(values);
       if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
       if (response?.status === 'SUCCESS') {
-        // setInitialValues(pre => ({
-        //  ...formRef.current.values,
-        //  CH_REF_NO: response?.Data?.CH_REF_NO,
-        // }));
-        handleGetClaim(response?.Data?.Id);
-        // handleGetPolicyList(response?.Data?.Id);
-        // dispatch(setFormValues(values));
-        if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
-        showNotification.SUCCESS(response?.status_msg);
+        callSecondProcedureAfterSave(response?.Data?.Id)
+        // handleGetClaim(response?.Data?.Id);
+        // if (!tranId) dispatch(setCurrentID(response?.Data?.Id));
+        // showNotification.SUCCESS(response?.status_msg);
       }
     } catch (err) {
       setLoader(false);

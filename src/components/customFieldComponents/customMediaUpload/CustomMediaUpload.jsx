@@ -10,9 +10,11 @@ const CustomMediaUpload = ({ imageData }) => {
     const DMSFileDelete = useApiRequests('DMSDelete', 'POST');
     const DMSFileView = useApiRequests('DMSView', 'POST');
     const [fileData, setFileData] = useState(null);
+    const [isUploaded, setIsUploaded] = useState(false);
 
-    const handleGetAndView = async item => {
-        const payload = [{ path: item?.filepath }];
+    const handleGetAndView = async (item) => {
+        console.log("item : ",item)
+        const payload = [{ path: item?.filePath }];
         try {
             const response = await DMSFileView(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
@@ -33,7 +35,10 @@ const CustomMediaUpload = ({ imageData }) => {
             if (response?.Overall[0]?.status === 'FAILURE')
                 showNotification.ERROR(response?.Overall[0]?.status);
             if (response?.Overall[0]?.status === 'SUCCESS') {
+                setFileData({ ...response?.Overall[0]?.Data, ...imageData });
+                console.log("{...response?.Overall[0]?.Data,...imageData} : ", { ...response?.Overall[0]?.Data, ...imageData })
                 showNotification.SUCCESS(response?.Overall[0]?.status_msg);
+                setIsUploaded(true); // Set the upload state to true when successful
             }
         } catch (err) {
             showNotification.ERROR('Error uploading files');
@@ -49,7 +54,6 @@ const CustomMediaUpload = ({ imageData }) => {
         return mimeTypeToExtension[mimeType] || '';
     };
 
-
     const handleFileChange = async (event) => {
         const selectedFile = event.target.files[0];
         if (selectedFile) {
@@ -61,18 +65,32 @@ const CustomMediaUpload = ({ imageData }) => {
                 replaceFlag: 'N',
             };
             setFileData(newFileData);
+            setIsUploaded(false); // Reset the uploaded state when a new file is selected
         }
     };
 
     const handleDeleteFile = () => {
         setFileData(null);
+        setIsUploaded(false);
     };
 
     const handleViewFile = () => {
-        if (fileData) {
-            const fileURL = URL.createObjectURL(new Blob([fileData.byteArray]));
+        if (!fileData?.filePath) {
+            const fileBlob = new Blob([new Uint8Array(fileData.byteArray)], { type: getMimeType(fileData.genType) });
+            const fileURL = URL.createObjectURL(fileBlob);
             window.open(fileURL, '_blank');
+        } else if (fileData?.filePath) {
+            handleGetAndView(fileData)
         }
+    };
+
+    const getMimeType = (fileExtension) => {
+        const extensionToMimeType = {
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.pdf': 'application/pdf',
+        };
+        return extensionToMimeType[fileExtension] || 'application/octet-stream';
     };
 
     return (
@@ -88,13 +106,15 @@ const CustomMediaUpload = ({ imageData }) => {
                 </label>
             ) : (
                 <div className="file_info">
-                    <span className="file_name">{fileData.filename}</span>
+                    <span className="file_name">{fileData?.filename || fileData?.filePath}</span>
                     <div className="file_actions">
                         <EyeOutlined onClick={handleViewFile} className="icon view_icon" />
                         <DeleteOutlined onClick={handleDeleteFile} className="icon delete_icon" />
-                        <button type='button' className="upload_button" onClick={handleUpload}>
-                            Upload
-                        </button>
+                        {!isUploaded && (
+                            <button type='button' className="upload_button" onClick={handleUpload}>
+                                Upload
+                            </button>
+                        )}
                     </div>
                 </div>
             )}
