@@ -15,17 +15,19 @@ const CustomMediaUpload = ({ imageData }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const getMediaFile = async () => {
-        const payload = {
-            "queryParams": {
-                "tranId": imageData?.TranId,
-                "emptranId": "proposal_medical"
-            }
-        }
+        const payload = { queryParams: { tranId: imageData?.TranId?.toString(), emptranId: "proposal_medical" } }
         try {
-            const response = await getMapQuery(payload);
-            console.log('response : ', response);
+            const response = await getMapQuery(payload, { queryId: 400 });
             if (response?.status === 'SUCCESS') {
-                //
+                const dmsStatusY = response?.Data.find(item => item.dms_status === "Y");
+                if (dmsStatusY) {
+                    setFileData(dmsStatusY)
+                }
+                // if (response?.Data[0]?.dms_status !== 'D') {
+                //     setFileData(response?.Data[0])
+                // } else if (response?.Data[0]?.dms_status === 'D') {
+                //     setFileData(response?.Data[0])
+                // }
             } else if (response?.status === 'FAILURE') {
                 return false;
             }
@@ -42,12 +44,10 @@ const CustomMediaUpload = ({ imageData }) => {
         const payload = { doc_sys_id: [fileData?.doc_sys_id] }
         try {
             const response = await DMSFileDelete(payload);
-            console.log('response : ', response);
             if (response?.status === 'SUCCESS') {
                 setFileData(null);
                 setIsUploaded(false);
-
-                return true;
+                showNotification.SUCCESS(response?.status_msg);
             } else if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             }
@@ -67,15 +67,16 @@ const CustomMediaUpload = ({ imageData }) => {
     }
 
     const handleGetAndView = async (item) => {
-        console.log("item : ", item);
         const payload = [{ path: item?.filePath }];
         try {
             const response = await DMSFileView(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
-                const updatedItem = { ...item, byteArray: response?.byteArray[0] };
+                const updatedItem = {
+                    ...item, TranId: item?.TranId?.toString(),
+                    byteArray: response?.byteArray[0]
+                };
                 handleFileDownloadOrView(updatedItem);
-                console.log('handleGetAndView : ', response?.byteArray[0]);
             }
         } catch (err) {
             showNotification.ERROR('Error on Viewing file');
@@ -83,22 +84,23 @@ const CustomMediaUpload = ({ imageData }) => {
     };
 
     const handleUpload = async () => {
-        console.log("fileData : ", fileData);
         setIsLoading(true);
         try {
-            const response = await DMSFileUpload([{ ...fileData, ...imageData }]);
+            const response = await DMSFileUpload([{
+                ...fileData, ...imageData
+                , TranId: imageData?.TranId?.toString(),
+            }]);
             if (response?.Overall[0]?.status === 'FAILURE') {
                 showNotification.ERROR(response?.Overall[0]?.status);
             } else if (response?.Overall[0]?.status === 'SUCCESS') {
                 setFileData({ ...response?.Overall[0]?.Data, ...imageData });
-                console.log("{...response?.Overall[0]?.Data,...imageData} : ", { ...response?.Overall[0]?.Data, ...imageData });
                 showNotification.SUCCESS(response?.Overall[0]?.status_msg);
                 setIsUploaded(true);
             }
         } catch (err) {
             showNotification.ERROR('Error uploading files');
         } finally {
-            setIsLoading(false); // End loading
+            setIsLoading(false);
         }
     };
 
@@ -120,18 +122,19 @@ const CustomMediaUpload = ({ imageData }) => {
                 byteArray: byteArrayFormatted,
                 genType: getFileExtension(selectedFile.type),
                 replaceFlag: 'N',
+                ...(fileData?.dms_status === 'D' && { doc_sys_id: fileData?.doc_sys_id })
             };
             setFileData(newFileData);
-            setIsUploaded(false); // Reset the uploaded state when a new file is selected
+            setIsUploaded(false);
         }
     };
 
     const handleDeleteFile = () => {
-
         handleDelete()
     };
 
     const handleViewFile = () => {
+        console.log("fileData : ", fileData)
         if (!fileData?.filePath) {
             const fileBlob = new Blob([new Uint8Array(fileData.byteArray)], { type: getMimeType(fileData.genType) });
             const fileURL = URL.createObjectURL(fileBlob);
@@ -167,7 +170,7 @@ const CustomMediaUpload = ({ imageData }) => {
                     <div className="file_actions">
                         <EyeOutlined onClick={handleViewFile} className="icon view_icon" />
                         <DeleteOutlined onClick={handleDeleteFile} className="icon delete_icon" />
-                        {!isUploaded && (
+                        {!isUploaded && !fileData?.filePath && (
                             <button type='button' className="upload_button" onClick={handleUpload} disabled={isLoading}>
                                 {isLoading ? <LoadingOutlined spin /> : 'Upload'}
                             </button>
