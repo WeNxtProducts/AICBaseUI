@@ -6,11 +6,15 @@
  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
 
  .in_header {
-  padding: 10px;
+  padding: 10px 10px 20px 10px;
   min-height: 20%;
   border: 1px solid #e5f6ff;
   background-color: #f6fcff;
   border-radius: 8px;
+  .head_divider {
+   margin-top: 10px;
+   border: .1px solid #d9d9dc;
+  }
 
   .title {
    > p {
@@ -28,6 +32,84 @@
     color: #ffffff;
     padding: 5px 30px;
     border-radius: 6%;
+   }
+  }
+ }
+
+ .cover_insurance_details {
+  .cover_code_sidbar {
+   min-height: 300px;
+   padding: 5px 0px;
+
+   .cover_title {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #d9d9dc;
+    max-width: 98%;
+
+    > p {
+     color: #4d5e80;
+     font-weight: 700;
+     font-size: 14px;
+    }
+   }
+
+   .cover_code_list {
+    padding-right: 5px;
+    cursor: pointer;
+    .label_wrap {
+     border-bottom: 1px solid #d9d9dc;
+     height: 50px;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     position: relative;
+
+     &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -7px;
+      width: 15px;
+      height: 15px;
+      transform: translateY(-50%) rotate(45deg);
+      background-color: #ffffff;
+     }
+
+     .label_text {
+      user-select: none;
+      color: #696868;
+      font-size: 14px;
+     }
+    }
+    .label_wrap_selected {
+     background-color: #e5f6ff;
+     border-radius: 8px;
+     .label_text {
+      color: #0382c8;
+     }
+    }
+   }
+  }
+
+  .cover_code_insurance_detais {
+   padding: 10px 15px;
+   min-height: 300px;
+   background-color: #e5f6ff;
+   border-radius: 12px;
+
+   .reinsurance_details {
+    > p:first-of-type {
+     margin-top: 8px;
+     color: #4d5e80;
+     font-size: 14px;
+     line-height: 30px;
+     font-weight: 700;
+    }
    }
   }
  }

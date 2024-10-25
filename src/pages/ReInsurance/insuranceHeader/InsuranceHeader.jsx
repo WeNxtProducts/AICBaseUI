@@ -1,5 +1,5 @@
-import { Button } from 'antd'
 import React from 'react'
+import InsuranceTable from '../insuranceTable/InsuranceTable'
 
 const InsuranceHeader = () => {
     return (
@@ -8,8 +8,9 @@ const InsuranceHeader = () => {
                 <p>Policy No <span>P/2981/0192/090/090</span></p>
                 <button>FAC</button>
             </div>
-            <div>
-                
+            <hr className='head_divider' />
+            <div className='in_header_table mt-5'>
+                <InsuranceTable />
             </div>
         </div>
     )

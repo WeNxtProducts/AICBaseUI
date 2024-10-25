@@ -7,8 +7,10 @@ import showNotification from '../../../components/notification/Notification';
 import { handleFileDownloadOrView } from '../../../components/mediaHelper/MediaHelper';
 
 const UWPrintDocument = ({ open, handleClose }) => {
+    const getLovList = useApiRequests('getLovList', 'GET');
     const DMSFileGenerate = useApiRequests('DMSFileGenerateDocument', 'POST');
     const [Open, setOpen] = useState(false);
+    const [dropDown, setDropDown] = useState();
     const [initialValues, setInitialValues] = useState({
         type: '',
         proposal_no: '',
@@ -17,13 +19,36 @@ const UWPrintDocument = ({ open, handleClose }) => {
         alteration_number: '',
         report_type: '',
     });
+    const lovQueryId = [
+        { id: 401, label: 'type' },
+        { id: 402, label: 'print_type' },
+        { id: 403, label: 'schdule' }
+    ]
 
-    const onSubmit = async values => {
-        // console.log("values : ", values);
-        handleGetAndView();
-    }
+    const apiCallsGetLov = () => {
+        const promises = lovQueryId?.map(item => {
+            const queryParams = { queryId: item.id };
+            return getLovList('', queryParams).then(response => ({
+                [item.label]: response?.Data
+            }));
+        });
+
+        Promise.all(promises)
+            .then(responses => {
+                const transformedData = responses.reduce((acc, item) => {
+                    const [key, value] = Object.entries(item)[0];
+                    acc[key] = value;
+                    return acc;
+                }, {});
+                setDropDown(transformedData)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
 
     useEffect(() => {
+        apiCallsGetLov()
         setOpen(open);
     }, [open]);
 
@@ -31,6 +56,11 @@ const UWPrintDocument = ({ open, handleClose }) => {
         setOpen(false);
         handleClose(decision);
     };
+
+    const onSubmit = async values => {
+        // console.log("values : ", values);
+        handleGetAndView();
+    }
 
     const handleGetAndView = async () => {
         const payload = {
@@ -61,127 +91,133 @@ const UWPrintDocument = ({ open, handleClose }) => {
             footer={null}
         >
             <div>
-                <Formik
-                    initialValues={initialValues}
-                    onSubmit={onSubmit}
-                    enableReinitialize={true}
-                >
-                    {({ handleSubmit, values, setFieldValue }) => {
-                        return (
-                            <Form onSubmit={handleSubmit}>
-                                <div className='pl-1 mt-4 grid grid-cols-2 gap-5 items-start'>
-                                    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-                                        <div className='col-span-2'>
-                                            <p className='label-font'>
-                                                Type
-                                            </p>
-                                        </div>
-                                        <div className='col-span-7'>
-                                            <CustomSelect
-                                                options={[]}
-                                                placeholder='select'
-                                                size='medium'
-                                                value={values?.type || undefined}
-                                                onChange={e => {
-                                                    setFieldValue('type', e);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-                                        <div className='col-span-2'>
-                                            <p className='label-font'>Propsal No<span className='mandatory-symbol'>*</span></p>
-                                        </div>
-                                        <div className='col-span-7'>
-                                            <CustomSelect
-                                                options={[]}
-                                                placeholder='select'
-                                                size='medium'
-                                                value={values?.proposal_no || undefined}
-                                                onChange={e => {
-                                                    setFieldValue('proposal_no', e);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
 
-                                    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-                                        <div className='col-span-2'>
-                                            <p className='label-font'>Schedule<span className='mandatory-symbol'>*</span></p>
+                {dropDown !== null &&
+                    <Formik
+                        initialValues={initialValues}
+                        onSubmit={onSubmit}
+                        enableReinitialize={true}
+                    >
+                        {({ handleSubmit, values, setFieldValue }) => {
+                            return (
+                                <Form onSubmit={handleSubmit}>
+                                    <div className='pl-1 mt-4 grid grid-cols-2 gap-5 items-start'>
+                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                            <div className='col-span-2'>
+                                                <p className='label-font'>
+                                                    Type
+                                                </p>
+                                            </div>
+                                            <div className='col-span-7'>
+                                                <CustomSelect
+                                                    options={dropDown?.type}
+                                                    placeholder='select'
+                                                    size='medium'
+                                                    showSearch={false}
+                                                    value={values?.type || undefined}
+                                                    onChange={e => {
+                                                        setFieldValue('type', e);
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className='col-span-7'>
-                                            <CustomSelect
-                                                options={[]}
-                                                placeholder='select'
-                                                size='medium'
-                                                value={values?.schdule || undefined}
-                                                onChange={e => {
-                                                    setFieldValue('schdule', e);
-                                                }}
-                                            />
+                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                            <div className='col-span-2'>
+                                                <p className='label-font'>Propsal No<span className='mandatory-symbol'>*</span></p>
+                                            </div>
+                                            <div className='col-span-7'>
+                                                <CustomSelect
+                                                    options={[]}
+                                                    placeholder='select'
+                                                    size='medium'
+                                                    value={values?.proposal_no || undefined}
+                                                    onChange={e => {
+                                                        setFieldValue('proposal_no', e);
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-                                        <div className='col-span-2'>
-                                            <p className='label-font'>Print Type<span className='mandatory-symbol'>*</span></p>
+                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                            <div className='col-span-2'>
+                                                <p className='label-font'>Schedule<span className='mandatory-symbol'>*</span></p>
+                                            </div>
+                                            <div className='col-span-7'>
+                                                <CustomSelect
+                                                    options={dropDown?.schdule}
+                                                    placeholder='select'
+                                                    showSearch={false}
+                                                    size='medium'
+                                                    value={values?.schdule || undefined}
+                                                    onChange={e => {
+                                                        setFieldValue('schdule', e);
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className='col-span-7'>
-                                            <CustomSelect
-                                                options={[]}
-                                                placeholder='select'
-                                                size='medium'
-                                                value={values?.print_type || undefined}
-                                                onChange={e => {
-                                                    setFieldValue('print_type', e);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
 
-                                    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-                                        <div className='col-span-2'>
-                                            <p className='label-font'>Alteration Number</p>
+                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                            <div className='col-span-2'>
+                                                <p className='label-font'>Print Type<span className='mandatory-symbol'>*</span></p>
+                                            </div>
+                                            <div className='col-span-7'>
+                                                <CustomSelect
+                                                    options={dropDown?.print_type}
+                                                    placeholder='select'
+                                                    showSearch={false}
+                                                    size='medium'
+                                                    value={values?.print_type || undefined}
+                                                    onChange={e => {
+                                                        setFieldValue('print_type', e);
+                                                    }}
+                                                />
+                                            </div>
                                         </div>
-                                        <div className='col-span-7'>
-                                            <CustomSelect
-                                                options={[]}
-                                                placeholder='select'
-                                                size='medium'
-                                                value={values?.alteration_number || undefined}
-                                                onChange={e => {
-                                                    setFieldValue('alteration_number', e);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
-                                        <div className='col-span-2'>
-                                            <p className='label-font'>Report Type</p>
-                                        </div>
-                                        <div className='col-span-7'>
-                                            <CustomSelect
-                                                options={[]}
-                                                placeholder='select'
-                                                size='medium'
-                                                value={values?.report_type || undefined}
-                                                onChange={e => {
-                                                    setFieldValue('report_type', e);
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
 
-                                    <div className='col-span-2 mt-3 flex items-center justify-center'>
-                                        <button type='submit' className='ok_button w-1/12'>
-                                            Print
-                                        </button>
+                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                            <div className='col-span-2'>
+                                                <p className='label-font'>Alteration Number</p>
+                                            </div>
+                                            <div className='col-span-7'>
+                                                <CustomSelect
+                                                    options={[]}
+                                                    placeholder='select'
+                                                    size='medium'
+                                                    value={values?.alteration_number || undefined}
+                                                    onChange={e => {
+                                                        setFieldValue('alteration_number', e);
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                            <div className='col-span-2'>
+                                                <p className='label-font'>Report Type</p>
+                                            </div>
+                                            <div className='col-span-7'>
+                                                <CustomSelect
+                                                    options={[]}
+                                                    placeholder='select'
+                                                    size='medium'
+                                                    value={values?.report_type || undefined}
+                                                    onChange={e => {
+                                                        setFieldValue('report_type', e);
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className='col-span-2 mt-3 flex items-center justify-center'>
+                                            <button type='submit' className='ok_button w-1/12'>
+                                                Print
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </Form>
-                        );
-                    }}
-                </Formik>
+                                </Form>
+                            );
+                        }}
+                    </Formik>
+                }
             </div>
         </Modal>
     )
