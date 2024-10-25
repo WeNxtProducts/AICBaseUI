@@ -10,7 +10,7 @@ const InsuranceHeader = () => {
             </div>
             <hr className='head_divider' />
             <div className='in_header_table mt-5'>
-                <InsuranceTable />
+                <InsuranceTable rowSelectable={true} />
             </div>
         </div>
     )

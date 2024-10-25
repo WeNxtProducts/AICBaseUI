@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const ReInsuranceListing = lazy(() => import('../pages/ReInsurance/reInsuranceListing/ReInsuranceListing'));
 const ReInsurance = lazy(() => import('../pages/ReInsurance/ReInsurance'));
 const MedicalFee = lazy(() => import('../pages/medicalFee/MedicalFee'));
 const MultiRowTable = lazy(() => import('../pages/multiRowTable/MultiRowTable'));
@@ -147,6 +148,15 @@ const AppRouter = () => {
                 {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/reInsuranceList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ReInsuranceListing />
+                            </Suspense>
+                        }
+                    />
+
                     <Route
                         path='/reInsurance'
                         element={

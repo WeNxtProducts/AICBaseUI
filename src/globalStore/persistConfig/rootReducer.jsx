@@ -8,6 +8,7 @@ import ReceiptSlices from '../slices/ReceiptId';
 import EndorsementSlices from '../slices/EndorsementId';
 import SurrenderMaturitySlices from '../slices/SurrenderMaturityId';
 import RulesSlices from '../slices/RulesSlices';
+import ReInsuranceSlices from '../slices/ReInsuranceSlices';
 
 const rootReducer = combineReducers({
     menuSelected: menuSelected,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     Receipt: ReceiptSlices,
     Endo: EndorsementSlices,
     SurrId: SurrenderMaturitySlices,
-    rules: RulesSlices
+    rules: RulesSlices,
+    reInsurance: ReInsuranceSlices
 });
 
 export default rootReducer;
