@@ -988,32 +988,6 @@
     "PFD_HIDE_YN": false,
     "PFD_FLD_LEN": "MEDIUM",
     "PFD_SCREEN_NAME": "QUOTATIONENTRY"
-   },
-   "MEDICAL_DOCUMENT": {
-    "PFD_HINT": "received status",
-    "PFD_FORM_ITEM_TYPE1": "TYPE",
-    "PFD_COLUMN_NAME": "MD_STATUS",
-    "PFD_FORM_ITEM_TYPE2": "medical_details",
-    "PFD_TABLE_NAME": "LT_MEDEX_DTL",
-    "PFD_DATA_TYPE": "media",
-    "PFD_SYS_ID": 0,
-    "PFD_PARAM_1": "186",
-    "PFD_MINMAX_YN": false,
-    "PFD_VALIDATION_ID": "1",
-    "PFD_FLD_VALUE": "",
-    "PFD_SEQ_NO": 7,
-    "PFD_DFLT_VALUE_YN": "0",
-    "PFD_CLASS_NAME": "CLASS",
-    "PFD_VALIDATION_YN": true,
-    "PFD_MANDATORY_YN": true,
-    "PFD_EDIT_YN": true,
-    "PFD_FLD_NAME": "RECEIVED STATUS",
-    "PFD_RADIO_GRP_NAME": "GROUP",
-    "PFD_PROG_CODE": "QUOTATIONENTRY",
-    "PFD_FONT_SIZE": "20",
-    "PFD_HIDE_YN": false,
-    "PFD_FLD_LEN": "MEDIUM",
-    "PFD_SCREEN_NAME": "QUOTATIONENTRY"
    }
   }
  },

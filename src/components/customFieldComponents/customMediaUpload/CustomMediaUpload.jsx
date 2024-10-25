@@ -22,7 +22,7 @@ const CustomMediaUpload = ({ imageData }) => {
                 const dmsStatusY = response?.Data.find(item => item.dms_status === "Y");
                 if (dmsStatusY) {
                     setFileData(dmsStatusY)
-                }
+                } else setFileData(null)
                 // if (response?.Data[0]?.dms_status !== 'D') {
                 //     setFileData(response?.Data[0])
                 // } else if (response?.Data[0]?.dms_status === 'D') {
