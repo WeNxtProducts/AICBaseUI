@@ -19,15 +19,14 @@ const CustomMediaUpload = ({ imageData }) => {
         try {
             const response = await getMapQuery(payload, { queryId: 400 });
             if (response?.status === 'SUCCESS') {
-                const dmsStatusY = response?.Data.find(item => item.dms_status === "Y");
-                if (dmsStatusY) {
-                    setFileData(dmsStatusY)
-                } else setFileData(null)
-                // if (response?.Data[0]?.dms_status !== 'D') {
-                //     setFileData(response?.Data[0])
-                // } else if (response?.Data[0]?.dms_status === 'D') {
-                //     setFileData(response?.Data[0])
-                // }
+                if (response?.Data?.length > 0) {
+                    const dmsStatusY = response?.Data?.find(item => item.dms_status === "Y");
+                    if (dmsStatusY) {
+                        setFileData(dmsStatusY)
+                    } else setFileData(null)
+                } else {
+                    setFileData(null)
+                }
             } else if (response?.status === 'FAILURE') {
                 return false;
             }

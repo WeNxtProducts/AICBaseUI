@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { createContext } from 'react'
+import InsuranceHeader from './insuranceHeader/InsuranceHeader';
 import './ReInsurance.scss';
 
+export const ReInsuranceContext = createContext();
+
 const ReInsurance = () => {
+
+    const data = {}
+
     return (
-        <div className='re_insrance'>
-            <p>ReInsurance</p>
-        </div>
+        <ReInsuranceContext.Provider value={data}>
+            <div className='re_insrance'>
+                <InsuranceHeader />
+            </div>
+        </ReInsuranceContext.Provider>
     )
 }
 
