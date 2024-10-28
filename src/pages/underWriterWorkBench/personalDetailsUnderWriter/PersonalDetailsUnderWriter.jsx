@@ -45,7 +45,7 @@ const PersonalDetailsUnderWriter = () => {
                         <p className='label-style'>Policy From Date</p>
                     </div>
                     <div className='w-3/5'>
-                        <p className='value-style'>{dayjs(POL_FM_DT).format('YYYY-MM-DD')}</p>
+                        <p className='value-style'>{dayjs(POL_FM_DT).format('DD-MM-YYYY')}</p>
                     </div>
                 </div>
 
@@ -54,7 +54,7 @@ const PersonalDetailsUnderWriter = () => {
                         <p className='label-style'>Policy To Date</p>
                     </div>
                     <div className='w-3/5'>
-                        <p className='value-style'>{dayjs(POL_TO_DT).format('YYYY-MM-DD')}</p>
+                        <p className='value-style'>{dayjs(POL_TO_DT).format('DD-MM-YYYY')}</p>
                     </div>
                 </div>
 

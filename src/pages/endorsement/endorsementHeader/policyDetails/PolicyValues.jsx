@@ -47,7 +47,7 @@ const PolicyValues = () => {
                                 <p className='label-style'>Policy From Date</p>
                             </div>
                             <div className='w-3/5'>
-                                <p className='value-style'>{dayjs(policyHistory?.POL_FM_DT || dayjs()).format('YYYY-MM-DD') || ''}</p>
+                                <p className='value-style'>{dayjs(policyHistory?.POL_FM_DT || dayjs()).format('DD-MM-YYYY') || ''}</p>
                             </div>
                         </div>
 
@@ -56,7 +56,7 @@ const PolicyValues = () => {
                                 <p className='label-style'>Policy To Date</p>
                             </div>
                             <div className='w-3/5'>
-                                <p className='value-style'>{dayjs(policyHistory?.POL_TO_DT || dayjs()).format('YYYY-MM-DD') || ''}</p>
+                                <p className='value-style'>{dayjs(policyHistory?.POL_TO_DT || dayjs()).format('DD-MM-YYYY') || ''}</p>
                             </div>
                         </div>
 

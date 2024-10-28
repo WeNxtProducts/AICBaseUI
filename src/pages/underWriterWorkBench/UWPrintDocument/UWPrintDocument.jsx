@@ -5,32 +5,60 @@ import { CustomSelect } from '../../../components/commonExportsFields/CommonExpo
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { handleFileDownloadOrView } from '../../../components/mediaHelper/MediaHelper';
+import Loader from '../../../components/loader/Loader';
 
-const UWPrintDocument = ({ open, handleClose }) => {
+const UWPrintDocument = ({ open, handleClose, policyDetails, tranId, POL_NO }) => {
+    const { POL_PLAN_CODE, POL_CONVERT_YN } = policyDetails
     const getLovList = useApiRequests('getLovList', 'GET');
     const DMSFileGenerate = useApiRequests('DMSFileGenerateDocument', 'POST');
+    const getParamLov = useApiRequests('getParamLov', 'GET');
     const [Open, setOpen] = useState(false);
     const [dropDown, setDropDown] = useState();
+    const [loader, setLoader] = useState(false);
+    const [fieldName, setFieldName] = useState('Policy No')
     const [initialValues, setInitialValues] = useState({
-        type: '',
-        proposal_no: '',
-        schdule: '',
-        print_type: '',
+        POL_ENDT: '',
+        tranId: POL_NO,
+        REP_POST: '',
+        PRINTYPE: '',
         alteration_number: '',
-        report_type: '',
+        docTemplateName: '',
     });
     const lovQueryId = [
-        { id: 401, label: 'type' },
-        { id: 402, label: 'print_type' },
-        { id: 403, label: 'schdule' }
+        { id: 401, label: 'POL_ENDT' },
+        { id: 402, label: 'PRINTYPE' },
+        { id: 403, label: 'REP_POST' }
     ]
 
+    const handleGetReportType = async (dropDownData) => {
+        try {
+            const response = await getParamLov('', {
+                queryId: 404,
+                DPS_PROD_CODE: POL_PLAN_CODE,
+                DPS_SCREEN_NAME: POL_CONVERT_YN === 'Y' ? 'POL' : 'PRO',
+                DPS_TRAN_STS: POL_CONVERT_YN,
+            });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                const newDropDown = {
+                    ...dropDownData,
+                    docTemplateName: response?.Data?.['template name']
+                }
+                setDropDown(newDropDown)
+            }
+        } catch (err) {
+            return null;
+        }
+    };
+
     const apiCallsGetLov = () => {
-        const promises = lovQueryId?.map(item => {
+        const promises = lovQueryId?.map(async item => {
             const queryParams = { queryId: item.id };
-            return getLovList('', queryParams).then(response => ({
+            const response = await getLovList('', queryParams);
+            return ({
                 [item.label]: response?.Data
-            }));
+            });
         });
 
         Promise.all(promises)
@@ -40,7 +68,8 @@ const UWPrintDocument = ({ open, handleClose }) => {
                     acc[key] = value;
                     return acc;
                 }, {});
-                setDropDown(transformedData)
+                handleGetReportType(transformedData)
+                // setDropDown(transformedData)
             })
             .catch(error => {
                 console.error(error);
@@ -58,24 +87,31 @@ const UWPrintDocument = ({ open, handleClose }) => {
     };
 
     const onSubmit = async values => {
-        // console.log("values : ", values);
-        handleGetAndView();
+        handleGetAndView(values);
     }
 
-    const handleGetAndView = async () => {
+    const handleGetAndView = async (values) => {
+        setLoader(true)
         const payload = {
-            "docTemplateName": "Draft_Policy_for_GLA",
-            "tranId": "1"
+            docTemplateName: values?.docTemplateName,
+            tranId: tranId.toString(), genType: '.pdf'
         }
         try {
             const response = await DMSFileGenerate(payload);
-            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'FAILURE') {
+                setLoader(false)
+                showNotification.ERROR(response?.status_msg)
+            }
             if (response?.status === 'SUCCESS') {
-                const updatedItem = { filename: 'Draft_Policy_for_GLA.pdf', byteArray: response?.Data?.attachment };
+                const updatedItem = {
+                    filename: `${payload?.docTemplateName}.${payload?.genType}`,
+                    byteArray: response?.Data?.attachment
+                };
                 handleFileDownloadOrView(updatedItem);
-
+                setLoader(false)
             }
         } catch (err) {
+            setLoader(false)
             showNotification.ERROR('Error on Viewing file');
         }
     };
@@ -91,7 +127,7 @@ const UWPrintDocument = ({ open, handleClose }) => {
             footer={null}
         >
             <div>
-
+                {loader && <Loader />}
                 {dropDown !== null &&
                     <Formik
                         initialValues={initialValues}
@@ -110,29 +146,33 @@ const UWPrintDocument = ({ open, handleClose }) => {
                                             </div>
                                             <div className='col-span-7'>
                                                 <CustomSelect
-                                                    options={dropDown?.type}
+                                                    options={dropDown?.POL_ENDT}
                                                     placeholder='select'
                                                     size='medium'
                                                     showSearch={false}
-                                                    value={values?.type || undefined}
+                                                    value={values?.POL_ENDT || undefined}
                                                     onChange={e => {
-                                                        setFieldValue('type', e);
+                                                        console.log("POL_ENDT : ", e)
+                                                        setFieldName(e === 'Quotation' ? 'Quotation No' : 'Policy No')
+                                                        setFieldValue('POL_ENDT', e);
                                                     }}
                                                 />
                                             </div>
                                         </div>
                                         <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
                                             <div className='col-span-2'>
-                                                <p className='label-font'>Propsal No<span className='mandatory-symbol'>*</span></p>
+                                                <p className='label-font'>{fieldName}<span className='mandatory-symbol'>*</span></p>
                                             </div>
                                             <div className='col-span-7'>
                                                 <CustomSelect
                                                     options={[]}
+                                                    readOnly={true}
+                                                    disabled={true}
                                                     placeholder='select'
                                                     size='medium'
-                                                    value={values?.proposal_no || undefined}
+                                                    value={values?.tranId || undefined}
                                                     onChange={e => {
-                                                        setFieldValue('proposal_no', e);
+                                                        setFieldValue('tranId', e);
                                                     }}
                                                 />
                                             </div>
@@ -144,13 +184,13 @@ const UWPrintDocument = ({ open, handleClose }) => {
                                             </div>
                                             <div className='col-span-7'>
                                                 <CustomSelect
-                                                    options={dropDown?.schdule}
+                                                    options={dropDown?.REP_POST}
                                                     placeholder='select'
                                                     showSearch={false}
                                                     size='medium'
-                                                    value={values?.schdule || undefined}
+                                                    value={values?.REP_POST || undefined}
                                                     onChange={e => {
-                                                        setFieldValue('schdule', e);
+                                                        setFieldValue('REP_POST', e);
                                                     }}
                                                 />
                                             </div>
@@ -162,19 +202,19 @@ const UWPrintDocument = ({ open, handleClose }) => {
                                             </div>
                                             <div className='col-span-7'>
                                                 <CustomSelect
-                                                    options={dropDown?.print_type}
+                                                    options={dropDown?.PRINTYPE}
                                                     placeholder='select'
                                                     showSearch={false}
                                                     size='medium'
-                                                    value={values?.print_type || undefined}
+                                                    value={values?.PRINTYPE || undefined}
                                                     onChange={e => {
-                                                        setFieldValue('print_type', e);
+                                                        setFieldValue('PRINTYPE', e);
                                                     }}
                                                 />
                                             </div>
                                         </div>
 
-                                        <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
+                                        {/* <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
                                             <div className='col-span-2'>
                                                 <p className='label-font'>Alteration Number</p>
                                             </div>
@@ -189,19 +229,21 @@ const UWPrintDocument = ({ open, handleClose }) => {
                                                     }}
                                                 />
                                             </div>
-                                        </div>
+                                        </div> */}
+
                                         <div className='col-span-1 grid grid-cols-9 gap-3 items-center'>
                                             <div className='col-span-2'>
                                                 <p className='label-font'>Report Type</p>
                                             </div>
                                             <div className='col-span-7'>
                                                 <CustomSelect
-                                                    options={[]}
+                                                    options={dropDown?.docTemplateName}
                                                     placeholder='select'
+                                                    showSearch={false}
                                                     size='medium'
-                                                    value={values?.report_type || undefined}
+                                                    value={values?.docTemplateName || undefined}
                                                     onChange={e => {
-                                                        setFieldValue('report_type', e);
+                                                        setFieldValue('docTemplateName', e);
                                                     }}
                                                 />
                                             </div>

@@ -131,7 +131,14 @@ const UnderWriterWorkBench = () => {
 
                     <DecisionDetails />
 
-                    {UWPrintOpen && <UWPrintDocument open={UWPrintOpen} handleClose={handleClose} />}
+                    {UWPrintOpen &&
+                        <UWPrintDocument
+                            tranId={tranId}
+                            POL_NO={POL_NO}
+                            open={UWPrintOpen}
+                            handleClose={handleClose}
+                            policyDetails={policyDetails}
+                        />}
                 </div>
             )}
         </UWContext.Provider>
