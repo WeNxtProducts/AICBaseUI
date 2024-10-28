@@ -11,6 +11,16 @@
   border: 1px solid #e5f6ff;
   background-color: #f6fcff;
   border-radius: 8px;
+
+  .custom-icon {
+   color: #0000EE;
+   font-size: 1.5rem;
+   cursor: pointer;
+
+   &:hover {
+    text-decoration: underline;
+   }
+  }
   .head_divider {
    margin-top: 10px;
    border: 0.1px solid #d9d9dc;

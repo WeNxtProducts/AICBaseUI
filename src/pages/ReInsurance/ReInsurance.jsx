@@ -2,8 +2,8 @@ import React, { createContext, useState } from 'react'
 import InsuranceHeader from './insuranceHeader/InsuranceHeader';
 import CoverAndInsuranceDetails from './coverAndInsuranceDetails/CoverAndInsuranceDetails';
 import { useSelector } from 'react-redux';
-import './ReInsurance.scss';
 import EmptyMessage from '../../components/emptyMessage/EmptyMessage';
+import './ReInsurance.scss';
 
 export const ReInsuranceContext = createContext();
 

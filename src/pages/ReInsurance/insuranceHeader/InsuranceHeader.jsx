@@ -2,8 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import InsuranceTable from '../insuranceTable/InsuranceTable'
 import { ReInsuranceContext } from '../ReInsurance';
 import useMRVListingPayload from '../../../components/mrvListing/useMRVListingPayload';
+import { useNavigate } from 'react-router-dom';
 
 const InsuranceHeader = () => {
+    const navigate = useNavigate();
     const { tranId, rePol, seldAssrCode, setSeldAssrCode } = useContext(ReInsuranceContext);
     const { rowData = [], columnData, handleMRVListingPayload } = useMRVListingPayload();
 
@@ -30,7 +32,11 @@ const InsuranceHeader = () => {
     return (
         <div className='in_header'>
             <div className='title flex items-center justify-between'>
-                <p>Policy No <span>{rePol}</span></p>
+                <div className='flex items-center'>
+                    <i onClick={() => navigate('/reInsuranceList')} className='bi bi-arrow-left-short custom-icon' />
+                    <p>Policy No <span>{rePol}</span></p>
+                </div>
+
                 <button>FAC</button>
             </div>
             <hr className='head_divider' />
