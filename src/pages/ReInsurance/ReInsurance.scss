@@ -13,7 +13,7 @@
   border-radius: 8px;
   .head_divider {
    margin-top: 10px;
-   border: .1px solid #d9d9dc;
+   border: 0.1px solid #d9d9dc;
   }
 
   .title {
@@ -58,6 +58,9 @@
 
    .cover_code_list {
     padding-right: 5px;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
     cursor: pointer;
     .label_wrap {
      border-bottom: 1px solid #d9d9dc;
@@ -98,7 +101,8 @@
 
   .cover_code_insurance_detais {
    padding: 10px 15px;
-   min-height: 300px;
+   max-height: 300px;
+   min-height: 370px;
    background-color: #e5f6ff;
    border-radius: 12px;
 

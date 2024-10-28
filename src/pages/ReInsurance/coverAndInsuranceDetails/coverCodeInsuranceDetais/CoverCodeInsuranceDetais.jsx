@@ -6,9 +6,9 @@ const CoverCodeInsuranceDetais = () => {
     return (
         <div className='cover_code_insurance_detais'>
             <ReInsuranceDetails />
-            <div className='mt-5'>
+            {/* <div className='mt-5'>
                 <RIPremiumAllocation />
-            </div>
+            </div> */}
         </div>
     )
 }

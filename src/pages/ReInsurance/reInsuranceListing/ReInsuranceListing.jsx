@@ -11,7 +11,7 @@ import { TextInputWithSearchIcon } from '../../../components/commonExportsFields
 import TableComponent from '../../../components/tableComponents/TableComponent';
 import EmptyTable from '../../../components/emptyTable/EmptyTable';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
-import { setReInsuranceId } from '../../../globalStore/slices/ReInsuranceSlices';
+import { setReInsuranceId, setReInsurancePolNo } from '../../../globalStore/slices/ReInsuranceSlices';
 
 const ReInsuranceListing = () => {
     const dispatch = useDispatch();
@@ -63,11 +63,13 @@ const ReInsuranceListing = () => {
 
     const handleNavigate = () => {
         dispatch(setReInsuranceId(''));
+        dispatch(setReInsurancePolNo(''));
         navigate('/reInsurance');
     };
 
     const handleEdit = item => {
         dispatch(setReInsuranceId(item?.ID));
+        dispatch(setReInsurancePolNo(item?.Policy_No));
         navigate(`/reInsurance`);
     };
 

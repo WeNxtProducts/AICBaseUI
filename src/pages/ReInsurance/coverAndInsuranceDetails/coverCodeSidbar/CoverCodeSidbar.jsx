@@ -1,25 +1,28 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { ReInsuranceContext } from '../../ReInsurance';
 
-const CoverCodeSidbar = () => {
-    const arr = ['LPLAN1', 'LPLAN2', 'LPLAN3', 'LPLAN4', 'LPLAN5']
-    const [selected, setSelected] = useState('LPLAN1')
+const CoverCodeSidbar = ({ CoverCodeList }) => {
+    const { selectedCover, setSelectedCover } = useContext(ReInsuranceContext);
 
     return (
         <div className='cover_code_sidbar'>
             <div className='cover_title'>
                 <p>Cover Code</p>
             </div>
-            <div className='cover_code_list'>
-                {arr?.map(item => (
-                    <div
-                        onClick={() => setSelected(item)}
-                        key={item}
-                        className={`label_wrap ${item === selected ? 'label_wrap_selected' : ''}`}>
-                        <p className='label_text'>{item}</p>
-                    </div>
-                ))}
-
-            </div>
+            {CoverCodeList?.length > 0 ?
+                <div className='cover_code_list'>
+                    {CoverCodeList?.map((item, index) => (
+                        <div
+                            onClick={() => setSelectedCover(item?.RED_COVER_CODE)}
+                            key={`${item?.RED_COVER_CODE}-${index}`}
+                            className={`label_wrap ${item?.RED_COVER_CODE === selectedCover ? 'label_wrap_selected' : ''}`}>
+                            <p className='label_text'>{item?.RED_COVER_CODE}</p>
+                        </div>
+                    ))}
+                </div>
+                :
+                <p>No Cover Code</p>
+            }
         </div>
     )
 }
