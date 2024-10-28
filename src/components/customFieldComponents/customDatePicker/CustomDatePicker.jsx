@@ -32,7 +32,7 @@ const CustomDatePicker = ({
 
   const handleChange = (date, dateString) => {
     if (onChange) {
-      onChange(date);
+      onChange(dayjs(date).format('YYYY-MM-DD'));
     }
   };
 
