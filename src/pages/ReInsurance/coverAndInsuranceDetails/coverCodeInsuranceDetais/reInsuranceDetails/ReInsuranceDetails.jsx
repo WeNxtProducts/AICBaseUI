@@ -9,7 +9,7 @@ const ReInsuranceDetails = () => {
 
     useEffect(() => {
         if (selectedCover) {
-            handleMRVListingPayload({ queryId: 240, tranId: selectedCover });
+            handleMRVListingPayload({ queryId: 242, tranId: seldAssrCode, emptranId: selectedCover });
         }
     }, [selectedCover]);
 
@@ -22,7 +22,9 @@ const ReInsuranceDetails = () => {
             <p>Re-Insurance Allocation</p>
             {hasValidRowData(rowData) &&
                 <div className='mt-3'>
-                    <InsuranceTable />
+                    <InsuranceTable columnData={columnData}
+                        rowData={rowData} rowSelectable={false}
+                    />
                 </div>
             }
         </div>
