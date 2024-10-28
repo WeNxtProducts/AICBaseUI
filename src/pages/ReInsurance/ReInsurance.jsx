@@ -9,7 +9,7 @@ import { setReInsuranceId, setReInsurancePolNo } from '../../globalStore/slices/
 
 export const ReInsuranceContext = createContext();
 
-const ReInsurance = () => {
+const ReInsurance = ({ from = '' }) => {
     const dispatch = useDispatch();
     const insuranceIDs = useSelector(state => state?.reInsurance);
     const { tranId, rePol } = insuranceIDs
@@ -18,7 +18,7 @@ const ReInsurance = () => {
 
     const data = {
         tranId, rePol, seldAssrCode, setSeldAssrCode,
-        selectedCover, setSelectedCover
+        selectedCover, setSelectedCover, from
     }
 
     useEffect(() => {

@@ -1,0 +1,49 @@
+@import '../../styles/variable';
+
+.group_life {
+ .stepper {
+  height: 45px;
+ }
+ .main-screen {
+  min-height: 75vh;
+  max-height: 75vh;
+  overflow-y: auto;
+
+  .front-form {
+   //padding: 0px 0 0 0px;
+   margin-top: 15px;
+   background-color: #ffffff;
+   border-radius: 5px;
+   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
+
+   .action-buttons {
+    padding: 10px 0;
+    position: relative;
+
+    &::before {
+     content: '';
+     position: absolute;
+     left: 0;
+     top: 10%;
+     height: 80%;
+     width: 1px;
+     background-color: #d2d5da;
+    }
+
+    Button {
+     background-color: $save-button-forms;
+     color: #ffffff;
+     font-size: 12px;
+     height: 29px;
+     width: 72%;
+     margin-bottom: 5px;
+     border-radius: 8px;
+    }
+   }
+
+   .group-life-entry-form {
+    padding: 5px;
+   }
+  }
+ }
+}

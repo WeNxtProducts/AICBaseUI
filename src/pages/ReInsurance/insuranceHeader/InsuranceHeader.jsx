@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const InsuranceHeader = () => {
     const navigate = useNavigate();
-    const { tranId, rePol, seldAssrCode, setSeldAssrCode } = useContext(ReInsuranceContext);
+    const { tranId, rePol, seldAssrCode, setSeldAssrCode, from } = useContext(ReInsuranceContext);
     const { rowData = [], columnData, handleMRVListingPayload } = useMRVListingPayload();
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const InsuranceHeader = () => {
         <div className='in_header'>
             <div className='title flex items-center justify-between'>
                 <div className='flex items-center'>
-                    <i onClick={() => navigate('/reInsuranceList')} className='bi bi-arrow-left-short custom-icon' />
+                    <i onClick={() => navigate(from === 'service' ? '/endorsement' : '/reInsuranceList')} className='bi bi-arrow-left-short custom-icon' />
                     <p>Policy No <span>{rePol}</span></p>
                 </div>
 

@@ -15,6 +15,7 @@ const AlterCard = ({ rowData, progressId = 2, selectedRow = '' }) => {
                             <p className='title_style'>Alteration -&nbsp;
                                 {String(index + 1).padStart(2, '0')}</p>
                             <div className='flex gap-1'>
+                                <button className='re-insu-btn-card'>RI</button>
                                 {progressId !== item?.alterNo ?
                                     <Tooltip title='View'>
                                         <EyeOutlined className='mrv_icons' />

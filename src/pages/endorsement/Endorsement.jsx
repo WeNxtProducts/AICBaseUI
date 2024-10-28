@@ -2,7 +2,6 @@ import React, { createContext, lazy, useEffect, useState } from 'react';
 import EndorsementHeader from './endorsementHeader/EndorsementHeader';
 import EndorsemenHistory from './endorsemenHistory/EndorsemenHistory';
 import EndorsementFlow from './endorsementFlow/EndorsementFlow';
-import './Endorsement.scss';
 import { useSelector } from 'react-redux';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
@@ -12,6 +11,7 @@ const AlterationPages = lazy(
       './endorsementFlow/endorsementDetails/pageControl/alteration/alterationPages/AlterationPages'
     ),
 );
+import './Endorsement.scss';
 
 export const EndorsementContext = createContext();
 

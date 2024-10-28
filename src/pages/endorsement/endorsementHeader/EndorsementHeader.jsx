@@ -3,30 +3,25 @@ import CustomInput from './../../../components/customFieldComponents/customInput
 import { Button } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import PolicyDetails from './policyDetails/PolicyDetails';
+import { useNavigate } from 'react-router-dom';
 
 const EndorsementHeader = () => {
- return (
-  <div className='endo_header'>
-   <p className='ml-2 top_style'>Policy History</p>
-   {/* <div className='field_style flex items-center'>
-    <p className='field_label'>Policy Number</p>
-    <div className='large-input ml-10'>
-     <CustomInput placeholder='enter number' size='large' />
-    </div>
-   </div>
-   <div className='search-btn mt-7'>
-    <Button className='se_btn'>
-     <div className='flex items-center'>
-      <p className='me-2'>Search</p>
-      <SearchOutlined />
-     </div>
-    </Button>
-   </div> */}
-   <div className='mt-5'>
-    <PolicyDetails />
-   </div>
-  </div>
- );
+    const navigate = useNavigate();
+
+    return (
+        <div className='endo_header'>
+            <div className='flex items-center'>
+                <i
+                    onClick={() => navigate('/endorsementList')}
+                    className='bi bi-arrow-left-short custom-icon' />
+                <p className='ml-2 top_style'>Policy History</p>
+            </div>
+
+            <div className='mt-5'>
+                <PolicyDetails />
+            </div>
+        </div>
+    );
 };
 
 export default EndorsementHeader;
