@@ -66,7 +66,7 @@ const AppRouter = () => {
                     path='/multiRowTable'
                     element={
                         <Suspense fallback={<div>MultiRowTable</div>}>
-                            <MultiRowTable />
+                            <MultiRowTable rowsPerPage={10} />
                         </Suspense>
                     }
                 />

@@ -1,20 +1,38 @@
-import React, { useState, useRef } from 'react';
-import { Table, Input } from 'antd';
+.jsx
+
+import React, { useState } from 'react';
+import { Table, Input, Checkbox, Button, Popover } from 'antd';
 import { useDebounce } from 'use-debounce';
+import { faker } from '@faker-js/faker';
 import './index.scss';
 
-const data = Array.from({ length: 150 }, (_, i) => ({
-  key: i,
-  name: `John Doe ${i}`,
-  age: Math.floor(Math.random() * 60) + 18,
-  address: `Street ${i}`,
-  occupation: `Occupation ${i}`,
-  company: `Company ${i}`,
-  city: `City ${i}`,
-  country: `Country ${i}`,
-}));
+const generateData = () => {
+        return Array.from({ length: 100 }, (_, index) => ({
+            key: index + 1,
+            name: faker.person.fullName(),
+            email: faker.internet.email(),
+            phone: faker.number.int({ min: 18, max: 65 }),
+            company: faker.company.name(),
+            website: faker.internet.url(),
+            address: faker.location.streetAddress(),
+        }));
+    };
 
-// Function to highlight the search term in text
+const generateData = () => {
+  return Array.from({ length: 100 }, (_, i) => ({
+    key: i,
+    name: faker.person.fullName(),
+    age: faker.number.int({ min: 18, max: 65 }),
+    address: faker.location.streetAddress(),
+    occupation: faker.person.jobTitle(),
+    company: faker.company.name(),
+    city: faker.location.city(),
+    country: faker.location.country(),
+  }));
+};
+
+const data = generateData();
+
 const highlightText = (text, searchTerm) => {
   if (!searchTerm) return text;
   const regex = new RegExp(`(${searchTerm})`, 'gi');
@@ -28,167 +46,146 @@ const highlightText = (text, searchTerm) => {
   );
 };
 
-// Helper function for column-specific search
-const getColumnSearchProps = (dataIndex, searchTerm, setSearchTerm, setSortActive, inputRef) => ({
-  title: (
-    <div>
-      {dataIndex.charAt(0).toUpperCase() + dataIndex.slice(1)}
-      <Input
-        ref={inputRef}
-        placeholder={`Search ${dataIndex}`}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onFocus={() => {
-          setSortActive(false);
-        }}
-        onBlur={() => {
-          setSortActive(true);
-        }}
-        allowClear
-        onClear={() => setSearchTerm('')}
-        style={{ marginTop: 8, marginBottom: 8, width: '100%' }}
-        size="small"
-      />
-    </div>
-  ),
-  onFilter: (value, record) =>
-    record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-  render: (text) => highlightText(text, searchTerm),
-});
-
 const MultiRowTable = () => {
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 20,
-  });
-
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 20 });
   const [searchTerm, setSearchTerm] = useState('');
-  const [columnSearch, setColumnSearch] = useState({});
   const [filteredData, setFilteredData] = useState(data);
-  const [sortActive, setSortActive] = useState(true);
-  const [selectedRows, setSelectedRows] = useState([]); // State to hold selected rows
-
+  const [selectedColumns, setSelectedColumns] = useState(['All']);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]); // State to manage selected row keys
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
 
-  // Create refs for input fields
-  const nameInputRef = useRef(null);
-  const ageInputRef = useRef(null);
-  const addressInputRef = useRef(null);
-  const occupationInputRef = useRef(null);
-  const companyInputRef = useRef(null);
+  const handleColumnFilterChange = (column) => {
+    setSelectedColumns((prev) => {
+      if (column === 'All') return ['All'];
+      const newSelection = prev.includes(column)
+        ? prev.filter((col) => col !== column)
+        : [...prev.filter((col) => col !== 'All'), column];
+      return newSelection.length === 0 ? ['All'] : newSelection;
+    });
+  };
 
-  // Apply Global Search
+  const handleTableChange = (pagination) => {
+    setPagination(pagination);
+  };
+
   React.useEffect(() => {
     const filtered = data.filter((item) => {
-      const globalSearchMatch = Object.values(item).some((val) =>
-        val.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-      );
-
-      // Apply Column-Specific Search Filters
-      const columnFilterMatch = Object.keys(columnSearch).every((key) => {
-        if (!columnSearch[key]) return true;
-        return item[key]
-          .toString()
-          .toLowerCase()
-          .includes(columnSearch[key].toLowerCase());
-      });
-
-      return globalSearchMatch && columnFilterMatch;
+      return selectedColumns.includes('All')
+        ? Object.values(item).some((val) =>
+          val.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        )
+        : selectedColumns.some((col) =>
+          item[col]?.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+        );
     });
-
     setFilteredData(filtered);
-  }, [debouncedSearchTerm, columnSearch]);
+  }, [debouncedSearchTerm, selectedColumns]);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  const paginatedData = filteredData.slice(
+    (pagination.current - 1) * pagination.pageSize,
+    pagination.current * pagination.pageSize
+  );
 
-  const handleTableChange = (pagination, filters, sorter) => {
-    setPagination(pagination);
-    if (sortActive) {
-      setFilteredData((prevData) => {
-        const sortedData = [...prevData].sort((a, b) => {
-          if (sorter.order === 'ascend') {
-            return a[sorter.field] > b[sorter.field] ? 1 : -1;
-          }
-          if (sorter.order === 'descend') {
-            return a[sorter.field] < b[sorter.field] ? 1 : -1;
-          }
-          return 0;
-        });
-        return sortedData;
-      });
-    }
-  };
-
-  // Define columns
   const columns = [
     {
-      title: getColumnSearchProps('name', columnSearch.name, (val) =>
-        setColumnSearch({ ...columnSearch, name: val }), setSortActive, nameInputRef).title,
+      title: 'Name',
       dataIndex: 'name',
       key: 'name',
-      sorter: sortActive && ((a, b) => a.name.localeCompare(b.name)),
-      width: 130,
-      render: (text) => highlightText(text, debouncedSearchTerm),
+      render: (text) =>
+        selectedColumns.includes('name') || selectedColumns.includes('All')
+          ? highlightText(text, debouncedSearchTerm)
+          : text,
     },
     {
-      title: getColumnSearchProps('age', columnSearch.age, (val) =>
-        setColumnSearch({ ...columnSearch, age: val }), setSortActive, ageInputRef).title,
+      title: 'Age',
       dataIndex: 'age',
       key: 'age',
-      sorter: sortActive && ((a, b) => a.age - b.age),
-      width: 100,
-      render: (text) => highlightText(text, debouncedSearchTerm),
+      render: (text) =>
+        selectedColumns.includes('age') || selectedColumns.includes('All')
+          ? highlightText(text, debouncedSearchTerm)
+          : text,
     },
     {
-      title: getColumnSearchProps('address', columnSearch.address, (val) =>
-        setColumnSearch({ ...columnSearch, address: val }), setSortActive, addressInputRef).title,
+      title: 'Address',
       dataIndex: 'address',
       key: 'address',
-      sorter: sortActive && ((a, b) => a.address.localeCompare(b.address)),
-      width: 200,
-      render: (text) => highlightText(text, debouncedSearchTerm),
+      render: (text) =>
+        selectedColumns.includes('address') || selectedColumns.includes('All')
+          ? highlightText(text, debouncedSearchTerm)
+          : text,
     },
     {
-      title: getColumnSearchProps('occupation', columnSearch.occupation, (val) =>
-        setColumnSearch({ ...columnSearch, occupation: val }), setSortActive, occupationInputRef).title,
+      title: 'Occupation',
       dataIndex: 'occupation',
       key: 'occupation',
-      width: 150,
-      render: (text) => highlightText(text, debouncedSearchTerm),
+      render: (text) =>
+        selectedColumns.includes('occupation') || selectedColumns.includes('All')
+          ? highlightText(text, debouncedSearchTerm)
+          : text,
     },
     {
-      title: getColumnSearchProps('company', columnSearch.company, (val) =>
-        setColumnSearch({ ...columnSearch, company: val }), setSortActive, companyInputRef).title,
+      title: 'Company',
       dataIndex: 'company',
       key: 'company',
-      width: 150,
-      render: (text) => highlightText(text, debouncedSearchTerm),
+      render: (text) =>
+        selectedColumns.includes('company') || selectedColumns.includes('All')
+          ? highlightText(text, debouncedSearchTerm)
+          : text,
     },
   ];
 
+  const filterOptions = ['All', 'name', 'age', 'address', 'occupation', 'company'];
+
   // Row selection configuration
   const rowSelection = {
-    selectedRowKeys: selectedRows.map((row) => row.key),
-    onChange: (selectedRowKeys, selectedRows) => {
-      setSelectedRows(selectedRows); // Update the state with selected rows
+    selectedRowKeys,
+    onChange: (selectedKeys) => {
+      setSelectedRowKeys(selectedKeys); // Update selected row keys
     },
   };
 
+  // Define the expanded row rendering
+  const expandedRowRender = (record) => (
+    <div style={{ marginLeft: '40px' }}>
+      <p><strong>City:</strong> {record.city}</p>
+      <p><strong>Country:</strong> {record.country}</p>
+    </div>
+  );
+
   return (
     <div className="minimalist-table-container">
-      {/* Global Search Input */}
-      <Input
-        placeholder="Search across all columns"
-        value={searchTerm}
-        onChange={handleSearch}
-        className="minimalist-search"
-        style={{ marginBottom: 16 }}
-      />
+      <div style={{ display: 'flex', marginBottom: 16, gap: '8px' }}>
+        <Input
+          placeholder="Search across selected columns"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="minimalist-search"
+        />
+        <Popover
+          trigger="click"
+          content={
+            <div>
+              {filterOptions.map((col) => (
+                <div key={col}>
+                  <Checkbox
+                    checked={selectedColumns.includes(col)}
+                    onChange={() => handleColumnFilterChange(col)}
+                  >
+                    {col.charAt(0).toUpperCase() + col.slice(1)}
+                  </Checkbox>
+                </div>
+              ))}
+            </div>
+          }
+        >
+          <Button>Filter</Button>
+        </Popover>
+      </div>
       <Table
         columns={columns}
-        dataSource={filteredData}
+        dataSource={paginatedData}
+        expandable={{ expandedRowRender }}
+        rowSelection={rowSelection}
         pagination={{
           ...pagination,
           total: filteredData.length,
@@ -196,14 +193,8 @@ const MultiRowTable = () => {
           size: 'small',
         }}
         onChange={handleTableChange}
-        scroll={{
-          x: 1000,
-          y: 350,
-        }}
-        rowSelection={rowSelection} // Add row selection here
-        rowClassName={(record, index) =>
-          index % 2 === 0 ? 'minimalist-row-light' : 'minimalist-row-dark'
-        }
+        scroll={{ x: 1000, y: 350 }}
+        rowClassName={(record, index) => (index % 2 === 0 ? 'minimalist-row-light' : 'minimalist-row-dark')}
         sticky
       />
     </div>
@@ -211,3 +202,85 @@ const MultiRowTable = () => {
 };
 
 export default MultiRowTable;
+
+
+.scss
+.minimalist-table-container {
+ .ant-table {
+  border-radius: 6px;
+  box-shadow: none;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+ }
+
+ .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  color: #333;
+  font-weight: 500;
+  text-align: left;
+  border-bottom: 1px solid #e8e8e8;
+  padding: 12px;
+ }
+
+ .ant-table-tbody > tr > td {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.3s ease;
+ }
+
+ .minimalist-row-light {
+  background-color: #ffffff;
+ }
+
+ .minimalist-row-dark {
+  background-color: #fafafa;
+ }
+
+ .minimalist-row-light:hover,
+ .minimalist-row-dark:hover {
+  background-color: #f5f5f5;
+ }
+
+ .highlight {
+  background-color: yellow;
+  font-weight: bold;
+ }
+
+ .ant-pagination {
+  padding: 10px 0;
+ }
+
+ // Minimalist search input
+ .minimalist-search {
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 400px;
+ }
+
+ // Custom scroll bar for minimalist look
+
+ // Fixing the first column
+ .ant-table-cell-fixed-left {
+  background-color: #ffffff;
+ }
+
+ .ant-table-body {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+
+  &::-webkit-scrollbar {
+   width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+   background-color: #e1e6e6;
+  }
+
+  &::-webkit-scrollbar-thumb {
+   border-radius: 6px;
+   background-color: #68bef3;
+  }
+ }
+}

@@ -1,206 +1,123 @@
-import React, { useState, useRef } from 'react';
-import { Table, Input, Checkbox } from 'antd';
-import { useDebounce } from 'use-debounce';
-import './index.scss';
-
-const data = Array.from({ length: 150 }, (_, i) => ({
-  key: i,
-  name: `John Doe ${i}`,
-  age: Math.floor(Math.random() * 60) + 18,
-  address: `Street ${i}`,
-  occupation: `Occupation ${i}`,
-  company: `Company ${i}`,
-  city: `City ${i}`,
-  country: `Country ${i}`,
-}));
-
-const highlightText = (text, searchTerm) => {
-  if (!searchTerm) return text;
-  const regex = new RegExp(`(${searchTerm})`, 'gi');
-  const parts = text.toString().split(regex);
-  return parts.map((part, index) =>
-    part.toLowerCase() === searchTerm.toLowerCase() ? (
-      <span key={index} className="highlight">{part}</span>
-    ) : (
-      part
-    )
-  );
-};
-
-const getColumnSearchProps = (dataIndex, searchTerm, setSearchTerm, setSortActive, inputRef) => ({
-  title: (
-    <div>
-      {dataIndex.charAt(0).toUpperCase() + dataIndex.slice(1)}
-      <Input
-        ref={inputRef}
-        placeholder={`Search ${dataIndex}`}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onFocus={() => setSortActive(false)}
-        onBlur={() => setSortActive(true)}
-        allowClear
-        onClear={() => setSearchTerm('')}
-        style={{ marginTop: 8, marginBottom: 8, width: '100%' }}
-        size="small"
-      />
-    </div>
-  ),
-  onFilter: (value, record) =>
-    record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-  render: (text) => highlightText(text, searchTerm),
-});
+import React, { useState } from 'react';
+import { faker } from '@faker-js/faker';
+import { Pagination } from 'antd'; // Import Ant Design Pagination
+import './index.scss'; // Import your SCSS file
 
 const MultiRowTable = () => {
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 20,
-  });
+  // Generate sample data using faker
+  const generateData = () => {
+    return Array.from({ length: 100 }, (_, index) => ({
+      key: index + 1,
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      phone: faker.number.int({ min: 18, max: 65 }),
+      company: faker.company.name(),
+      website: faker.internet.url(),
+      address: faker.location.streetAddress(),
+    }));
+  };
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [columnSearch, setColumnSearch] = useState({});
-  const [filteredData, setFilteredData] = useState(data);
-  const [sortActive, setSortActive] = useState(true);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  // Track all keys
-  const allRowKeys = data.map(item => item.key);
+  const [data] = useState(generateData());
+  const [expandedRows, setExpandedRows] = useState({});
+  const [selectedRows, setSelectedRows] = useState(new Set());
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5; // Define how many rows per page
 
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+  const handleExpandRow = (rowKey) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [rowKey]: !prev[rowKey],
+    }));
+  };
 
-  // Create refs for input fields
-  const nameInputRef = useRef(null);
-  const ageInputRef = useRef(null);
-  const addressInputRef = useRef(null);
-  const occupationInputRef = useRef(null);
-  const companyInputRef = useRef(null);
-
-  React.useEffect(() => {
-    const filtered = data.filter((item) => {
-      const globalSearchMatch = Object.values(item).some((val) =>
-        val.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-      );
-
-      const columnFilterMatch = Object.keys(columnSearch).every((key) => {
-        if (!columnSearch[key]) return true;
-        return item[key]
-          .toString()
-          .toLowerCase()
-          .includes(columnSearch[key].toLowerCase());
-      });
-
-      return globalSearchMatch && columnFilterMatch;
+  const handleSelectRow = (rowKey) => {
+    setSelectedRows((prev) => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(rowKey)) {
+        newSelected.delete(rowKey);
+      } else {
+        newSelected.add(rowKey);
+      }
+      return newSelected;
     });
+  };
 
-    setFilteredData(filtered);
-  }, [debouncedSearchTerm, columnSearch]);
-
-  const handleTableChange = (pagination, filters, sorter) => {
-    setPagination(pagination);
-    if (sortActive) {
-      setFilteredData((prevData) => {
-        const sortedData = [...prevData].sort((a, b) => {
-          if (sorter.order === 'ascend') {
-            return a[sorter.field] > b[sorter.field] ? 1 : -1;
-          }
-          if (sorter.order === 'descend') {
-            return a[sorter.field] < b[sorter.field] ? 1 : -1;
-          }
-          return 0;
-        });
-        return sortedData;
-      });
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      const allRowKeys = data.map((row) => row.key);
+      setSelectedRows(new Set(allRowKeys));
+    } else {
+      setSelectedRows(new Set());
     }
   };
 
-  const handleSelectChange = (selectedKeys) => {
-    setSelectedRowKeys(selectedKeys);
-    // handleSelectAll()
-  };
-
-  const handleSelectAll = () => {
-    setSelectedRowKeys(allRowKeys);
-  };
-
-  const columns = [
-    {
-      title: getColumnSearchProps('name', columnSearch.name, (val) =>
-        setColumnSearch({ ...columnSearch, name: val }), setSortActive, nameInputRef).title,
-      dataIndex: 'name',
-      key: 'name',
-      sorter: sortActive && ((a, b) => a.name.localeCompare(b.name)),
-      width: 130,
-      render: (text) => highlightText(text, debouncedSearchTerm),
-    },
-    {
-      title: getColumnSearchProps('age', columnSearch.age, (val) =>
-        setColumnSearch({ ...columnSearch, age: val }), setSortActive, ageInputRef).title,
-      dataIndex: 'age',
-      key: 'age',
-      sorter: sortActive && ((a, b) => a.age - b.age),
-      width: 100,
-      render: (text) => highlightText(text, debouncedSearchTerm),
-    },
-    {
-      title: getColumnSearchProps('address', columnSearch.address, (val) =>
-        setColumnSearch({ ...columnSearch, address: val }), setSortActive, addressInputRef).title,
-      dataIndex: 'address',
-      key: 'address',
-      sorter: sortActive && ((a, b) => a.address.localeCompare(b.address)),
-      width: 200,
-      render: (text) => highlightText(text, debouncedSearchTerm),
-    },
-    {
-      title: getColumnSearchProps('occupation', columnSearch.occupation, (val) =>
-        setColumnSearch({ ...columnSearch, occupation: val }), setSortActive, occupationInputRef).title,
-      dataIndex: 'occupation',
-      key: 'occupation',
-      width: 150,
-      render: (text) => highlightText(text, debouncedSearchTerm),
-    },
-    {
-      title: getColumnSearchProps('company', columnSearch.company, (val) =>
-        setColumnSearch({ ...columnSearch, company: val }), setSortActive, companyInputRef).title,
-      dataIndex: 'company',
-      key: 'company',
-      width: 150,
-      render: (text) => highlightText(text, debouncedSearchTerm),
-    },
-  ];
+  const paginatedData = data.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const totalPages = data.length;
 
   return (
-    <div className="minimalist-table-container">
-      <Input
-        placeholder="Search across all columns"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="minimalist-search"
-        style={{ marginBottom: 16 }}
+    <div className="multi_row_tale">
+      <table className="custom-table">
+        <thead>
+          <tr>
+            <th>
+              <input
+                type="checkbox"
+                onChange={handleSelectAll}
+                checked={selectedRows.size === data.length}
+              />
+            </th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Company</th>
+            <th>Website</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {paginatedData.map((record) => (
+            <React.Fragment key={record.key}>
+              <tr className={selectedRows.has(record.key) ? 'selected' : ''}>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedRows.has(record.key)}
+                    onChange={() => handleSelectRow(record.key)}
+                  />
+                </td>
+                <td>{record.name}</td>
+                <td>{record.email}</td>
+                <td>{record.phone}</td>
+                <td>{record.company}</td>
+                <td>
+                  <a href={record.website} target="_blank" rel="noopener noreferrer">
+                    {record.website}
+                  </a>
+                </td>
+                <td>
+                  <button onClick={() => handleExpandRow(record.key)}>
+                    {expandedRows[record.key] ? 'Collapse' : 'Expand'}
+                  </button>
+                </td>
+              </tr>
+              {expandedRows[record.key] && (
+                <tr>
+                  <td colSpan="7">{record.address}</td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
+      <Pagination
+        current={currentPage}
+        pageSize={rowsPerPage}
+        total={totalPages}
+        onChange={(page) => setCurrentPage(page)}
+        showSizeChanger={false}
+        style={{ marginTop: '20px', textAlign: 'right' }}
       />
-      <Table
-        columns={columns}
-        dataSource={filteredData}
-        pagination={{
-          ...pagination,
-          total: filteredData.length,
-          showTotal: (total) => `Total ${total} items`,
-          size: 'small',
-        }}
-        rowSelection={{
-          selectedRowKeys,
-          onChange: handleSelectChange,
-        }}
-        onChange={handleTableChange}
-        scroll={{
-          x: 1000,
-          y: 350,
-        }}
-        rowClassName={(record, index) =>
-          index % 2 === 0 ? 'minimalist-row-light' : 'minimalist-row-dark'
-        }
-        sticky
-      />
-      <h1>Custom Table Web Component in React</h1>
-      <custom-table></custom-table>
     </div>
   );
 };

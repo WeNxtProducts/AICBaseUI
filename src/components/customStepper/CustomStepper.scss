@@ -16,9 +16,9 @@
   width: 100%;
  }
  .current-stepper {
-  height: 30px;
+  height: 10px; // 30px
   display: flex;
-  align-items: center;
+  //   align-items: center;
   position: relative;
 
   .divider-progress {

@@ -1,15 +1,20 @@
-import React, { createContext } from 'react';
-import './GroupLife.scss';
+import React, { createContext, useState } from 'react';
 import CustomStepper from '../../components/customStepper/CustomStepper';
 import useStepper from '../../components/customStepper/useStepper';
 import GroupLifeMainForm from './groupLifeMainForm/GroupLifeMainForm';
+import GroupLifeJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
+import GroupLifeLov from '../../getFormFields/QUOTATIONENTRY_getLOVList.json';
+import { useSelector } from 'react-redux';
+import GroupLifePanels from './groupLifePanels/GroupLifePanels';
+import './GroupLife.scss';
 
 export const GroupLifeContext = createContext();
 
 const GroupLife = () => {
-    const stepperId = 0
+    const stepperId = 2
+    const id = useSelector(state => state?.id?.id);
     const groupLifeStepper = [
-        { key: 0, title: 'Group Life Entry', status: 'inprogress', },
+        { key: 0, title: 'Proposal Entry', status: 'inprogress', },
         { key: 1, title: 'Life Assured Details', status: 'todo' },
         { key: 2, title: 'Beneficiary', status: 'todo' },
         { key: 3, title: 'Broker/Agent', status: 'todo' },
@@ -18,12 +23,16 @@ const GroupLife = () => {
     ];
     const { currentStep, stepperData, handleNext, handlePrevious, handleSkip, getNextKey } =
         useStepper(groupLifeStepper, stepperId);
+    const [dropDown, setDropDown] = useState(GroupLifeLov);
 
     const handleSkipStep = index => {
         handleSkip(index);
     };
 
-    const data = {}
+    const data = {
+        dropDown, setDropDown, GroupLifeJSON, currentStep
+        , stepperData, handleNext, handlePrevious, handleSkip, id
+    }
 
     return (
         <GroupLifeContext.Provider value={data}>
@@ -34,8 +43,11 @@ const GroupLife = () => {
                         stepperData={stepperData}
                         handleSkip={handleSkipStep}
                     />
-                    <div className='main-screen mt-0'>
-                        <GroupLifeMainForm />
+                </div>
+                <div className='main-screen mt-0'>
+                    <GroupLifeMainForm />
+                    <div className='mt-3'>
+                        <GroupLifePanels />
                     </div>
                 </div>
             </div>
