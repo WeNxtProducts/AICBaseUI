@@ -13,14 +13,14 @@ const UWPrintDocument = ({ open, handleClose, policyDetails, tranId, POL_NO }) =
     const DMSFileGenerate = useApiRequests('DMSFileGenerateDocument', 'POST');
     const getParamLov = useApiRequests('getParamLov', 'GET');
     const [Open, setOpen] = useState(false);
-    const [dropDown, setDropDown] = useState();
+    const [dropDown, setDropDown] = useState(null);
     const [loader, setLoader] = useState(false);
     const [fieldName, setFieldName] = useState('Policy No')
     const [initialValues, setInitialValues] = useState({
-        POL_ENDT: '',
+        POL_ENDT: POL_CONVERT_YN === 'Y' ? 'Policy' : 'Quotation',
         tranId: POL_NO,
-        REP_POST: '',
-        PRINTYPE: '',
+        REP_POST: 'PREVIEW',
+        PRINTYPE: 'Original',
         alteration_number: '',
         docTemplateName: '',
     });

@@ -3,6 +3,7 @@ import { Collapse } from 'antd';
 import { GroupLifeContext } from '../GroupLife';
 import CollapsePanelHeader from '../../../components/collapsePanelHeader/CollapsePanelHeader';
 import EmployeeUpload from './employeeUpload/EmployeeUpload';
+import PlanDetails from './planDetails/PlanDetails';
 
 const { Panel } = Collapse;
 
@@ -64,7 +65,7 @@ const GroupLifePanels = () => {
                         <CollapsePanelHeader from='GL' name='Plan Details' saved={stepperData[1]} />
                     }
                     key={1}>
-                    <p>Plan Details</p>
+                    <PlanDetails />
                 </Panel>
                 <Panel
                     className={determinePanelClassName(2)}
