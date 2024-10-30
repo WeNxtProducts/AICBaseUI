@@ -1,5 +1,5 @@
-import { Tabs } from 'antd';
 import React, { useContext, useState } from 'react'
+import { Tabs } from 'antd';
 import TabPanelHeader from '../../../components/collapsePanelHeader/TabPanelHeader';
 import { SurrMatContext } from '../SurrenderMaturity';
 import Checklist from './checkList/CheckList';

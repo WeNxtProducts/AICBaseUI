@@ -169,7 +169,12 @@
 
    .plan_details {
     padding: 10px;
-
+    .plan_mrv {
+     //  border: 1px solid red;
+     .list_grid {
+      background-color: #f3f4f5;
+     }
+    }
    }
   }
  }

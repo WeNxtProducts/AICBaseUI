@@ -45,7 +45,7 @@ const GroupLife = () => {
                     />
                 </div>
                 <div className='main-screen mt-0'>
-                    {/* <GroupLifeMainForm /> */}
+                    <GroupLifeMainForm />
                     <div className='mt-3'>
                         <GroupLifePanels />
                     </div>
