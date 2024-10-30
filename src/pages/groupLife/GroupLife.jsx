@@ -11,7 +11,7 @@ import './GroupLife.scss';
 export const GroupLifeContext = createContext();
 
 const GroupLife = () => {
-    const stepperId = 1
+    const stepperId = 6
     const id = useSelector(state => state?.id?.id);
     const groupLifeStepper = [
         { key: 0, title: 'Proposal Entry', status: 'inprogress', },
