@@ -41,6 +41,12 @@ const UWPrintDocument = ({ open, handleClose, policyDetails, tranId, POL_NO }) =
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
+                if (response?.Data?.['template name']?.length > 0) {
+                    setInitialValues((prev) => ({
+                        ...prev,
+                        docTemplateName: response?.Data?.['template name']?.[0],
+                    }));
+                }
                 const newDropDown = {
                     ...dropDownData,
                     docTemplateName: response?.Data?.['template name']
