@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const GLListing = lazy(() => import('../pages/groupLife/glListing/GLListing'));
 const GroupLife = lazy(() => import('../pages/groupLife/GroupLife'));
 const ReInsuranceListing = lazy(() => import('../pages/ReInsurance/reInsuranceListing/ReInsuranceListing'));
 const ReInsurance = lazy(() => import('../pages/ReInsurance/ReInsurance'));
@@ -154,6 +155,15 @@ const AppRouter = () => {
                         element={
                             <Suspense fallback={<Loader />}>
                                 <ReInsurance from='service' />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path='/GL_List'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <GLListing />
                             </Suspense>
                         }
                     />
