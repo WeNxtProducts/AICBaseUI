@@ -2,27 +2,25 @@ import React, { useState } from 'react';
 import { Table, Input, Checkbox, Button, Popover } from 'antd';
 import { useDebounce } from 'use-debounce';
 import { faker } from '@faker-js/faker';
-import './AssuredTable.scss';
-import ChecklistSVG from '../../../../svg/ChecklistSVG';
-import MedicalSVG from '../../../../svg/MedicalSVG';
-import CoverSVG from '../../../../svg/CoverSVG';
-import LoadingSVG from '../../../../svg/LoadingSVG';
-import BeneficiarySVG from '../../../../svg/BeneficiarySVG';
-import MoreSVG from '../../../../svg/MoreSVG';
 import ExpandRowContent from './expandRowContent/ExpandRowContent';
+import GroupLifeJSON from '../../../../getFormFields/QUOTATIONENTRY_getFieldList.json';
+import GroupLifeLov from '../../../../getFormFields/QUOTATIONENTRY_getLOVList.json';
+import AssuredActionModal from './expandRowContent/assuredForm/AssuredActionModal';
+import './AssuredTable.scss';
 
 const generateData = () => {
-    return Array.from({ length: 500 }, (_, i) => ({
-        key: i,
-        mem_id: faker.string.alpha(5),
-        mem_name: faker.person.fullName(),
-        occ: faker.person.jobTitle(),
-        age: faker.number.int({ min: 18, max: 65 }),
-        medical: faker.datatype.boolean() ? 'Y' : 'N'
-    }));
+    return Array.from({ length: 500 }, (_, i) => {
+        const memId = `${faker.string.alpha({ length: 2, casing: 'upper' })}${faker.number.int({ min: 100, max: 999 })}`;
+        return {
+            key: memId,
+            mem_id: memId,
+            mem_name: faker.person.fullName(),
+            occ: faker.person.jobTitle(),
+            age: faker.number.int({ min: 18, max: 65 }),
+            medical: faker.datatype.boolean() ? 'Y' : 'N'
+        };
+    });
 };
-
-
 
 const data = generateData();
 
@@ -46,6 +44,7 @@ const AssuredTable = () => {
     const [selectedColumns, setSelectedColumns] = useState(['All']);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
+    const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
     const handleColumnFilterChange = (column) => {
         setSelectedColumns((prev) => {
@@ -134,33 +133,7 @@ const AssuredTable = () => {
             title: '',
             width: '50%',
             render: (text, record) => (
-                <div className='action_buttons'>
-                    <div className='pop_up_btns'>
-                        <div className="action_item">
-                            <BeneficiarySVG className='custom-svg' />
-                            <p className='action_names'>Beneficiary</p>
-                        </div>
-                        <div className="action_item">
-                            <LoadingSVG className='custom-svg' />
-                            <p className='action_names'>Loading</p>
-                        </div>
-                        <div className="action_item">
-                            <ChecklistSVG className='custom-svg' />
-                            <p className='action_names'>Checklist</p>
-                        </div>
-                        <div className="action_item">
-                            <MedicalSVG className='custom-svg' />
-                            <p className='action_names'>Medical</p>
-                        </div>
-                        <div className="action_item">
-                            <CoverSVG className='custom-svg' />
-                            <p className='action_names'>Cover</p>
-                        </div>
-                    </div>
-                    <div className='more_btn'>
-                        <MoreSVG className='more-svg' />
-                    </div>
-                </div>
+                <AssuredActionModal record={record} />
             )
         },
     ];
@@ -174,9 +147,34 @@ const AssuredTable = () => {
         },
     };
 
-    const expandedRowRender = (record) => (
-        <ExpandRowContent record={record} />
-    );
+    //Expand MUltple row at a time
+    const handleExpandMultiple = (expanded, record) => {
+        const newExpandedRowKeys = expanded
+            ? [...expandedRowKeys, record.key]
+            : expandedRowKeys.filter(key => key !== record.key);
+        setExpandedRowKeys(newExpandedRowKeys);
+    };
+
+    //Expand Single row at a time
+    const handleExpand = (expanded, record) => {
+        if (expanded) {
+            setExpandedRowKeys([record.key]);
+        } else {
+            setExpandedRowKeys([]);
+        }
+    };
+
+    const expandedRowRender = (record) => {
+        return expandedRowKeys.includes(record.key) ? (
+            <ExpandRowContent
+                record={record}
+                handleCloseExp={handleExpand}
+                fieldJSON={GroupLifeJSON}
+                lovJSON={GroupLifeLov}
+            />
+        ) : null;
+    }
+
 
     return (
         <div className="minimalist-table-container-assured">
@@ -215,7 +213,11 @@ const AssuredTable = () => {
             <Table
                 columns={columns}
                 dataSource={paginatedData}
-                expandable={{ expandedRowRender }}
+                expandable={{
+                    expandedRowRender,
+                    expandedRowKeys,
+                    onExpand: handleExpand,
+                }}
                 // rowSelection={rowSelection}
                 pagination={{
                     ...pagination,

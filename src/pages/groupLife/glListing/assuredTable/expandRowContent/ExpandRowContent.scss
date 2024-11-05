@@ -1,3 +1,59 @@
+@import '../../../../../styles/variable';
+
 .expand_row_content {
- border: 1px solid red;
+ background-color: #F5F7F8;
+ padding: 5px;
+ border-top: 1px solid #0382c8;
+ border-bottom: 1px solid #0382c8;
+
+ .exp_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  > p {
+   padding-left: 10px;
+   color: #4d5e80;
+   font-weight: 700;
+   font-size: 12px;
+  }
+  .close_icon_exp {
+   cursor: pointer;
+   padding-right: 20px;
+   color: #000000;
+   font-size: 13px;
+  }
+ }
+
+ .form_divier {
+  margin-top: 5px;
+  border: 1px solid #d9d5ec;
+ }
+
+ .main_form {
+  margin-top: 10px;
+  padding-left: 10px;
+
+  .submit-button-form {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   .save,
+   .reset {
+    width: 10%;
+    padding: 7px 10px 7px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    border-radius: 6px;
+   }
+   .save {
+    background-color: $save-button-forms;
+    color: #ffffff;
+   }
+   .reset {
+    border: 1px solid $save-button-forms;
+    color: $save-button-forms;
+   }
+  }
+ }
 }
