@@ -9,6 +9,7 @@ import CoverSVG from '../../../../svg/CoverSVG';
 import LoadingSVG from '../../../../svg/LoadingSVG';
 import BeneficiarySVG from '../../../../svg/BeneficiarySVG';
 import MoreSVG from '../../../../svg/MoreSVG';
+import ExpandRowContent from './expandRowContent/ExpandRowContent';
 
 const generateData = () => {
     return Array.from({ length: 500 }, (_, i) => ({
@@ -174,10 +175,7 @@ const AssuredTable = () => {
     };
 
     const expandedRowRender = (record) => (
-        <div style={{ marginLeft: '40px' }}>
-            <p><strong>City:</strong> {record?.city || ''}</p>
-            <p><strong>Country:</strong> {record?.country || ''}</p>
-        </div>
+        <ExpandRowContent record={record} />
     );
 
     return (
