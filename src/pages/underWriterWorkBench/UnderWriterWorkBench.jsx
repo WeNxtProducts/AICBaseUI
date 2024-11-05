@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import UWPrintDocument from './UWPrintDocument/UWPrintDocument';
 import './UnderWriterWorkBench.scss';
+import { checkPageType } from './UWHelper';
 
 export const UWContext = createContext();
 
@@ -23,6 +24,7 @@ const UnderWriterWorkBench = () => {
     const navigate = useNavigate();
     const POL_NO = useSelector(state => state?.UWId?.POL_NO);
     const CustCode = useSelector(state => state?.UWId?.CustCode);
+    const pageType = checkPageType(POL_NO) === 'Quotation' ? 'Proposal' : 'Policy'
     const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
     const [proposalList, setProposalList] = useState([]);
     const [policyNumber, setPolicyNumber] = useState('');
@@ -104,6 +106,7 @@ const UnderWriterWorkBench = () => {
         setTranId,
         policyDetails,
         navigateToQuotation,
+        pageType
     };
 
     const handleClose = () => {
@@ -117,7 +120,7 @@ const UnderWriterWorkBench = () => {
                     <button onClick={() => setUWPrintOpen(true)}>Print</button>
                     <HeaderUnderWriter />
                     <div className='historyBox grid grid-cols-12 mt-5'>
-                        <div className='col-span-2 title'>Policy Status</div>
+                        <div className='col-span-2 title'>{pageType} Status</div>
                         <div className='historySlider col-span-10'>
                             <HistorySlider items={historyitems} />
                         </div>

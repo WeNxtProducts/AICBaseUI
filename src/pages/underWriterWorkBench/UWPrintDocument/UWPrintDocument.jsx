@@ -6,18 +6,20 @@ import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { handleFileDownloadOrView } from '../../../components/mediaHelper/MediaHelper';
 import Loader from '../../../components/loader/Loader';
+import { checkPageType } from '../UWHelper';
 
 const UWPrintDocument = ({ open, handleClose, policyDetails, tranId, POL_NO }) => {
     const { POL_PLAN_CODE, POL_CONVERT_YN } = policyDetails
+    const pageType = checkPageType(POL_NO)
     const getLovList = useApiRequests('getLovList', 'GET');
     const DMSFileGenerate = useApiRequests('DMSFileGenerateDocument', 'POST');
     const getParamLov = useApiRequests('getParamLov', 'GET');
     const [Open, setOpen] = useState(false);
     const [dropDown, setDropDown] = useState(null);
     const [loader, setLoader] = useState(false);
-    const [fieldName, setFieldName] = useState('Policy No')
+    const [fieldName, setFieldName] = useState(`${pageType} No`)
     const [initialValues, setInitialValues] = useState({
-        POL_ENDT: POL_CONVERT_YN === 'Y' ? 'Policy' : 'Quotation',
+        POL_ENDT: pageType,
         tranId: POL_NO,
         REP_POST: 'PREVIEW',
         PRINTYPE: 'Original',
@@ -44,7 +46,7 @@ const UWPrintDocument = ({ open, handleClose, policyDetails, tranId, POL_NO }) =
                 if (response?.Data?.['template name']?.length > 0) {
                     setInitialValues((prev) => ({
                         ...prev,
-                        docTemplateName: response?.Data?.['template name']?.[0],
+                        docTemplateName: response?.Data?.['template name']?.[0]?.value,
                     }));
                 }
                 const newDropDown = {
@@ -97,6 +99,7 @@ const UWPrintDocument = ({ open, handleClose, policyDetails, tranId, POL_NO }) =
     }
 
     const handleGetAndView = async (values) => {
+        console.log("values : ", values)
         setLoader(true)
         const payload = {
             docTemplateName: values?.docTemplateName,

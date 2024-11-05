@@ -48,7 +48,14 @@ export default defineConfig(({ mode }) => {
     plugins: [fixReactVirtualized],
    },
    include: ['react', 'react-dom'],
-    //   include: ['react', 'react-dom', 'antd'],
+   //   include: ['react', 'react-dom', 'antd'],
   },
  };
 });
+
+// if vite throw this error
+
+// 10:50:56 am [vite] error while updating dependencies:
+// Error: EPERM: operation not permitted, rename 'D:\AIC\node_modules\.vite\deps_temp_8b17f62f' -> 'D:\AIC\node_modules\.vite\deps'
+
+// Then run "npm update vite"

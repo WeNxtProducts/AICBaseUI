@@ -4,6 +4,11 @@ import { useDebounce } from 'use-debounce';
 import { faker } from '@faker-js/faker';
 import './AssuredTable.scss';
 import ChecklistSVG from '../../../../svg/ChecklistSVG';
+import MedicalSVG from '../../../../svg/MedicalSVG';
+import CoverSVG from '../../../../svg/CoverSVG';
+import LoadingSVG from '../../../../svg/LoadingSVG';
+import BeneficiarySVG from '../../../../svg/BeneficiarySVG';
+import MoreSVG from '../../../../svg/MoreSVG';
 
 const generateData = () => {
     return Array.from({ length: 500 }, (_, i) => ({
@@ -125,13 +130,34 @@ const AssuredTable = () => {
                     : text,
         },
         {
-            title: 'ACTIONS',
+            title: '',
             width: '50%',
             render: (text, record) => (
                 <div className='action_buttons'>
-                    <div className="action_item">
-                        <ChecklistSVG className='custom-svg' />
-                        <p className='action_names'>Checklist</p>
+                    <div className='pop_up_btns'>
+                        <div className="action_item">
+                            <BeneficiarySVG className='custom-svg' />
+                            <p className='action_names'>Beneficiary</p>
+                        </div>
+                        <div className="action_item">
+                            <LoadingSVG className='custom-svg' />
+                            <p className='action_names'>Loading</p>
+                        </div>
+                        <div className="action_item">
+                            <ChecklistSVG className='custom-svg' />
+                            <p className='action_names'>Checklist</p>
+                        </div>
+                        <div className="action_item">
+                            <MedicalSVG className='custom-svg' />
+                            <p className='action_names'>Medical</p>
+                        </div>
+                        <div className="action_item">
+                            <CoverSVG className='custom-svg' />
+                            <p className='action_names'>Cover</p>
+                        </div>
+                    </div>
+                    <div className='more_btn'>
+                        <MoreSVG className='more-svg' />
                     </div>
                 </div>
             )
