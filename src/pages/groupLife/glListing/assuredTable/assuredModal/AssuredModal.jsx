@@ -27,7 +27,7 @@ const AssuredModal = ({ open, handleClose, modalTitle, record }) => {
             title={<MessageTitle title={modalTitle} />}
             style={modalStyles?.topPosition}
             onCancel={() => onClose(false)}
-            maskClosable={true}
+            maskClosable={false}
             footer={null}>
             <MRVAssured
                 queryID='getBeneficiaryList'
