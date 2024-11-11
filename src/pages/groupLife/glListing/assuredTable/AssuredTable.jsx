@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Input, Checkbox, Button, Popover } from 'antd';
 import { useDebounce } from 'use-debounce';
 import { faker } from '@faker-js/faker';
@@ -9,7 +9,7 @@ import AssuredActionModal from './expandRowContent/assuredForm/AssuredActionModa
 import './AssuredTable.scss';
 
 const generateData = () => {
-    return Array.from({ length: 500 }, (_, i) => {
+    return Array.from({ length: 100 }, (_, i) => {
         const memId = `${faker.string.alpha({ length: 2, casing: 'upper' })}${faker.number.int({ min: 100, max: 999 })}`;
         return {
             key: memId,
@@ -42,7 +42,6 @@ const AssuredTable = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState(data);
     const [selectedColumns, setSelectedColumns] = useState(['All']);
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
     const [expandedRowKeys, setExpandedRowKeys] = useState([]);
 
@@ -60,15 +59,18 @@ const AssuredTable = () => {
         setPagination(pagination);
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
+        const searchLower = debouncedSearchTerm.toLowerCase();
         const filtered = data.filter((item) => {
-            return selectedColumns.includes('All')
-                ? Object.values(item).some((val) =>
-                    val?.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-                )
-                : selectedColumns.some((col) =>
-                    item[col]?.toString().toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+            if (selectedColumns.includes('All')) {
+                return Object.values(item).some((val) =>
+                    val?.toString().toLowerCase().includes(searchLower)
                 );
+            } else {
+                return selectedColumns.some((col) =>
+                    item[col]?.toString().toLowerCase().includes(searchLower)
+                );
+            }
         });
         setFilteredData(filtered);
     }, [debouncedSearchTerm, selectedColumns]);
@@ -140,41 +142,20 @@ const AssuredTable = () => {
 
     const filterOptions = ['All', 'mem_id', 'mem_name', 'occ', 'age', 'medical'];
 
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: (selectedKeys) => {
-            setSelectedRowKeys(selectedKeys);
-        },
-    };
-
-    //Expand MUltple row at a time
-    const handleExpandMultiple = (expanded, record) => {
-        const newExpandedRowKeys = expanded
-            ? [...expandedRowKeys, record.key]
-            : expandedRowKeys.filter(key => key !== record.key);
-        setExpandedRowKeys(newExpandedRowKeys);
-    };
-
-    //Expand Single row at a time
-    const handleExpand = (expanded, record) => {
-        if (expanded) {
-            setExpandedRowKeys([record.key]);
-        } else {
-            setExpandedRowKeys([]);
-        }
-    };
-
-    const expandedRowRender = (record) => {
-        return expandedRowKeys.includes(record.key) ? (
+    const expandedRowRender = (record) => (
+        expandedRowKeys.includes(record.key) ? (
             <ExpandRowContent
                 record={record}
-                handleCloseExp={handleExpand}
+                handleCloseExp={() => handleExpand(false, record)}
                 fieldJSON={GroupLifeJSON}
                 lovJSON={GroupLifeLov}
             />
-        ) : null;
-    }
+        ) : null
+    );
 
+    const handleExpand = (expanded, record) => {
+        setExpandedRowKeys(expanded ? [record.key] : []);
+    };
 
     return (
         <div className="minimalist-table-container-assured">
@@ -199,7 +180,8 @@ const AssuredTable = () => {
                     <Button
                         className='fil_btn'
                         type='primary'
-                        icon={<i className='bi bi-funnel-fill icon-style' />}>
+                        icon={<i className='bi bi-funnel-fill icon-style' />}
+                    >
                         Filter
                     </Button>
                 </Popover>
@@ -218,7 +200,6 @@ const AssuredTable = () => {
                     expandedRowKeys,
                     onExpand: handleExpand,
                 }}
-                // rowSelection={rowSelection}
                 pagination={{
                     ...pagination,
                     total: filteredData.length,
@@ -227,9 +208,9 @@ const AssuredTable = () => {
                 }}
                 onChange={handleTableChange}
                 scroll={{ x: 1000, y: 305 }}
-                rowClassName={(record, index) => (index % 2 === 0
+                rowClassName={(record, index) => index % 2 === 0
                     ? 'minimalist-row-light'
-                    : 'minimalist-row-light')} //minimalist-row-dark
+                    : 'minimalist-row-light'}
                 sticky
             />
         </div>
