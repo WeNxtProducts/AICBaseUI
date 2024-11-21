@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const ProductMaster = lazy(() => import('../pages/productMaster/ProductMaster'));
 const GLListing = lazy(() => import('../pages/groupLife/glListing/GLListing'));
 const GroupLife = lazy(() => import('../pages/groupLife/GroupLife'));
 const ReInsuranceListing = lazy(() => import('../pages/ReInsurance/reInsuranceListing/ReInsuranceListing'));
@@ -150,6 +151,15 @@ const AppRouter = () => {
                 {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/productMaster'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ProductMaster />
+                            </Suspense>
+                        }
+                    />
+
                     <Route
                         path='/reInsuranceService'
                         element={
@@ -386,13 +396,13 @@ const AppRouter = () => {
                         }
                     />
                     {/* <Route
-      path='/surrenderprocessing'
-      element={
-       <Suspense fallback={<div>ClaimSettlement...</div>}>
-        <SurrenderProcessing />
-       </Suspense>
-      }
-     /> */}
+                        path='/surrenderprocessing'
+                        element={
+                            <Suspense fallback={<div>ClaimSettlement...</div>}>
+                                <SurrenderProcessing />
+                            </Suspense>
+                        }
+                    /> */}
                     <Route
                         path='/cashbackprocessing'
                         element={
