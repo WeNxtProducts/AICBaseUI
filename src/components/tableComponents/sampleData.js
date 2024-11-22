@@ -266,7 +266,7 @@ export const tableColumn = [
  {
   label: 'Main Account',
   value: 'mainAccount',
- }
+ },
 ];
 
 export const genderOptions = [
@@ -1629,6 +1629,17 @@ export const termSelect = [
  {
   label: 'Yearly',
   value: 'Y',
+ },
+];
+
+export const withdrawalMethod = [
+ {
+  label: 'Normal',
+  value: 'Normal',
+ },
+ {
+  label: 'Factorwise',
+  value: 'Factorwise',
  },
 ];
 

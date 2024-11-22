@@ -1,5 +1,21 @@
 @use '../../styles/variable' as *;
 
+@mixin form-label-style {
+ font-size: 13px;
+ font-weight: 600;
+ line-height: 20px;
+ color: #4d5e80;
+}
+
+@mixin button-style {
+ margin-top: 20px;
+ padding: 5px 15px;
+ border-radius: 8px;
+ color: #ffffff;
+ font-weight: 600;
+ background-color: #0382c8;
+}
+
 .product_master {
  .main-screen {
   min-height: 88vh;
@@ -21,18 +37,11 @@
      font-weight: 700;
     }
     .form-label {
-     font-size: 13px;
-     font-weight: 600;
-     line-height: 20px;
-     color: #4d5e80;
+     @include form-label-style;
     }
+
     .submit_btn {
-     margin-top: 20px;
-     padding: 5px 15px;
-     border-radius: 8px;
-     color: #ffffff;
-     font-weight: 600;
-     background-color: #0382c8;
+     @include button-style;
     }
    }
 
@@ -46,11 +55,21 @@
      color: #ffffff;
      font-size: 12px;
      height: 29px;
-     width: 72%;
+     width: 80%;
      margin-bottom: 5px;
      border-radius: 8px;
     }
    }
   }
+ }
+}
+
+.withdrawal_setup_modal {
+ .form-label {
+  @include form-label-style;
+ }
+
+ .submit_btn {
+  @include button-style;
  }
 }

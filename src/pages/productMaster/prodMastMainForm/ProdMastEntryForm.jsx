@@ -59,7 +59,7 @@ const ProdMastEntryForm = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className='col-span-1' />
+                                    {/* <div className='col-span-1' /> */}
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Descrption</p>
                                         <div className='col-span-3'>
@@ -73,7 +73,7 @@ const ProdMastEntryForm = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className='col-span-1' />
+                                    {/* <div className='col-span-1' /> */}
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Short Description</p>
                                         <div className='col-span-3'>
@@ -87,7 +87,7 @@ const ProdMastEntryForm = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className='col-span-1' />
+                                    {/* <div className='col-span-1' /> */}
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Long Description</p>
                                         <div className='col-span-3'>
@@ -101,7 +101,7 @@ const ProdMastEntryForm = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className='col-span-1' />
+                                    {/* <div className='col-span-1' /> */}
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Product Type</p>
                                         <div className='col-span-3'>
