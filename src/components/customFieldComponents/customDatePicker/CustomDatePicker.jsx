@@ -47,9 +47,11 @@ const CustomDatePicker = ({
         inputReadOnly={readOnly}
         // open={!readOnly}
         onBlur={e => {
-          if (e.target.nodeName === 'INPUT') {
-            const date = e.target.value;
-            onBlur(date);
+          if (onBlur) {
+            if (e.target.nodeName === 'INPUT') {
+              const date = e.target.value;
+              onBlur(date);
+            }
           }
         }}
         className='custom-form-fields'
