@@ -1,7 +1,7 @@
 import React from 'react';
 import TaxSlabMainForm from './taxSlabMainForm/TaxSlabMainForm';
-import './TaxSlabSetup.scss';
 import TaxSlabRate from './taxSlabRate/TaxSlabRate';
+import './TaxSlabSetup.scss';
 
 const TaxSlabSetup = () => {
     return (

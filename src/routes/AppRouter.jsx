@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const AnnuityMaster = lazy(() => import('../pages/annuityMaster/AnnuityMaster'));
 const TaxSlabSetup = lazy(() => import('../pages/taxSlabSetup/TaxSlabSetup'));
 const ProductMaster = lazy(() => import('../pages/productMaster/ProductMaster'));
 const GLListing = lazy(() => import('../pages/groupLife/glListing/GLListing'));
@@ -139,45 +140,45 @@ const AppRouter = () => {
                         </Suspense>
                     }
                 />
-                <Route
-                    path='/endorsement'
-                    element={
-                        <Suspense fallback={<Loader />}>
-                            <Endorsement />
-                        </Suspense>
-                    }
-                />
-
-                <Route
-                    path='/productMaster'
-                    element={
-                        <Suspense fallback={<Loader />}>
-                            <ProductMaster />
-                        </Suspense>
-                    }
-                />
-
-                <Route
-                    path='/taxSlabSetUp'
-                    element={
-                        <Suspense fallback={<Loader />}>
-                            <TaxSlabSetup />
-                        </Suspense>
-                    }
-                />
-
 
                 {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
-                    {/* <Route
+                    <Route
+                        path='/endorsement'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <Endorsement />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
                         path='/productMaster'
                         element={
                             <Suspense fallback={<Loader />}>
                                 <ProductMaster />
                             </Suspense>
                         }
-                    /> */}
+                    />
+
+                    <Route
+                        path='/taxSlabSetUp'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <TaxSlabSetup />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path='/annuityMaster'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <AnnuityMaster />
+                            </Suspense>
+                        }
+                    />
 
                     <Route
                         path='/reInsuranceService'

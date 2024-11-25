@@ -7,8 +7,8 @@
  background-color: #0382c8;
 }
 
-.tax-slab-rate-table {
- width: 70%;
+.annuity_type_table {
+ width: 100%;
  margin: auto;
 
  .add-btn {
@@ -40,30 +40,46 @@
   }
 
   th {
-   font-size: 15px;
+   font-size: 13px;
    font-weight: 600;
    color: #4d5e80;
   }
 
   tbody td:first-child {
-   width: 20%;
+   width: 10%;
   }
 
   tbody td:nth-child(2) {
-   width: 35%;
+   width: 15%;
   }
 
   tbody td:nth-child(3) {
-   width: 25%;
+   width: 10%;
   }
 
   tbody td:nth-child(4) {
-   width: 20%;
+   width: 10%;
+  }
+
+  tbody td:nth-child(5) {
+   width: 15%;
+  }
+
+  tbody td:nth-child(6) {
+   width: 10%;
+  }
+
+  tbody td:nth-child(7) {
+   width: 15%;
+  }
+
+  tbody td:nth-child(8) {
+   width: 15%;
   }
 
   tr:focus-within {
    border-radius: 8px;
-   box-shadow: 0 0 6px rgba(3, 130, 200, 0.3);
+   box-shadow: 0 0 6px rgba(3, 130, 200, 0.4);
   }
  }
 
