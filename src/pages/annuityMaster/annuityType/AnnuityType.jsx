@@ -3,8 +3,8 @@ import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import CustomNumberField from '../../../components/customFieldComponents/customNumberField/CustomNumberField';
 import CustomSelect from '../../../components/customFieldComponents/customSelect/CustomSelect';
-import './AnnuityType.scss';
 import CustomDatePicker from './../../../components/customFieldComponents/customDatePicker/CustomDatePicker';
+import './AnnuityType.scss';
 
 const AnnuityType = () => {
     const [rows, setRows] = useState([{
