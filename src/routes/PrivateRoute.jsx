@@ -6,9 +6,9 @@ function ProtectedRoute(props) {
  const isLoggedIn = useSelector(state => state?.tokenAndMenuList?.token);
  const redirectPath = '/login';
 
- if (isLoggedIn?.length === 0) {
-  return <Navigate to={redirectPath} replace />;
- }
+//  if (isLoggedIn?.length === 0) {
+//   return <Navigate to={redirectPath} replace />;
+//  }
  return <Outlet />;
 }
 export default ProtectedRoute;
