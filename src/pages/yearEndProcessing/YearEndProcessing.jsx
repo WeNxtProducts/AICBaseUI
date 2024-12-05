@@ -1,8 +1,8 @@
 import React from 'react'
 import YearEndProcessMainForm from './yearEndProcessMainForm/YearEndProcessMainForm';
 import YearEndProcessActionButtons from './yearEndProcessActionButtons/YearEndProcessActionButtons';
-import TableEditFields from './tableEditFields/TableEditFields';
 import './YearEndProcessing.scss';
+import ChargeDetailsTable from './chargeDetailsTable/ChargeDetailsTable';
 
 const YearEndProcessing = () => {
     return (
@@ -15,7 +15,7 @@ const YearEndProcessing = () => {
                     <YearEndProcessActionButtons />
                 </div>
             </div>
-            <TableEditFields />
+            <ChargeDetailsTable />
         </div>
     )
 }
