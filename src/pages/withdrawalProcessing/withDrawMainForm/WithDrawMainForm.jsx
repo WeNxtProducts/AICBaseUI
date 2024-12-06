@@ -37,7 +37,7 @@ const WithDrawMainForm = () => {
                         enableReinitialize={true}>
                         {({ handleSubmit, values, setFieldValue, resetForm }) => {
                             return (
-                                <Form className='col-span-2 grid grid-cols-2 gap-5' onSubmit={handleSubmit}>
+                                <Form className='col-span-2 grid grid-cols-2 gap-2' onSubmit={handleSubmit}>
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Policy No</p>
                                         <div className='col-span-3'>
@@ -197,11 +197,11 @@ const WithDrawMainForm = () => {
                                     </div>
 
 
-                                    <div className='col-span-2 flex items-center justify-center'>
+                                    {/* <div className='col-span-2 flex items-center justify-center'>
                                         <button className='submit_btn' type='submit'>
                                             Submit
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </Form>
                             );
                         }}

@@ -16,7 +16,7 @@ const SurrMatTabs = () => {
     };
 
     return (
-        <div className='Surr_mat_tabs'>
+        <div className='withdrawal_tabs'>
             <div className='sticky-tabs'>
                 <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                     <TabPane key='1' tab={<TabPanelHeader name='Payment Details' />}>

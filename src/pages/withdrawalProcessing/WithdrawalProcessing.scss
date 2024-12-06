@@ -1,3 +1,5 @@
+@use '../../styles/variable' as *;
+
 @mixin form-label-style {
     font-size: 13px;
     font-weight: 600;
@@ -37,6 +39,29 @@
 
         .submit_btn {
             @include button-style;
+        }
+    }
+
+    .action-buttons {
+        padding: 10px 0;
+        height: 100%;
+        border-left: 1px solid #d2d5da;
+
+        Button {
+            background-color: $save-button-forms;
+            color: #ffffff;
+            font-size: 12px;
+            height: 29px;
+            width: 80%;
+            margin-bottom: 5px;
+            border-radius: 8px;
+        }
+    }
+
+    .withdrawal_tabs {
+        border: 1px solid red;
+        .wd_details {
+            padding: 10px;
         }
     }
 }
