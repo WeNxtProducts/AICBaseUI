@@ -17,7 +17,7 @@ const WithdrawalTabs = () => {
 
     return (
         <div className='withdrawal_tabs'>
-            <div className='sticky-tabs'>
+            <div className='sticky-tabs withdrawal'>
                 <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                     <TabPane key='1' tab={<TabPanelHeader name='Withdrawal Details' />}>
                         <WithDrawTabDetails />
