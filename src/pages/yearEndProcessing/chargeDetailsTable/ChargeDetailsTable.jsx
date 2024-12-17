@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import TableEditFields from '../tableEditFields/TableEditFields';
-import { chargeDetailsFields } from '../tableEditFields/TableFiedConstants';
+import TableEditFields from '../../../components/tableEditFields/TableEditFields';
+import { chargeDetailsFields } from './../../../components/tableEditFields/TableFiedConstants';
 
 const ChargeDetailsTable = () => {
     const [rows, setRows] = useState([]);

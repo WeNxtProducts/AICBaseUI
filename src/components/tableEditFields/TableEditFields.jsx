@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import CustomNumberField from '../../../components/customFieldComponents/customNumberField/CustomNumberField';
 import TableWithFields from './TableWithFields';
 import './TableEditFields.scss';
 

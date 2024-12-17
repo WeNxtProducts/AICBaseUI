@@ -1,9 +1,8 @@
 import React from 'react'
-import CustomNumberField from '../../../components/customFieldComponents/customNumberField/CustomNumberField';
-import CustomDatePicker from './../../../components/customFieldComponents/customDatePicker/CustomDatePicker';
-import CustomSelect from './../../../components/customFieldComponents/customSelect/CustomSelect';
-import CustomInput from './../../../components/customFieldComponents/customInput/CustomInput';
-import CustomTextArea from './../../../components/customFieldComponents/customTextArea/CustomTextArea';
+import {
+    CustomDatePicker, CustomInput, CustomNumberField,
+    CustomSelect, CustomTextArea
+} from '../commonExportsFields/CommonExportsFields';
 
 const TableWithFields = ({ colDetails, handleChange, value }) => {
     const { field_type, key, index, label } = colDetails
