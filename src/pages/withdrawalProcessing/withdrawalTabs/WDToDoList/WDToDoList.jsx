@@ -1,10 +1,9 @@
 import React from 'react'
+import Checklist from './checkList/CheckList'
 
 const WDToDoList = () => {
     return (
-        <div>
-            <p>WDToDoList</p>
-        </div>
+        <Checklist tranId={1126} proposalNumber='PR/TM1//000250' queryID={149} freeze={false} />
     )
 }
 

@@ -9,7 +9,7 @@ import WDPaymentDetails from './WDPaymentDetails/WDPaymentDetails';
 const { TabPane } = Tabs;
 
 const WithdrawalTabs = () => {
-    const [activeTabKey, setActiveTabKey] = useState('2');
+    const [activeTabKey, setActiveTabKey] = useState('3');
 
     const handleTabChange = key => {
         setActiveTabKey(key);
