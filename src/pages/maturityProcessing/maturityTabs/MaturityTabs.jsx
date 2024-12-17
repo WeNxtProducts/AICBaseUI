@@ -9,16 +9,19 @@ import MPaymentDetails from './mPaymentDetails/MPaymentDetails';
 const { TabPane } = Tabs;
 
 const MaturityTabs = () => {
-    const [activeTabKey, setActiveTabKey] = useState('4');
+    const [activeTabKey, setActiveTabKey] = useState('1');
     const containerRef = useRef(null);
 
     useEffect(() => {
-        if (containerRef.current) {
-            containerRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-        }
+        setTimeout(() => {
+            if (containerRef.current) {
+                containerRef.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+            }
+        }, 100)
+
     }, [activeTabKey])
 
     const handleTabChange = key => {
