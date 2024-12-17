@@ -7,6 +7,7 @@ import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
+const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
 const WithdrawalProcessing = lazy(() => import('../pages/withdrawalProcessing/WithdrawalProcessing'));
 const YearEndProcessing = lazy(() => import('../pages/yearEndProcessing/YearEndProcessing'));
 const AnnuityMaster = lazy(() => import('../pages/annuityMaster/AnnuityMaster'));
@@ -146,6 +147,15 @@ const AppRouter = () => {
                 {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/maturity_processing'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <MaturityProcessing />
+                            </Suspense>
+                        }
+                    />
+
                     <Route
                         path='/withdrawalProcessing'
                         element={
