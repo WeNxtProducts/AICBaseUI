@@ -392,7 +392,7 @@ const POST_API_URL = {
         baseURL: 'DOCPRINT',
     },
     maturityProcessSaveFrontForm: {
-        url: '/report/generatedocument',
+        url: '/matProHeader/save',
     },
     maturityProcessUpdateFrontForm: {
         url: '/matProHeader/update',

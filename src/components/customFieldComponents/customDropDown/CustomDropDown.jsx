@@ -60,7 +60,7 @@ const CustomDropDown = ({
     }, [value, options]);
 
     const handleOnChange = dropValue => {
-        const a = handleDescriptionData(dropValue);
+        handleDescriptionData(dropValue);
         onChange(dropValue);
     };
 

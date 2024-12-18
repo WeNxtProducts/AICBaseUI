@@ -1,26 +1,33 @@
 export const maturityCodeFields = {
     PMPH_POL_NO: {
-        keyVal: 'PMPH_POL_NO',
-        setKeyVal: 'PMPH_POL_NO_DESC'
+        codeVal: 'PMPH_POL_NO',
+        descValSet: 'PMPH_POL_NO_DESC'
     },
     PMPH_PROD: {
-        keyVal: 'PMPH_PROD',
-        setKeyVal: 'PMPH_PROD_DESC'
+        codeVal: 'PMPH_PROD',
+        descValSet: 'PMPH_PROD_DESC'
     },
     PMPH_EMP_ID: {
-        keyVal: 'PMPH_EMP_ID',
-        setKeyVal: 'PMPH_EMP_ID_DESC'
+        codeVal: 'PMPH_EMP_ID',
+        descValSet: 'PMPH_EMP_ID_DESC'
     },
     PMPH_EAR_PENS_REA: {
-        keyVal: 'PMPH_EAR_PENS_REA',
-        setKeyVal: 'PMPH_EAR_PENS_REA_DESC'
+        codeVal: 'PMPH_EAR_PENS_REA',
+        descValSet: 'PMPH_EAR_PENS_REA_DESC'
     },
     PMPH_CURR_CODE: {
-        keyVal: 'PMPH_CURR_CODE',
-        setKeyVal: 'PMPH_CURR_CODE_DESC'
+        codeVal: 'PMPH_CURR_CODE',
+        descValSet: 'PMPH_CURR_CODE_DESC'
     },
     PMPH_CUST_CODE: {
-        keyVal: 'PMPH_CUST_CODE',
-        setKeyVal: 'PMPH_CUST_CODE_DESC'
+        codeVal: 'PMPH_CUST_CODE',
+        descValSet: 'PMPH_CUST_CODE_DESC'
     }
+}
+
+export const findLabel = (options, val) => {
+    const currentValueObj = options?.find(item => {
+        return item?.value == val;
+    });
+    return currentValueObj?.label
 }
