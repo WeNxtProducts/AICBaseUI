@@ -12,17 +12,17 @@ const MaturityTabs = () => {
     const [activeTabKey, setActiveTabKey] = useState('1');
     const containerRef = useRef(null);
 
-    useEffect(() => {
-        setTimeout(() => {
-            if (containerRef.current) {
-                containerRef.current.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                });
-            }
-        }, 100)
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         if (containerRef.current) {
+    //             containerRef.current.scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'start',
+    //             });
+    //         }
+    //     }, 100)
 
-    }, [activeTabKey])
+    // }, [activeTabKey])
 
     const handleTabChange = key => {
         setActiveTabKey(key);
