@@ -393,12 +393,15 @@ const POST_API_URL = {
     },
     maturityProcessSaveFrontForm: {
         url: '/matProHeader/save',
+        baseURL: 'CRUD',
     },
     maturityProcessUpdateFrontForm: {
         url: '/matProHeader/update',
+        baseURL: 'CRUD',
     },
     maturityProcessGetFrontForm: {
         url: '/matProHeader/get',
+        baseURL: 'CRUD',
     },
 };
 
