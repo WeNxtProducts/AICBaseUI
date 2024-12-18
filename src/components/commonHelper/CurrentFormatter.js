@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 export const formatNumber = amount => {
  return new Intl.NumberFormat('en-US', {
-  minimumFractionDigits: 0,
+  minimumFractionDigits: 3,
   maximumFractionDigits: 3,
  }).format(amount);
 };
