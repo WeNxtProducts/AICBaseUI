@@ -47,12 +47,21 @@ const CustomDropDown = ({
         }
     };
 
+    // const handleDescriptionData = check => {
+    //     const currentValueObj = options?.find(item => {
+    //         return item?.value == check;
+    //     });
+    //     if (currentValueObj !== undefined) setSelected(currentValueObj);
+    //     else if (currentValueObj === undefined) setSelected({});
+    // };
+
     const handleDescriptionData = check => {
-        const currentValueObj = options?.find(item => {
-            return item?.value == check;
-        });
-        if (currentValueObj !== undefined) setSelected(currentValueObj);
-        else if (currentValueObj === undefined) setSelected({});
+        const currentValueObj = options?.find(item => item?.value == check);
+        if (currentValueObj && selected?.value !== currentValueObj.value) {
+            setSelected(currentValueObj);
+        } else if (!currentValueObj && Object.keys(selected).length) {
+            setSelected({});
+        }
     };
 
     useEffect(() => {

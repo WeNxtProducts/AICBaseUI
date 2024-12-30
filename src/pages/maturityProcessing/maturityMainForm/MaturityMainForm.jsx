@@ -5,6 +5,7 @@ import useApiRequests from '../../../services/useApiRequests';
 import { findLabel, maturityCodeFields } from '../../../components/codeDescFieldSet/CodeDescFieldSet';
 import showNotification from '../../../components/notification/Notification';
 import Loader from '../../../components/loader/Loader';
+import { debounce } from 'lodash';
 
 const MaturityMainForm = () => {
     const saveForm = useApiRequests('maturityProcessSaveFrontForm', 'POST');
@@ -100,7 +101,7 @@ const MaturityMainForm = () => {
         apiCallsGetLov()
     }, [])
 
-    const handleChangeValue = (fieldKey, val, setFieldValue) => {
+    const handleChangeValue = debounce((fieldKey, val, setFieldValue) => {
         const objectKeyCheck = Object.prototype.hasOwnProperty.call(maturityCodeFields, fieldKey)
         if (objectKeyCheck) {
             const label = findLabel(dropDown[fieldKey], val)
@@ -109,7 +110,7 @@ const MaturityMainForm = () => {
         } else if (!objectKeyCheck) {
             setFieldValue(fieldKey, val)
         }
-    }
+    }, 300);
 
     return (
         <div className='maturity_form'>
