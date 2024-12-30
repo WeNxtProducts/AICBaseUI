@@ -37,12 +37,7 @@ const FACEstimate = ({ open, handleClose }) => {
  };
 
  return (
-  <Modal
-   width={1000}
-   title='FAC Estimate'
-   open={Open}
-   onCancel={() => onClose()}
-   footer={null}>
+  <Modal width={1000} title='FAC Estimate' open={Open} onCancel={() => onClose()} footer={null}>
    <div className='fac-calim-settlement'>
     <div className='fac-header p-1'>
      <MRVform
@@ -67,11 +62,7 @@ const FACEstimate = ({ open, handleClose }) => {
      />
     </div>
     <div className='inline-table-details mt-5'>
-     <CustomList
-      tableColumn={bankColumn}
-      tableData={bankData}
-      handleEdit={handleEdit}
-     />
+     <CustomList tableColumn={bankColumn} tableData={bankData} handleEdit={handleEdit} />
     </div>
    </div>
   </Modal>

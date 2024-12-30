@@ -218,10 +218,7 @@ const EmailSetUp = () => {
          <div className='col-span-8 mt-2 ml-8'>
           {useMemo(
            () => (
-            <HtmlEditor
-             selectedValue={selectedValue}
-             setSelectedValue={setSelectedValue}
-            />
+            <HtmlEditor selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
            ),
            [selectedValue],
           )}

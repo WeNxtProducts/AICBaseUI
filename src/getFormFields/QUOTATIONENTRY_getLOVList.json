@@ -29,6 +29,11 @@
   { "label": "FINANCIAL INSTITUTIONS", "value": "17" },
   { "label": "BANKS", "value": "18" }
  ],
+ "PCHRG_APPLY_PERIOD": [
+  { "label": "Per MOP", "value": "M" },
+  { "label": "Per ANNUM", "value": "P" },
+  { "label": "Single", "value": "S" }
+ ],
  "PEMP_OCC_CODE": [
   { "label": "Chief engineer - radio and tel", "value": "C033" },
   { "label": "chipper - hull construction-sh", "value": "C034" },
@@ -899,9 +904,16 @@
   { "label": "Single", "value": "S" },
   { "label": "Yearly", "value": "Y" }
  ],
- "PEMP_MEMBER_TYPE": [
-  { "label": "PRIMARY", "value": "P" },
-  { "label": "SECONDARY", "value": "S" }
+ "PDL_DISC_LOAD_TYPE": [
+  { "label": "Discount", "value": "D" },
+  { "label": "Load", "value": "L" }
+ ],
+ "PCHRG_APPLIED_ON": [
+  { "label": "Sum Assured", "value": "1" },
+  { "label": "Premium", "value": "2" },
+  { "label": "Fixed", "value": "3" },
+  { "label": "Percentage", "value": "4" },
+  { "label": "Tariff", "value": "5" }
  ],
  "PEMP_OCC_CATG": [
   { "label": "CLASS 4", "value": "OCLS004" },
@@ -910,13 +922,139 @@
   { "label": "CLASS 3", "value": "OCLS003" },
   { "label": "CLASS 1", "value": "OCLS001" }
  ],
- "PEMP_CATG_CODE": [
-  { "label": "Male", "value": "1" },
-  { "label": "Female", "value": "2" }
+ "MD_STATUS": [
+  { "label": "N", "value": "No" },
+  { "label": "Y", "value": "Yes" }
+ ],
+ "MD_PAY_TO": [
+  { "label": "Agent", "value": "AG" },
+  { "label": "Clinic", "value": "CL" },
+  { "label": "Customer", "value": "CU" },
+  { "label": "Member", "value": "MEM" }
+ ],
+ "POL_SRC_OF_BUS": [
+  { "label": "Broker/Agent", "value": "075" },
+  { "label": "Direct ", "value": "001" }
  ],
  "PGBEN_BNF_TYPE": [
   { "label": "Assignee", "value": "A" },
   { "label": "Nominee", "value": "N" },
   { "label": "Policy Assured", "value": "P" }
+ ],
+ "PCHRG_CODE": [
+  { "label": "SURRENDER CHARGES", "value": "SRC008" },
+  { "label": "DUPLICATE CERTIFICATE CHARGE", "value": "DUP004" },
+  { "label": "Commission / Brokerage", "value": "SC0001" },
+  { "label": "Duplicate Card Charge", "value": "ENC002" },
+  { "label": "EMPLOYEE LOAD", "value": "EMPLD01" },
+  { "label": "CANCELLATION CHARGE", "value": "CNCL006" },
+  { "label": "REFUND CHARGE", "value": "RC009" },
+  { "label": "DIMENTIONAL STAMP", "value": "DIM_STAMP" },
+  { "label": "ENDORSEMENT CHARGE", "value": "EC003" },
+  { "label": "RETIREMENT PREMIUM DEDUCTION", "value": "ULS_PREM_DED" },
+  { "label": "Admin Fees", "value": "ADMN_CHRG" },
+  { "label": "Policyholders\u2019 protection fund", "value": "PROT_FUND" },
+  { "label": "Tax fee", "value": "TAX" },
+  { "label": "Commission", "value": "COM_LOAD_CHG" },
+  { "label": "Cancellation Fee", "value": "CAN-FEE" },
+  { "label": "Stamp Duty", "value": "STMP_DUTY" },
+  { "label": "Net level Premium", "value": "NLP" },
+  { "label": "Regular Excess Wakalah Fee", "value": "REG_WAK_FEE" },
+  { "label": "COI for base Cover", "value": "COI" },
+  { "label": "Wakalah Loading Charge", "value": "WAK_CHRG" },
+  { "label": "Endowment Allocation Rate", "value": "END_ALLOC_RT" },
+  { "label": "Target Premium Wakalah Fee", "value": "WAK_FEE" },
+  { "label": "Review and Approval fees", "value": "REVIEW_FEE" },
+  { "label": "TERM ADMIN CHARGE", "value": "TERM_ADM_CHG" },
+  { "label": "FRA FEES", "value": "FRA_FEES" },
+  { "label": "TOTAL MEDICAL FEE COLLECTED", "value": "MED_FEE" },
+  { "label": "Surrender Charges", "value": "SUR-CHRG" },
+  { "label": "Claim Fees", "value": "CLM-FEE" },
+  { "label": "Financial Advisor", "value": "FA" },
+  { "label": "Insurance Specialist", "value": "IS" },
+  { "label": "SWITCHING FEE", "value": "SWITCH FEE" },
+  { "label": "Investment Contribution Charge", "value": "INVEST_CONT" },
+  { "label": "ALLOCATION RATE", "value": "ALLOC_RATE" },
+  { "label": "Premium Collection Charges", "value": "PC-FEE" },
+  { "label": "Spread Fee", "value": "SPRD" },
+  { "label": "COI for rider", "value": "RIDER_COI" },
+  { "label": "Senior Financial Advisor", "value": "SFA" },
+  { "label": "Portfolio Manager", "value": "PM" },
+  { "label": "REINST-CHG", "value": "REINST-CHG" },
+  { "label": "Monthly Fee", "value": "MON_FEE" },
+  { "label": "Medical Expenses", "value": "MED-EXP" },
+  { "label": "Commission Deduction Charges", "value": "COMM-DED" },
+  { "label": "Supervision fee KIC ", "value": "SUPR_FEE_CO" },
+  { "label": "Policy Fee Term", "value": "POL_FEE_TERM" },
+  { "label": "Per Unit Charge", "value": "PUC" },
+  { "label": "Fund Management Charge", "value": "FMC" },
+  { "label": "POLICY FEE", "value": "POL-FEE" },
+  { "label": "BOM Asset(1)", "value": "BOM Asset1" },
+  { "label": "Processing Fee", "value": "PROC-FEE" },
+  { "label": "Supervision fee ", "value": "SUPR_FEE" },
+  { "label": "ENDORSEMENT PROCESSING FEES", "value": "END-FEE" },
+  { "label": "Adujstment Minimum Premium", "value": "MPL" }
+ ],
+ "MD_CLINIC_CODE": [
+  { "label": "MLS", "value": "000002" },
+  { "label": "REGENCY HOSPITAL", "value": "000003" },
+  { "label": "ARUSHA MEDICAL CENTER", "value": "000004" },
+  { "label": "PREMIER CARE CLINIC DAR ES SALAAM", "value": "000005" },
+  { "label": "Integral Medicine Clinic Limited", "value": "000010" }
+ ],
+ "PCOND_CODE": [
+  { "label": "Change in Occuptation", "value": "01" },
+  { "label": "Others", "value": "03" },
+  { "label": "Change of Country", "value": "02" }
+ ],
+ "POL_PYMT_TYPE": [
+  { "label": "Auto Debit", "value": "AD" },
+  { "label": "Auto Credit", "value": "B" },
+  { "label": "Cheque", "value": "C" },
+  { "label": "Credit Card", "value": "CC" },
+  { "label": "Cash", "value": "P" },
+  { "label": "Telegraphic Transfer", "value": "TT" }
+ ],
+ "POL_AGENT_COMM_BASIS": [
+  { "label": "Independent Basis", "value": "I" },
+  { "label": "Shared Basis", "value": "S" }
+ ],
+ "POL_SA_CURR_CODE": [
+  { "label": "Tanzanian Shillings", "value": "TZS" },
+  { "label": "US DOLLAR", "value": "USD" },
+  { "label": "UGANDA SHILLINGS", "value": "UGX" },
+  { "label": "BRITAIN POUND", "value": "GBP" },
+  { "label": "ANDORRA, EURO", "value": "EUR" },
+  { "label": "COMOROS, FRANCS", "value": "KMF" },
+  { "label": "RWANDA FRANCS", "value": "RWF" },
+  { "label": "Vietnam Dong", "value": "VND" },
+  { "label": "Ethiopian Birr", "value": "ETB" }
+ ],
+ "PEMP_MEMBER_TYPE": [
+  { "label": "PRIMARY", "value": "P" },
+  { "label": "SECONDARY", "value": "S" }
+ ],
+ "POL_ASSR_CUST_FLAG": [
+  { "label": "N", "value": "No" },
+  { "label": "Y", "value": "Yes" }
+ ],
+ "PEMP_CATG_CODE": [
+  { "label": "Male", "value": "1" },
+  { "label": "Female", "value": "2" }
+ ],
+ "PDL_APPLIED_ON": [
+  { "label": "Sum Assured", "value": "1" },
+  { "label": "Payee Cover Prem", "value": "10" },
+  { "label": "Payor Age", "value": "11" },
+  { "label": "Payee Age", "value": "12" },
+  { "label": "Tot Prem-EMR", "value": "13" },
+  { "label": "Fixed", "value": "14" },
+  { "label": "Formula", "value": "15" },
+  { "label": "Total Premium", "value": "2" },
+  { "label": "Cover Premium", "value": "3" },
+  { "label": "Cover SA", "value": "6" },
+  { "label": "Payor Cover SA", "value": "7" },
+  { "label": "Payee Cover SA", "value": "8" },
+  { "label": "Payor Cover Prem", "value": "9" }
  ]
 }

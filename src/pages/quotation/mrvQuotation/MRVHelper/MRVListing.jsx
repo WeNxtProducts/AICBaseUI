@@ -3,7 +3,6 @@ import { Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import medicalBag from '../../../../assets/medical.png';
 import cycle from '../../../../assets/cycle.png';
-import groupPeople from '../../../../assets/group-people.png';
 
 const MRVListingQuotation = ({
  root = '',
@@ -19,6 +18,7 @@ const MRVListingQuotation = ({
  freeze = false,
  highlightKey = 'ID',
  handleCardActions,
+ isPremCalc = false,
 }) => {
  const column = tableColumn?.length > 0 ? JSON.parse(tableColumn) : tableColumn;
 
@@ -45,41 +45,28 @@ const MRVListingQuotation = ({
        ? `list_card_highlighted_row pb-${
           root !== 'medical' && root !== 'life_assured_details' ? 2 : 0
          }`
-       : `list_card pb-${
-          root !== 'medical' && root !== 'life_assured_details' ? 2 : 0
-         }`
+       : `list_card pb-${root !== 'medical' && root !== 'life_assured_details' ? 2 : 0}`
      }>
-     <div
-      className={`action_header flex item-center justify-${
-       action && !freeze ? 'between' : 'end'
-      }`}>
-      {action && !freeze && (
+     <div className={`action_header flex item-center justify-${action && !freeze ? 'end' : 'end'}`}>
+      {/* {action && !freeze && (
        <div
         onClick={e => {
          handleDelete(item);
         }}
         className='pl-2'>
-        {/* <Checkbox
-         checked={item?.isSelected === 'Y'}
-         onChange={e => handleDelete(item)}
-        /> */}
         <div className='mrv_checkbox'>
-         <input
-          readOnly
-          checked={item?.isSelected === 'Y'}
-          id={index}
-          type='checkbox'
-         />
+         <input readOnly checked={item?.isSelected === 'Y'} id={index} type='checkbox' />
          <label />
         </div>
        </div>
-      )}
+      )} */}
       <div className='flex gap-2 pe-3 p-1'>
-       {isView && (
+       {isView && freeze && (
         <Tooltip title='View'>
          <EyeOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
         </Tooltip>
        )}
+
        {isEdit && !freeze && (
         <Tooltip title='Edit'>
          <EditOutlined onClick={() => handleEdit(item)} className='mrv_icons' />
@@ -87,19 +74,14 @@ const MRVListingQuotation = ({
        )}
        {isDelete && !freeze && (
         <Tooltip title='Delete'>
-         <DeleteOutlined
-          onClick={() => handleDelete(item)}
-          className='mrv_icons delete_mrv_row'
-         />
+         <DeleteOutlined onClick={() => handleDelete(item)} className='mrv_icons delete_mrv_row' />
         </Tooltip>
        )}
       </div>
      </div>
 
      {Object.keys(column)?.map(key => (
-      <div
-       key={key}
-       className='ml-3 mrv_list items-center grid grid-cols-12 mb-1'>
+      <div key={key} className='ml-3 mrv_list items-center grid grid-cols-12 mb-1'>
        <p className='col-span-6 key_font'>{column[key]}</p>
        <p className='col-span-6 value_font'>{item[key]}</p>
       </div>
@@ -109,10 +91,11 @@ const MRVListingQuotation = ({
        <button onClick={() => handleCardActions('Riders', item)}>
         <img src={cycle} />
        </button>
-       {/* <button onClick={() => handleCardActions('Family History')}>
-        <img src={groupPeople} />
-       </button> */}
-       <button onClick={() => handleCardActions('Medical', item)}>
+       <button
+        className={`${!isPremCalc ? 'is_medical' : ''}`}
+        onClick={() => {
+         if (isPremCalc) handleCardActions('Medical', item);
+        }}>
         <img src={medicalBag} />
        </button>
       </div>

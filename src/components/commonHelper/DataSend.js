@@ -24,3 +24,22 @@ export function deepCopy(obj) {
  }
  return result;
 }
+
+export const reportValues = values => {
+ return Object.keys(values).reduce((acc, key) => {
+  acc[key] = values[key].param_Field_Value;
+  return acc;
+ }, {});
+};
+
+export const transformAndSortFields = fieldList => {
+ return fieldList
+  .sort((a, b) => a.param_Field_Order - b.param_Field_Order)
+  .reduce((acc, field) => {
+   acc[field.param_RepColunmName] = {
+    ...field,
+    param_Field_Value: '',
+   };
+   return acc;
+  }, {});
+};

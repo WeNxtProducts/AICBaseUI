@@ -4,11 +4,11 @@ const DELETE_API_URL = {
  },
  deleteClaim: {
   url: '/ltclaim/deleteClaim',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteEstimate: {
   url: '/claimest/deleteclaimestByid',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteEmailTemplate: {
   url: '/emailTemplate/deleteTemplate',
@@ -19,31 +19,35 @@ const DELETE_API_URL = {
  },
  deleteLifeAssuredDetails: {
   url: '/polEmployee/deletePolEmployee',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteRidersDetails: {
   url: '/polEmpCover/deletePolEmpCover',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteMedicalDetails: {
   url: '/medexFeeDtl/deleteMedDtl',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteBeneficiaryDetails: {
   url: '/polBeneficiary/deletePolBeneficiary',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteChargesDetails: {
   url: '/polCharge/deletePolCharge',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteDisLoadDetails: {
   url: '/polDiscLoad/deletePolBroker',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  deleteConditionsDetails: {
-  url: '',
-  baseURL: 'CLAIMURL',
+  url: '/condition/delete',
+  baseURL: 'CRUD',
+ },
+ deleteProposal: {
+  url: '/policy/deletePolicy',
+  baseURL: 'CRUD',
  },
 };
 

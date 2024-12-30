@@ -1,10 +1,6 @@
 import React from 'react';
 
-const ClaimStatusTable = ({
- rowData = [],
- handleSelectCover,
- selectedCover,
-}) => {
+const ClaimStatusTable = ({ rowData = [], handleSelectCover, selectedCover }) => {
  const renderTableHead = () => (
   <thead>
    <tr>
@@ -28,10 +24,7 @@ const ClaimStatusTable = ({
    <td>{item?.Local_Currency_Amount}</td>
    <td>
     <div>
-     <p
-      className={`status_notify ${
-       item?.Status === 'P' ? 'approved' : 'pending'
-      }`}>
+     <p className={`status_notify ${item?.Status === 'P' ? 'approved' : 'pending'}`}>
       {item?.Status === 'P' ? 'Paid' : 'Unpaid'}
      </p>
     </div>

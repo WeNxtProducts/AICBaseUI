@@ -16,7 +16,12 @@ const successAlign = {
  backgroundSize: '90% 100%',
 };
 
-const StatusPopup = ({ open, handleClose, status = true }) => {
+const StatusPopup = ({
+ open,
+ handleClose,
+ status = true,
+ message = 'Proposal Submitted Successfully !!!',
+}) => {
  const [Open, setOpen] = useState(false);
 
  useEffect(() => {
@@ -36,22 +41,12 @@ const StatusPopup = ({ open, handleClose, status = true }) => {
    onCancel={() => onClose()}
    footer={null}
    className='full-screen-modal'>
-   <div
-    className='mt-2 status_modal select-none'
-    style={status ? successAlign : failureAlign}>
+   <div className='mt-2 status_modal select-none' style={status ? successAlign : failureAlign}>
     <div className={`circle-icon-container ${status ? 'success' : 'failure'}`}>
-     <img
-      src={status ? success_icon : failure_icon}
-      alt='Icon'
-      className='icon'
-     />
+     <img src={status ? success_icon : failure_icon} alt='Icon' className='icon' />
     </div>
     <div className='status_message'>
-     {status ? (
-      <p>Proposal Submitted Successfully !!!</p>
-     ) : (
-      <p>Proposal Not Saved</p>
-     )}
+     {status ? <p>{message}</p> : <p>Proposal Not Saved</p>}
      <Button
       className={`btn_status ${status ? 'success_btn' : 'failure_btn'}`}
       onClick={() => handleClose()}>

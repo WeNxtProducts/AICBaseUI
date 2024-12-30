@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useMRVListing from '../../../components/mrvListing/useMRVListing';
 
-const CardListingScreen = ({
- title = '',
- queryId,
- claimTranId,
- coverId: cptranid,
-}) => {
+const CardListingScreen = ({ title = '', queryId, claimTranId, coverId: cptranid }) => {
  const { rowData, columnData, handleMRVListing } = useMRVListing();
  const [column, setColumn] = useState(null);
 
@@ -25,9 +20,7 @@ const CardListingScreen = ({
    </div>
    <div className='mt-2 card_body'>
     {Object.keys(column)?.map(key => (
-     <div
-      key={key}
-      className='ml-3 mrv_list items-center grid grid-cols-12 mb-1 gap-4'>
+     <div key={key} className='ml-3 mrv_list items-center grid grid-cols-12 mb-1 gap-4'>
       <p className='col-span-6 key_font'>{column[key]}</p>
       <p className='col-span-6 value_font'>{item[key]}</p>
      </div>
@@ -38,10 +31,7 @@ const CardListingScreen = ({
 
  return (
   <div className='settlement_mrv mt-4'>
-   {rowData &&
-   rowData.length > 0 &&
-   Object.keys(rowData[0]).length > 0 &&
-   column !== null ? (
+   {rowData && rowData.length > 0 && Object.keys(rowData[0]).length > 0 && column !== null ? (
     <div className='grid grid-cols-2 gap-3'>
      {rowData?.map((item, index) => renderCards(item, index))}
     </div>

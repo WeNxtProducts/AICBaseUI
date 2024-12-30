@@ -51,12 +51,7 @@ const MRVFieldWithValue = ({
          disabled={!PFD_EDIT_YN}
          onChange={e => {
           // setFieldValue(`${PFD_COLUMN_NAME}`, e.target.value);
-          handleChangeValue(
-           e.target.value,
-           `${PFD_COLUMN_NAME}`,
-           setFieldValue,
-           values,
-          );
+          handleChangeValue(e.target.value, `${PFD_COLUMN_NAME}`, setFieldValue, values);
          }}
         />
        );
@@ -86,12 +81,7 @@ const MRVFieldWithValue = ({
          value={values?.[PFD_COLUMN_NAME]}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
-          handleChangeValue(
-           e.target.value,
-           `${PFD_COLUMN_NAME}`,
-           setFieldValue,
-           values,
-          );
+          handleChangeValue(e.target.value, `${PFD_COLUMN_NAME}`, setFieldValue, values);
          }}
         />
        );
@@ -141,12 +131,7 @@ const MRVFieldWithValue = ({
          placeholder={PFD_HINT}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
-          handleChangeValue(
-           e.target.value,
-           `${PFD_COLUMN_NAME}`,
-           setFieldValue,
-           values,
-          );
+          handleChangeValue(e.target.value, `${PFD_COLUMN_NAME}`, setFieldValue, values);
          }}
         />
        );
@@ -159,12 +144,7 @@ const MRVFieldWithValue = ({
          value={values?.[PFD_COLUMN_NAME]}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
-          handleChangeValue(
-           e.target.value,
-           `${PFD_COLUMN_NAME}`,
-           setFieldValue,
-           values,
-          );
+          handleChangeValue(e.target.value, `${PFD_COLUMN_NAME}`, setFieldValue, values);
          }}
         />
        );
@@ -172,11 +152,7 @@ const MRVFieldWithValue = ({
        return null;
      }
     })()}
-    <ErrorMessage
-     name={`${PFD_COLUMN_NAME}`}
-     component='div'
-     className='error-message'
-    />
+    <ErrorMessage name={`${PFD_COLUMN_NAME}`} component='div' className='error-message' />
    </div>
   </div>
  );

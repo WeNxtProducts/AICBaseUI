@@ -3,17 +3,13 @@ import { ClaimStepperContext } from '../../Claims';
 import CustomList from '../../../../components/customList/CustomList';
 import claim from '../../../../getFormFields/claims.json';
 import MainForm from '../../../../components/mainForm/MainForm';
-import {
- bankColumn,
- bankData,
-} from '../../../../components/tableComponents/sampleData';
+import { bankColumn, bankData } from '../../../../components/tableComponents/sampleData';
 
 const ClaimCharges = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
   useContext(ClaimStepperContext);
  const [claimChargesDetails, setClaimChargesDetails] = useState(claim);
- const [claimChargesInitialValues, setClaimChargesInitialValues] =
-  useState(claim);
+ const [claimChargesInitialValues, setClaimChargesInitialValues] = useState(claim);
 
  const onSubmit = values => {
   handleNext();

@@ -2,16 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import useMRVListing from '../../../../components/mrvListing/useMRVListing';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../../components/commonHelper/DataSend';
 import { sortObjectByPFDSeqNo } from '../../../../components/commonHelper/SortBySequence';
 import { getQueryId } from '../../../../components/commonHelper/QueryIdFetch';
-import {
- extractValues,
- mergeDropdownData,
-} from '../../../../components/commonHelper/ParamLov';
+import { extractValues, mergeDropdownData } from '../../../../components/commonHelper/ParamLov';
 import Loader from '../../../../components/loader/Loader';
 import CustomList from '../../../../components/customList/CustomList';
 import MRVform from '../../../../components/mrvForm/MRVform';
@@ -52,8 +46,7 @@ const DocPrintParam = ({
   try {
    const params = editMRVId ? { editMRVId } : { tranId };
    const response = await addOrUpdate(payload, '', params);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
     // setEditMRVId(response?.data?.Id);
@@ -194,24 +187,21 @@ const DocPrintParam = ({
       />
      </div>
     )}
-    {docPrintDetails &&
-     Object.prototype.hasOwnProperty.call(docPrintDetails, root) && (
-      <MRVform
-       initialValues={docPrintInitialValues}
-       formRender={docPrintDetails}
-       root={root}
-       lovList={dropDown}
-       onSubmit={onSubmit}
-       handleChangeValue={handleChangeValue}
-       resetForm={resetForm}
-       handleOnBlur={handleOnBlur}
-       addOrUpdate={!!editMRVId}
-      />
-     )}
+    {docPrintDetails && Object.prototype.hasOwnProperty.call(docPrintDetails, root) && (
+     <MRVform
+      initialValues={docPrintInitialValues}
+      formRender={docPrintDetails}
+      root={root}
+      lovList={dropDown}
+      onSubmit={onSubmit}
+      handleChangeValue={handleChangeValue}
+      resetForm={resetForm}
+      handleOnBlur={handleOnBlur}
+      addOrUpdate={!!editMRVId}
+     />
+    )}
    </div>
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

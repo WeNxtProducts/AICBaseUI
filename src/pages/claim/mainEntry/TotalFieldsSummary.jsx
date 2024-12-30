@@ -5,8 +5,7 @@ import FieldWithValue from '../../../components/fieldsWithValues/FieldWithValue'
 
 const TotalFieldsSummary = () => {
  const [totalSummary, setTotalSummary] = useState(summaryJson);
- const [totalSummaryInitialValues, setTotalSummaryInitialValues] =
-  useState(summaryJson);
+ const [totalSummaryInitialValues, setTotalSummaryInitialValues] = useState(summaryJson);
 
  const onSubmit = async values => {
   //handleNext();
@@ -25,8 +24,7 @@ const TotalFieldsSummary = () => {
       <Form onSubmit={handleSubmit}>
        <div className={`items-center grid grid-cols-${2} gap-0`}>
         {Object.keys(totalSummary?.summary?.formFields).map(fieldKey => {
-         const dataId =
-          totalSummary?.summary?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+         const dataId = totalSummary?.summary?.formFields[fieldKey]?.PFD_COLUMN_NAME;
          return (
           <React.Fragment key={dataId}>
            <div data-id={dataId}>

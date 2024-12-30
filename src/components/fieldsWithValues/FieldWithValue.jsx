@@ -7,6 +7,7 @@ import {
  CodeWithNumber,
  CustomTextArea,
  CustomPasswordField,
+ CustomCheckBox,
 } from '../commonExportsFields/CommonExportsFields';
 import { ErrorMessage } from 'formik';
 import CustomDropDown from '../customFieldComponents/customDropDown/CustomDropDown';
@@ -34,7 +35,9 @@ const FieldWithValue = ({
  firstFieldRef = null,
  lovData = [],
  handleOnBlur,
+ handleOnSearch,
  smallFont = false,
+ freeze = false,
 }) => {
  const {
   PFD_FLD_NAME,
@@ -48,19 +51,22 @@ const FieldWithValue = ({
 
  const memoizedGetNestedValue = useMemo(() => getNestedValue, []);
 
- const onBlurHandler = (currentData, values) => {
+ const onBlurHandler = (currentData, values, setFieldValue, val, label) => {
   if (handleOnBlur) {
-   handleOnBlur(currentData, values);
+   handleOnBlur(currentData, values, setFieldValue, val, label);
+  }
+ };
+
+ const onHandleSearch = (currentData, values, setFieldValue, val) => {
+  if (handleOnBlur) {
+   handleOnSearch(currentData, values, setFieldValue, val);
   }
  };
 
  return (
   <div className='current-field p-2 flex items-baseline'>
    <div className='w-1/4'>
-    <p
-     className={`${
-      smallFont ? 'label_small_font' : 'label-font'
-     }  select-none`}>
+    <p className={`${smallFont ? 'label_small_font' : 'label-font'}  select-none`}>
      {PFD_FLD_NAME}
      {PFD_MANDATORY_YN && <span className='mandatory-symbol'>*</span>}
     </p>
@@ -78,8 +84,12 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          placeholder={PFD_HINT}
          value={value?.PFD_FLD_VALUE}
+         readOnly={freeze}
          disabled={!PFD_EDIT_YN}
-         onBlur={() => onBlurHandler(currentData, values)}
+         onBlur={e => {
+          // e.target.focus()
+          onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
+         }}
          onChange={e => {
           handleChangeValue(
            e.target.value,
@@ -88,6 +98,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
+           PFD_COLUMN_NAME,
           );
          }}
         />
@@ -100,9 +111,15 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          options={lovData}
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
+         readOnly={freeze}
          placeholder={PFD_HINT}
+         onSearch={e => {
+          onHandleSearch(currentData, values, setFieldValue, e);
+         }}
          size='medium'
-         onBlur={() => onBlurHandler(currentData, values)}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e, '');
+         }}
          disabled={!PFD_EDIT_YN}
          showSearch={['searchlov', 'paramlov'].includes(PFD_DATA_TYPE)}
          value={value?.PFD_FLD_VALUE || undefined}
@@ -114,6 +131,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
+           PFD_COLUMN_NAME,
           );
          }}
         />
@@ -126,7 +144,11 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          format={PFD_DATA_TYPE}
+         onBlur={e => {
+          onBlurHandler(currentData, values, setFieldValue, e.target.value, '');
+         }}
          size='medium'
+         readOnly={freeze}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
@@ -142,11 +164,20 @@ const FieldWithValue = ({
         />
        );
       case 'codedesc':
+      case 'codedescsearch':
        return (
         <CustomDropDown
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          options={lovData}
          firstFieldRef={firstFieldRef}
+         readOnly={freeze}
+         onBlur={(e, label) => {
+          onBlurHandler(currentData, values, setFieldValue, e, label);
+         }}
+         onSearch={e => {
+          onHandleSearch(currentData, values, setFieldValue, e);
+         }}
+         format={PFD_DATA_TYPE}
          value={value?.PFD_FLD_VALUE || undefined}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
@@ -168,8 +199,12 @@ const FieldWithValue = ({
          name={`${parent}.formFields.${PFD_COLUMN_NAME}.PFD_FLD_VALUE`}
          placeholder={PFD_HINT}
          size='medium'
+         readOnly={freeze}
          value={value?.PFD_FLD_VALUE}
          disabled={!PFD_EDIT_YN}
+         onBlur={date => {
+          onBlurHandler(currentData, values, setFieldValue, date, '');
+         }}
          onChange={date => {
           handleChangeValue(
            date,
@@ -178,6 +213,7 @@ const FieldWithValue = ({
            parent,
            values,
            currentData,
+           PFD_COLUMN_NAME,
           );
          }}
         />
@@ -207,6 +243,7 @@ const FieldWithValue = ({
          firstFieldRef={firstFieldRef}
          value={value?.PFD_FLD_VALUE}
          placeholder={PFD_HINT}
+         readOnly={freeze}
          disabled={!PFD_EDIT_YN}
          onChange={e => {
           handleChangeValue(

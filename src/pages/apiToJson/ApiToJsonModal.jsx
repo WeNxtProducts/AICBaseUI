@@ -43,8 +43,7 @@ const ApiToJsonModal = ({ open, handleClose, currentData }) => {
     showNotification.SUCCESS(response?.status_msg);
     onClose();
    }
-   if (response?.Status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.Status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    setLoader(false);
   } catch (err) {
    setLoader(false);
@@ -52,11 +51,7 @@ const ApiToJsonModal = ({ open, handleClose, currentData }) => {
  };
 
  return (
-  <Modal
-   title='API to JSON'
-   open={Open}
-   onCancel={() => onClose()}
-   footer={null}>
+  <Modal title='API to JSON' open={Open} onCancel={() => onClose()} footer={null}>
    {loader && <Loader />}
    <div className='mt-4'>
     <div className='current-field p-2 flex items-center'>
@@ -91,9 +86,7 @@ const ApiToJsonModal = ({ open, handleClose, currentData }) => {
      </div>
     </div>
     <div className='pb-7 mt-5 w-full'>
-     <Button
-      onClick={() => handleSubmit()}
-      className='float-right api-to-json-submit'>
+     <Button onClick={() => handleSubmit()} className='float-right api-to-json-submit'>
       Submit
      </Button>
     </div>

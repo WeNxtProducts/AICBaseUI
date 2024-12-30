@@ -3,9 +3,9 @@ import ClaimSettlementHeader from './ClaimSettlementHeader';
 import SettlementFromClaim from './SettlementFromClaim';
 import ClaimLevelDetails from './ClaimLevelDetails';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import './ClaimSettlement.scss';
 import useApiRequests from '../../services/useApiRequests';
 import showNotification from '../../components/notification/Notification';
+import './ClaimSettlement.scss';
 
 export const ClaimSettlementContext = createContext();
 
@@ -24,8 +24,7 @@ const ClaimSettlement = () => {
     { queryParams: { CH_REF_NO, ...(CLM_POL_NO ? { CLM_POL_NO } : {}) } },
     { queryId },
    );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setHeaderDetails(response?.Data);
     setSelectedClaim(response?.Data[0]);

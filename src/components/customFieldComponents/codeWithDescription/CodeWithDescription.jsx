@@ -85,8 +85,7 @@ const CodeWithDescription = ({
  };
 
  useEffect(() => {
-  if (inputContainerRef.current)
-   setPopoverWidth(inputContainerRef.current.offsetWidth);
+  if (inputContainerRef.current) setPopoverWidth(inputContainerRef.current.offsetWidth);
  }, []);
 
  useEffect(() => {
@@ -161,10 +160,7 @@ const CodeWithDescription = ({
     arrow={false}
     open={open}
     onOpenChange={handleVisibleChange}>
-    <div
-     className={`flex w-${fieldSize[size].main}`}
-     ref={inputContainerRef}
-     name={name}>
+    <div className={`flex w-${fieldSize[size].main}`} ref={inputContainerRef} name={name}>
      <div className={`w-${fieldSize[size].code}`}>
       <Input
        className='code-field-popover'

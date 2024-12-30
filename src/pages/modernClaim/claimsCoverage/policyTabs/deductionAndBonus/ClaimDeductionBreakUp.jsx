@@ -14,12 +14,8 @@ const ClaimDeductionBreakUp = () => {
 
  const handleGetDeductionBreakUp = async () => {
   try {
-   const response = await deductionGet(
-    { queryParams: { tranId: CLM_TRAN_ID } },
-    { queryId: 121 },
-   );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   const response = await deductionGet({ queryParams: { tranId: CLM_TRAN_ID } }, { queryId: 121 });
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setCalculatedValue(response?.Data[0]);
    }
@@ -35,12 +31,8 @@ const ClaimDeductionBreakUp = () => {
  const handleUpdate = async () => {
   const { CD_WAIVE_PREM_INT, CD_WAIVE_LOAN_INT, Id } = calculatedValue;
   try {
-   const response = await deductionUpdate(
-    {},
-    { CD_WAIVE_PREM_INT, CD_WAIVE_LOAN_INT, tranId: Id },
-   );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   const response = await deductionUpdate({}, { CD_WAIVE_PREM_INT, CD_WAIVE_LOAN_INT, tranId: Id });
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     showNotification.SUCCESS(response?.status_msg);
    }
@@ -69,18 +61,14 @@ const ClaimDeductionBreakUp = () => {
   <div>
    <p className='breakup_title'>Claim deduction Breakup</p>
    <div className='breakUpContent p-1'>
-    {calculatedValue && (
+    {/* {calculatedValue && ( */}
      <div className='grid grid-cols-10 items-center gap-y-2 gap-x-3'>
       {renderHeader()}
-      {renderRows(
-       'O/S Premium',
-       calculatedValue?.CD_LC_PREM_OS,
-       calculatedValue?.CD_FC_PREM_OS,
-      )}
+      {renderRows('O/S Premium', calculatedValue?.CD_LC_PREM_OS || 0, calculatedValue?.CD_FC_PREM_OS || 0)}
       {renderRows(
        'O/S Premium Interest',
-       calculatedValue?.CD_LC_PREM_INT,
-       calculatedValue?.CD_FC_PREM_INT,
+       calculatedValue?.CD_LC_PREM_INT || 0,
+       calculatedValue?.CD_FC_PREM_INT || 0,
       )}
       <div className='col-span-3' />
       <div className='col-span-6 flex items-center'>
@@ -96,15 +84,11 @@ const ClaimDeductionBreakUp = () => {
        />
        <span className='total_intersect ml-2'>Waive O/S prem interest</span>
       </div>
-      {renderRows(
-       'O/S Loan',
-       calculatedValue?.CD_LC_LOAN_OS,
-       calculatedValue?.CD_FC_LOAN_OS,
-      )}
+      {renderRows('O/S Loan', calculatedValue?.CD_LC_LOAN_OS || 0, calculatedValue?.CD_FC_LOAN_OS || 0)}
       {renderRows(
        'O/S Loan Interest',
-       calculatedValue?.CD_LC_LOAN_INT,
-       calculatedValue?.CD_FC_LOAN_INT,
+       calculatedValue?.CD_LC_LOAN_INT || 0,
+       calculatedValue?.CD_FC_LOAN_INT || 0,
       )}
       <div className='col-span-3' />
       <div className='col-span-6 flex items-center'>
@@ -121,7 +105,7 @@ const ClaimDeductionBreakUp = () => {
        <span className='total_intersect ml-2'>Waive O/S Loan interest</span>
       </div>
      </div>
-    )}
+    {/* )} */}
 
     {/* <div className='mt-7 field_name_style flex justify-center items-center gap-5'>
      <p>Total Deduction</p>

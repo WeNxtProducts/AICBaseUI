@@ -9,7 +9,7 @@ const modalStyles = {
  body: { height: 450, overflowY: 'auto' },
  topPosition: { top: 20 },
 };
-const TreatyModal = ({ open, handleClose, claimTranId }) => {
+const TreatyModal = ({ open, handleClose, claimTranId, coverId }) => {
  const [Open, setOpen] = useState(false);
  const [activeTabKey, setActiveTabKey] = useState('1');
 
@@ -42,16 +42,13 @@ const TreatyModal = ({ open, handleClose, claimTranId }) => {
     header: { backgroundColor: '#F3F4F5' },
    }}
    footer={null}>
-   <Tabs
-    size='small'
-    centered={true}
-    activeKey={activeTabKey}
-    onChange={handleTabChange}>
+   <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
     <TabPane key='1' tab={<TabPanelHeader name='Claim RI Recovery' />}>
      <CardListingScreen
       title='Claim RI Recovery'
       queryId={135}
       claimTranId={claimTranId}
+      coverId={coverId}
      />
     </TabPane>
     <TabPane key='2' tab={<TabPanelHeader name='FAC Recovery' />}>
@@ -59,6 +56,7 @@ const TreatyModal = ({ open, handleClose, claimTranId }) => {
       title='FAC Recovery'
       queryId={140}
       claimTranId={claimTranId}
+      coverId={coverId}
      />
     </TabPane>
    </Tabs>

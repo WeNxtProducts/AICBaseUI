@@ -5,12 +5,7 @@ import {
  CustomTextArea,
 } from '../../../../components/commonExportsFields/CommonExportsFields';
 
-const DetailsTable = ({
- tableColumn = {},
- tableData = [],
- handleSelect,
- handleUpload,
-}) => {
+const DetailsTable = ({ tableColumn = {}, tableData = [], handleSelect, handleUpload }) => {
  const dropdownOptions = [
   { label: 'Yes', value: 'Yes' },
   { label: 'No', value: 'No' },

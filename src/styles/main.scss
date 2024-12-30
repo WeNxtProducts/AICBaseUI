@@ -9,6 +9,11 @@
  //  --select-field-width: 574px;
 }
 
+*,
+*::before,
+*::after {
+ box-sizing: border-box;
+}
 body {
  background-color: $app-bg-color;
 }
@@ -33,10 +38,11 @@ body {
 }
 
 .ant-pagination-item-active {
+ border: 1px solid #0989d0 !important;
  a {
   color: #0989d0 !important;
  }
- border: 1px solid #0989d0 !important;
+ //  border: 1px solid #0989d0 !important;
 }
 
 .ant-collapse-arrow {
@@ -121,9 +127,10 @@ body {
 .error-message {
  position: absolute;
  //  margin-left: 2px;
- font-size: 10px;
- top: 94%;
- left: 4%;
+ font-size: 9px;
+ font-weight: 500;
+ //  top: 95%;
+ //  left: 2%;
  color: rgb(253, 95, 95);
  user-select: none;
 }
@@ -145,7 +152,7 @@ body {
   margin: 0 0 10px 10px;
   font-weight: 700;
   color: #4d5e80;
-  font-size: 19px;
+  font-size: 17px;
   margin-right: 10px;
  }
 }
@@ -169,10 +176,11 @@ body {
 
 .back-button-usercreation-decision {
  color: #1e69ff;
+ cursor: pointer;
  &:hover {
   text-decoration: underline;
  }
- cursor: pointer;
+ //  cursor: pointer;
  i {
   font-size: 20px;
   font-weight: bolder;

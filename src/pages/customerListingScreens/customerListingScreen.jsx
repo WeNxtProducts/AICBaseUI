@@ -12,9 +12,7 @@ const CustomerListingScreen = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const listingAPI = useApiRequests('getListing', 'GET');
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
 
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
@@ -77,7 +75,7 @@ const CustomerListingScreen = () => {
 
  const onChange = page => {
   setCurrent(page);
-  handleListingApi(calculateOffset(page) + 1);
+  handleListingApi(calculateOffset(page));
  };
 
  return (
@@ -87,10 +85,7 @@ const CustomerListingScreen = () => {
     <div className='w-full'>
      <p className='search-title'>Customer List</p>
      <div className='search-bar mt-2'>
-      <TextInputWithSearchIcon
-       placeholder='Search'
-       onChange={handleInputChange}
-      />
+      <TextInputWithSearchIcon placeholder='Search' onChange={handleInputChange} />
      </div>
     </div>
     <div>

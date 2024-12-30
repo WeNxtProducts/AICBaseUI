@@ -1,132 +1,132 @@
-@import "../../styles/variable";
+@import '../../styles/variable';
 
 .dashboard {
-  // min-height: 76vh;
-  .header-card-details {
-    .name-details {
-      .name-style {
-        color: $dashboard-dark-color;
-        font-weight: 600;
-        font-size: 20px;
-      }
-      .company-style {
-        color: #b8b8b8;
-        // font-weight: 600;
-        font-size: 14px;
-      }
-    }
+ // min-height: 76vh;
+ .header-card-details {
+  .name-details {
+   .name-style {
+    color: $dashboard-dark-color;
+    font-weight: 600;
+    font-size: 20px;
+   }
+   .company-style {
+    color: #b8b8b8;
+    // font-weight: 600;
+    font-size: 14px;
+   }
   }
-  .statics-card-details {
-    display: flex;
-    justify-content: space-between;
-    height: 100px;
-    gap: 20px;
+ }
+ .statics-card-details {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  gap: 20px;
 
-    .card {
-      width: calc(25% - 30px);
-      height: 100px;
-      padding: 50px;
+  .card {
+   width: calc(25% - 30px);
+   height: 100px;
+   padding: 50px;
 
-      .icon-color {
-        color: white;
-        font-size: 40px;
-      }
-      .count {
-        color: white;
-        font-size: 30px;
-        line-height: 35px;
-      }
-      .type {
-        color: white;
-        font-size: 13px;
-      }
-    }
-    .card {
-      position: relative;
-      z-index: 1;
-    }
-    .card::after {
-      content: "";
-      position: absolute;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      top: 45px;
-      left: 40px;
-      z-index: 0;
-    }
-    .card1 {
-      background: linear-gradient(to right, #e36cd9, #fe60ae);
-    }
-    .card2 {
-      background: linear-gradient(to right, #f48665, #fda23f);
-    }
-    .card3 {
-      background: linear-gradient(to right, #9a56ff, #d78afd);
-    }
-    .card4 {
-      background: linear-gradient(to right, #23bdb8, #43e794);
-    }
+   .icon-color {
+    color: white;
+    font-size: 40px;
+   }
+   .count {
+    color: white;
+    font-size: 30px;
+    line-height: 35px;
+   }
+   .type {
+    color: white;
+    font-size: 13px;
+   }
   }
-  .multi-charts {
-    cursor: pointer;
-    padding: 20px;
-    border-radius: 2px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-gap: 0px;
+  .card {
+   position: relative;
+   z-index: 1;
+  }
+  .card::after {
+   content: '';
+   position: absolute;
+   background-color: rgba(255, 255, 255, 0.3);
+   border-radius: 50%;
+   width: 40px;
+   height: 40px;
+   top: 45px;
+   left: 40px;
+   z-index: 0;
+  }
+  .card1 {
+   background: linear-gradient(to right, #e36cd9, #fe60ae);
+  }
+  .card2 {
+   background: linear-gradient(to right, #f48665, #fda23f);
+  }
+  .card3 {
+   background: linear-gradient(to right, #9a56ff, #d78afd);
+  }
+  .card4 {
+   background: linear-gradient(to right, #23bdb8, #43e794);
+  }
+ }
+ .multi-charts {
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 0px;
 
-    // cursor: pointer;
-    // padding: 20px;
-    // border-radius: 2px;
-    // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    // background-color: #ffffff;
-    // // height: 300px;
-    // display: flex;
-    // justify-content: space-between;
+  // cursor: pointer;
+  // padding: 20px;
+  // border-radius: 2px;
+  // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  // background-color: #ffffff;
+  // // height: 300px;
+  // display: flex;
+  // justify-content: space-between;
 
-    .apexcharts-toolbar {
-      display: none;
-    }
-
-    .chart {
-      // flex: 1;
-      margin-right: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-      transition: transform 1s ease;
-    }
-    .chart:hover {
-      transform: scale(1.04);
-    }
-    .multi-graph-labels {
-      color: $dashboard-dark-color;
-    }
+  .apexcharts-toolbar {
+   display: none;
   }
 
-  .upcoming-events {
-    .upcoming-font {
-      color: $dashboard-dark-color;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .upcoming-card {
-      display: flex;
-    }
-
-    .card {
-      width: calc(25% - 20px);
-      height: 150px;
-      margin: 10px;
-      background-color: #ffffff;
-      border: 1px solid #ffffff;
-      border-radius: 5px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    }
+  .chart {
+   // flex: 1;
+   margin-right: 10px;
+   border: 1px solid #ccc;
+   border-radius: 3px;
+   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+   transition: transform 1s ease;
   }
+  .chart:hover {
+   transform: scale(1.04);
+  }
+  .multi-graph-labels {
+   color: $dashboard-dark-color;
+  }
+ }
+
+ .upcoming-events {
+  .upcoming-font {
+   color: $dashboard-dark-color;
+   font-weight: 600;
+   font-size: 16px;
+  }
+
+  .upcoming-card {
+   display: flex;
+  }
+
+  .card {
+   width: calc(25% - 20px);
+   height: 150px;
+   margin: 10px;
+   background-color: #ffffff;
+   border: 1px solid #ffffff;
+   border-radius: 5px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+ }
 }

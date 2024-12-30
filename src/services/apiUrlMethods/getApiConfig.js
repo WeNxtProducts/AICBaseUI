@@ -52,7 +52,7 @@ const GET_API_URL = {
  },
  getPolicyList: {
   url: '/ltclaim/getListOfPolicies',
-  baseURL: 'CLAIMURL',
+  baseURL: 'CRUD',
  },
  getPreClaimDate: {
   url: '/common/getMapQuery',
@@ -74,10 +74,7 @@ const GET_API_URL = {
  },
  getModernClaim: {
   url: '/ltclaim/claimHdrGet',
-  baseURL: 'CLAIMURL',
- },
- claimListSearch: {
-  url: '/common/claimListSearch',
+  baseURL: 'CRUD',
  },
  getLifeAssuredDetails: {
   url: '/common/polEmployeeEdit',
@@ -95,13 +92,17 @@ const GET_API_URL = {
   url: '/common/polDiscLoadEdit',
  },
  getConditionsDetails: {
-  url: '',
+  url: '/common/polConditionEdit',
  },
  getBeneficiaryDetails: {
   url: '/common/polBeneficiaryEdit',
  },
  getProposalChecklist: {
   url: '/common/claimsDocToDoListEdit',
+ },
+ reportBuilderFormList: {
+  url: '/RepotBuilder/report',
+  baseURL: 'DOCPRINT',
  },
 };
 

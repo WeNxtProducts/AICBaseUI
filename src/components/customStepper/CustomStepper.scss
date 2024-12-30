@@ -16,9 +16,9 @@
   width: 100%;
  }
  .current-stepper {
-  height: 30px;
+  height: 10px; // 30px
   display: flex;
-  align-items: center;
+  //   align-items: center;
   position: relative;
 
   .divider-progress {
@@ -33,7 +33,7 @@
   }
 
   .all-completed {
-   border: 2px solid #22A06B;
+   border: 2px solid #22a06b;
   }
 
   .step-name {
@@ -66,7 +66,7 @@
   border: 5px solid #f7ba1e;
  }
  .step-completed-progress {
-  border: 5px solid #22A06B;
+  border: 5px solid #22a06b;
  }
  .todo,
  .disabled {
@@ -87,7 +87,7 @@
   background-color: $save-button-forms;
  }
  .step-completed {
-  background-color: #22A06B;
+  background-color: #22a06b;
  }
  .completed::after,
  .step-completed::after {

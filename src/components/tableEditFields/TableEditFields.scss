@@ -1,0 +1,101 @@
+@mixin button-style {
+    margin-top: 20px;
+    padding: 5px 15px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: 600;
+    background-color: #0382c8;
+}
+
+.table_edit_fields_table {
+    width: 99%;
+    margin: auto;
+
+    .add-btn {
+        padding-right: 10px;
+
+        .add-row-btn {
+            background-color: #ffffff; //0382c8
+            font-weight: 600;
+            color: #0382c8;
+            border: 1px solid #0382c8;
+            border-radius: 8px;
+            padding: 8px 16px;
+            float: right;
+        }
+    }
+
+    .sub-btn {
+        @include button-style;
+    }
+
+    .borderless-table-tax {
+        width: 100%;
+        border-collapse: collapse;
+        margin: auto;
+
+        th,
+        td {
+            text-align: center;
+            padding: 3px;
+        }
+
+        th {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4d5e80;
+        }
+
+        tbody td:first-child {
+            width: 10%;
+        }
+
+        tbody td:nth-child(2) {
+            width: 15%;
+        }
+
+        tbody td:nth-child(3) {
+            width: 10%;
+        }
+
+        tbody td:nth-child(4) {
+            width: 10%;
+        }
+
+        tbody td:nth-child(5) {
+            width: 15%;
+        }
+
+        tbody td:nth-child(6) {
+            width: 10%;
+        }
+
+        tbody td:nth-child(7) {
+            width: 15%;
+        }
+
+        tbody td:nth-child(8) {
+            width: 15%;
+        }
+
+        tr:focus-within {
+            border-radius: 8px;
+            box-shadow: 0 0 6px rgba(3, 130, 200, 0.4);
+        }
+    }
+
+    .type-select {
+        width: 100%;
+    }
+
+    .delete-icon {
+        color: red;
+        font-size: 18px;
+        cursor: pointer;
+        margin-bottom: 5px;
+
+        &:hover {
+            color: darkred;
+        }
+    }
+}

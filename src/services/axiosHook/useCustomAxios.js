@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import {
- getDecryptedData,
- storeEncryptedData,
-} from '../../globalStore/cryptoUtils/cryptoUtil';
+import { getDecryptedData, storeEncryptedData } from '../../globalStore/cryptoUtils/cryptoUtil';
 import { useDispatch } from 'react-redux';
 import {
  setToken,
@@ -12,21 +9,24 @@ import {
  setUserDetails,
 } from '../../globalStore/slices/TokenAndMenuList';
 import { setMenu } from '../../globalStore/slices/MenuSlices';
-import showNotification from '../../components/notification/Notification';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { setRulesJSON } from '../../globalStore/slices/RulesSlices';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASEURL;
+axios.defaults.baseURL = import.meta.env.WENXT_BASEURL;
 
 const useCustomAxios = () => {
  const navigate = useNavigate();
  const dispatch = useDispatch();
+ const token = useSelector(state => state?.tokenAndMenuList?.token);
 
  useEffect(() => {
-  const token = getDecryptedData('token');
+  //   const token = getDecryptedData('token');
   const isTokenAvailable = !!token;
+  const noAuthEndpoints = ['auth/getLang'];
   const requestInterceptor = axios.interceptors.request.use(
    config => {
-    if (isTokenAvailable) {
+    if (isTokenAvailable && !noAuthEndpoints.includes(config.url)) {
      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
@@ -48,12 +48,13 @@ const useCustomAxios = () => {
      dispatch(setSidebarList([]));
      dispatch(setCurrentMenuId({}));
      dispatch(setUserDetails({}));
+     dispatch(setRulesJSON(null));
      //  setTimeout(() => {
      //   window.location.href = '/login';
      //   navigate('/login');
      //  }, 2000);
      navigate('/login');
-    //  showNotification.WARNING('Session has expired');
+     //  showNotification.WARNING('Session has expired');
     }
     return Promise.reject(error);
    },

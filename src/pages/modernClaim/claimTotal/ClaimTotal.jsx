@@ -6,11 +6,7 @@ import showNotification from '../../../components/notification/Notification';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 
 const ClaimTotal = () => {
- const {
-  totalSummaryValues,
-  id: tranId,
-  setTotalSummaryValues,
- } = useContext(ClaimContext);
+ const { totalSummaryValues, id: tranId, setTotalSummaryValues } = useContext(ClaimContext);
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const getClaimTotalDetails = useApiRequests('getPreClaimDate', 'POST');
  const [claimValues, setClaimValues] = useState(null);
@@ -36,13 +32,10 @@ const ClaimTotal = () => {
     procedureName: key,
     packageName: 'WNPKG_CLAIM',
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
-    key === 'P_POPULATE_SETTLE_DATA' &&
-     showNotification.SUCCESS(response?.status_msg);
-    if (key !== 'P_POPULATE_SETTLE_DATA')
-     handleTotalClaimProcess('P_POPULATE_SETTLE_DATA');
+    key === 'P_POPULATE_SETTLE_DATA' && showNotification.SUCCESS(response?.status_msg);
+    if (key !== 'P_POPULATE_SETTLE_DATA') handleTotalClaimProcess('P_POPULATE_SETTLE_DATA');
    }
   } catch (err) {
    console.log('err : ', err);
@@ -55,12 +48,8 @@ const ClaimTotal = () => {
 
  const getTotalSummary = async () => {
   try {
-   const response = await getClaimTotalDetails(
-    { queryParams: { tranId } },
-    { queryId: 125 },
-   );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   const response = await getClaimTotalDetails({ queryParams: { tranId } }, { queryId: 125 });
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setTotalSummaryValues(response?.Data[0]);
    }
@@ -88,19 +77,10 @@ const ClaimTotal = () => {
     <>
      <p className='header-font pl-1'>Total Summary</p>
      <div className='mt-4 grid grid-cols-2 gap-3'>
-      {renderPairs(
-       'Gross Estimate Local Currency',
-       claimValues?.CH_GROSS_LC_EST ?? 0,
-      )}
-      {renderPairs(
-       'Total Deduction Local Currency',
-       claimValues?.CH_TOT_LC_DED ?? 0,
-      )}
+      {renderPairs('Gross Estimate Local Currency', claimValues?.CH_GROSS_LC_EST ?? 0)}
+      {renderPairs('Total Deduction Local Currency', claimValues?.CH_TOT_LC_DED ?? 0)}
       {renderPairs('Total Charge Amount', claimValues?.CH_TOT_LC_CHRG ?? 0)}
-      {renderPairs(
-       'Net Payable / Setl Local Currency',
-       claimValues?.CH_NET_LC_EST ?? 0,
-      )}
+      {renderPairs('Net Payable / Setl Local Currency', claimValues?.CH_NET_LC_EST ?? 0)}
       {renderPairs('Excess Amount', claimValues?.CH_TOT_LC_BON ?? 0)}
      </div>
      {/* <div className='flex justify-center mt-10'>

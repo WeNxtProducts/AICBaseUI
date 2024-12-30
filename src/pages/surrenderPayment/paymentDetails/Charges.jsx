@@ -5,8 +5,7 @@ import MainForm from '../../../components/mainForm/MainForm';
 const Charges = () => {
  const { surrenderJSON } = useContext(SurrenderPaymentContext);
  const [chargesDetails, setChargesDetails] = useState(surrenderJSON);
- const [chargesInitialValues, setChargesInitialValues] =
-  useState(surrenderJSON);
+ const [chargesInitialValues, setChargesInitialValues] = useState(surrenderJSON);
 
  const onSubmit = values => {
   handleNext();

@@ -31,10 +31,7 @@ const ListDetails = () => {
  return (
   <div className='modern_checklist_claim'>
    <div className='flex items-center'>
-    <Button
-     className='filter-button'
-     type='primary'
-     icon={<i className='bi bi-funnel-fill' />}>
+    <Button className='filter-button' type='primary' icon={<i className='bi bi-funnel-fill' />}>
      Filter
     </Button>
     <div className='w-ful text-search'>

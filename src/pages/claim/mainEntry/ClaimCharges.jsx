@@ -3,16 +3,10 @@ import { ClaimContext } from '../Claim';
 import useApiRequests from '../../../services/useApiRequests';
 import useMRVListing from '../../../components/mrvListing/useMRVListing';
 import showNotification from '../../../components/notification/Notification';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../components/commonHelper/DataSend';
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence';
 import { getQueryId } from '../../../components/commonHelper/QueryIdFetch';
-import {
- extractValues,
- mergeDropdownData,
-} from '../../../components/commonHelper/ParamLov';
+import { extractValues, mergeDropdownData } from '../../../components/commonHelper/ParamLov';
 import Loader from '../../../components/loader/Loader';
 import CustomList from '../../../components/customList/CustomList';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
@@ -20,9 +14,7 @@ import MRVform from '../../../components/mrvForm/MRVform';
 import { Modal } from 'antd';
 import { claimCheck } from '../../../components/tableComponents/sampleData';
 
-const MessageTitle = ({ title }) => (
- <p className='modal_msg_delete select-none'>{title}</p>
-);
+const MessageTitle = ({ title }) => <p className='modal_msg_delete select-none'>{title}</p>;
 
 const ClaimCharges = ({
  queryID,
@@ -64,8 +56,7 @@ const ClaimCharges = ({
   try {
    const params = editMRVId ? { editMRVId } : { tranId };
    const response = await addOrUpdate(payload, '', params);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
     setEditMRVId('');
@@ -221,19 +212,18 @@ const ClaimCharges = ({
        />
       </div>
      )}
-     {claimCoverDetails &&
-      Object.prototype.hasOwnProperty.call(claimCoverDetails, root) && (
-       <MRVform
-        initialValues={claimCoverInitialValues}
-        formRender={claimCoverDetails}
-        root={root}
-        lovList={dropDown}
-        onSubmit={onSubmit}
-        handleChangeValue={handleChangeValue}
-        resetForm={resetForm}
-        handleOnBlur={handleOnBlur}
-       />
-      )}
+     {claimCoverDetails && Object.prototype.hasOwnProperty.call(claimCoverDetails, root) && (
+      <MRVform
+       initialValues={claimCoverInitialValues}
+       formRender={claimCoverDetails}
+       root={root}
+       lovList={dropDown}
+       onSubmit={onSubmit}
+       handleChangeValue={handleChangeValue}
+       resetForm={resetForm}
+       handleOnBlur={handleOnBlur}
+      />
+     )}
     </div>
     {deleteConfirmation && (
      <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />

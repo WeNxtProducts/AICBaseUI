@@ -2,10 +2,7 @@ import { Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import QuotationJSON from '../../../getFormFields/QUOTATIONENTRY_getFieldList.json';
 import CustomList from '../../../components/customList/CustomList';
-import {
- bankColumn,
- bankData,
-} from '../../../components/tableComponents/sampleData';
+import { bankColumn, bankData } from '../../../components/tableComponents/sampleData';
 import MRVform from '../../../components/mrvForm/MRVform';
 
 const FACSettlement = ({ open, handleClose }) => {
@@ -40,12 +37,7 @@ const FACSettlement = ({ open, handleClose }) => {
  };
 
  return (
-  <Modal
-   width={1000}
-   title='FAC Settlement'
-   open={Open}
-   onCancel={() => onClose()}
-   footer={null}>
+  <Modal width={1000} title='FAC Settlement' open={Open} onCancel={() => onClose()} footer={null}>
    <div className='fac-calim-settlement'>
     <div className='fac-header p-1'>
      <MRVform
@@ -70,11 +62,7 @@ const FACSettlement = ({ open, handleClose }) => {
      />
     </div>
     <div className='inline-table-details mt-5'>
-     <CustomList
-      tableColumn={bankColumn}
-      tableData={bankData}
-      handleEdit={handleEdit}
-     />
+     <CustomList tableColumn={bankColumn} tableData={bankData} handleEdit={handleEdit} />
     </div>
    </div>
   </Modal>

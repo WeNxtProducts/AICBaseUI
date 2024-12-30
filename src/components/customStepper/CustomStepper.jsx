@@ -8,7 +8,7 @@ const CustomStepper = ({ currentStep, stepperData, handleSkip }) => {
   const condition = stepperData.every(item => item.status === 'completed');
   setAllStepsCompleted(condition);
  };
- 
+
  useEffect(() => {
   handleCompleteStepper();
  }, [stepperData]);
@@ -25,15 +25,13 @@ const CustomStepper = ({ currentStep, stepperData, handleSkip }) => {
           allStepsCompleted
            ? 'all-completed'
            : currentStep === index
-           ? 'active-progress'
-           : item.status === 'completed'
-           ? 'active'
-           : ''
+             ? 'active-progress'
+             : item.status === 'completed'
+               ? 'active'
+               : ''
          }`}
         />
-        <div
-         onClick={() => handleSkip(index)}
-         className='step-name flex items-center'>
+        <div onClick={() => handleSkip(index)} className='step-name flex items-center'>
          <div
           className={
            allStepsCompleted
@@ -41,8 +39,8 @@ const CustomStepper = ({ currentStep, stepperData, handleSkip }) => {
               ? 'step-completed' //step-completed-progress
               : 'step-completed'
             : currentStep === index
-            ? 'inprogress'
-            : item.status
+              ? 'inprogress'
+              : item.status
           }></div>
          <p className='pl-1'>{item.title}</p>
         </div>

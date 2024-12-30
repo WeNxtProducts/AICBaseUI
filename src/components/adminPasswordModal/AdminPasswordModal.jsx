@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-import {
- CustomInput,
- CustomPasswordField,
-} from '../commonExportsFields/CommonExportsFields';
+import { CustomInput, CustomPasswordField } from '../commonExportsFields/CommonExportsFields';
 import './AdminPasswordModal.scss';
 
-const MessageTitle = () => (
- <p className='modal_msg_delete select-none'>Admin Password</p>
-);
+const MessageTitle = () => <p className='modal_msg_delete select-none'>Admin Password</p>;
 
 const AdminPasswordModal = ({ open, handleClose }) => {
  const [Open, setOpen] = useState(false);

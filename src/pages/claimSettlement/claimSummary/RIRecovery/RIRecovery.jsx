@@ -24,18 +24,9 @@ const RIRecovery = ({ open, handleClose }) => {
  };
 
  return (
-  <Modal
-   width={1000}
-   title='RI Recovery'
-   open={Open}
-   onCancel={() => onClose()}
-   footer={null}>
+  <Modal width={1000} title='RI Recovery' open={Open} onCancel={() => onClose()} footer={null}>
    <div className='sticky-tabs ri-recovery'>
-    <Tabs
-     size='small'
-     centered={true}
-     activeKey={activeTabKey}
-     onChange={handleTabChange}>
+    <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
      <TabPane key='1' tab={<TabPanelHeader name='RI Estimate' />}>
       <RIEstimate />
      </TabPane>

@@ -1,0 +1,46 @@
+@mixin premium-card-style($color, $weight, $size, $line-height) {
+ color: $color;
+ font-weight: $weight;
+ font-size: $size;
+ line-height: $line-height;
+}
+
+.premium_cards {
+ > p:first-of-type {
+  @include premium-card-style(#4d5e80, 700, 21px, 27px);
+ }
+ > p:nth-of-type(2) {
+  @include premium-card-style(#4d5e80, 600, 14px, 16px);
+ }
+
+ .premium_summary {
+  margin: 10px auto;
+  width: 70%;
+  border: 1px solid #c6c2de;
+  border-radius: 8px;
+  .details {
+   margin: auto;
+   padding: 0 0 10px 20px;
+  }
+  .fc_lc-style {
+   color: #4d5e80;
+   font-weight: 600;
+   font-size: 14px;
+   // text-align: center;
+   // padding-left: 6px;
+  }
+  .label-style {
+   color: #4d5e80;
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 20px;
+  }
+  .value-style {
+   font-family: Montserrat;
+   color: #4d5e80;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 20px;
+  }
+ }
+}

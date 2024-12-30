@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
 import './ConfirmationModal.scss';
 
-const MessageTitle = () => (
- <p className='modal_msg_delete select-none'>Confirm Delete</p>
-);
+const MessageTitle = () => <p className='modal_msg_delete select-none'>Confirm Delete</p>;
 
 const ConfirmationModal = ({ open, handleClose }) => {
  const [Open, setOpen] = useState(false);

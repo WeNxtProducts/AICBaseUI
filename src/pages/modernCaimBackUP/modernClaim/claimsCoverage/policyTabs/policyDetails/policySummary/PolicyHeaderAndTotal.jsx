@@ -37,9 +37,7 @@ const PolicyHeaderAndTotal = () => {
     <Select className='estimate_cost_select' placeholder='None'>
      {notification_options?.map(item => (
       <Select.Option key={item.value} value={item.value}>
-       {`${item?.value}${
-        item?.value !== item?.label ? ` - ${item?.label}` : ''
-       }`}
+       {`${item?.value}${item?.value !== item?.label ? ` - ${item?.label}` : ''}`}
       </Select.Option>
      ))}
     </Select>

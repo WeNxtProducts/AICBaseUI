@@ -8,12 +8,8 @@ import { bankColumn, bankData } from '../../../../components/tableComponents/sam
 const ClaimDecision = () => {
  const { currentStep, stepperData, handleNext, handlePrevious, handleSkip } =
   useContext(ClaimStepperContext);
- const [claimDecisionDetails, setClaimDecisionDetails] = useState(
-  claim?.accordions,
- );
- const [claimDecisionInitialValues, setClaimDecisionInitialValues] = useState(
-  claim?.accordions,
- );
+ const [claimDecisionDetails, setClaimDecisionDetails] = useState(claim?.accordions);
+ const [claimDecisionInitialValues, setClaimDecisionInitialValues] = useState(claim?.accordions);
 
  const onSubmit = values => {
   handleNext();

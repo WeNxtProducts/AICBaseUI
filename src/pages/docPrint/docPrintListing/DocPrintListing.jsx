@@ -8,18 +8,13 @@ import TableComponent from '../../../components/tableComponents/TableComponent';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
 import Loader from '../../../components/loader/Loader';
 import showNotification from '../../../components/notification/Notification';
-import {
- setCurrentID,
- setFormValues,
-} from '../../../globalStore/slices/IdSlices';
+import { setCurrentID, setFormValues } from '../../../globalStore/slices/IdSlices';
 
 const DocPrintListing = () => {
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const listingAPI = useApiRequests('getListing', 'GET');
- const currentMenuId = useSelector(
-  state => state?.tokenAndMenuList?.currentMenuId,
- );
+ const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
  const deleteClaim = useApiRequests('deleteDocById', 'POST');
  const [rowData, setRowData] = useState([]);
  const [columnData, setColumnData] = useState({});
@@ -63,8 +58,7 @@ const DocPrintListing = () => {
   try {
    const response = await deleteClaim('', {}, { id: deleteId?.ID });
    setDeleteId(null);
-   if (response?.Status === 'FAILURE')
-    showNotification.ERROR(response?.Message);
+   if (response?.Status === 'FAILURE') showNotification.ERROR(response?.Message);
    if (response?.Status === 'SUCCESS') {
     handleListingApi(0, 1);
     showNotification.SUCCESS(response?.Message);
@@ -108,7 +102,7 @@ const DocPrintListing = () => {
 
  const onChange = page => {
   setCurrent(page);
-  handleListingApi(calculateOffset(page) + 1);
+  handleListingApi(calculateOffset(page));
  };
 
  return (
@@ -118,10 +112,7 @@ const DocPrintListing = () => {
     <div className='w-full'>
      <p className='search-title'>Doc Print List</p>
      <div className='search-bar mt-2'>
-      <TextInputWithSearchIcon
-       placeholder='Search'
-       onChange={handleInputChange}
-      />
+      <TextInputWithSearchIcon placeholder='Search' onChange={handleInputChange} />
      </div>
     </div>
     <div>
@@ -157,9 +148,7 @@ const DocPrintListing = () => {
      />
     </div>
    )}
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

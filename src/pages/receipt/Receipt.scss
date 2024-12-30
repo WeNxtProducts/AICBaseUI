@@ -1,11 +1,12 @@
 @import '../../styles/components/react-slick-style.scss';
 @import '../../styles/components/mrvStyleDue.scss';
+@import '../../styles/variable';
 
 @mixin font-style($color, $font-size, $font-weight, $letter-spacing) {
  color: $color;
  font-size: $font-size;
  font-weight: $font-weight;
- letter-spacing: $letter-spacing;
+ //  letter-spacing: $letter-spacing;
 }
 
 @mixin status-style($background-color, $color) {
@@ -13,12 +14,20 @@
  color: $color;
 }
 
+%save-btn {
+ background-color: #0382c8;
+ color: #ffffff;
+ width: 10%;
+}
+
 .receipt {
  padding: 15px;
  background-color: #ffffff;
  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
- min-height: 80vh;
+ min-height: 89lvh;
+ max-height: 89lvh;
  border-radius: 8px;
+ overflow: auto;
 
  .receipt_header {
   .header_align {
@@ -108,10 +117,30 @@
   margin-top: 40px;
  }
  .dues_main_grid {
-  // border: 1px solid red;
   background-color: #ffffff;
   min-height: 400px;
   max-height: 700px;
+  .form-label {
+   font-size: 14px;
+   font-weight: 600;
+   line-height: 20px;
+   color: #4d5e80;
+  }
+  .form-value {
+   border: 1px solid #d2d5da;
+   background-color: #ffffff;
+   padding: 5px 0px 5px 10px;
+   border-radius: 8px;
+   color: #4b5563;
+   font-size: 12px;
+   font-weight: 400;
+  }
+  .pay_title {
+   color: #4d5e80;
+   font-size: 18px;
+   font-weight: 700;
+   line-height: 30px;
+  }
   .header_list_font {
    padding: 15px;
    //    border-bottom: 1px solid #6e6893;
@@ -209,9 +238,7 @@
       }
      }
      .save-btn {
-      background-color: #0382c8;
-      color: #ffffff;
-      width: 10%;
+      @extend %save-btn;
      }
     }
 
@@ -219,7 +246,7 @@
      margin-top: 15px;
 
      .due_info {
-      margin-top: 10px;
+      margin-top: 30px;
       .info_title {
        color: #4d5e80;
        font-weight: 700;
@@ -229,5 +256,43 @@
     }
    }
   }
+  .pay_details {
+   //border: 3px solid red;
+   border-top: 1px solid #d2d5da;
+   min-height: 400px;
+   .mrv_col {
+    min-height: 400px;
+    background-color: #f3f4f5;
+   }
+  }
+
+  .submit_section {
+   .submit_btn {
+    @extend %save-btn;
+   }
+  }
+ }
+ .sub_btn {
+  @extend %save-btn;
+  margin-top: 30px;
+  border-radius: 8px;
+  padding: 4px 10px;
+  width: 15%;
+ }
+ .add-buttons {
+  background-color: $save-button-forms;
+  .icon-style {
+   font-size: 16px;
+  }
+ }
+ .approve_btn {
+  @extend %save-btn;
+  font-size: 14px;
+  background-color: #59af34;
+  margin-top: 30px;
+  margin-left: 20px;
+  border-radius: 8px;
+  padding: 4px 10px;
+  width: 15%;
  }
 }

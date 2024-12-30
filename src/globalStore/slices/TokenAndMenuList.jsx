@@ -30,12 +30,7 @@ const TokenAndMenuList = createSlice({
  },
 });
 
-export const {
- setToken,
- setSidebarList,
- setCurrentMenuId,
- setUserDetails,
- setGroupId,
-} = TokenAndMenuList.actions;
+export const { setToken, setSidebarList, setCurrentMenuId, setUserDetails, setGroupId } =
+ TokenAndMenuList.actions;
 
 export default TokenAndMenuList.reducer;

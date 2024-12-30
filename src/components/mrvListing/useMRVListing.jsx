@@ -9,9 +9,18 @@ const useMRVListing = () => {
  const handleMRVListing = async (queryId, tranId, ...rest) => {
   const queryParams = { queryId, tranId };
 
-  rest.forEach(value => {
-   if (value !== undefined) queryParams[`emptranId`] = value;
-  });
+  const keyName = ['emptranId', 'mhtranId'];
+  if (rest?.length > 0) {
+   keyName.forEach((key, index) => {
+    if (rest[index]) {
+     queryParams[key] = rest[index];
+    }
+   });
+  }
+
+  //   rest.forEach((value, index) => {
+  //    if (value !== undefined) queryParams[`emptranId`] = value;
+  //   });
 
   try {
    const response = await getMRVlisting('', queryParams);

@@ -1,86 +1,86 @@
-@import "../../styles/variable";
+@import '../../styles/variable';
 .charts-line {
-    // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
-    .main-chart {
-      width: 60%;
-      .apexcharts-toolbar {
-        display: none;
-      }
-    }
-    .graph-header {
-      color: $dashboard-dark-color;
-      font-weight: 600;
-      font-size: 17px;
-    }
-    .days-filter {
-      width: 50%;
-      display: flex;
-      justify-content: flex-end;
-      .week-filter-non {
-        color: #b8b8b8;
-        .empty-box-non {
-          border: 2px solid #b8b8b8;
-        }
-      }
-      .month-filter-select {
-        color: #9195a1;
-        .empty-box-select {
-          border: 2px solid #7fe4c6;
-        }
-      }
-      .filter {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 600;
-        .empty-box-highlight {
-          margin-top: 2px;
-          margin-right: 3px;
-          height: 7px;
-          width: 5px;
-        }
-      }
-    }
-    .graph-indicator {
-      width: 40%;
-
-      .icon-with-text {
-        display: flex;
-        align-items: center;
-      }
-
-      .circle-icon {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        background-color: #09f2a1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 20px;
-      }
-      .cycle-icon {
-        background-color: #04c2dd;
-      }
-      .circle-icon i {
-        font-size: 30px;
-        color: white;
-      }
-
-      .text {
-        display: flex;
-        flex-direction: column;
-        .indi {
-          line-height: 25px;
-          color: $dashboard-dark-color;
-          font-weight: 600;
-        }
-        .number-indi {
-          color: #b8b8b8;
-          font-size: 14px;
-        }
-      }
-    }
+ // box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+ background-color: #ffffff;
+ .main-chart {
+  width: 60%;
+  .apexcharts-toolbar {
+   display: none;
   }
+ }
+ .graph-header {
+  color: $dashboard-dark-color;
+  font-weight: 600;
+  font-size: 17px;
+ }
+ .days-filter {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  .week-filter-non {
+   color: #b8b8b8;
+   .empty-box-non {
+    border: 2px solid #b8b8b8;
+   }
+  }
+  .month-filter-select {
+   color: #9195a1;
+   .empty-box-select {
+    border: 2px solid #7fe4c6;
+   }
+  }
+  .filter {
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   font-size: 15px;
+   font-weight: 600;
+   .empty-box-highlight {
+    margin-top: 2px;
+    margin-right: 3px;
+    height: 7px;
+    width: 5px;
+   }
+  }
+ }
+ .graph-indicator {
+  width: 40%;
+
+  .icon-with-text {
+   display: flex;
+   align-items: center;
+  }
+
+  .circle-icon {
+   width: 55px;
+   height: 55px;
+   border-radius: 50%;
+   background-color: #09f2a1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-right: 20px;
+  }
+  .cycle-icon {
+   background-color: #04c2dd;
+  }
+  .circle-icon i {
+   font-size: 30px;
+   color: white;
+  }
+
+  .text {
+   display: flex;
+   flex-direction: column;
+   .indi {
+    line-height: 25px;
+    color: $dashboard-dark-color;
+    font-weight: 600;
+   }
+   .number-indi {
+    color: #b8b8b8;
+    font-size: 14px;
+   }
+  }
+ }
+}

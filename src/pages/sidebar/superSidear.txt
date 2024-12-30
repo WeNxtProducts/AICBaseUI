@@ -1,0 +1,329 @@
+.jsx
+
+
+import React, { useState, useEffect } from 'react';
+import './sidebar.scss';
+
+const Sidebar = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedPath, setSelectedPath] = useState([]);
+  const [openMenus, setOpenMenus] = useState([]);
+
+  const menuItems = [
+    { icon: '🏠', title: 'Home with a very long title' },
+    {
+      icon: '📁',
+      title: 'Projects',
+      subItems: [
+        {
+          icon: '📄',
+          title: 'Project 1',
+          subItems: [
+            { icon: '📝', title: 'Tasks' },
+            { icon: '👥', title: 'Team' },
+          ],
+        },
+        {
+          icon: '📄',
+          title: 'Project 2',
+          subItems: [
+            { icon: '📊', title: 'Analytics' },
+            { icon: '💰', title: 'Budget' },
+          ],
+        },
+      ],
+    },
+    { icon: '📊', title: 'Analytics' },
+    {
+      icon: '⚙️',
+      title: 'Settings',
+      subItems: [
+        { icon: '👤', title: 'Profile' },
+        {
+          icon: '🔒',
+          title: 'Security',
+          subItems: [
+            { icon: '🔑', title: 'Passwords' },
+            { icon: '📱', title: 'Two-Factor Auth' },
+          ],
+        },
+      ],
+    },
+  ];
+
+  const handleSelect = (path) => {
+    setSelectedPath(path);
+  };
+
+  const handleExpand = (isExpanded) => {
+    setIsExpanded(isExpanded);
+    if (!isExpanded) {
+      // When collapsing, only keep selected path open
+      setOpenMenus(selectedPath.slice(0, -1));
+    }
+  };
+
+  const handleToggle = (path, isOpen) => {
+    setOpenMenus((prevOpenMenus) => {
+      const pathString = path.join('/');
+      if (isOpen) {
+        return [...prevOpenMenus, pathString];
+      } else {
+        return prevOpenMenus.filter((menu) => !menu.startsWith(pathString));
+      }
+    });
+  };
+
+  return (
+    <div
+      className={`sidebar ${isExpanded ? 'expanded' : ''}`}
+      onMouseEnter={() => handleExpand(true)}
+      onMouseLeave={() => handleExpand(false)}
+    >
+      <ul>
+        {menuItems.map((item, index) => (
+          <MenuItem
+            key={index}
+            item={item}
+            isExpanded={isExpanded}
+            level={0}
+            path={[item.title]}
+            selectedPath={selectedPath}
+            openMenus={openMenus}
+            onSelect={handleSelect}
+            onToggle={handleToggle}
+          />
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const MenuItem = ({
+  item,
+  isExpanded,
+  level,
+  path,
+  selectedPath,
+  openMenus,
+  onSelect,
+  onToggle,
+}) => {
+  const isSelected = selectedPath.join('/') === path.join('/');
+  const isOpen = openMenus.includes(path.join('/'));
+  const hasSelectedChild =
+    selectedPath.length > level && selectedPath[level] === item.title;
+
+  useEffect(() => {
+    if (hasSelectedChild && !isOpen) {
+      onToggle(path, true);
+    }
+  }, [hasSelectedChild, isOpen, onToggle, path]);
+
+  const handleClick = () => {
+    if (item.subItems) {
+      onToggle(path, !isOpen);
+    } else {
+      onSelect(path);
+    }
+  };
+
+  const renderLevelLines = () => {
+    return Array.from({ length: level }, (_, index) => (
+      <div key={index} className={`level-line level-${index + 1}`} />
+    ));
+  };
+
+  return (
+    <li className={`level-${level}`}>
+      <div
+        className={`menu-item ${isOpen ? 'open' : ''} ${
+          isSelected ? 'selected' : ''
+        }`}
+        onClick={handleClick}
+      >
+        {renderLevelLines()}
+        <span className={`icon ${level === 0 ? 'level-0' : ''}`}>
+          {item.icon}
+        </span>
+        {isExpanded && <span className="title">{item.title}</span>}
+        {item.subItems && isExpanded && (
+          <span className="arrow">{isOpen ? '▼' : '▶'}</span>
+        )}
+      </div>
+      {item.subItems && (
+        <ul className={`sub-menu ${isOpen && isExpanded ? 'open' : ''}`}>
+          {item.subItems.map((subItem, index) => (
+            <MenuItem
+              key={index}
+              item={subItem}
+              isExpanded={isExpanded}
+              level={level + 1}
+              path={[...path, subItem.title]}
+              selectedPath={selectedPath}
+              openMenus={openMenus}
+              onSelect={onSelect}
+              onToggle={onToggle}
+            />
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+};
+
+export default Sidebar;
+
+
+
+.scss
+
+$primary-color: #6366f1;
+$secondary-color: #a5b4fc;
+$background-color: #f8fafc;
+$text-color: #1e293b;
+$hover-color: #e2e8f0;
+$selected-color: #818cf8;
+
+.sidebar {
+  transition: width 0.3s ease, box-shadow 0.3s ease;
+  background-color: $background-color;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  width: 70px;
+
+  &.expanded {
+    width: 250px;
+    overflow-y: auto;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  color: $text-color;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+
+  &.open {
+    background-color: rgba($primary-color, 0.1);
+  }
+
+  &.selected {
+    background-color: rgba($selected-color, 0.2);
+    color: $selected-color;
+
+    > .icon {
+      background-color: $selected-color;
+      color: white;
+    }
+  }
+
+  .icon {
+    margin-right: 15px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+
+    &.level-0 {
+      background-color: $primary-color;
+      color: white;
+      box-shadow: 0 4px 6px rgba($primary-color, 0.25);
+    }
+  }
+
+  .title {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    white-space: nowrap; // Keep the text on one line
+    overflow: hidden; // Hide overflowing text
+    text-overflow: ellipsis; // Show ellipsis when text overflows
+    max-width: 160px; // Control the width where ellipsis should appear
+  }
+
+  .arrow {
+    margin-left: auto;
+    font-size: 12px;
+    transition: transform 0.2s;
+    color: $secondary-color;
+
+    .open & {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.level-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-image: linear-gradient(
+    to bottom,
+    $secondary-color 50%,
+    transparent 50%
+  );
+  background-size: 100% 8px;
+  opacity: 0.5;
+}
+
+@for $i from 1 through 5 {
+  .level-#{$i} {
+    .icon {
+      margin-left: $i * 20px;
+    }
+
+    .level-line:nth-child(#{$i}) {
+      left: $i * 20px;
+    }
+  }
+}
+
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+
+  &.open {
+    max-height: 1000px; // Adjust this value based on your needs
+    transition: max-height 0.5s ease-in;
+  }
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: $background-color;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: $secondary-color;
+  border-radius: 3px;
+}

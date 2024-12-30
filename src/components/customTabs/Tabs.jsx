@@ -7,18 +7,14 @@ const Tabs = ({ children, activeTab, onTabClick }) => {
    <div className='tab-list pt-2'>
     {React.Children.map(children, (child, index) => (
      <button
-      className={`tab ${
-       index === activeTab ? 'active' : index < activeTab ? 'crossed' : ''
-      }`}
+      className={`tab ${index === activeTab ? 'active' : index < activeTab ? 'crossed' : ''}`}
       onClick={() => onTabClick(index)}>
       {child.props.label}
      </button>
     ))}
    </div>
    <div className='tab-content'>
-    {React.Children.map(children, (child, index) =>
-     index === activeTab ? child : null,
-    )}
+    {React.Children.map(children, (child, index) => (index === activeTab ? child : null))}
    </div>
   </div>
  );

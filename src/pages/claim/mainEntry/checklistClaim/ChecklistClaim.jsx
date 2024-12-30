@@ -3,9 +3,7 @@ import CheckListTable from './CheckListTable';
 import CheckListDetails from './CheckListDetails';
 import { Divider, Modal } from 'antd';
 
-const MessageTitle = ({ title }) => (
- <p className='modal_msg_delete select-none'>{title}</p>
-);
+const MessageTitle = ({ title }) => <p className='modal_msg_delete select-none'>{title}</p>;
 
 const modalStyles = {
  body: { height: 450, overflowY: 'auto' },

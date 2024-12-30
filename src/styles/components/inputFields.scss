@@ -1,28 +1,28 @@
-@import "./loginFields.scss";
-@import "../variable";
+@import './loginFields.scss';
+@import '../variable';
 
 .form-fields {
-  width: 100%;
-  padding: 0.5rem 1rem;
-  background-color: #e9eff6;
-  border: 1px solid #ccc;
-  border-radius: 0.4rem;
-  outline: none;
+ width: 100%;
+ padding: 0.5rem 1rem;
+ background-color: #e9eff6;
+ border: 1px solid #ccc;
+ border-radius: 0.4rem;
+ outline: none;
 }
 
 .select-fields {
-  width: 100%;
-  height: 43px;
-  border: 1px solid #ccc;
-  border-radius: 0.4rem;
+ width: 100%;
+ height: 43px;
+ border: 1px solid #ccc;
+ border-radius: 0.4rem;
 }
 
 .login_style {
-  .ant-select-selector {
-    background-color: #e9eff6 !important;
-  }
-  .select-fields .ant-select-selection-placeholder {
-    color: $password-eye-color;
-    font-size: 16px;
-  }
+ .ant-select-selector {
+  background-color: #e9eff6 !important;
+ }
+ .select-fields .ant-select-selection-placeholder {
+  color: $password-eye-color;
+  font-size: 16px;
+ }
 }

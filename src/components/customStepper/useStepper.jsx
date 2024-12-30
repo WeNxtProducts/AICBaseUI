@@ -50,10 +50,7 @@ const useStepper = (steppers, index) => {
       return { ...item, status: 'todo' };
      }
     } else if (index === currentStep - 1 && currentStep > 0) {
-     if (
-      prevStepperData[index].status !== 'completed' &&
-      item.status !== 'inprogress'
-     ) {
+     if (prevStepperData[index].status !== 'completed' && item.status !== 'inprogress') {
       return { ...item, status: 'todo' };
      }
     }
@@ -95,11 +92,14 @@ const useStepper = (steppers, index) => {
   index => {
    handleSteps();
    const adjustedIndex = index < stepperData.length - 1 ? index + 1 : index;
-   if (
-    stepperData[index]?.status === 'completed' ||
-    stepperData[adjustedIndex]?.status === 'inprogress' ||
-    stepperData[adjustedIndex]?.status === 'todo'
-   ) {
+   //    if (
+   //     stepperData[index]?.status === 'completed' ||
+   //     stepperData[adjustedIndex]?.status === 'inprogress' ||
+   //     stepperData[adjustedIndex]?.status === 'todo'
+   //    ) {
+   //     setCurrentStep(index);
+   //    }
+   if (stepperData[index]?.status === 'completed' || stepperData[index]?.status === 'inprogress') {
     setCurrentStep(index);
    }
   },

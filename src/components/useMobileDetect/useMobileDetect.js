@@ -5,13 +5,10 @@ const useMobileDetect = () => {
 
  useEffect(() => {
   const handleResize = () => {
-   const userAgent =
-    typeof window.navigator === 'undefined' ? '' : navigator.userAgent;
-   const mobileRegex =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+   const userAgent = typeof window.navigator === 'undefined' ? '' : navigator.userAgent;
+   const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
    setIsMobile(mobileRegex.test(userAgent));
   };
- 
 
   handleResize(); // Check on initial load
 

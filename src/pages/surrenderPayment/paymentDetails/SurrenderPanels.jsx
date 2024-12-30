@@ -16,27 +16,14 @@ const SurrenderPanels = () => {
 
  return (
   <div className='acc-payment-details'>
-   <Collapse
-    expandIconPosition='end'
-    activeKey={activePanal}
-    onChange={callback}
-    size='small'>
-    <Panel
-     data-id='panel-1'
-     header={<CollapsePanelHeader name='Payment Details' />}
-     key={1}>
+   <Collapse expandIconPosition='end' activeKey={activePanal} onChange={callback} size='small'>
+    <Panel data-id='panel-1' header={<CollapsePanelHeader name='Payment Details' />} key={1}>
      <PaymentDetails />
     </Panel>
-    <Panel
-     data-id='panel-2'
-     header={<CollapsePanelHeader name='Charges' />}
-     key={2}>
+    <Panel data-id='panel-2' header={<CollapsePanelHeader name='Charges' />} key={2}>
      <Charges />
     </Panel>
-    <Panel
-     data-id='panel-3'
-     header={<CollapsePanelHeader name='Checklist' />}
-     key={3}>
+    <Panel data-id='panel-3' header={<CollapsePanelHeader name='Checklist' />} key={3}>
      <CheckList />
     </Panel>
    </Collapse>

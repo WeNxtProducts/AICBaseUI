@@ -20,10 +20,7 @@ const ReInsurance = () => {
    <div className='flex items-center'>
     <p className='ri_font'>ReInsurance</p>
    </div>
-   <RIHeaderDetails
-    claimDetails={selectedPolDetails}
-    policyNumber={selectedPolicy}
-   />
+   <RIHeaderDetails claimDetails={selectedPolDetails} policyNumber={selectedPolicy} />
    {rowData?.length > 0 && (
     <RITable
      rowData={rowData}

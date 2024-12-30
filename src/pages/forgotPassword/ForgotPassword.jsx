@@ -42,7 +42,13 @@ const ForgotPassword = ({ open, handleClose }) => {
  return (
   <Modal title='Forgot Password' open={Open} onCancel={() => onClose()} footer={null}>
    <div className='fields mt-5'>
-    <Input value={email} name='email' className='' placeholder='E-mail' onChange={e => setEmail(e.target.value)} />
+    <Input
+     value={email}
+     name='email'
+     className=''
+     placeholder='E-mail'
+     onChange={e => setEmail(e.target.value)}
+    />
    </div>
    <div className='mt-4 flex justify-center'>
     <Button

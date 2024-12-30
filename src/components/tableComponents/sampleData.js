@@ -267,26 +267,6 @@ export const tableColumn = [
   label: 'Main Account',
   value: 'mainAccount',
  },
- {
-  label: 'Sub Type',
-  value: 'subType',
- },
- {
-  label: 'Division',
-  value: 'division',
- },
- {
-  label: 'Department',
-  value: 'department',
- },
- {
-  label: 'Analysis - 1',
-  value: 'analysis1',
- },
- {
-  label: 'Analysis - 2',
-  value: 'analysis2',
- },
 ];
 
 export const genderOptions = [
@@ -584,18 +564,18 @@ export const bankData = [
   account_number: '83901',
   ifsc_code: 'CC002',
  },
- //  {
- //   bank_code: '1233',
- //   bank_sort_code: '3',
- //   account_number: '83901',
- //   ifsc_code: 'CC003',
- //  },
- //  {
- //   bank_code: '789',
- //   bank_sort_code: '4',
- //   account_number: '83901',
- //   ifsc_code: 'CC004',
- //  },
+ {
+  bank_code: '1233',
+  bank_sort_code: '3',
+  account_number: '83901',
+  ifsc_code: 'CC003',
+ },
+ {
+  bank_code: '789',
+  bank_sort_code: '4',
+  account_number: '83901',
+  ifsc_code: 'CC004',
+ },
 ];
 
 export const listTable = [
@@ -668,11 +648,12 @@ export const CoverageTableData = [
 ];
 
 export const proposalStepper = [
- { key: 0, title: 'Propposal Entry', status: 'inprogress' },
+ { key: 0, title: 'Proposal Entry', status: 'inprogress' },
  { key: 1, title: 'Life Assured Details', status: 'todo' },
  { key: 2, title: 'Beneficiary', status: 'todo' },
- { key: 3, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
- { key: 4, title: 'Checklist', status: 'todo' },
+ { key: 3, title: 'Broker/Agent', status: 'todo' },
+ { key: 4, title: 'Chrgs/Dis-Load/Cond', status: 'todo' },
+ { key: 5, title: 'Checklist', status: 'todo' },
 ];
 
 export const PDFdata = [
@@ -1285,8 +1266,7 @@ export const policyList = [
  },
 ];
 
-export const colHeader =
- '{"dueDats":"Due Dates","code":"Code","amount":"Amount"}';
+export const colHeader = '{"dueDats":"Due Dates","code":"Code","amount":"Amount"}';
 
 export const dueDates = [
  {
@@ -1362,3 +1342,365 @@ export const dueDates = [
   id: 12,
  },
 ];
+
+export const payHeader =
+ '{"pymt_mode":"Pymt Mode","bank_code":"Bank Code","cust_name":"Cust Name","currency":"Currency","amount":"Amount"}';
+
+export const payData = [
+ {
+  id: 1,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 2,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 3,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 4,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 5,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 6,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 7,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+ {
+  id: 8,
+  pymt_mode: 'Cash',
+  bank_code: 'NA',
+  cust_name: 'TEST',
+  currency: 'USD',
+  amount: '10,000',
+ },
+];
+
+export const historyitems = [
+ {
+  id: 1,
+  label: 'Policy Approved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 2,
+  label: 'Policy Altered',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 3,
+  label: 'Claim Approved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 4,
+  label: 'Policy Lapsed',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 5,
+  label: 'Policy Reapproved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 6,
+  label: 'Policy Approved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 7,
+  label: 'Policy Lapsed',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 8,
+  label: 'Policy Altered',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 9,
+  label: 'Policy Reapproved',
+  date: '12/07/1999',
+  status: 'success',
+ },
+ {
+  id: 10,
+  label: 'Policy Lapsed',
+  date: '12/07/1999',
+  status: 'success',
+ },
+];
+
+export const proposalList = [
+ {
+  Policy_Number: '12345678',
+  ID: 267,
+  Start_Date: '2024-08-24 00:00:00.0',
+  SNo: 1,
+ },
+ {
+  Policy_Number: '12345678',
+  ID: 214,
+  Start_Date: '2024-08-15 00:00:00.0',
+  SNo: 2,
+  Sum_Assured: 500000,
+ },
+ {
+  Policy_Number: 'PEND2024002',
+  Status: 'A',
+  ID: 1,
+  Start_Date: '2024-08-03 00:00:00.0',
+  SNo: 3,
+  Sum_Assured: 500000,
+ },
+];
+
+export const alterData = [
+ {
+  alterNo: 1,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'S',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+ {
+  alterNo: 2,
+  alterDate: '12/12/2022',
+  endCodeDesc: 'ED003 - General Endorsement',
+  status: 'P',
+  fm_date: '12-Dec-2023',
+  to_date: '12-Dec-2024',
+ },
+];
+
+export const currCode = [
+ {
+  label: 'Tanzanian Shillings',
+  value: 'TZS',
+ },
+ {
+  label: 'US DOLLAR',
+  value: 'USD',
+ },
+ {
+  label: 'UGANDA SHILLINGS',
+  value: 'UGX',
+ },
+ {
+  label: 'BRITAIN POUND',
+  value: 'GBP',
+ },
+ {
+  label: 'ANDORRA, EURO',
+  value: 'EUR',
+ },
+ {
+  label: 'COMOROS, FRANCS',
+  value: 'KMF',
+ },
+ {
+  label: 'RWANDA FRANCS',
+  value: 'RWF',
+ },
+ {
+  label: 'Vietnam Dong',
+  value: 'VND',
+ },
+ {
+  label: 'Ethiopian Birr',
+  value: 'ETB',
+ },
+];
+
+export const endorsementType = [
+ { value: 'F', label: 'Finance Endorsement' },
+ { value: 'N', label: 'Non- Finance Endorsement' },
+];
+
+export const financeType = [
+ {
+  key: 0,
+  title: 'Change in Premium',
+  desc: 'User Can change the premium of the policy.',
+  option: false,
+ },
+ {
+  key: 1,
+  title: 'Change in SA',
+  desc: 'User Can change the SA of the policy.',
+  option: false,
+ },
+ {
+  key: 2,
+  title: 'Change in MOP',
+  desc: 'User Can change the MOP of the policy.',
+  option: false,
+ },
+ {
+  key: 3,
+  title: 'Add/Delete Rider',
+  option: true,
+ },
+ {
+  key: 4,
+  title: 'Cancellation',
+  desc: 'User Can change the Cancel of the policy.',
+  option: false,
+ },
+ {
+  key: 5,
+  title: 'Change in term',
+  desc: 'User Can change the term of the policy.',
+  option: false,
+ },
+];
+
+export const nonFinanceType = [
+ {
+  key: 6,
+  title: 'Change Basic Info',
+  desc: 'User Can change the basic info of the policy.',
+  option: false,
+ },
+];
+export const termSelect = [
+ {
+  label: 'Half Yearly',
+  value: 'H',
+ },
+ {
+  label: 'Monthly',
+  value: 'M',
+ },
+ {
+  label: 'Quarterly',
+  value: 'Q',
+ },
+ {
+  label: 'Single',
+  value: 'S',
+ },
+ {
+  label: 'Yearly',
+  value: 'Y',
+ },
+];
+
+export const withdrawalMethod = [
+ {
+  label: 'Normal',
+  value: 'Normal',
+ },
+ {
+  label: 'Factorwise',
+  value: 'Factorwise',
+ },
+];
+
+// {
+//   "formFields": {
+//       "POL_CUST_CODE": {
+//           "PFD_FLD_VALUE": "",
+//       },
+//       "POL_ASSR_CUST_FLAG": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_ASSR_CODE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_ASSURED_NAME": {
+//           "PFD_FLD_VALUE": "",
+//       },
+//       "POL_PERIOD": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_FM_DT": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_SRC_OF_BUS": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_SA_CURR_CODE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_MODE_OF_PYMT": {
+//           "PFD_FLD_VALUE": "",
+//       },
+//       "POL_NO_OF_INST": {
+//         "PFD_FLD_VALUE": "",
+//       },
+//       "POL_FC_ANN_SAL": {
+//        "PFD_FLD_VALUE": "",
+//       },
+//       "POL_FC_SA": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_TO_DT": {
+//         "PFD_FLD_VALUE": "",
+//       },
+//       "POL_PYMT_TYPE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_AGENT_CODE": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_PREM_PAY_YRS": {
+//         "PFD_FLD_VALUE": "",
+//       },
+//       "POL_UW_YEAR": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_CUST_NAME": {
+//          "PFD_FLD_VALUE": "",
+//       },
+//       "POL_AGENT_COMM_BASIS": {
+//         "PFD_FLD_VALUE": "",
+//       }
+//   }
+// }

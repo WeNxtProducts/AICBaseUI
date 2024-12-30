@@ -13,13 +13,9 @@ const CustomList = ({
  const [selectedRows, setSelectedRows] = useState([]);
 
  const handleCheckboxChange = item => {
-  const isSelected = selectedRows.some(
-   selectedItem => selectedItem.ID === item.ID,
-  );
+  const isSelected = selectedRows.some(selectedItem => selectedItem.ID === item.ID);
   if (isSelected) {
-   setSelectedRows(
-    selectedRows.filter(selectedItem => selectedItem.ID !== item.ID),
-   );
+   setSelectedRows(selectedRows.filter(selectedItem => selectedItem.ID !== item.ID));
   } else {
    setSelectedRows([...selectedRows, item]);
   }
@@ -50,14 +46,10 @@ const CustomList = ({
       {tableData?.map(item => (
        <tr
         key={item?.ID}
-        className={
-         selectedRow == item?.ID ? 'highlighted_row' : 'non_highlighted_row'
-        }>
+        className={selectedRow == item?.ID ? 'highlighted_row' : 'non_highlighted_row'}>
         <td>
          <Checkbox
-          checked={selectedRows.some(
-           selectedItem => selectedItem.ID === item.ID,
-          )}
+          checked={selectedRows.some(selectedItem => selectedItem.ID === item.ID)}
           onChange={() => handleCheckboxChange(item)}
          />
         </td>

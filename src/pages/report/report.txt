@@ -1,0 +1,136 @@
+.table-container {
+ width: 100%;
+ overflow-x: auto;
+ border: 1px solid #ddd;
+ position: relative;
+}
+
+.table-content {
+ display: inline-block;
+ min-width: 100%;
+}
+
+.table-header {
+ display: flex;
+ background-color: #f4f4f4;
+ font-weight: bold;
+ height: 50px;
+ align-items: center;
+ border-bottom: 1px solid #ccc;
+ position: sticky;
+ top: 0;
+ z-index: 1;
+}
+
+.table-row {
+ display: flex;
+ height: 50px;
+ align-items: center;
+ border-bottom: 1px solid #ccc;
+}
+
+.table-cell {
+ flex: 0 0 200px; // Fixed width for each cell
+ padding: 0 10px;
+ box-sizing: border-box;
+ border-right: 1px solid #ddd;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+.table-cell:last-child {
+ border-right: none;
+}
+
+.table-row.even {
+ background-color: #f9f9f9;
+}
+
+.table-row.odd {
+ background-color: #fff;
+}
+
+.table-row:hover {
+ background-color: #e6f7ff;
+}
+
+
+
+
+import React, { useRef, useEffect, useState } from 'react';
+import { FixedSizeList as List } from 'react-window';
+import reportsJSON from '../../getFormFields/reportsSam.json';
+import './Report.scss';
+
+const Row = ({ index, style, data }) => {
+    const row = data[index];
+    return (
+        <div className={`table-row ${index % 2 === 0 ? 'even' : 'odd'}`} style={style}>
+            <div className="table-cell">{row?.POL_PROP_NO}</div>
+            <div className="table-cell">{row?.POL_ASSURED_NAME}</div>
+            <div className="table-cell">{row?.BANKNAME}</div>
+            <div className="table-cell">{row?.POL_APPRV_STATUS}</div>
+            <div className="table-cell">{row?.CREATED_BY}</div>
+            <div className="table-cell">{row?.RECP_DT}</div>
+            <div className="table-cell">{row?.PREMIUM_COUNT}</div>
+            <div className="table-cell">{row?.DEP_DOC_NO}</div>
+            <div className="table-cell">{row?.TRAN_CODE}</div>
+            <div className="table-cell">{row?.ACTUAL_PREM}</div>
+            <div className="table-cell">{row?.COLLECTED_PREM}</div>
+        </div>
+    );
+};
+
+const VirtualizedTable = ({ data }) => {
+    const [tableWidth, setTableWidth] = useState(0);
+    const tableRef = useRef(null);
+
+    useEffect(() => {
+        if (tableRef.current) {
+            setTableWidth(tableRef.current.scrollWidth);
+        }
+    }, []);
+
+    return (
+        <div className="table-container" ref={tableRef}>
+            <div className="table-content" style={{ width: tableWidth }}>
+                <div className="table-header">
+                    <div className="table-cell">POL_PROP_NO</div>
+                    <div className="table-cell">POL_ASSURED_NAME</div>
+                    <div className="table-cell">BANKNAME</div>
+                    <div className="table-cell">POL_APPRV_STATUS</div>
+                    <div className="table-cell">CREATED_BY</div>
+                    <div className="table-cell">RECP_DT</div>
+                    <div className="table-cell">PREMIUM_COUNT</div>
+                    <div className="table-cell">DEP_DOC_NO</div>
+                    <div className="table-cell">TRAN_CODE</div>
+                    <div className="table-cell">ACTUAL_PREM</div>
+                    <div className="table-cell">COLLECTED_PREM</div>
+                </div>
+                <List
+                    height={400}
+                    itemCount={data.length}
+                    itemSize={50}
+                    width={tableWidth}
+                    itemData={data}
+                >
+                    {Row}
+                </List>
+            </div>
+        </div>
+    );
+};
+
+const Report = () => {
+    return (
+        <div>
+            <VirtualizedTable data={reportsJSON} />
+        </div>
+    );
+};
+
+export default Report;

@@ -156,7 +156,7 @@
     "PFD_SEQ_NO": 10,
     "PFD_CLASS_NAME": "CLASS",
     "PFD_VALIDATION_YN": "1",
-    "PFD_MANDATORY_YN": true,
+    "PFD_MANDATORY_YN": false,
     "PFD_EDIT_YN": "1",
     "PFD_FLD_NAME": "DOCUMENT NAME",
     "PFD_RADIO_GRP_NAME": "GROUP",

@@ -23,15 +23,11 @@ const ClaimDetails = () => {
   setTotalSummaryValues,
   setLoader,
  } = useContext(ClaimContext);
- const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } =
-  selectedPolDetails;
+ const { CLM_FRZ_YN, CLM_TRAN_ID, CLM_STATUS, CLM_STATUS_CODE } = selectedPolDetails;
  const getPolClaimDetails = useApiRequests('getPreClaimDate', 'POST');
  const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
  const getClaimFreezeOnDetails = useApiRequests('getPreClaimDate', 'POST');
- const claimLevelDetailUpdate = useApiRequests(
-  'claimLevelDetailsUpdate',
-  'POST',
- );
+ const claimLevelDetailUpdate = useApiRequests('claimLevelDetailsUpdate', 'POST');
  const [approveOrRejectModal, setApproveOrRejectModal] = useState(false);
 
  const handlePolClaimDetails = async () => {
@@ -41,8 +37,7 @@ const ClaimDetails = () => {
     { queryParams: { tranId, CLM_POL_NO: selectedPolicy } },
     { queryId: 119 },
    );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setSelectedPolDetails(response?.Data[0]);
     setFreeze(response?.Data[0]?.CLM_FRZ_YN === 'Y');
@@ -66,12 +61,8 @@ const ClaimDetails = () => {
 
  const getTotalSummary = async () => {
   try {
-   const response = await getPolClaimDetails(
-    { queryParams: { tranId } },
-    { queryId: 125 },
-   );
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   const response = await getPolClaimDetails({ queryParams: { tranId } }, { queryId: 125 });
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setTotalSummaryValues(response?.Data[0]);
    }
@@ -97,8 +88,7 @@ const ClaimDetails = () => {
   };
   try {
    const response = await claimLevelDetailUpdate('', queryParams);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleFreeze(status);
    }
@@ -113,8 +103,7 @@ const ClaimDetails = () => {
    const response = await getClaimFreezeOnDetails(payload, {
     queryId: 126,
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     setClaimLevelTotal(response?.Data[0]);
     if (!status) handlePolClaimDetails();
@@ -126,17 +115,14 @@ const ClaimDetails = () => {
 
  const handleFreeze = async status => {
   const payload = {
-   inParams: status
-    ? { P_CLM_TRAN_ID: CLM_TRAN_ID }
-    : { P_CE_CLM_TRAN_ID: CLM_TRAN_ID },
+   inParams: status ? { P_CLM_TRAN_ID: CLM_TRAN_ID } : { P_CE_CLM_TRAN_ID: CLM_TRAN_ID },
   };
   try {
    const response = await invokeClaimsProcedure(payload, {
     procedureName: status ? 'P_CLM_FRZ_PRCSS' : 'GENERATE_CLM_REVERSE',
     packageName: status ? 'WNPKG_CLAIM' : 'WNPKG_CLAIM_ACCOUNT',
    });
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     handleClaimFreezeOnDetails(false, CLM_TRAN_ID);
    }
@@ -155,10 +141,7 @@ const ClaimDetails = () => {
     <div className='flex items-center gap-1'>
      <div className='check_box_label'>Freeze Y/N</div>
      <div>
-      <Checkbox
-       checked={freeze}
-       onChange={e => handleClaimLevelUpdateDetails(e.target.checked)}
-      />
+      <Checkbox checked={freeze} onChange={e => handleClaimLevelUpdateDetails(e.target.checked)} />
      </div>
     </div>
 
@@ -167,22 +150,16 @@ const ClaimDetails = () => {
       className='app_rej_reopen_close_btn'
       disabled={!freeze}
       onClick={() => setApproveOrRejectModal(true)}>
-      {CLM_STATUS === 'A' || CLM_STATUS === 'R'
-       ? 'Re-Open / Close'
-       : 'Approve / Reject'}
+      {CLM_STATUS === 'A' || CLM_STATUS === 'R' ? 'Re-Open / Close' : 'Approve / Reject'}
      </Button>
     </div>
 
     <div className='flex items-center gap-1'>
      <Button
-      className={
-       CLM_STATUS !== 'A' ? `settlement_btn_disabled` : `settlement_btn`
-      }
+      className={CLM_STATUS !== 'A' ? `settlement_btn_disabled` : `settlement_btn`}
       disabled={CLM_STATUS !== 'A'}
       onClick={() => {
-       navigate(
-        `/claimSettlement?CLM_POL_NO=${selectedPolicy}&CH_REF_NO=${formValues?.CH_REF_NO}`,
-       );
+       navigate(`/claimSettlement?CLM_POL_NO=${selectedPolicy}&CH_REF_NO=${formValues?.CH_REF_NO}`);
       }}>
       <div className='flex justify-between items-center'>
        <p>Settlement</p>

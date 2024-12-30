@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import RadioChip from '../../../components/radioChip/RadioChip';
-import {
- claim_check,
- platforms,
-} from './../../../components/tableComponents/sampleData';
+import { claim_check, platforms } from './../../../components/tableComponents/sampleData';
 import claimJSON from './../../../getFormFields/process.json';
 import ClaimFieldRender from './ClaimFieldRender';
 import { Button } from 'antd';
@@ -62,20 +59,18 @@ const ClaimTypeSelect = () => {
      </div>
      <div className='col-span-2'></div>
      <div className='col-span-10 grid grid-cols-2 gap-0'>
-      {Object.keys(initValues?.claim_based_fields?.formFields).map(
-       (fieldKey, index) => {
-        return (
-         <div key={index}>
-          <ClaimFieldRender
-           fieldInfo={initValues?.claim_based_fields?.formFields[fieldKey]}
-           handleChangeValue={handleChangeValue}
-           values={initValues?.claim_based_fields}
-           keyField='claim_based_fields'
-          />
-         </div>
-        );
-       },
-      )}
+      {Object.keys(initValues?.claim_based_fields?.formFields).map((fieldKey, index) => {
+       return (
+        <div key={index}>
+         <ClaimFieldRender
+          fieldInfo={initValues?.claim_based_fields?.formFields[fieldKey]}
+          handleChangeValue={handleChangeValue}
+          values={initValues?.claim_based_fields}
+          keyField='claim_based_fields'
+         />
+        </div>
+       );
+      })}
       <div className=' flex items-center'>
        <Button className='ml-3 ok_button'>OK</Button>
       </div>
@@ -97,20 +92,18 @@ const ClaimTypeSelect = () => {
      </div>
      <div className='col-span-2'></div>
      <div className='col-span-10 grid grid-cols-2 gap-0'>
-      {Object.keys(initValues?.claim_type_fields?.formFields).map(
-       (fieldKey, index) => {
-        return (
-         <div key={index}>
-          <ClaimFieldRender
-           fieldInfo={initValues?.claim_type_fields?.formFields[fieldKey]}
-           handleChangeValue={handleChangeValue}
-           values={initValues?.claim_type_fields}
-           keyField='claim_type_fields'
-          />
-         </div>
-        );
-       },
-      )}
+      {Object.keys(initValues?.claim_type_fields?.formFields).map((fieldKey, index) => {
+       return (
+        <div key={index}>
+         <ClaimFieldRender
+          fieldInfo={initValues?.claim_type_fields?.formFields[fieldKey]}
+          handleChangeValue={handleChangeValue}
+          values={initValues?.claim_type_fields}
+          keyField='claim_type_fields'
+         />
+        </div>
+       );
+      })}
      </div>
     </div>
    </div>

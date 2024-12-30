@@ -7,17 +7,11 @@ import { sortObjectByPFDSeqNo } from '../../../../components/commonHelper/SortBy
 import { getQueryId } from './../../../../components/commonHelper/QueryIdFetch';
 import useMRVListing from './../../../../components/mrvListing/useMRVListing';
 import useApiRequests from '../../../../services/useApiRequests';
-import {
- deepCopy,
- extractFieldValuesInPlace,
-} from '../../../../components/commonHelper/DataSend';
+import { deepCopy, extractFieldValuesInPlace } from '../../../../components/commonHelper/DataSend';
 import showNotification from '../../../../components/notification/Notification';
 import ConfirmationModal from '../../../../components/confirmationModal/ConfirmationModal';
 import Loader from '../../../../components/loader/Loader';
-import {
- extractValues,
- mergeDropdownData,
-} from '../../../../components/commonHelper/ParamLov';
+import { extractValues, mergeDropdownData } from '../../../../components/commonHelper/ParamLov';
 
 const ClaimCover = ({
  queryID,
@@ -55,8 +49,7 @@ const ClaimCover = ({
   try {
    const params = editMRVId ? { editMRVId } : { tranId };
    const response = await addOrUpdate(payload, '', params);
-   if (response?.status === 'FAILURE')
-    showNotification.ERROR(response?.status_msg);
+   if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
    if (response?.status === 'SUCCESS') {
     MRVListing();
     setEditMRVId('');
@@ -92,7 +85,7 @@ const ClaimCover = ({
  };
 
  useEffect(() => {
-  console.log('formValues : ', formValues);
+  console.log('formValues cover : ', formValues);
   handleInitData(ClaimsJson);
   MRVListing();
  }, []);
@@ -110,7 +103,7 @@ const ClaimCover = ({
   //   console.log('handleEdit : ', item);
   try {
    const response = await mrvGetById('', {
-    screenCode, 
+    screenCode,
     screenName,
     tranId: item?.ID,
    });
@@ -200,23 +193,20 @@ const ClaimCover = ({
       />
      </div>
     )}
-    {claimCoverDetails &&
-     Object.prototype.hasOwnProperty.call(claimCoverDetails, root) && (
-      <MRVform
-       initialValues={claimCoverInitialValues}
-       formRender={claimCoverDetails}
-       root={root}
-       lovList={dropDown}
-       onSubmit={onSubmit}
-       handleChangeValue={handleChangeValue}
-       resetForm={resetForm}
-       handleOnBlur={handleOnBlur}
-      />
-     )}
+    {claimCoverDetails && Object.prototype.hasOwnProperty.call(claimCoverDetails, root) && (
+     <MRVform
+      initialValues={claimCoverInitialValues}
+      formRender={claimCoverDetails}
+      root={root}
+      lovList={dropDown}
+      onSubmit={onSubmit}
+      handleChangeValue={handleChangeValue}
+      resetForm={resetForm}
+      handleOnBlur={handleOnBlur}
+     />
+    )}
    </div>
-   {deleteConfirmation && (
-    <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />
-   )}
+   {deleteConfirmation && <ConfirmationModal open={deleteConfirmation} handleClose={handleClose} />}
   </div>
  );
 };

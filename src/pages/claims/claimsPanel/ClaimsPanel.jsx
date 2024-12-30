@@ -24,16 +24,10 @@ const ClaimsPanel = () => {
 
  return (
   <div className='quotation-panels'>
-   <Collapse
-    expandIconPosition='end'
-    activeKey={currentStep}
-    onChange={callback}
-    size='small'>
+   <Collapse expandIconPosition='end' activeKey={currentStep} onChange={callback} size='small'>
     <Panel
      data-id='panel-1'
-     header={
-      <CollapsePanelHeader name='Claim Estimate' saved={stepperData[1]} />
-     }
+     header={<CollapsePanelHeader name='Claim Estimate' saved={stepperData[1]} />}
      key={1}>
      <ClaimCover
       queryID='Claim_Estimate'
@@ -48,9 +42,7 @@ const ClaimsPanel = () => {
     </Panel>
     <Panel
      data-id='panel-2'
-     header={
-      <CollapsePanelHeader name='Claim Charges' saved={stepperData[2]} />
-     }
+     header={<CollapsePanelHeader name='Claim Charges' saved={stepperData[2]} />}
      key={2}>
      <ClaimCover
       queryID='Claim_Estimate'

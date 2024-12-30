@@ -1,21 +1,19 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import BasicInformation from './BasicInformation';
 import ListOfBenefits from './listOfBenefits/ListOfBenefits';
+import { QuoteContext } from '../Quote';
 
 export const BenefitDetailsStep = createContext();
 
 const Stepper1 = () => {
- const [stepperInside, setStepperInside] = useState(1);
- const data = { setStepperInside };
+    const { stepperIndex, setStepperIndex } = useContext(QuoteContext);
 
- return (
-  <BenefitDetailsStep.Provider value={data}>
-   <div className='stepper_1 mt-3'>
-    {stepperInside === 1 && <BasicInformation />}
-    {stepperInside === 2 && <ListOfBenefits />}
-   </div>
-  </BenefitDetailsStep.Provider>
- );
+    return (
+        <div className='stepper_1 mt-3'>
+            {stepperIndex === 1 && <BasicInformation />}
+            {stepperIndex === 2 && <ListOfBenefits />}
+        </div>
+    );
 };
 
 export default Stepper1;
