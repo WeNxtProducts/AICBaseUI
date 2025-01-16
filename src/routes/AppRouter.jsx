@@ -148,6 +148,24 @@ const AppRouter = () => {
 
                 <Route element={<ProtectedRoute />}>
                     <Route
+                        path='/glReInsuranceList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ReInsuranceListing from='gl' />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
+                        path='/glReInsurance'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ReInsurance from='gl' />
+                            </Suspense>
+                        }
+                    />
+
+                    <Route
                         path='/maturity_processing'
                         element={
                             <Suspense fallback={<Loader />}>
