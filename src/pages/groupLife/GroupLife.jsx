@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import CustomStepper from '../../components/customStepper/CustomStepper';
 import useStepper from '../../components/customStepper/useStepper';
 import GroupLifeMainForm from './groupLifeMainForm/GroupLifeMainForm';
-import GroupLifeJSON from '../../getFormFields/QUOTATIONENTRY_getFieldList.json';
+import GroupLifeJSON from '../../getFormFields/GLQUOTATIONENTRY_getFieldList.json';
 import GroupLifeLov from '../../getFormFields/QUOTATIONENTRY_getLOVList.json';
 import { useSelector } from 'react-redux';
 import GroupLifePanels from './groupLifePanels/GroupLifePanels';
