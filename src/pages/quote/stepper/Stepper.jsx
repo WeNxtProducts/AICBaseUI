@@ -22,7 +22,7 @@ const QuoteStepper = () => {
     return (
         <div className='stepper'>
             <Stepper
-                nonLinear={true} // Enable non-linear navigation
+                nonLinear={true}
                 connectorStateColors={true}
                 connectorStyleConfig={{
                     completedColor: '#0382C8',
@@ -30,6 +30,7 @@ const QuoteStepper = () => {
                     disabledColor: '#eee',
                     stepSize: '2.1em',
                     size: 4,
+                    style: 'solid'
                 }}
                 styleConfig={{
                     labelFontSize: '.75rem',

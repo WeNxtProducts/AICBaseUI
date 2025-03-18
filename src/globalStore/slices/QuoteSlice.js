@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    stepperIndex: 1,
+    stepperIndex: 0,
 };
 
 const QuoteSlices = createSlice({
