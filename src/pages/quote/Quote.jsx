@@ -1,26 +1,23 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import QuoteHeader from './quoteHeader/QuoteHeader';
 import QuoteStepper from './stepper/Stepper';
 import Stepper1 from './stepper1/Stepper1';
-import PdfSample from '../PdfSample/PdfSample';
+import QuoteContext from './QuoteContext';
+import { useDispatch, useSelector } from 'react-redux';
 import './Quote.scss';
 
-export const QuoteContext = createContext();
-
 const Quote = () => {
-    const [stepperIndex, setStepperIndex] = useState(1);
+    const dispatch = useDispatch();
+    const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
 
-    const data = {
-        stepperIndex,
-        setStepperIndex
-    }
+    const data = {}
 
     return (
         <QuoteContext.Provider value={data}>
             <div className='Quote'>
                 <QuoteHeader />
                 <div className='content_box p-3'>
-                    {/* <QuoteStepper /> */}
+                    <QuoteStepper />
                     <div className='px-5'>
                         <Stepper1 />
                     </div>

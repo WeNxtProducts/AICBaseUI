@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react';
 import { SelectInput, TextInput, DateInput } from '@float-Input';
 import { basicInfoInitValues } from '../QuoteConstant';
 import { Form, Formik } from 'formik';
-import { QuoteContext } from '../Quote';
+import QuoteContext from '../QuoteContext';
+import { useSelector } from 'react-redux';
 
 const BasicInformation = () => {
-    const { stepperIndex, setStepperIndex } = useContext(QuoteContext);
+    const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
     const [initVal, setInitVal] = useState(basicInfoInitValues)
 
     const onSubmit = async values => {

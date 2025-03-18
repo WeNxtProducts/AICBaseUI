@@ -9,6 +9,7 @@ import EndorsementSlices from '../slices/EndorsementId';
 import SurrenderMaturitySlices from '../slices/SurrenderMaturityId';
 import RulesSlices from '../slices/RulesSlices';
 import ReInsuranceSlices from '../slices/ReInsuranceSlices';
+import QuoteSlices from '../slices/QuoteSlice';
 
 const rootReducer = combineReducers({
     menuSelected: menuSelected,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
     Endo: EndorsementSlices,
     SurrId: SurrenderMaturitySlices,
     rules: RulesSlices,
-    reInsurance: ReInsuranceSlices
+    reInsurance: ReInsuranceSlices,
+    quote: QuoteSlices
 });
 
 export default rootReducer;
