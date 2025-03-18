@@ -13,7 +13,7 @@ import EmptyTable from '../../../components/emptyTable/EmptyTable';
 import ConfirmationModal from '../../../components/confirmationModal/ConfirmationModal';
 import { setReInsuranceId, setReInsurancePolNo } from '../../../globalStore/slices/ReInsuranceSlices';
 
-const ReInsuranceListing = () => {
+const ReInsuranceListing = ({ from = '' }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const listingAPI = useApiRequests('getListing', 'GET');
@@ -51,7 +51,7 @@ const ReInsuranceListing = () => {
     useEffect(() => {
         handleListingApi(0);
         setSearch('')
-    }, []);
+    }, [from]);
 
     const handleSort = (columnName, sortOrder) => {
         console.log('sortState : ', sortState);
@@ -70,7 +70,7 @@ const ReInsuranceListing = () => {
     const handleEdit = item => {
         dispatch(setReInsuranceId(item?.ID));
         dispatch(setReInsurancePolNo(item?.Policy_No));
-        navigate(`/reInsurance`);
+        navigate(from === 'gl' ? '/glReInsurance' : '/reInsurance');
     };
 
     const handleDeleteConfirm = async () => {
@@ -144,7 +144,7 @@ const ReInsuranceListing = () => {
             {loader && <Loader />}
             <div className='custmer-search flex items-end justify-between'>
                 <div className='w-full'>
-                    <p className='search-title'>Re-Insurance List</p>
+                    <p className='search-title'>{from === 'gl' ? 'General ' : ''}Re-Insurance List</p>
                     <div className='search-bar mt-2'>
                         <TextInputWithSearchIcon placeholder='Search' value={search}
                             onChange={value => {
