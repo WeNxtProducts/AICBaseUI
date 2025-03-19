@@ -6,6 +6,7 @@ import Stepper2 from './stepper2/stepper2';
 import QuoteContext from './QuoteContext';
 import { useDispatch, useSelector } from 'react-redux';
 import './Quote.scss';
+import Stepper3 from './stepper3/Stepper3';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Quote = () => {
                     <div className='px-5'>
                         {stepperIndex === 0 && <Stepper1 />}
                         {stepperIndex === 1 && <Stepper2 />}
+                        {stepperIndex === 2 && <Stepper3 />}
                     </div>
                 </div>
             </div>

@@ -24,6 +24,16 @@ const CompareQuotes = () => {
             </div>
 
             <div className='comp_box'>
+                <dl className='details_box'>
+                    <div className="row">
+                        <dt>Name</dt>
+                        <dd>Andrew</dd>
+                    </div>
+                    <div className="row">
+                        <dt>Age</dt>
+                        <dd>33</dd>
+                    </div>
+                </dl>
                 <CompareQuoteBox />
             </div>
         </div>
