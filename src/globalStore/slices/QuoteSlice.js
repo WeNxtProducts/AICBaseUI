@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     stepperIndex: 0,
+    compQuote: false
 };
 
 const QuoteSlices = createSlice({
@@ -11,9 +12,12 @@ const QuoteSlices = createSlice({
         setStepperIndex: (state, action) => {
             state.stepperIndex = action.payload;
         },
+        setComQuote: (state, action) => {
+            state.compQuote = action.payload;
+        }
     },
 });
 
-export const { setStepperIndex } = QuoteSlices.actions;
+export const { setStepperIndex, setComQuote } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

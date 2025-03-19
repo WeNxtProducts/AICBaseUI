@@ -8,7 +8,8 @@ const QuoteStepper = () => {
     const dispatch = useDispatch();
     const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
     const quoteSteps = [
-        { label: 'Benefit Details' },
+        { label: 'Basic Details' },
+        { label: 'List of Benefits' },
         { label: 'Assured/Cust Details' },
         { label: 'Questions' },
         { label: 'Upload Docs' },
@@ -38,7 +39,7 @@ const QuoteStepper = () => {
                     fontWeight: 600,
                 }}
                 className='custom_stepper'
-                activeStep={stepperIndex}
+                activeStep={2}
             >
                 {quoteSteps.map((item, index) => {
                     let stepClass = 'upcoming';

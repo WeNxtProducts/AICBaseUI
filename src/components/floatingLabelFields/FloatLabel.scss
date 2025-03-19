@@ -46,14 +46,14 @@
  position: absolute;
  pointer-events: none;
  left: 12px;
- top: 12px;
+ top: 11px;
  transition: 0.2s ease all;
  color: #878787;
  font-size: 0.85rem;
 }
 
 .label-float {
- top: -3px;
+ top: -7px;
  left: 12px;
  background: #fff; // Add background color to match the input's background
  padding: 0 4px; // Add padding to create space around the label

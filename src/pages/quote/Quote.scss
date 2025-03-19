@@ -1,63 +1,272 @@
+@mixin icon-style($color) {
+  cursor: pointer;
+  color: $color;
+  font-size: 20px;
+}
+
+@mixin summary-style($color) {
+  font-size: 16px;
+  font-weight: 600;
+  color: $color;
+}
+
 .Quote {
- //   border: 1px solid green;
- min-height: 100lvh;
+  //   border: 1px solid green;
+  min-height: 100lvh;
 
- .process_button {
-  background-color: #0382c8;
-  padding: 4px 15px;
-  color: #ffffff;
-  border-radius: 5px;
- }
-
- .quote_header {
-  background-color: #ffffff;
-
-  .img_head {
-   height: 55px;
-   .logo_img {
-    margin-left: 30px;
-    padding-top: 4px;
-    width: 63px;
-    height: 59px;
-   }
+  .process_button {
+    background-color: #0382c8;
+    padding: 4px 15px;
+    color: #ffffff;
+    border-radius: 5px;
   }
-  .sub_header {
-   background-color: #defff1;
-   height: 20px;
-  }
- }
- .content_box {
-  //   border: 1px solid red;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: auto;
-  margin-top: 10px;
-  width: calc(100% * 0.82);
-  min-height: 80lvh;
- }
 
- .stepper_1 {
-//   border: 1px solid red;
-  .basic_information {
-   display: flex;
-   flex-direction: column;
-   align-items: flex-start;
-   > p:first-of-type {
-    margin: 0 auto;
-    color: #4d5e80;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 30px;
-   }
-   .basic_form {
-    // border: 1px solid red;
-    margin-top: 10px !important;
-    width: calc(100% * 0.92);
+  .quote_header {
+    // position: sticky;
+    // top: 0;
+    background-color: #ffffff;
+    // z-index: 1;
+
+    .img_head {
+      height: 55px;
+
+      .logo_img {
+        margin-left: 30px;
+        padding-top: 4px;
+        width: 63px;
+        height: 59px;
+      }
+    }
+
+    .sub_header {
+      background-color: #defff1;
+      height: 20px;
+    }
+  }
+
+  .content_box {
+    //   border: 1px solid red;
+    background-color: #ffffff;
+    border-radius: 10px;
     margin: auto;
-   }
+    margin-top: 10px;
+    width: calc(100% * 0.82);
+    min-height: 80lvh;
   }
 
-  .list_of_benefits {
+  .stepper_1 {
+
+    //   border: 1px solid red;
+    .basic_information {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      >p:first-of-type {
+        margin: 0 auto;
+        color: #4d5e80;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 30px;
+      }
+
+      .basic_form {
+        // border: 1px solid red;
+        margin-top: 10px !important;
+        width: calc(100% * 0.92);
+        margin: auto;
+      }
+    }
   }
- }
+
+  .stepper_2 {
+    .head_benefits {
+      color: #4D5E80;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .list_of_benefits {
+      margin-top: 10px;
+      position: relative;
+
+
+      .caption {
+        background-color: #4D5E80;
+        color: white;
+        padding: 10px;
+        position: absolute;
+        right: 0;
+        top: 37px;
+        border-radius: 10px 10px 0 0;
+      }
+
+      .table {
+        margin-top: 50px;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid #4D5E80;
+        border-radius: 10px 0 10px 10px;
+        overflow: hidden;
+        text-align: center;
+        table-layout: fixed;
+
+        th,
+        td {
+          color: #4D5E80;
+          font-size: 15px;
+          padding: 10px 10px;
+          font-weight: 600;
+          border-bottom: 1px solid #333;
+          vertical-align: middle;
+        }
+
+        td {
+          color: #000000;
+        }
+
+        .check-icon {
+          @include icon-style(#4D5E80);
+        }
+
+        .plus-icon {
+          @include icon-style(#0382C8);
+        }
+
+        tr:last-child td {
+          border-bottom: none;
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+          width: 45%;
+        }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+          width: 15%;
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+          width: 10%;
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+          width: 20%;
+        }
+
+        th:nth-child(5),
+        td:nth-child(5) {
+          width: 10%;
+        }
+      }
+    }
+
+    .benefits_prem_summary {
+      border: 1px solid #4D5E80;
+      border-radius: 10px;
+      padding: 10px;
+
+      .summary_box {
+        width: 50%;
+        margin: auto;
+        margin-top: 10px;
+
+        .sum_name {
+          @include summary-style(#4D5E80);
+        }
+
+        .sum_val {
+          @include summary-style(#000000);
+        }
+      }
+
+      .btn-grp {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+
+        .acc_btn {
+          width: 15%;
+          background-color: #0382C8;
+          color: #ffffff;
+        }
+
+        .oth_btn {
+          width: 15%;
+          background-color: #ffffff;
+          color: #0382C8;
+          border: 1px solid #0382C8;
+        }
+      }
+    }
+
+    .quote_compare {
+      margin-top: 10px;
+      // border: 1px solid red;
+    }
+
+    .sub-head {
+      font-size: 12px;
+    }
+
+    .quote-Select {
+      width: 50%;
+      margin: auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .comp_btn {
+        background-color: #0382C8;
+        color: #ffffff;
+        height: 38px;
+      }
+    }
+
+    .comp_box {
+      margin-top: 10px;
+
+      .quote-layout {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+
+        .comp_item {
+          // border: 1px solid red;
+          grid-column: span 1;
+
+          ul {
+            list-style-type: none;
+            padding: 0;
+
+            li {
+              padding: 7px;
+              color: #1D2433;
+              font-size: 14px;
+
+              &:first-child {
+                background-color: #F1F3F9;
+                color: #1D2433;
+                font-weight: bold;
+                font-size: 14px;
+              }
+
+              &:nth-child(odd):not(:first-child) {
+                background-color: #F8F9FC;
+              }
+
+              &:nth-child(even) {
+                background-color: #FFFFFF;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
