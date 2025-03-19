@@ -52,6 +52,7 @@
     margin-top: 10px;
     width: calc(100% * 0.82);
     min-height: 80lvh;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
   }
 
   .stepper_1 {
@@ -231,14 +232,50 @@
     .comp_box {
       margin-top: 10px;
 
+      .details_box {
+        .row {
+          display: flex;
+          padding: 3px 0;
+        }
+
+        dt {
+          color: #4D5E80;
+          font-weight: 600;
+        }
+
+        dd {
+          color: #000000;
+          font-weight: 600;
+          margin-left: 20px
+        }
+      }
+
       .quote-layout {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
 
         .comp_item {
-          // border: 1px solid red;
           grid-column: span 1;
+          position: relative;
+
+          .close_icon {
+            cursor: pointer;
+            position: absolute;
+            top: -6px;
+            right: -4px;
+            color: #ffffff;
+            background-color: #B3261E;
+            border-radius: 50%;
+            padding: 3px;
+          }
+
+          .quote_sel_btn {
+            float: right;
+            margin-top: 5px;
+            background-color: #0382C8;
+            color: #FFFFFF;
+          }
 
           ul {
             list-style-type: none;
@@ -266,6 +303,30 @@
             }
           }
         }
+      }
+    }
+  }
+
+  .stepper_3 {
+    margin-top: 10px;
+
+    .head_assured_cust {
+      margin-bottom: 10px;
+      color: #4D5E80;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .life_assured_check {
+      display: flex;
+      justify-content: flex-end;
+
+      .life_check {
+        margin-bottom: 5px;
+        color: #000000;
+        font-size: 14px;
+        font-weight: 600;
       }
     }
   }

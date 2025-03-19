@@ -4,8 +4,11 @@ import { basicInfoInitValues } from '../QuoteConstant';
 import { Form, Formik } from 'formik';
 import QuoteContext from '../QuoteContext';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 
 const BasicInformation = () => {
+    const dispatch = useDispatch();
     const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
     const [initVal, setInitVal] = useState(basicInfoInitValues)
 
@@ -154,7 +157,10 @@ const BasicInformation = () => {
                                     </div>
                                 </div>
                                 <div className='mt-5 w-full flex justify-end pr-10'>
-                                    <button type='submit' className='process_button'>Get Quote</button>
+                                    <button type='submit'
+                                        onClick={() => {
+                                            dispatch(setStepperIndex(1));
+                                        }} className='process_button'>Get Quote</button>
                                 </div>
                             </Form>
                         );
