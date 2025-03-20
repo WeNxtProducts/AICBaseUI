@@ -419,6 +419,14 @@ const POST_API_URL = {
         url: '/wdrasetup/update',
         baseURL: 'CRUD',
     },
+    saveProFacDetails: {
+        url: '/prodFactor/save',
+        baseURL: 'CRUD',
+    },
+    updateProFacDetails: {
+        url: '/prodFactor/update',
+        baseURL: 'CRUD',
+    },
 };
 
 export default POST_API_URL;

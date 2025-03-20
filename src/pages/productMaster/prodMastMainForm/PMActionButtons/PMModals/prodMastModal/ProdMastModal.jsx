@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Modal } from 'antd';
 import MRVProdMast from '../../../../MRVProdMast/MRVProdMast';
+import { ProductMasterContext } from '../../../../ProductMaster';
 
 const modalStyles = {
     topPosition: { top: 60 },
@@ -8,7 +9,10 @@ const modalStyles = {
 
 const MessageTitle = ({ title }) => <p className='modal_msg_delete select-none'>{title}</p>;
 
-const ProdMastModal = ({ open, handleClose, modalTitle }) => {
+const ProdMastModal = ({ open, handleClose, modalTitle, root,
+    queryID, mrvGet, screenCode, screenName, saveRow, editRow, deleteRow
+}) => {
+    const { id: tranId } = useContext(ProductMasterContext);
     const [Open, setOpen] = useState(false);
 
     useEffect(() => {
@@ -30,17 +34,16 @@ const ProdMastModal = ({ open, handleClose, modalTitle }) => {
             maskClosable={false}
             footer={null}>
             <MRVProdMast
-                queryID='getBeneficiaryList'
-                root='benificiary'
-                mrvGet='getBeneficiaryDetails'
-                screenCode='QUOTATIONENTRY'
-                screenName='QUOTATIONENTRY'
-                saveRow='saveBeneficiaryDetails'
-                editRow='updateBeneficiaryDetails'
-                deleteRow='deleteBeneficiaryDetails'
+                queryID={queryID}
+                root={root}
+                mrvGet={mrvGet}
+                screenCode={screenCode}
+                screenName={screenName}
+                saveRow={saveRow}
+                editRow={editRow}
+                deleteRow={deleteRow}
                 title=''
-                tranId={1090}
-                subId={970}
+                tranId={tranId}
             />
         </Modal>
     )

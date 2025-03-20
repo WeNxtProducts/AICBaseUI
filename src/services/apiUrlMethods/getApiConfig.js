@@ -108,8 +108,12 @@ const GET_API_URL = {
         url: '/ProdMaster/get',
         baseURL: 'CRUD',
     },
-   withdrawSetupGetById: {
+    withdrawSetupGetById: {
         url: '/wdrasetup/get',
+        baseURL: 'CRUD',
+    },
+    getProFacDetails: {
+        url: '/prodFactor/get',
         baseURL: 'CRUD',
     },
 };

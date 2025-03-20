@@ -397,7 +397,20 @@
     }
 
     .cust_address {
-      border: 1px solid red;
+      .addresses {
+        margin: 10px 0 10px 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px 30px;
+
+        .mail_field {
+          grid-column: span 3;
+        }
+
+        .address_field {
+          grid-column: span 1;
+        }
+      }
     }
   }
 }
