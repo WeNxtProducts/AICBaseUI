@@ -1,7 +1,7 @@
 import React from 'react';
 import { Step, Stepper } from 'react-form-stepper';
 import { useSelector, useDispatch } from 'react-redux';
-import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setComQuote, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import './Stepper.scss';
 
 const QuoteStepper = () => {
@@ -17,6 +17,7 @@ const QuoteStepper = () => {
     ];
 
     const handleStepClick = (index) => {
+        dispatch(setComQuote(false))
         dispatch(setStepperIndex(index));
     };
 
