@@ -3,6 +3,7 @@ import { Modal } from 'antd'
 import { Form, Formik } from 'formik';
 import { CustomInput, CustomNumberField, CustomSelect } from '../../../../../components/commonExportsFields/CommonExportsFields';
 import { withdrawalMethod } from '../../../../../components/tableComponents/sampleData';
+import useApiRequests from '../../../../../services/useApiRequests';
 
 const modalStyles = {
     topPosition: { top: 100 },
@@ -11,25 +12,76 @@ const modalStyles = {
 const MessageTitle = ({ title }) => <p className='modal_msg_delete select-none'>{title}</p>;
 
 const WithDrawalSetUp = ({ open, handleClose }) => {
+    const [id, setId] = useState('')
+    const withdrawSetupGetById = useApiRequests('withdrawSetupGetById', 'POST');
+    const withdrawSetupCreate = useApiRequests('withdrawSetupCreate', 'POST')
+    const withdrawSetupUpdate = useApiRequests('withdrawSetupUpdate', 'POST')
+
     const [Open, setOpen] = useState(false);
     const [initValues, setInitValues] = useState({
-        WITHDRAWAL_CALC_METHOD: '',
-        REFUND_FACTOR_FOR_COMPLETED_YEARS: '',
-        REFUND_FACTOR_FOR_BROKEN_YEARS: '',
-        MINIMUM_WITHDRAWAL_MONTHS: '',
+        WDRA_CLAC_MET: '',
+        WDRA_REF_COMP_YRS: '',
+        WDRA_REF_BRO_PER: '',
+        WDRA_MIN_MON: '',
     });
 
     useEffect(() => {
         setOpen(open)
-    }, [])
+        if (id) {
+            console.log(id)
+            handleGetData()
+        }
+    }, [id])
+
 
     const onClose = status => {
         setOpen(false);
         handleClose(status);
     };
 
+    const handleCreateOrUpdate = async (values, apiCalls) => {
+        const payload = {
+            withdrawalSetup: {
+                formFields: values
+            }
+        }
+        try {
+            const response = await apiCalls(payload, {}, id && { id });
+            if (response?.status === 'FAILURE') {
+                setLoader(false)
+                showNotification.ERROR(response?.status_msg)
+            }
+            if (response?.status === 'SUCCESS') {
+                if (!id)
+                    setId(response?.data?.Id)
+                setLoader(false)
+                showNotification.SUCCESS(response?.status_msg)
+            }
+        } catch (err) {
+            setLoader(false)
+            showNotification.ERROR('SomeTing Went Wrong!!');
+        }
+    };
+
+    const handleGetData = async () => {
+        try {
+            const response = await withdrawSetupGetById('', { tranId: id });
+            if (response?.status === 'FAILURE') {
+                setLoader(false)
+                showNotification.ERROR(response?.status_msg)
+            }
+            if (response?.status === 'SUCCESS') {
+                setInitValues(response?.Data)
+                showNotification.SUCCESS(response?.status_msg)
+            }
+        } catch (err) {
+            setLoader(false)
+            showNotification.ERROR('SomeTing Went Wrong!!');
+        }
+    };
     const onSubmit = values => {
         console.log("Values : ", values);
+        handleCreateOrUpdate(values, id ? withdrawSetupUpdate : withdrawSetupCreate)
     };
 
 
@@ -56,14 +108,14 @@ const WithDrawalSetUp = ({ open, handleClose }) => {
                                     <p className='col-span-2 form-label'>Withdrawal Calc Method</p>
                                     <div className='col-span-2'>
                                         <CustomSelect
-                                            name='WITHDRAWAL_CALC_METHOD'
+                                            name='WDRA_CLAC_MET'
                                             size='large'
                                             showSearch={false}
                                             readOnly={false}
                                             options={withdrawalMethod}
                                             placeholder='select'
-                                            value={values?.WITHDRAWAL_CALC_METHOD || undefined}
-                                            onChange={e => setFieldValue('WITHDRAWAL_CALC_METHOD', e)}
+                                            value={values?.WDRA_CLAC_MET || undefined}
+                                            onChange={e => setFieldValue('WDRA_CLAC_MET', e)}
                                         />
                                     </div>
                                 </div>
@@ -71,13 +123,14 @@ const WithDrawalSetUp = ({ open, handleClose }) => {
                                 <div className='col-span-3 grid grid-cols-4 items-center'>
                                     <p className='col-span-2 form-label'>Refund Factor for completed Years</p>
                                     <div className='col-span-2'>
-                                        <CustomInput
-                                            name='REFUND_FACTOR_FOR_COMPLETED_YEARS'
-                                            size='large'
+                                        <CustomNumberField
+                                            name='WDRA_REF_COMP_YRS'
+                                            format='number'
                                             placeholder='0'
+                                            size='large'
                                             readOnly={false}
-                                            value={values?.REFUND_FACTOR_FOR_COMPLETED_YEARS}
-                                            onChange={e => setFieldValue('REFUND_FACTOR_FOR_COMPLETED_YEARS', e.target.value)}
+                                            value={values?.WDRA_REF_COMP_YRS}
+                                            onChange={e => setFieldValue('WDRA_REF_COMP_YRS', e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -85,13 +138,14 @@ const WithDrawalSetUp = ({ open, handleClose }) => {
                                 <div className='col-span-3 grid grid-cols-4 items-center'>
                                     <p className='col-span-2 form-label'>Refund Factor for Broken Period</p>
                                     <div className='col-span-2'>
-                                        <CustomInput
-                                            name='REFUND_FACTOR_FOR_BROKEN_YEARS'
-                                            size='large'
+                                        <CustomNumberField
+                                            name='WDRA_REF_BRO_PER'
+                                            format='number'
                                             placeholder='0'
+                                            size='large'
                                             readOnly={false}
-                                            value={values?.REFUND_FACTOR_FOR_BROKEN_YEARS}
-                                            onChange={e => setFieldValue('REFUND_FACTOR_FOR_BROKEN_YEARS', e.target.value)}
+                                            value={values?.WDRA_REF_BRO_PER}
+                                            onChange={e => setFieldValue('WDRA_REF_BRO_PER', e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -100,20 +154,20 @@ const WithDrawalSetUp = ({ open, handleClose }) => {
                                     <p className='col-span-2 form-label'>Minimum Withdrawal Months</p>
                                     <div className='col-span-2'>
                                         <CustomNumberField
-                                            name='MINIMUM_WITHDRAWAL_MONTHS'
+                                            name='WDRA_MIN_MON'
                                             format='number'
                                             placeholder='0'
                                             size='large'
                                             readOnly={false}
-                                            value={values?.MINIMUM_WITHDRAWAL_MONTHS}
-                                            onChange={e => setFieldValue('MINIMUM_WITHDRAWAL_MONTHS', e.target.value)}
+                                            value={values?.WDRA_MIN_MON}
+                                            onChange={e => setFieldValue('WDRA_MIN_MON', e.target.value)}
                                         />
                                     </div>
                                 </div>
 
                                 <div className='col-span-5 flex items-center justify-center'>
                                     <button className='submit_btn' type='submit'>
-                                        Submit
+                                        {id ? 'Update' : 'Submit'}
                                     </button>
                                 </div>
                             </Form>
