@@ -6,7 +6,7 @@ import CustomerAddress from './customerAddress/CustomerAddress';
 import NomineeDetails from './nomineeDetails/NomineeDetails';
 
 const Stepper3 = () => {
-    const [activeSection, setActiveSection] = useState('customerAddress');
+    const [activeSection, setActiveSection] = useState('nomineeDetails');
 
     const toggleAccordion = (section) => {
         setActiveSection((prevSection) =>

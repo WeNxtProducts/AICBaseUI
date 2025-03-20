@@ -5,7 +5,6 @@ import { SelectInput, TextInput, DateInput } from '@float-Input';
 
 const CustomerDetails = () => {
     return (
-
         <Formik
             enableReinitialize={true}
         >
@@ -22,7 +21,7 @@ const CustomerDetails = () => {
                                 </div>
                             </div>
                             <div className='switch_cust'>
-                                <p>Enter Manually/Upload EID:</p>
+                                <p>Are you UAE National :</p>
                                 <div className='switch-control'>
                                     <span>Yes</span>
                                     <Switch className='switch' size="small" defaultChecked />
@@ -133,6 +132,10 @@ const CustomerDetails = () => {
                                         label='Nationality'
                                     />
                                 </div>
+
+                            </div>
+                            <div className='save_btn_grid'>
+                                <button type='submit'>Save</button>
                             </div>
                         </div>
                     </Form>
