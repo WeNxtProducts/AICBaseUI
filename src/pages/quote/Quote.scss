@@ -329,5 +329,75 @@
         font-weight: 600;
       }
     }
+
+    .customer_details {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+
+      .switch_cust {
+        grid-column: span 3;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+
+        p,
+        span {
+          margin: 0;
+          margin-right: 10px;
+          color: #171717;
+          font-weight: 600;
+          font-size: 15px;
+        }
+
+        .switch-control {
+          display: flex;
+          align-items: center;
+
+          span {
+            margin: 0 2px;
+          }
+
+          .switch {
+            margin: 0 5px;
+          }
+        }
+      }
+
+      .cust_form {
+        margin-top: 10px;
+        grid-column: span 6;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px 30px;
+
+        .cust_form_fields {
+          grid-column: span 1;
+        }
+      }
+
+      .passport_form {
+        margin-top: 10px;
+        grid-column: span 6;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px 30px;
+
+        .form_title {
+          grid-column: span 3;
+          font-size: 17px;
+          font-weight: 700;
+          color: #4D5E80;
+        }
+
+        .cust_form_fields {
+          grid-column: span 1;
+        }
+      }
+    }
+
+    .cust_address {
+      border: 1px solid red;
+    }
   }
 }
