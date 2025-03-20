@@ -156,3 +156,18 @@ export const quoteRows = [
         label: '10,00,000'
     }
 ]
+
+export const Roptions = [
+    {
+        label: 'Assignee',
+        value: 'A',
+    },
+    {
+        label: 'Nominee',
+        value: 'N',
+    },
+    {
+        label: 'As per Shariah Law',
+        value: 'S',
+    },
+];

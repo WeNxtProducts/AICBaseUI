@@ -335,14 +335,26 @@
       grid-template-columns: repeat(6, 1fr);
       gap: 10px;
 
+      .save_btn_grid {
+        grid-column: span 6;
+        margin-bottom: 10px;
+
+        button {
+          background-color: #0382C8;
+          padding: 5px 20px;
+          color: #ffffff;
+          border-radius: 8px;
+          float: right;
+        }
+      }
+
       .switch_cust {
-        grid-column: span 3;
+        grid-column: span 6;
         display: flex;
         align-items: center;
         font-size: 14px;
 
-        p,
-        span {
+        p {
           margin: 0;
           margin-right: 10px;
           color: #171717;
@@ -361,6 +373,11 @@
           .switch {
             margin: 0 5px;
           }
+        }
+
+        .bene {
+          color: #4D5E80;
+          font-size: 13px;
         }
       }
 
@@ -397,20 +414,58 @@
     }
 
     .cust_address {
+
       .addresses {
-        margin: 10px 0 10px 0;
+        margin: 20px 0 10px 0;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 15px 30px;
 
+        .save_btn_grid {
+          grid-column: span 3;
+          margin-bottom: 10px;
+
+          button:nth-child(1) {
+            background-color: #0382C8;
+            padding: 5px 20px;
+            color: #ffffff;
+            border-radius: 8px;
+            float: right;
+          }
+
+          button:nth-child(2) {
+            margin-right: 10px;
+            border: 1px solid #0382C8;
+            background-color: #ffffff;
+            padding: 5px 20px;
+            color: #0382C8;
+            border-radius: 8px;
+            float: right;
+          }
+        }
+
+
         .mail_field {
           grid-column: span 3;
+          display: flex;
+
+
+          .mail_check {
+            margin-bottom: 5px;
+            color: #000000;
+            font-size: 14px;
+            font-weight: 600;
+          }
         }
 
         .address_field {
           grid-column: span 1;
         }
       }
+    }
+
+    .nominee_details {
+      border: 1px solid red;
     }
   }
 }
