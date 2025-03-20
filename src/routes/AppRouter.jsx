@@ -5,6 +5,7 @@ import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
+import IFrameSetUp from '../pages/iFrameSetUp/IFrameSetUp';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
@@ -69,6 +70,14 @@ const AppRouter = () => {
         <div>
             <ScrollToTop />
             <Routes>
+                <Route
+                    path='/userMasterLiist'
+                    element={
+                        <Suspense fallback={<div>IFrameSetUp</div>}>
+                            <IFrameSetUp />
+                        </Suspense>
+                    }
+                />
                 <Route
                     path='/multiRowTable'
                     element={

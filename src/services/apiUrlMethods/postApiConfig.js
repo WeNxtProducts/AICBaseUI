@@ -403,6 +403,22 @@ const POST_API_URL = {
         url: '/matProHeader/get',
         baseURL: 'CRUD',
     },
+    productMasterCreate: {
+        url: '/ProdMaster/save',
+        baseURL: 'CRUD',
+    },
+    productMasterUpdate: {
+        url: '/ProdMaster/update',
+        baseURL: 'CRUD',
+    },
+    withdrawSetupCreate: {
+        url: '/wdrasetup/save',
+        baseURL: 'CRUD',
+    },
+    withdrawSetupUpdate: {
+        url: '/wdrasetup/update',
+        baseURL: 'CRUD',
+    },
 };
 
 export default POST_API_URL;
