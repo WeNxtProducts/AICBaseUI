@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import useMRVListing from '../../../components/mrvListing/useMRVListing';
 import useParamLov from '../../../components/useParamLov/useParamLov';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
@@ -13,6 +12,7 @@ import ConfirmationModal from '../../../components/confirmationModal/Confirmatio
 import { ProductMasterContext } from '../ProductMaster';
 import MRVProdMastForm from './MRVProdMastForm';
 import MRVListProdMast from './MRVListProdMast';
+import useMRVListingPayload from '../../../components/mrvListing/useMRVListingPayload';
 
 
 const MRVProdMast = ({
@@ -34,13 +34,14 @@ const MRVProdMast = ({
     medicalId = '',
     schemaValidation
 }) => {
-    const { GroupLifeJSON, formValues, setDropDown, dropDown, freeze = false
-        , handleNext, userRules, isPremCalc, proRules } =
-        useContext(ProductMasterContext);
-    const { mrvListingId } = GroupLifeJSON;
-    const { rowData, columnData, handleMRVListing } = useMRVListing();
+    const { ProductMasterJSON, formValues, setDropDown, dropDown, freeze = false
+        , isPremCalc, proRules } = useContext(ProductMasterContext);
+
+    const { mrvListingId } = ProductMasterJSON;
+
+    const { rowData, columnData, handleMRVListingPayload } = useMRVListingPayload();
     const { onSearch } = useParamLov();
-    const mrvGetById = useApiRequests(mrvGet, 'GET');
+    const mrvGetById = useApiRequests(mrvGet, 'POST');
     const getParamLov = useApiRequests('getParamLov', 'GET');
     const saveMRV = useApiRequests(saveRow, 'POST');
     const editMRV = useApiRequests(editRow, 'POST');
@@ -55,15 +56,37 @@ const MRVProdMast = ({
     const [formInit, setFormInit] = useState(false);
     const [modalType, setModalType] = useState('');
 
+    const addOrUpdateMRV = async (payload, addOrUpdate, lifeId) => {
+        try {
+            const params = editMRVId ? { editMRVId } : { tranId };
+            const response = await addOrUpdate(payload, '', params);
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                MRVListing();
+                if (!editMRVId) {
+                    handleInitData(ProductMasterJSON);
+                    setFormInit(!formInit);
+                }
+                showNotification.SUCCESS(response?.status_msg);
+            }
+            setLoader(false);
+        } catch (err) {
+            setLoader(false);
+        }
+    };
+
     const onSubmit = values => {
         const val = deepCopy(values);
         const modifiedData = extractFieldValuesInPlace(val);
         const payload = { [root]: { formFields: modifiedData[root]?.formFields } };
         console.log("payload : ", payload)
+
+        addOrUpdateMRV(payload, editMRVId ? editMRV : saveMRV);
     };
 
     const handleInitData = async response => {
         const orderedData = sortObjectByPFDSeqNo(response);
+        console.log("orderedData : ", orderedData)
         setGroupLifeMRV({ [root]: orderedData[root] });
         setGroupLifeMRVInitialValues({ [root]: orderedData[root] });
     };
@@ -71,14 +94,14 @@ const MRVProdMast = ({
     const MRVListing = () => {
         if (tranId) {
             const queryId = getQueryId(queryID, mrvListingId);
-            handleMRVListing(queryId, tranId, subId, medicalId);
+            handleMRVListingPayload({ queryId, tranId });
         }
     };
 
     useEffect(() => {
         setEditMRVId('');
         MRVListing();
-        handleInitData(GroupLifeJSON);
+        handleInitData(ProductMasterJSON);
     }, [tranId, subId, freeze, isPremCalc]);
 
     const handleChangeValue = (value, path, setFieldValue, values) => {
@@ -87,14 +110,14 @@ const MRVProdMast = ({
 
     const resetForm = () => {
         setEditMRVId('');
-        handleInitData(GroupLifeJSON);
+        handleInitData(ProductMasterJSON);
     };
 
     const handleEdit = async item => {
         try {
             const response = await mrvGetById('', {
-                screenCode,
-                screenName,
+                // screenCode,
+                // screenName,
                 tranId: item?.ID,
             });
             setEditMRVId(item?.ID);
@@ -328,17 +351,7 @@ const MRVProdMast = ({
                                 freeze={freeze}
                                 handleOnSearch={handleOnSearch}
                                 formInit={formInit}
-                                imageData={{
-                                    DocType: 'proposal_medical', TranId: '1', module: 'medical', dms_status: 'N',
-                                    screenName: 'DMS', uploadscrn: 'MEDICAL'
-                                }}
                             />
-                            {medicalId && editMRVId &&
-                                <CustomMediaUpload imageData={{
-                                    DocType: 'proposal_medical', TranId: editMRVId, module: 'medical', dms_status: 'N',
-                                    screenName: 'DMS', uploadscrn: 'MEDICAL'
-                                }} />
-                            }
                         </>
                     )}
                 </div>

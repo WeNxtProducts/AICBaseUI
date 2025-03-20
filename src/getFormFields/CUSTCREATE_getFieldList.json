@@ -10,7 +10,7 @@
     "PFD_TABLE_NAME": "lm_customer",
     "PFD_DATA_TYPE": "text",
     "PFD_SYS_ID": 23,
-    "PFD_MINMAX_YN": false,
+    "PFD_MINMAX_YN": false,date
     "PFD_VALIDATION_ID": "1",
     "PFD_FLD_VALUE": "",
     "PFD_SEQ_NO": 3,

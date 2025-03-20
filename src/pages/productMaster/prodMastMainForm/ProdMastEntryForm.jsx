@@ -1,11 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Form, Formik } from 'formik';
 import { CustomDatePicker, CustomInput, CustomNumberField, CustomSelect, CustomTextArea } from '../../../components/commonExportsFields/CommonExportsFields';
 import useApiRequests from '../../../services/useApiRequests';
 import { productType } from '../../../contants/productMasterDropDown';
+import showNotification from '../../../components/notification/Notification';
+import { ProductMasterContext } from '../ProductMaster';
+import { useDispatch } from 'react-redux';
+import { setProdMastId } from '../../../globalStore/slices/ProdMastSlice';
 
 const ProdMastEntryForm = () => {
-    const [id, setId] = useState('')
+    const dispatch = useDispatch()
+    const { id: tranId } = useContext(ProductMasterContext);
     const productMasterGetById = useApiRequests('productMasterGetById', 'POST');
     const productMasterCreate = useApiRequests('productMasterCreate', 'POST');
     const productMasterUpdate = useApiRequests('productMasterUpdate', 'POST');
@@ -35,7 +40,7 @@ const ProdMastEntryForm = () => {
 
     const handleGetData = async () => {
         try {
-            const response = await productMasterGetById('', { tranId: id });
+            const response = await productMasterGetById('', { tranId: tranId });
             if (response?.status === 'FAILURE') {
                 setLoader(false)
                 showNotification.ERROR(response?.status_msg)
@@ -51,11 +56,11 @@ const ProdMastEntryForm = () => {
     };
 
     useEffect(() => {
-        if (id) {
-            console.log(id)
+        if (tranId) {
+            console.log(tranId)
             handleGetData()
         }
-    }, [id])
+    }, [tranId])
 
     const handleCreateOrUpdate = async (values, apiCalls) => {
         const payload = {
@@ -64,14 +69,14 @@ const ProdMastEntryForm = () => {
             }
         }
         try {
-            const response = await apiCalls(payload, {}, id && { id });
+            const response = await apiCalls(payload, {}, tranId && { tranId });
             if (response?.status === 'FAILURE') {
                 setLoader(false)
                 showNotification.ERROR(response?.status_msg)
             }
             if (response?.status === 'SUCCESS') {
-                if (!id)
-                    setId(response?.data?.Id)
+                if (!tranId)
+                    dispatch(setProdMastId(response?.data?.Id))
                 setLoader(false)
                 showNotification.SUCCESS(response?.status_msg)
             }
@@ -82,7 +87,7 @@ const ProdMastEntryForm = () => {
     };
 
     const onSubmit = values => {
-        handleCreateOrUpdate(values, id ? productMasterUpdate : productMasterCreate)
+        handleCreateOrUpdate(values, tranId ? productMasterUpdate : productMasterCreate)
     }
 
     return (
@@ -393,7 +398,7 @@ const ProdMastEntryForm = () => {
                                     </div>
                                     <div className='col-span-2 flex items-center justify-center'>
                                         <button className='submit_btn' type='submit'>
-                                            {id ? 'Update' : 'Submit'}
+                                            {tranId ? 'Update' : 'Submit'}
                                         </button>
                                     </div>
                                 </Form>
