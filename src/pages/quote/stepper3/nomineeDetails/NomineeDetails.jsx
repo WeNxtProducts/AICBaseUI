@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
-import { Radio, Switch } from 'antd';
-import { SelectInput, TextInput, DateInput } from '@float-Input';
+import React from 'react'
+import { Radio } from 'antd';
+import { SelectInput, TextInput } from '@float-Input';
 import { Form, Formik } from 'formik';
 import { Roptions } from '../../QuoteConstant';
+import { setStepper3 } from '../../../../globalStore/slices/QuoteSlice';
+import { useDispatch } from 'react-redux';
 
 const NomineeDetails = () => {
+    const dispatch = useDispatch();
 
     return (
         <Formik
@@ -13,7 +16,7 @@ const NomineeDetails = () => {
             {({ handleSubmit, values, setFieldValue, errors }) => {
                 return (
                     <Form onSubmit={handleSubmit}>
-                        <div className='customer_details'>
+                        <div className='customer_details nominee'>
                             <div className='switch_cust'>
                                 <p className='bene'>Beneficiary Type :</p>
                                 <div className='switch-control'>
@@ -23,19 +26,41 @@ const NomineeDetails = () => {
                             <div className='cust_form'>
                                 <div className='cust_form_fields'>
                                     <SelectInput
-                                        label='Country Of residence'
+                                        label='Type Of Assignee'
                                     />
                                 </div>
                                 <div className='cust_form_fields'>
                                     <TextInput
-                                        label='Emirates ID'
+                                        label='Name'
                                     />
                                 </div>
                                 <div className='cust_form_fields'>
-                                    <DateInput
-                                        label='Emirates expiry date'
+                                    <TextInput
+                                        label='Mobile Number'
                                     />
-                                </div></div>
+                                </div>
+                                <div className='cust_form_fields'>
+                                    <TextInput
+                                        label='Email ID'
+                                    />
+                                </div>
+                                <div className='cust_form_fields'>
+                                    <TextInput
+                                        label='Share %'
+                                    />
+                                </div>
+                            </div>
+                            <div className='save_btn_grid_nominee'>
+                                <button
+                                    onClick={() => dispatch(setStepper3(''))}
+                                    type='submit'>
+                                    Save
+                                </button>
+                                <button
+                                    onClick={() => dispatch(setStepper3('customerAddress'))}>
+                                    Previous
+                                </button>
+                            </div>
                         </div>
                     </Form>
                 );

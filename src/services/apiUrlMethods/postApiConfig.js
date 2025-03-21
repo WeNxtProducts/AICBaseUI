@@ -427,6 +427,18 @@ const POST_API_URL = {
         url: '/prodFactor/update',
         baseURL: 'CRUD',
     },
+    DMSFileUpload64: {
+        url: '/dms/new/uploadMultiple',
+        baseURL: 'DOCPRINT',
+    },
+    DMSView64: {
+        url: '/dms/retrieve',
+        baseURL: 'DOCPRINT',
+    },
+    DMSDelete64: {
+        url: '/dms/deleteFiles',
+        baseURL: 'DOCPRINT',
+    },
 };
 
 export default POST_API_URL;

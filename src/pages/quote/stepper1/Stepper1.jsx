@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import BasicInformation from './BasicInformation';
 import { useSelector } from 'react-redux';
+import BasicInfo from './BasicInfo/BasicInfo';
 
 export const BenefitDetailsStep = createContext();
 
@@ -9,7 +10,8 @@ const Stepper1 = () => {
 
     return (
         <div className='stepper_1 mt-3'>
-            <BasicInformation />
+            {/* <BasicInformation /> */}
+            <BasicInfo />
         </div>
     );
 };

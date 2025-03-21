@@ -171,3 +171,89 @@ export const Roptions = [
         value: 'S',
     },
 ];
+
+export const initialQuestionnaire = [
+    {
+        id: 1,
+        label: 'Do you Smoke ?',
+        questions: [
+            {
+                qId: 1,
+                quest: 'Q1: How Many cigerettes do you smoke ?',
+                field: 'Number'
+            },
+            {
+                qId: 2,
+                quest: 'Q1: How Many cigerettes do you smoke ?',
+                field: 'Number'
+            }
+        ]
+    },
+    {
+        id: 2,
+        label: 'Do you Drink ?',
+        questions: [
+            {
+                qId: 1,
+                quest: 'Q1: How Many cigerettes do you smoke ?',
+                field: 'Number'
+            },
+            {
+                qId: 2,
+                quest: 'Q1: How Many cigerettes do you smoke ?',
+                field: 'Number'
+            }
+        ]
+
+    },
+    {
+        id: 3,
+        label: 'Medical History ?',
+        questions: []
+
+    },
+    {
+        id: 4,
+        label: 'Do you Drink ?',
+        questions: [
+            {
+                qId: 1,
+                quest: 'Q1: How Many cigerettes do you smoke ?',
+                field: 'Number'
+            },
+            {
+                qId: 2,
+                quest: 'Q1: How Many cigerettes do you smoke ?',
+                field: 'Number'
+            }
+        ]
+
+    },
+]
+
+export const checklist = [
+    {
+        id: 1,
+        description: 'Age Proof',
+        fileName: '',
+        status: true
+    },
+    {
+        id: 2,
+        description: 'License',
+        fileName: '',
+        status: false
+    },
+    {
+        id: 3,
+        description: 'PAN Card',
+        fileName: '',
+        status: false
+    }
+]
+
+export const DeleteKeys = [
+    'DocType', 'TranId', 'base64String', 'dms_status', 'filename',
+    'genType', 'module', 'param_add1', 'param_add2', 'replaceFlag',
+    'screenName', 'uploadscrn'
+];
