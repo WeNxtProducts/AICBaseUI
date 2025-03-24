@@ -11,6 +11,9 @@
 }
 
 @mixin submit-btn-1() {
+  display: flex;
+  align-items: center;
+  height: 30px;
   background-color: #0382C8;
   padding: 5px 20px;
   color: #ffffff;
@@ -19,6 +22,9 @@
 }
 
 @mixin submit-btn-2() {
+  display: flex;
+  align-items: center;
+  height: 30px;
   margin-right: 10px;
   border: 1px solid #0382C8;
   background-color: #ffffff;
@@ -166,8 +172,19 @@
   }
 
   .stepper_2 {
-    .head_benefits {
-      @include head-title();
+    .re_calc_box {
+      position: relative;
+
+      .head_benefits {
+        @include head-title();
+      }
+
+      .re-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include submit-btn-1();
+      }
     }
 
     .list_of_benefits {
@@ -403,11 +420,7 @@
     }
 
     .head_assured_cust {
-      margin-bottom: 10px;
-      color: #4D5E80;
-      font-size: 20px;
-      font-weight: 700;
-      text-align: center;
+      @include head-title();
     }
 
     .life_assured_check {
@@ -647,6 +660,16 @@
     padding-bottom: 20px;
     // border: 1px solid red;
 
+    .save_btn_grid_final {
+      button:nth-child(1) {
+        @include submit-btn-1();
+      }
+
+      button:nth-child(2) {
+        @include submit-btn-2();
+      }
+    }
+
     .head_benefits {
       @include head-title();
     }
@@ -681,8 +704,8 @@
           }
 
           .save-icon {
-            background-color: #52c41a; 
-            color: #fff; 
+            background-color: #52c41a;
+            color: #fff;
           }
 
           .view-icon {
@@ -743,4 +766,81 @@
       }
     }
   }
+
+  .Stepper6 {
+    margin-top: 10px;
+
+    .head_review {
+      @include head-title();
+    }
+
+    .review_form {
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #4D5E80;
+
+      .rev_header {
+        background-color: #0382C8;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        div:nth-of-type(-n+2) {
+          p:nth-child(1) {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 25px;
+          }
+
+          p:nth-child(2) {
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 400;
+          }
+        }
+      }
+
+      .review_details {
+        padding: 10px 10px;
+
+        .review_title {
+          color: #4D5E80;
+          font-size: 15px;
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+
+        .details_grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px 50px;
+          align-items: center;
+
+          .detail_field {
+            grid-column: span 1;
+
+            p:nth-child(1) {
+              color: #6B6B6B;
+              font-size: 14px;
+              font-weight: 700;
+              line-height: 30px;
+            }
+
+            p:nth-child(2) {
+              color: #202020;
+              font-size: 15px;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+      .review_address {
+        padding: 10px 10px;
+      }
+    }
+  }
+
 }

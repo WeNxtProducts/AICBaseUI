@@ -1,25 +1,52 @@
 import React, { useEffect } from 'react'
-import QuoteJSON from '../../../../getFormFields/QUOTE_getFieldList.json'
-import QuoteLOVJSON from '../../../../getFormFields/EMAILTEMPLATE_getLOVList.json'
+import QuoteJSON from '../../../../getFormFields/GETQUOTE_getFieldList.json'
+import QuoteLOVJSON from '../../../../getFormFields/GETQUOTE_getLOVList.json'
 import { useSelector, useDispatch } from 'react-redux';
-import { setBasicInfoForm, setDropDown, setStepperIndex } from '../../../../globalStore/slices/QuoteSlice';
+import { setBasicInfoForm, setDropDown, setStepperIndex, setTranId } from '../../../../globalStore/slices/QuoteSlice';
 import QuoteForm from '../../quoteForm/QuoteForm';
+import { sortObjectByPFDSeqNo } from '../../../../components/commonHelper/SortBySequence';
+import useApiRequests from '../../../../services/useApiRequests';
+import { deepCopy, extractFieldValuesInPlace } from '../../../../components/commonHelper/DataSend';
+import showNotification from '../../../../components/notification/Notification';
 
 const BasicInfo = () => {
     const dispatch = useDispatch();
+    const tranId = useSelector(state => state?.quote?.tranId);
     const basicInfoForm = useSelector(state => state?.quote?.basicInfoForm);
     const dropDown = useSelector(state => state?.quote?.dropDown);
+    const LTQuoteSave = useApiRequests('LTQuoteSave', 'POST');
+    const LTQuoteUpdate = useApiRequests('LTQuoteUpdate', 'POST');
 
     useEffect(() => {
         if (basicInfoForm === null) {
-            dispatch(setBasicInfoForm(QuoteJSON))
+            const orderedData = sortObjectByPFDSeqNo(QuoteJSON);
+            dispatch(setBasicInfoForm(orderedData))
             dispatch(setDropDown(QuoteLOVJSON))
         }
     }, [])
 
+    const addOrUpdateMRV = async (payload, addOrUpdate) => {
+        try {
+            const params = tranId ? { tranId } : {};
+            const response = await addOrUpdate(payload, '', params);
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                if (!tranId) dispatch(setTranId(response?.data?.Id));
+                dispatch(setStepperIndex(1));
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
     const onSubmit = async values => {
-        console.log("Payload : ", values)
-        dispatch(setStepperIndex(1));
+        const val = deepCopy(values);
+        const modifiedData = extractFieldValuesInPlace(val);
+        const payload = { frontForm: { formFields: modifiedData.frontForm?.formFields } };
+        console.log("Payload : ", payload)
+        addOrUpdateMRV(payload, tranId ? LTQuoteUpdate : LTQuoteSave);
+        // dispatch(setStepperIndex(1));
     };
 
     const handleChangeValue = (value, path, setFieldValue) => {

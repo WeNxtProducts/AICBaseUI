@@ -1,18 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    tranId: '',
     stepperIndex: 0,
     compQuote: false,
     stepper_3: '',
     basicInfoForm: null,
     dropDown: null,
-    custAssuredDetails: null
+    custAssuredDetails: null,
+    listOfBenefits: [],
+    premiumSummary: {
+        totalSumAssured: 0,
+        totalMonthlyPrem: 0,
+    }
 };
 
 const QuoteSlices = createSlice({
     name: 'QuoteSlices',
     initialState,
     reducers: {
+        setTranId: (state, action) => {
+            state.tranId = action.payload;
+        },
         setStepperIndex: (state, action) => {
             state.stepperIndex = action.payload;
         },
@@ -30,12 +39,28 @@ const QuoteSlices = createSlice({
         },
         setCustAssuredDetails: (state, action) => {
             state.custAssuredDetails = action.payload;
+        },
+        setListOfBenefits: (state, action) => {
+            state.listOfBenefits = action.payload;
+        },
+        setBenefitsSA: (state, action) => {
+            const { index, newDescription, key } = action.payload;
+            if (key === 'listOfBenefits')
+                state.listOfBenefits[index].QQAC_FC_SA = newDescription;
+            else if (key === 'QQAC_SELECT_YN') {
+                const tempSelectYN = state.listOfBenefits[index].QQAC_SELECT_YN === 'Y' ? 'N' : 'Y'
+                state.listOfBenefits[index].QQAC_SELECT_YN = tempSelectYN;
+            }
+        },
+        setPremiumSummary: (state, action) => {
+            state.premiumSummary = action.payload;
         }
     },
 });
 
 export const { setStepperIndex, setComQuote, setStepper3
-    , setBasicInfoForm, setDropDown, setCustAssuredDetails
+    , setBasicInfoForm, setDropDown, setCustAssuredDetails,
+    setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

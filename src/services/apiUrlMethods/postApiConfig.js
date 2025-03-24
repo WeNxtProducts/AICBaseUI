@@ -439,6 +439,22 @@ const POST_API_URL = {
         url: '/dms/deleteFiles',
         baseURL: 'DOCPRINT',
     },
+    LTQuoteSave: {
+        url: '/ltQuoteDetails/save',
+        baseURL: 'CRUD',
+    },
+    LTQuoteUpdate: {
+        url: '/ltQuoteDetails/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteDelete: {
+        url: '/ltQuoteDetails/delete',
+        baseURL: 'CRUD',
+    },
+    LTQuoteGet: {
+        url: '/ltQuoteDetails/get',
+        baseURL: 'CRUD',
+    }
 };
 
 export default POST_API_URL;

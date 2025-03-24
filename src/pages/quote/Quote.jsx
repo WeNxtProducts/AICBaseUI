@@ -8,6 +8,7 @@ import Stepper3 from './stepper3/Stepper3';
 import Stepper4 from './stepper4/Stepper4';
 import Stepper5 from './stepper5/Stepper5';
 import QuoteContext from './QuoteContext';
+import Stepper6 from './stepper6/Stepper6';
 import './Quote.scss';
 
 const Quote = () => {
@@ -28,6 +29,7 @@ const Quote = () => {
                         {stepperIndex === 2 && <Stepper3 />}
                         {stepperIndex === 3 && <Stepper4 />}
                         {stepperIndex === 4 && <Stepper5 />}
+                        {stepperIndex === 5 && <Stepper6 />}
                     </div>
                 </div>
             </div>

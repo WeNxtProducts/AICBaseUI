@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import QuoteJSON from '../../../../getFormFields/QUOTE_getFieldList.json'
+import QuoteJSON from '../../../../getFormFields/GETQUOTE_getFieldList.json'
 import QuoteLOVJSON from '../../../../getFormFields/EMAILTEMPLATE_getLOVList.json'
 import { useSelector, useDispatch } from 'react-redux';
 import {

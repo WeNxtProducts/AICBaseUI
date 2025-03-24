@@ -22,7 +22,7 @@ const fileData = {
     // DocType: 'enquiry',
     replaceFlag: 'N',
     dms_status: 'N',
-    uploadscrn: 'checklist',
+    uploadscrn: 'checklist-digital',
     screenName: 'DMS',
 };
 

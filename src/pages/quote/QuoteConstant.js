@@ -257,3 +257,109 @@ export const DeleteKeys = [
     'genType', 'module', 'param_add1', 'param_add2', 'replaceFlag',
     'screenName', 'uploadscrn'
 ];
+
+export const custDetails = [
+    {
+        id: 1,
+        label: 'Name',
+        value: 'aaaaaaaaa'
+    },
+    {
+        id: 2,
+        label: 'Mobile',
+        value: '9822728398'
+    },
+    {
+        id: 3,
+        label: 'Email',
+        value: 'hh@gmail.com'
+    },
+    {
+        id: 4,
+        label: 'Alternate Email',
+        value: 'aa@gmail.com'
+    },
+    {
+        id: 5,
+        label: 'DOB',
+        value: '10/09/1997'
+    },
+    {
+        id: 6,
+        label: 'Age',
+        value: '18 Years'
+    },
+    {
+        id: 7,
+        label: 'Gender',
+        value: 'Male'
+    },
+    {
+        id: 8,
+        label: 'Martial Status',
+        value: 'Single'
+    },
+    {
+        id: 9,
+        label: 'Weight',
+        value: '91 KG'
+    },
+    {
+        id: 10,
+        label: 'Height',
+        value: '6’1 ft'
+    },
+    {
+        id: 11,
+        label: 'Smoker',
+        value: 'No'
+    },
+    {
+        id: 12,
+        label: 'Country',
+        value: 'AAAAAAAAAAAA'
+    },
+    {
+        id: 13,
+        label: 'Nationality',
+        value: 'aaaaaaaaaaaa'
+    },
+    {
+        id: 14,
+        label: 'Place of Birth',
+        value: 'AAAAAAA'
+    },
+    {
+        id: 15,
+        label: 'Emirates ID',
+        value: '19128373739'
+    },
+    {
+        id: 16,
+        label: 'Emmirates Expirt date',
+        value: '10/10/2026 10:00:00 AM'
+    }
+]
+
+export const commDetails = [
+    {
+        id: 1,
+        label: 'Current Address',
+        value: `12,TEST,TEST,TEST,ASOSIEJMDD EIEIERUFJFD,DUBAI-102939384`
+    },
+    {
+        id: 2,
+        label: 'Permanent Address',
+        value: `12,TEST,TEST,TEST,ASOSIEJMDD EIEIERUFJFD,DUBAI-102939384`
+    }
+]
+
+export const tableData = [
+    { benefit: 'Death any charge', sumAssured: '1000000', term: 10, premium: '500.99', include: true },
+    { benefit: 'Permanent Total Disability(Accident & Sickness)', sumAssured: '200000', term: 15, premium: '1,000', include: false },
+    { benefit: 'Permanent Total Disability(Accident & Sickness)(Additional)', sumAssured: '100.78', term: 10, premium: '500', include: false },
+    { benefit: 'Critical Illness(Accelerated)', sumAssured: '200000', term: 7, premium: '2000.98', include: true },
+    { benefit: 'Critical Illness(Additional)', sumAssured: '100000', term: 8, premium: '500', include: true },
+    { benefit: 'Terminal Illness(Accelerated)', sumAssured: '200000', term: 9, premium: '1,000', include: false },
+    { benefit: 'Passive War Risk', sumAssured: '100000', term: 12, premium: '5000.20', include: false },
+];

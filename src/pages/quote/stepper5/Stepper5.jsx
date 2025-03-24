@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { Tabs } from 'antd'
 import TabPanelHeader from '../../../components/collapsePanelHeader/TabPanelHeader';
 import QuoteCheckList from './QuoteCheckList';
+import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { useDispatch } from 'react-redux';
 
 const { TabPane } = Tabs;
 
 const Stepper5 = () => {
+    const dispatch = useDispatch();
     const [activeTabKey, setActiveTabKey] = useState('1');
 
     const handleTabChange = key => {
@@ -29,6 +32,19 @@ const Stepper5 = () => {
                         </TabPane>
                     </Tabs>
                 </div>
+
+            </div>
+            <div className='save_btn_grid_final mt-3'>
+                <button
+                    onClick={() => dispatch(setStepperIndex(5))}
+                    type='submit'>
+                    Save
+                </button>
+                <button
+                    onClick={() => dispatch(setStepperIndex(3))}
+                >
+                    Previous
+                </button>
             </div>
         </div>
     )
