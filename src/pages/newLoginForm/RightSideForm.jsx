@@ -199,7 +199,10 @@ const RightSideForm = () => {
               <div className='main-forms'>
                 <div className='flex justify-between items-center'>
                   <p className='login-new-style'>Login</p>
-                  <button type='button' onClick={() => navigate('/quote')} className='w-full get_quote_btn'>
+                  <button
+                    type='button'
+                    onClick={() => navigate('/quoteProducts')} className='w-full get_quote_btn'
+                  >
                     Get Quote
                   </button>
                 </div>

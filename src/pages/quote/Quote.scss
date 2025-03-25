@@ -45,6 +45,22 @@
   //   border: 1px solid green;
   min-height: 100lvh;
 
+  .product_listing {
+    .breadcrumb-title {
+      cursor: pointer;
+      font-weight: 600;
+      color: #888888;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .highlight {
+      color: #0382c8;
+    }
+  }
+
   .process_button {
     background-color: #0382c8;
     padding: 4px 15px;
@@ -190,6 +206,10 @@
     .list_of_benefits {
       margin-top: 10px;
       position: relative;
+
+      .head_benefits {
+        @include head-title();
+      }
 
 
       .caption {

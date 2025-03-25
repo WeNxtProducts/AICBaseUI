@@ -454,6 +454,13 @@ const POST_API_URL = {
     LTQuoteGet: {
         url: '/ltQuoteDetails/get',
         baseURL: 'CRUD',
+    },
+    LTQuoteUpdateCoverData: {
+        url: '/ltQuoteDetails/updateLtQuotCoverData',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBasicFieldList: {
+        url: '/common/editFields',
     }
 };
 

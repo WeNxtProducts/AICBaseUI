@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const App = () => {
     //npx prettier --write .
-    const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`];
+    const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`, `/quoteProducts`];
     const location = useLocation();
     const [currentPath, setCurrentPath] = useState(true);
     const token = useSelector(state => state?.tokenAndMenuList?.token);

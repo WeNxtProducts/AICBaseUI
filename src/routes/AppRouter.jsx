@@ -64,6 +64,7 @@ const ClaimSettlement = lazy(() => import('../pages/claimSettlement/ClaimSettlem
 const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/CashbackProcessing'));
 const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
+const QuoteProductList = lazy(() => import('../pages/quote/qoteProductList/QuoteProductList'));
 
 const AppRouter = () => {
     return (
@@ -149,6 +150,15 @@ const AppRouter = () => {
                     element={
                         <Suspense fallback={<div>QUOTE...</div>}>
                             <Quote />
+                        </Suspense>
+                    }
+                />
+
+                <Route
+                    path='/quoteProducts'
+                    element={
+                        <Suspense fallback={<Loader />}>
+                            <QuoteProductList />
                         </Suspense>
                     }
                 />

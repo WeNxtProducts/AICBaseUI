@@ -16,7 +16,7 @@ const CustomerDetailsForm = () => {
     useEffect(() => {
         if (custAssuredDetails === null) {
             dispatch(setCustAssuredDetails(QuoteJSON))
-            dispatch(setDropDown(QuoteLOVJSON))
+            // dispatch(setDropDown(QuoteLOVJSON))
         }
     }, [])
 

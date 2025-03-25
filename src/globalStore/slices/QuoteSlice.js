@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    prodCode: '',
+    planCode: '',
     tranId: '',
     stepperIndex: 0,
     compQuote: false,
@@ -54,13 +56,20 @@ const QuoteSlices = createSlice({
         },
         setPremiumSummary: (state, action) => {
             state.premiumSummary = action.payload;
+        },
+        setProdCode: (state, action) => {
+            state.prodCode = action.payload;
+        },
+        setPlanCode: (state, action) => {
+            state.planCode = action.payload;
         }
     },
 });
 
 export const { setStepperIndex, setComQuote, setStepper3
     , setBasicInfoForm, setDropDown, setCustAssuredDetails,
-    setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId
+    setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId,
+    setProdCode, setPlanCode
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

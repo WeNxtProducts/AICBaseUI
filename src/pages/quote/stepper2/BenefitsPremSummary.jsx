@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd'
-import { setComQuote, setPremiumSummary } from '../../../globalStore/slices/QuoteSlice';
+import { setComQuote, setListOfBenefits, setPremiumSummary } from '../../../globalStore/slices/QuoteSlice';
 import { useSelector } from 'react-redux';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
+import useApiRequests from '../../../services/useApiRequests';
+import showNotification from '../../../components/notification/Notification';
 
-export const BenefitsPremSummary = () => {
+export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
     const dispatch = useDispatch();
+    const LTQuoteUpdateCoverData = useApiRequests('LTQuoteUpdateCoverData', 'POST');
     const benefitsList = useSelector(state => state?.quote?.listOfBenefits);
     const premiumSummary = useSelector(state => state?.quote?.premiumSummary);
 
@@ -18,8 +21,24 @@ export const BenefitsPremSummary = () => {
         dispatch(setPremiumSummary({ totalMonthlyPrem, totalSumAssured }))
     }, [benefitsList])
 
-    const handleReCalc = () => {
-        console.log("benefitsList : ", benefitsList)
+    const handleReCalc = async () => {
+        const extractedData = benefitsList.map(({ QQAC_TRAN_ID, QQAC_FC_SA, QQAC_SELECT_YN }) => ({
+            QQAC_TRAN_ID,
+            QQAC_FC_SA,
+            QQAC_SELECT_YN
+        }));
+        console.log(extractedData)
+        try {
+            const response = await LTQuoteUpdateCoverData(extractedData);
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                handleGetListOfBenefits()
+                console.log("Response : ", response)
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (

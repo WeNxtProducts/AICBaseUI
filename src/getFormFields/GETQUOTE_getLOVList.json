@@ -1,4 +1,18 @@
 {
+    "QUOT_CURR": [
+        {
+            "label": "Ethiopian Birr",
+            "value": "ETB"
+        },
+        {
+            "label": "US Dollar",
+            "value": "USD"
+        },
+        {
+            "label": "Indian Rupees",
+            "value": "INR"
+        }
+    ],
     "QUOT_OCCU": [
         {
             "label": "Chief engineer - radio and tel",
@@ -3443,6 +3457,112 @@
         {
             "label": "dhoby",
             "value": "D020"
+        }
+    ],
+    "QUOT_NAME_TITLE": [
+        {
+            "label": "Mr",
+            "value": "1"
+        },
+        {
+            "label": "Admiral",
+            "value": "10"
+        },
+        {
+            "label": "Br",
+            "value": "11"
+        },
+        {
+            "label": "Brigadier",
+            "value": "12"
+        },
+        {
+            "label": "Captain",
+            "value": "13"
+        },
+        {
+            "label": "Colonel",
+            "value": "14"
+        },
+        {
+            "label": "Commander",
+            "value": "15"
+        },
+        {
+            "label": "Doctor",
+            "value": "16"
+        },
+        {
+            "label": "Judge",
+            "value": "18"
+        },
+        {
+            "label": "Lt",
+            "value": "19"
+        },
+        {
+            "label": "Prof",
+            "value": "2"
+        },
+        {
+            "label": "Master",
+            "value": "20"
+        },
+        {
+            "label": "Other",
+            "value": "21"
+        },
+        {
+            "label": "Professor",
+            "value": "22"
+        },
+        {
+            "label": "Sir",
+            "value": "23"
+        },
+        {
+            "label": "Special",
+            "value": "24"
+        },
+        {
+            "label": "The Hon",
+            "value": "25"
+        },
+        {
+            "label": "The Reverend",
+            "value": "26"
+        },
+        {
+            "label": "Miss",
+            "value": "27"
+        },
+        {
+            "label": "Dr",
+            "value": "3"
+        },
+        {
+            "label": "Sir ",
+            "value": "4"
+        },
+        {
+            "label": "Madamme",
+            "value": "5"
+        },
+        {
+            "label": "Mrs",
+            "value": "6"
+        },
+        {
+            "label": "Ms",
+            "value": "7"
+        },
+        {
+            "label": "M/S",
+            "value": "8"
+        },
+        {
+            "label": "Advocate",
+            "value": "9"
         }
     ],
     "QUOT_COUNT_RESIDENCE": [
