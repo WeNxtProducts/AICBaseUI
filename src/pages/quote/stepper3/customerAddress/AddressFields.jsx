@@ -2,8 +2,12 @@ import React from 'react'
 import { Checkbox } from 'antd'
 import { SelectInput, TextInput } from '@float-Input';
 import { Form, Formik } from 'formik';
+import { setStepper3 } from '../../../../globalStore/slices/QuoteSlice';
+import { useDispatch } from 'react-redux';
 
 const AddressFields = () => {
+    const dispatch = useDispatch();
+
     return (
         <Formik
             enableReinitialize={true}
@@ -53,14 +57,21 @@ const AddressFields = () => {
                                     label='Zip Code'
                                 />
                             </div>
-                            <div className='mail_field'>
+                            <div className='mail_field flex justify-center'>
                                 <Checkbox className='mail_check'>
-                                    Current Address is same as permanent Address
+                                    Permanent Address is same as Current Address
                                 </Checkbox>
                             </div>
                             <div className='save_btn_grid'>
-                                <button type='submit'>Save</button>
-                                <button>Previous</button>
+                                <button
+                                    onClick={() => dispatch(setStepper3('nomineeDetails'))}
+                                    type='submit'>
+                                    Save
+                                </button>
+                                <button
+                                    onClick={() => dispatch(setStepper3('customerDetails'))}>
+                                    Previous
+                                </button>
                             </div>
                         </div>
                     </Form>

@@ -427,6 +427,41 @@ const POST_API_URL = {
         url: '/prodFactor/update',
         baseURL: 'CRUD',
     },
+    DMSFileUpload64: {
+        url: '/dms/new/uploadMultiple',
+        baseURL: 'DOCPRINT',
+    },
+    DMSView64: {
+        url: '/dms/retrieve',
+        baseURL: 'DOCPRINT',
+    },
+    DMSDelete64: {
+        url: '/dms/deleteFiles',
+        baseURL: 'DOCPRINT',
+    },
+    LTQuoteSave: {
+        url: '/ltQuoteDetails/save',
+        baseURL: 'CRUD',
+    },
+    LTQuoteUpdate: {
+        url: '/ltQuoteDetails/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteDelete: {
+        url: '/ltQuoteDetails/delete',
+        baseURL: 'CRUD',
+    },
+    LTQuoteGet: {
+        url: '/ltQuoteDetails/get',
+        baseURL: 'CRUD',
+    },
+    LTQuoteUpdateCoverData: {
+        url: '/ltQuoteDetails/updateLtQuotCoverData',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBasicFieldList: {
+        url: '/common/editFields',
+    }
 };
 
 export default POST_API_URL;

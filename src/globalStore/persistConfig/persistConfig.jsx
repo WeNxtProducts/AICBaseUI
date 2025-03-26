@@ -13,7 +13,7 @@ const persistConfig = {
         },
     ],
     whitelist: ['menuSelected', 'tokenAndMenuList', 'id', 'UWId',
-        'Receipt', 'Endo', 'SurrId', 'rules', 'reInsurance', 'quote', 'prodMast'],
+        'Receipt', 'Endo', 'SurrId', 'rules', 'reInsurance', 'quote'],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

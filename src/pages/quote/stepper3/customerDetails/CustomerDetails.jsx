@@ -2,8 +2,12 @@ import React from 'react'
 import { Switch } from 'antd'
 import { Form, Formik } from 'formik';
 import { SelectInput, TextInput, DateInput } from '@float-Input';
+import { setStepper3 } from '../../../../globalStore/slices/QuoteSlice';
+import { useDispatch } from 'react-redux';
 
 const CustomerDetails = () => {
+    const dispatch = useDispatch();
+
     return (
         <Formik
             enableReinitialize={true}
@@ -135,7 +139,11 @@ const CustomerDetails = () => {
 
                             </div>
                             <div className='save_btn_grid'>
-                                <button type='submit'>Save</button>
+                                <button
+                                    onClick={() => dispatch(setStepper3('customerAddress'))}
+                                    type='submit'>
+                                    Save
+                                </button>
                             </div>
                         </div>
                     </Form>

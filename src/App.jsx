@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 const App = () => {
     //npx prettier --write .
-    const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`];
+    const ignorePaths = [`/`, `/login`, `/newlogin`, `/resetpassword`, `/quote`, `/quoteProducts`];
     const location = useLocation();
     const [currentPath, setCurrentPath] = useState(true);
     const token = useSelector(state => state?.tokenAndMenuList?.token);
@@ -23,6 +23,23 @@ const App = () => {
     useEffect(() => {
         const checkPaths = ignorePaths.includes(location.pathname);
         setCurrentPath(checkPaths);
+
+
+        // function getSessionStorageSize() {
+        //     let total = 0;
+        //     for (let key in sessionStorage) {
+        //         if (sessionStorage.hasOwnProperty(key)) {
+        //             total += (sessionStorage[key].length * 2); // Each character is 2 bytes in UTF-16
+        //         }
+        //     }
+        //     return total; // Size in bytes
+        // }
+
+        // const sizeInBytes = getSessionStorageSize();
+        // const sizeInKB = sizeInBytes / 1024;
+        // const sizeInMB = sizeInKB / 1024;
+
+        // console.log(`SessionStorage size: ${sizeInBytes} bytes, ${sizeInKB.toFixed(2)} KB, ${sizeInMB.toFixed(2)} MB`);
     }, [location.pathname]);
 
     const refreshToken = async () => {
