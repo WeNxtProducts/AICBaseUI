@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd'
-import { setComQuote, setListOfBenefits, setPremiumSummary } from '../../../globalStore/slices/QuoteSlice';
+import { setComQuote, setListOfBenefits, setPremiumSummary, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import { useSelector } from 'react-redux';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 import useApiRequests from '../../../services/useApiRequests';
@@ -72,7 +72,12 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
                         dispatch(setComQuote(true))
                     }}
                     className='oth_btn'>Compare Quote</Button>
-                <Button className='acc_btn'>Accept</Button>
+                <Button
+                    onClick={() => {
+                        dispatch(setStepperIndex(2));
+                    }}
+                    className='acc_btn'>Accept
+                </Button>
             </div>
         </div>
     )

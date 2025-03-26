@@ -8,6 +8,7 @@ import { setBenefitsSA } from '../../../globalStore/slices/QuoteSlice';
 const ListOfBenefits = () => {
     const dispatch = useDispatch();
     const benefitsList = useSelector(state => state?.quote?.listOfBenefits);
+    const tranId = useSelector(state => state?.quote?.tranId);
 
     const handleChangeVal = (index) => (e) => {
         const newDescription = e.target.value;
@@ -30,7 +31,7 @@ const ListOfBenefits = () => {
             <p className='head_benefits'>List Of Benefits</p>
             {hasValidRowData(benefitsList) ? (
                 <>
-                    <div className="caption">Quotation No - 101010101010101</div>
+                    <div className="caption">Quotation No - {tranId}</div>
                     <table className="table">
                         <thead>
                             <tr>
