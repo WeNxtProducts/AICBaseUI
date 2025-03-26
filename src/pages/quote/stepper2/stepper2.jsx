@@ -9,7 +9,6 @@ import showNotification from '../../../components/notification/Notification';
 
 const Stepper2 = () => {
     const dispatch = useDispatch();
-    const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
     const compQuote = useSelector(state => state?.quote?.compQuote)
     const benefitsList = useSelector(state => state?.quote?.listOfBenefits);
     const tranId = useSelector(state => state?.quote?.tranId);
