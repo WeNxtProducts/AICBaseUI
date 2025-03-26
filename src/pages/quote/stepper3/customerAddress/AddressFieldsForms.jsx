@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setStepper3, setStepperIndex } from '../../../../globalStore/slices/QuoteSlice';
 import QuoteForm from '../../quoteForm/QuoteForm';
 
-const AddressFieldsForms = () => {
+const AddressFieldsForms = ({ root }) => {
     const dispatch = useDispatch();
     const custAssuredDetails = useSelector(state => state?.quote?.custAssuredDetails);
     const dropDown = useSelector(state => state?.quote?.dropDown);
@@ -28,7 +28,7 @@ const AddressFieldsForms = () => {
                     <QuoteForm
                         initialValues={custAssuredDetails}
                         formRender={custAssuredDetails}
-                        root='frontForm'
+                        root={root}
                         lovList={dropDown}
                         addOrUpdate={false}
                         onSubmit={onSubmit}

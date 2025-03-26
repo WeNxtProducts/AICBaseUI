@@ -13,17 +13,6 @@ const CustomerDetailsForm = () => {
     const custAssuredDetails = useSelector(state => state?.quote?.custAssuredDetails);
     const dropDown = useSelector(state => state?.quote?.dropDown);
 
-    useEffect(() => {
-        if (custAssuredDetails === null) {
-            dispatch(setCustAssuredDetails(QuoteJSON))
-            // dispatch(setDropDown(QuoteLOVJSON))
-        }
-    }, [])
-
-    useEffect(() => {
-        console.log("custAssuredDetails : ", custAssuredDetails)
-    }, [custAssuredDetails])
-
     const onSubmit = async values => {
         console.log("Payload : ", values)
         dispatch(setStepper3('customerAddress'))
@@ -40,7 +29,7 @@ const CustomerDetailsForm = () => {
                     <QuoteForm
                         initialValues={custAssuredDetails}
                         formRender={custAssuredDetails}
-                        root='frontForm'
+                        root='QuotAssuredDtls'
                         lovList={dropDown}
                         addOrUpdate={false}
                         onSubmit={onSubmit}

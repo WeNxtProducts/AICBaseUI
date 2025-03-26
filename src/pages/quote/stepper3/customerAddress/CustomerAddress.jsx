@@ -19,11 +19,11 @@ const CustomerAddress = () => {
                 <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                     <TabPane key='1' tab={<TabPanelHeader name='Current Address' />}>
                         {/* <AddressFields /> */}
-                        <AddressFieldsForms />
+                        <AddressFieldsForms root='ResidentAddress' />
                     </TabPane>
                     <TabPane key='2' tab={<TabPanelHeader name='Permanent Address' />}>
                         {/* <AddressFields /> */}
-                        <AddressFieldsForms />
+                        <AddressFieldsForms root='PermanentAddress' />
                     </TabPane>
                 </Tabs>
             </div>

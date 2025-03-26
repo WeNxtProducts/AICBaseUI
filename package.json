@@ -4,9 +4,9 @@
  "version": "0.0.0",
  "type": "module",
  "scripts": {
-  "dev": "vite  --mode development",
-  "stage": "vite --mode staging",
-  "prod": "vite --mode production",
+  "dev": "vite --host --mode development",
+  "stage": "vite --host --mode staging",
+  "prod": "vite --host --mode production",
   "build": "vite build",
   "lint": "eslint src/**/*.{js,jsx}",
   "preview": "vite preview",
