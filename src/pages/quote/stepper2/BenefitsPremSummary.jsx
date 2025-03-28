@@ -12,6 +12,7 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
     const LTQuoteUpdateCoverData = useApiRequests('LTQuoteUpdateCoverData', 'POST');
     const benefitsList = useSelector(state => state?.quote?.listOfBenefits);
     const premiumSummary = useSelector(state => state?.quote?.premiumSummary);
+    const tranId = useSelector(state => state?.quote?.tranId);
 
     useEffect(() => {
         const totalMonthlyPrem = benefitsList?.reduce((accumulator, currentValue) => {
@@ -26,7 +27,8 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
         const extractedData = benefitsList.map(({ QQAC_TRAN_ID, QQAC_FC_SA, QQAC_SELECT_YN }) => ({
             QQAC_TRAN_ID,
             QQAC_FC_SA,
-            QQAC_SELECT_YN
+            QQAC_SELECT_YN,
+            id: tranId
         }));
         console.log(extractedData)
         try {
