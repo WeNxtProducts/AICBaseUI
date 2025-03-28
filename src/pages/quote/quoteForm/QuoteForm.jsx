@@ -28,10 +28,10 @@ const QuoteForm = ({
     const [validation, setValidation] = useState(null);
 
     useEffect(() => {
-        console.log("validationSchema : ", validationSchema)
         if (validationSchema) {
             setValidation(validationSchema);
-        } else {
+        }
+        else {
             const validationSchema = createYupSchema({
                 [root]: formRender[root],
             });
@@ -61,6 +61,7 @@ const QuoteForm = ({
                                 <div className={`items-start grid grid-cols-${grid} gap-x-5 gap-y-2`}>
                                     {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
                                         const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+                                        console.log("dataId : ", dataId)
                                         return useMemo(() => {
                                             return (
                                                 <React.Fragment key={dataId}>

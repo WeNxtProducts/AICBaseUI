@@ -19,6 +19,7 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
         }, 0);
         const totalSumAssured = benefitsList.find(item => item.QQAC_BASIC_YN === 'Y')?.QQAC_FC_SA;
         dispatch(setPremiumSummary({ totalMonthlyPrem, totalSumAssured }))
+        dispatch(setStepperIndex(2))
     }, [benefitsList])
 
     const handleReCalc = async () => {

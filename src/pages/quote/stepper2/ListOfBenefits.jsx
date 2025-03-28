@@ -53,8 +53,8 @@ const ListOfBenefits = () => {
                                                 value={row.QQAC_FC_SA}
                                                 placeholder='1,000'
                                                 onChange={handleChangeVal(index)}
-                                            />
-                                            ) : (
+                                            />)
+                                            : (
                                                 formatNumber(row.QQAC_FC_SA)
                                             )
                                         }

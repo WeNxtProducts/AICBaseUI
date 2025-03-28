@@ -51,9 +51,9 @@ const Quote = () => {
                 dispatch(setBasicInfoForm({ frontForm: orderedData?.frontForm || {} }));
                 dispatch(setCustAssuredDetails({
                     QuotAssuredDtls: orderedData?.QuotAssuredDtls || {},
-                    ResidentAddress: orderedData?.ResidentAddress || {},
-                    PermanentAddress: orderedData?.PermanentAddress || {},
-                    NomineeDetails: orderedData?.NomineeDetails || {}
+                    CurrentAddress: orderedData?.CurrentAddress || {},
+                    ResidenceAddress: orderedData?.ResidenceAddress || {},
+                    Nominee: orderedData?.Nominee || {}
                 }))
             }
         } catch (err) {

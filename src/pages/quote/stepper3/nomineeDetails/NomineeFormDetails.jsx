@@ -30,7 +30,7 @@ const NomineeFormDetails = () => {
                     <QuoteForm
                         initialValues={custAssuredDetails}
                         formRender={custAssuredDetails}
-                        root='NomineeDetails'
+                        root='Nominee'
                         lovList={dropDown}
                         addOrUpdate={false}
                         onSubmit={onSubmit}
