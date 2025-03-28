@@ -21,18 +21,24 @@ const QuoteForm = ({
         btn1: 'Save',
         btn2: 'Cancel'
     },
-    handlePrevious
+    handlePrevious,
+    validationSchema
 }) => {
     const [initValues, setInitValues] = useState(null);
     const [validation, setValidation] = useState(null);
 
     useEffect(() => {
-        const validationSchema = createYupSchema({
-            [root]: formRender[root],
-        });
-        setValidation(validationSchema);
+        console.log("validationSchema : ", validationSchema)
+        if (validationSchema) {
+            setValidation(validationSchema);
+        } else {
+            const validationSchema = createYupSchema({
+                [root]: formRender[root],
+            });
+            setValidation(validationSchema);
+        }
         setInitValues(initialValues);
-    }, [formRender, initialValues, root]);
+    }, [formRender, initialValues, root, validationSchema]);
 
     const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val, label = '') => {
         if (handleOnBlur) {
@@ -50,7 +56,6 @@ const QuoteForm = ({
                     onSubmit={onSubmit}
                     enableReinitialize={true}>
                     {({ handleSubmit, values, errors, setFieldValue, resetForm }) => {
-
                         return (
                             <Form onSubmit={handleSubmit}>
                                 <div className={`items-start grid grid-cols-${grid} gap-x-5 gap-y-2`}>
