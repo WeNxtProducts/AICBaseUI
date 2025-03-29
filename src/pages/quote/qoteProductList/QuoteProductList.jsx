@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import QuoteHeader from '../quoteHeader/QuoteHeader'
-import { Breadcrumb } from 'antd'
+import { Breadcrumb, Button } from 'antd'
 import { IoIosArrowForward } from 'react-icons/io'
 import FromHeader from '../../../components/fieldsWithValues/FromHeader'
 import showNotification from '../../../components/notification/Notification'
@@ -33,7 +33,8 @@ const QuoteProductList = () => {
     //     setSelectedProduct('');
     // };
 
-    const handleGetListData = async (queryId, apiCalls, setState, payload) => {
+    const handleGetListData = async (queryId = 410, apiCalls = getProdList
+        , setState = setProductList, payload = { id: 1 }) => {
         setLoader(true);
         try {
             const response = await apiCalls(payload, {
@@ -70,11 +71,12 @@ const QuoteProductList = () => {
         <div className='Quote'>
             {loader && <Loader />}
             <QuoteHeader />
-            <div className='product_listing'>
-                {/* <div className='pl-3 mb-1'>
-                    <Breadcrumb separator={<IoIosArrowForward className='mt-1' />}>
-                        {breadCrumbsItem.map((item, index) => (
-                            <Breadcrumb.Item key={index}>
+            {productList?.length > 0 ? (
+                <div className='product_listing'>
+                    {/* <div className='pl-3 mb-1'>
+                        <Breadcrumb separator={<IoIosArrowForward className='mt-1' />}>
+                            {breadCrumbsItem.map((item, index) => (
+                                <Breadcrumb.Item key={index}>
                                 <span
                                     className={`breadcrumb-title ${item?.title === locationState ? 'highlight' : ''}`}
                                     onClick={() => handleBreadCrumbs(item)}>
@@ -84,27 +86,32 @@ const QuoteProductList = () => {
                         ))}
                     </Breadcrumb>
                 </div> */}
-                <FromHeader name={locationState} />
-                {locationState === 'Product List'
-                    ? hasValidRowData(productList) && (
-                        <div className='mt-1 grid grid-cols-4 gap-5 pl-2'>
-                            {productList?.map(item => (
-                                <div key={item?.value} className='col-span-1'>
-                                    <ProductCard value={item} onSelect={handleSelectProduct} />
-                                </div>
-                            ))}
-                        </div>
-                    )
-                    : hasValidRowData(planList) && (
-                        <div className='mt-1 grid grid-cols-4 gap-5 pl-2'>
-                            {planList?.map(item => (
-                                <div key={item?.value} className='col-span-1'>
-                                    <PlanCard value={item} onSelect={handleSelectPlan} />
-                                </div>
-                            ))}
-                        </div>
-                    )}
-            </div>
+                    <FromHeader name={locationState} />
+                    {locationState === 'Product List'
+                        ? hasValidRowData(productList) && (
+                            <div className='mt-1 grid grid-cols-4 gap-5 pl-2'>
+                                {productList?.map(item => (
+                                    <div key={item?.value} className='col-span-1'>
+                                        <ProductCard value={item} onSelect={handleSelectProduct} />
+                                    </div>
+                                ))}
+                            </div>
+                        )
+                        : hasValidRowData(planList) && (
+                            <div className='mt-1 grid grid-cols-4 gap-5 pl-2'>
+                                {planList?.map(item => (
+                                    <div key={item?.value} className='col-span-1'>
+                                        <PlanCard value={item} onSelect={handleSelectPlan} />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                </div>
+            ) : (
+                <div className='product_listing_empty'>
+                    <Button onClick={() => handleGetListData()}>Try again</Button>
+                </div>
+            )}
         </div>
     )
 }
