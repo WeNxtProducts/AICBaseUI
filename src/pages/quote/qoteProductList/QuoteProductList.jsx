@@ -11,6 +11,7 @@ import ProductCard from './productCard/ProductCard'
 import PlanCard from './productCard/PlanCard'
 import { useNavigate } from 'react-router-dom'
 import '../Quote.scss'
+import Loader from '../../../components/loader/Loader'
 
 const QuoteProductList = () => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ const QuoteProductList = () => {
     const [selectedProduct, setSelectedProduct] = useState('');
     const [productList, setProductList] = useState([]);
     const [planList, setPlanList] = useState([]);
+    const [loader, setLoader] = useState(false);
 
     const hasValidRowData = list => {
         return list && list.length > 0 && Object.keys(list[0]).length > 0;
@@ -32,6 +34,7 @@ const QuoteProductList = () => {
     // };
 
     const handleGetListData = async (queryId, apiCalls, setState, payload) => {
+        setLoader(true);
         try {
             const response = await apiCalls(payload, {
                 queryId,
@@ -42,6 +45,8 @@ const QuoteProductList = () => {
             }
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoader(false);
         }
     };
 
@@ -63,6 +68,7 @@ const QuoteProductList = () => {
 
     return (
         <div className='Quote'>
+            {loader && <Loader />}
             <QuoteHeader />
             <div className='product_listing'>
                 {/* <div className='pl-3 mb-1'>
