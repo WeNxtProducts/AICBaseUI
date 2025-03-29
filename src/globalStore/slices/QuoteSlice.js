@@ -14,7 +14,8 @@ const initialState = {
     premiumSummary: {
         totalSumAssured: 0,
         totalMonthlyPrem: 0,
-    }
+    },
+    loader: false
 };
 
 const QuoteSlices = createSlice({
@@ -62,6 +63,9 @@ const QuoteSlices = createSlice({
         },
         setPlanCode: (state, action) => {
             state.planCode = action.payload;
+        },
+        setLoader: (state, action) => {
+            state.loader = action.payload;
         }
     },
 });
@@ -69,7 +73,7 @@ const QuoteSlices = createSlice({
 export const { setStepperIndex, setComQuote, setStepper3
     , setBasicInfoForm, setDropDown, setCustAssuredDetails,
     setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId,
-    setProdCode, setPlanCode
+    setProdCode, setPlanCode, setLoader
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

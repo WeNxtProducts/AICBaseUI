@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setBasicInfoForm, setStepperIndex, setTranId } from '../../../../globalStore/slices/QuoteSlice';
+import { setBasicInfoForm, setLoader, setStepperIndex, setTranId } from '../../../../globalStore/slices/QuoteSlice';
 import QuoteForm from '../../quoteForm/QuoteForm';
 import useApiRequests from '../../../../services/useApiRequests';
 import { deepCopy, extractFieldValuesInPlace } from '../../../../components/commonHelper/DataSend';
 import showNotification from '../../../../components/notification/Notification';
 import { basicInfoSchema } from '../../QuoteSchema';
+import Loader from '../../../../components/loader/Loader';
 
 const BasicInfo = () => {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const BasicInfo = () => {
     const basicInfoForm = useSelector(state => state?.quote?.basicInfoForm);
     const prodCode = useSelector(state => state?.quote?.prodCode);
     const dropDown = useSelector(state => state?.quote?.dropDown);
+    const loader = useSelector(state => state?.quote?.loader);
     const LTQuoteSave = useApiRequests('LTQuoteSave', 'POST');
     const LTQuoteUpdate = useApiRequests('LTQuoteUpdate', 'POST');
 
@@ -21,17 +23,21 @@ const BasicInfo = () => {
     }, [basicInfoForm]);
 
     const addOrUpdateBasicInfo = async (payload, addOrUpdate, values) => {
+        dispatch(setLoader(true));
         try {
             const params = tranId ? { tranId } : {};
             const response = await addOrUpdate(payload, '', params);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
+                showNotification.SUCCESS(response?.status_msg);
                 dispatch(setBasicInfoForm(values))
                 if (!tranId) dispatch(setTranId(response?.data?.Id));
                 dispatch(setStepperIndex(1));
             }
         } catch (err) {
             console.error(err);
+        } finally {
+            dispatch(setLoader(false));
         }
     };
 
@@ -56,6 +62,7 @@ const BasicInfo = () => {
 
     return (
         <div className='mt-2 basic_information'>
+            {loader && <Loader />}
             <p>Basic Information</p>
             {basicInfoForm !== null && dropDown !== null && (
                 <div className='basic_info_form'>

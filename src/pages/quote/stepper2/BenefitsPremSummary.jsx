@@ -15,17 +15,13 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
     const tranId = useSelector(state => state?.quote?.tranId);
 
     useEffect(() => {
-        const totalMonthlyPrem = benefitsList?.reduce((accumulator, currentValue) => {
-            return accumulator + currentValue.QQAC_FC_PREM;
-        }, 0);
-        const totalSumAssured = benefitsList.find(item => item.QQAC_BASIC_YN === 'Y')?.QQAC_FC_SA;
-        dispatch(setPremiumSummary({ totalMonthlyPrem, totalSumAssured }))
+        if (benefitsList?.length > 0) handleReCalc(false);
     }, [benefitsList])
 
-    const handleReCalc = async () => {
-        const extractedData = benefitsList.map(({ QQAC_TRAN_ID, QQAC_FC_SA, QQAC_SELECT_YN }) => ({
+    const handleReCalc = async (isReCalc) => {
+        const extractedData = benefitsList.map(({ QQAC_TRAN_ID, QQAC_FC_SA, QQAC_SELECT_YN, FC_SA_prev }) => ({
             QQAC_TRAN_ID,
-            QQAC_FC_SA,
+            QQAC_FC_SA: QQAC_SELECT_YN === 'Y' ? QQAC_FC_SA : FC_SA_prev,
             QQAC_SELECT_YN,
             id: tranId
         }));
@@ -35,8 +31,11 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
-                handleGetListOfBenefits()
-                console.log("Response : ", response)
+                if (isReCalc) handleGetListOfBenefits()
+                showNotification.SUCCESS(response?.status_msg);
+                const totalMonthlyPrem = response?.data;
+                const totalSumAssured = benefitsList.find(item => item.QQAC_BASIC_YN === 'Y')?.QQAC_FC_SA;
+                dispatch(setPremiumSummary({ totalMonthlyPrem, totalSumAssured }))
             }
         } catch (err) {
             console.log(err);
@@ -49,7 +48,7 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
                 <p className='head_benefits'>Premium Summary</p>
                 <Button
                     onClick={() => {
-                        handleReCalc()
+                        handleReCalc(true)
                     }}
                     className='re-btn ml-9'>
                     Re-Calculate

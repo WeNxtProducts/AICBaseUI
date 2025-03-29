@@ -11,8 +11,9 @@ import Stepper6 from './stepper6/Stepper6';
 import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
-import { setBasicInfoForm, setCustAssuredDetails, setDropDown } from '../../globalStore/slices/QuoteSlice';
+import { setBasicInfoForm, setCustAssuredDetails, setDropDown, setLoader } from '../../globalStore/slices/QuoteSlice';
 import './Quote.scss';
+import Loader from '../../components/loader/Loader';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Quote = () => {
     const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
     const basicInfoForm = useSelector(state => state?.quote?.basicInfoForm);
     const prodCode = useSelector(state => state?.quote?.prodCode);
+    const loader = useSelector(state => state?.quote?.loader);
 
     useEffect(() => {
         if (basicInfoForm === null) {
@@ -29,6 +31,7 @@ const Quote = () => {
     }, []);
 
     const fetchFieldAndLovList = async () => {
+        dispatch(setLoader(true));
         try {
             const [lovResponse, fieldResponse] = await Promise.all([
                 LTLovJson('', {
@@ -58,6 +61,8 @@ const Quote = () => {
             }
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch(setLoader(false));
         }
     };
 
@@ -65,6 +70,7 @@ const Quote = () => {
 
     return (
         <QuoteContext.Provider value={data}>
+            {loader && <Loader />}
             <div className='Quote'>
                 <QuoteHeader />
                 <div className='content_box p-3'>
