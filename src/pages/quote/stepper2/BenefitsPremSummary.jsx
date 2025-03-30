@@ -16,7 +16,7 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
 
     useEffect(() => {
         if (benefitsList?.length > 0) handleReCalc(false);
-    }, [benefitsList])
+    }, [])
 
     const handleReCalc = async (isReCalc) => {
         const extractedData = benefitsList.map(({ QQAC_TRAN_ID, QQAC_FC_SA, QQAC_SELECT_YN, FC_SA_prev }) => ({
@@ -31,9 +31,11 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
-                if (isReCalc) handleGetListOfBenefits()
-                showNotification.SUCCESS(response?.status_msg);
-                const totalMonthlyPrem = response?.data;
+                if (isReCalc) {
+                    handleGetListOfBenefits()
+                    showNotification.SUCCESS(response?.status_msg);
+                }
+                const totalMonthlyPrem = response?.Data;
                 const totalSumAssured = benefitsList.find(item => item.QQAC_BASIC_YN === 'Y')?.QQAC_FC_SA;
                 dispatch(setPremiumSummary({ totalMonthlyPrem, totalSumAssured }))
             }
