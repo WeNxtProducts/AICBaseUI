@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { Button } from 'antd'
-import { setComQuote, setListOfBenefits, setPremiumSummary, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setComQuote, setListOfBenefits, setLoader, setPremiumSummary, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import { useSelector } from 'react-redux';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 import useApiRequests from '../../../services/useApiRequests';
@@ -19,6 +19,7 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
     }, [])
 
     const handleReCalc = async (isReCalc) => {
+        dispatch(setLoader(true));
         const extractedData = benefitsList.map(({ QQAC_TRAN_ID, QQAC_FC_SA, QQAC_SELECT_YN, FC_SA_prev }) => ({
             QQAC_TRAN_ID,
             QQAC_FC_SA: QQAC_SELECT_YN === 'Y' ? QQAC_FC_SA : FC_SA_prev,
@@ -41,6 +42,8 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
             }
         } catch (err) {
             console.log(err);
+        } finally {
+            dispatch(setLoader(false));
         }
     }
 

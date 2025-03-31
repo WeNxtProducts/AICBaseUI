@@ -4,12 +4,12 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(240, 240, 240, 0.7); // Light gray with transparency
+  background: rgba(255, 255, 255, 0.5); // Light gray with transparency
   z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(1%);
   
   .simple-loader {
     display: flex;
