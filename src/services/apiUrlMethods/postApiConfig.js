@@ -461,6 +461,30 @@ const POST_API_URL = {
     },
     LTQuoteBasicFieldList: {
         url: '/common/editFields',
+    },
+    LTQuoteAssuredDtlsCreate: {
+        url: '/ltQquotAssuredDtls/save',
+    },
+    LTQuoteAssuredDtlsUpdate: {
+        url: '/ltQquotAssuredDtls/update',
+    },
+    LTQuoteAssuredDtlsDelete: {
+        url: '/ltQquotAssuredDtls/delete',
+    },
+    LTQuoteAssuredDtlsGet: {
+        url: '/ltQquotAssuredDtls/get',
+    },
+    LTQuoteBeneficiaryCreate: {
+        url: '/ltQuoteBeneficiary/save',
+    },
+    LTQuoteBeneficiaryUpdate: {
+        url: '/ltQuoteBeneficiary/update',
+    },
+    LTQuoteBeneficiaryDelete: {
+        url: '/ltQuoteBeneficiary/delete',
+    },
+    LTQuoteBeneficiaryGet: {
+        url: '/ltQuoteBeneficiary/get',
     }
 };
 

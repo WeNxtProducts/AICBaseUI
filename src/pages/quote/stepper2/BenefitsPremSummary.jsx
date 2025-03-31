@@ -26,7 +26,6 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
             QQAC_SELECT_YN,
             id: tranId
         }));
-        console.log(extractedData)
         try {
             const response = await LTQuoteUpdateCoverData(extractedData);
             if (response?.status === 'FAILURE') {
@@ -41,7 +40,7 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
                 dispatch(setPremiumSummary({ totalMonthlyPrem, totalSumAssured }))
             }
         } catch (err) {
-            console.log(err);
+            showNotification.WARNING(err?.message || 'Something went wrong');
         } finally {
             dispatch(setLoader(false));
         }
