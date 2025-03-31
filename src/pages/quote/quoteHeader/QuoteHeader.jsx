@@ -7,6 +7,7 @@ const QuoteHeader = () => {
             <div className='img_head'>
                 <img className='logo_img p-1' alt='logo' src={weNxtLogo} />
             </div>
+
             <div className='sub_header' />
         </div>
     );

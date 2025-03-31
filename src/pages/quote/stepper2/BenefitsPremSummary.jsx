@@ -70,7 +70,11 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
             </div>
 
             <div className='btn-grp'>
-                <Button className='oth_btn'>Modify Quote</Button>
+                <Button
+                    onClick={() => {
+                        dispatch(setStepperIndex(0))
+                    }}
+                    className='oth_btn'>Modify Quote</Button>
                 <Button className='oth_btn'>View Illustration</Button>
                 <Button
                     onClick={() => {

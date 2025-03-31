@@ -3,10 +3,13 @@ import { Checkbox, Tabs } from 'antd'
 import TabPanelHeader from '../../../../components/collapsePanelHeader/TabPanelHeader'
 import AddressFields from './AddressFields';
 import AddressFieldsForms from './AddressFieldsForms';
+import { useSelector } from 'react-redux';
 
 const { TabPane } = Tabs;
 
 const CustomerAddress = () => {
+    const currentAddress = useSelector(state => state?.quote?.currentAddress);
+    const residenceAddress = useSelector(state => state?.quote?.residenceAddress);
     const [activeTabKey, setActiveTabKey] = useState('1');
 
     const handleTabChange = key => {
@@ -19,11 +22,11 @@ const CustomerAddress = () => {
                 <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                     <TabPane key='1' tab={<TabPanelHeader name='Current Address' />}>
                         {/* <AddressFields /> */}
-                        <AddressFieldsForms root='CurrentAddress' />
+                        <AddressFieldsForms setActiveTabKey={setActiveTabKey} root='CurrentAddress' initialValues={currentAddress} />
                     </TabPane>
                     <TabPane key='2' tab={<TabPanelHeader name='Permanent Address' />}>
                         {/* <AddressFields /> */}
-                        <AddressFieldsForms root='ResidenceAddress' />
+                        <AddressFieldsForms setActiveTabKey={setActiveTabKey} root='ResidenceAddress' initialValues={residenceAddress} />
                     </TabPane>
                 </Tabs>
             </div>

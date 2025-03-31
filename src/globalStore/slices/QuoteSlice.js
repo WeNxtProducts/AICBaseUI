@@ -10,13 +10,17 @@ const initialState = {
     basicInfoForm: null,
     dropDown: null,
     custAssuredDetails: null,
+    currentAddress: null,
+    residenceAddress: null,
+    nomineeDetails: null,
     listOfBenefits: [],
     premiumSummary: {
         totalSumAssured: 0,
         totalMonthlyPrem: 0,
     },
     loader: false,
-    custDetailId: null
+    custDetailId: null,
+    nomineeId: null
 };
 
 const QuoteSlices = createSlice({
@@ -70,6 +74,18 @@ const QuoteSlices = createSlice({
         },
         setCustDetailId: (state, action) => {
             state.custDetailId = action.payload;
+        },
+        setCurrentAddress: (state, action) => {
+            state.currentAddress = action.payload;
+        },
+        setResidenceAddress: (state, action) => {
+            state.residenceAddress = action.payload;
+        },
+        setNomineeDetails: (state, action) => {
+            state.nomineeDetails = action.payload;
+        },
+        setNomineeId: (state, action) => {
+            state.nomineeId = action.payload;
         }
     },
 });
@@ -77,7 +93,9 @@ const QuoteSlices = createSlice({
 export const { setStepperIndex, setComQuote, setStepper3
     , setBasicInfoForm, setDropDown, setCustAssuredDetails,
     setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId,
-    setProdCode, setPlanCode, setLoader, setCustDetailId
+    setProdCode, setPlanCode, setLoader, setCustDetailId,
+    setCurrentAddress, setResidenceAddress, setNomineeDetails,
+    setNomineeId
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

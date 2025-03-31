@@ -11,9 +11,9 @@ import Stepper6 from './stepper6/Stepper6';
 import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
-import { setBasicInfoForm, setCustAssuredDetails, setDropDown, setLoader } from '../../globalStore/slices/QuoteSlice';
-import './Quote.scss';
+import { setBasicInfoForm, setCurrentAddress, setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress } from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
+import './Quote.scss';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -52,12 +52,10 @@ const Quote = () => {
             if (fieldResponse) {
                 const orderedData = sortObjectByPFDSeqNo(fieldResponse);
                 dispatch(setBasicInfoForm({ frontForm: orderedData?.frontForm || {} }));
-                dispatch(setCustAssuredDetails({
-                    QuotAssuredDtls: orderedData?.QuotAssuredDtls || {},
-                    CurrentAddress: orderedData?.CurrentAddress || {},
-                    ResidenceAddress: orderedData?.ResidenceAddress || {},
-                    Nominee: orderedData?.Nominee || {}
-                }))
+                // dispatch(setCustAssuredDetails({ QuotAssuredDtls: orderedData?.QuotAssuredDtls || {} }))
+                // dispatch(setCurrentAddress({ CurrentAddress: orderedData?.CurrentAddress || {} }))
+                // dispatch(setResidenceAddress({ ResidenceAddress: orderedData?.ResidenceAddress || {} }))
+                // dispatch(setNomineeDetails({ Nominee: orderedData?.Nominee || {} }))
             }
         } catch (err) {
             console.log(err);

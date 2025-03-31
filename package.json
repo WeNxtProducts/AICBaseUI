@@ -8,6 +8,7 @@
   "stage": "vite --host --mode staging",
   "prod": "vite --host --mode production",
   "build": "vite build",
+  "build:dev": "vite build --mode development",
   "lint": "eslint src/**/*.{js,jsx}",
   "preview": "vite preview",
   "build:staging": "vite build --mode staging",

@@ -3,6 +3,7 @@ import ReviewHeader from './ReviewHeader'
 import ReviewCustOcc from './ReviewCustOcc'
 import { custDetails } from '../QuoteConstant'
 import ReviewCustAddress from './ReviewCustAddress'
+import ReviewFooter from './ReviewFooter'
 
 const Stepper6 = () => {
     return (
@@ -15,6 +16,9 @@ const Stepper6 = () => {
                 </div>
                 <div className='mt-5'>
                     <ReviewCustAddress title='Customer Details' details={custDetails} />
+                </div>
+                <div className='mt-5 review_footer'>
+                    <ReviewFooter />
                 </div>
             </div>
         </div>

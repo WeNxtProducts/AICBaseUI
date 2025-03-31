@@ -43,20 +43,17 @@ const Stepper3 = () => {
         if (custDetailId === null) {
             handleFetchId()
         }
-        setTimeout(() => {
-            dispatch(setStepper3('customerDetails'))
-        }, 200)
     }, [])
 
     return (
         <div className='stepper_3'>
             <p className='head_assured_cust'>Assured/Customer Details</p>
-            <div>
-                <div className='life_assured_check'>
+            <div className='mt-2'>
+                {/* <div className='life_assured_check'>
                     <Checkbox className='life_check'>
                         Life Assured is premium payor
                     </Checkbox>
-                </div>
+                </div> */}
                 <CustomAccordion
                     title='Customer Details'
                     isOpen={activeSection === 'customerDetails'}

@@ -467,24 +467,27 @@ const POST_API_URL = {
     },
     LTQuoteAssuredDtlsUpdate: {
         url: '/ltQquotAssuredDtls/update',
+        baseURL: 'CRUD',
     },
     LTQuoteAssuredDtlsDelete: {
         url: '/ltQquotAssuredDtls/delete',
     },
     LTQuoteAssuredDtlsGet: {
-        url: '/ltQquotAssuredDtls/get',
+        url: '/common/ltQquotAssuredDtlsEdit',
     },
     LTQuoteBeneficiaryCreate: {
         url: '/ltQuoteBeneficiary/save',
+        baseURL: 'CRUD',
     },
     LTQuoteBeneficiaryUpdate: {
         url: '/ltQuoteBeneficiary/update',
+        baseURL: 'CRUD',
     },
     LTQuoteBeneficiaryDelete: {
         url: '/ltQuoteBeneficiary/delete',
     },
     LTQuoteBeneficiaryGet: {
-        url: '/ltQuoteBeneficiary/get',
+        url: '/common/ltQuoteBeneficiaryEdit',
     }
 };
 

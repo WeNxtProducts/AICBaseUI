@@ -28,6 +28,10 @@ const QuoteForm = ({
     const [validation, setValidation] = useState(null);
 
     useEffect(() => {
+        // if (root === 'Nominee') {
+        //     console.log("root : ", root)
+        //     console.log("initValues : ", initValues)
+        // }
         if (validationSchema) {
             setValidation(validationSchema);
         }
