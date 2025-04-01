@@ -9,6 +9,10 @@ const SignaturePad = ({ onSave, width = 600, height = 200, initialName, initialS
     const [name, setName] = useState(initialName || '');
 
     useEffect(() => {
+        console.log("initialSignature : ",initialSignature);
+    }, [initialName, initialSignature]);
+
+    useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
 

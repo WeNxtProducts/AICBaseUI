@@ -659,6 +659,12 @@
           border-top: 1px solid #4D5E80;
           border-left: 1px solid #4D5E80;
           border-right: 1px solid #4D5E80;
+
+          .question_label {
+            color: #000000;
+            font-size: 14px;
+            font-weight: 400;
+          }
         }
 
         .question_item {
@@ -899,7 +905,8 @@
           font-weight: 400;
           font-size: 14px;
           color: #4D5E80;
-          .signature-name{
+
+          .signature-name {
             margin-left: 5px;
             font-weight: 700;
           }

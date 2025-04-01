@@ -71,7 +71,6 @@ const ListOfQuestions = () => {
         // dispatch(setStepperIndex(4))
     }
 
-
     return (
         <div>
             <div className='list_of_questions'>
@@ -92,9 +91,9 @@ const ListOfQuestions = () => {
                         </div>
                         {section.selected && section.questions && section?.questions?.[section.selected]?.length > 0 && (
                             <div className='questions_container'>
-                                {section?.questions?.[section.selected]?.map(question => (
+                                {section?.questions?.[section.selected]?.map((question, index) => (
                                     <div key={question.id} className='question_item'>
-                                        <label className='question_label mr-5'>{question.quest}</label>
+                                        <label className='question_label mr-5'>Q{index + 1}. {question.quest}</label>
                                         <CustomInput
                                             size='small'
                                             value={question.value || ''}
