@@ -1,17 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
-import SignaturePad from '../../../components/signaturePad/signaturePad'
+import React, { useEffect, useRef, useState } from 'react';
+import SignaturePad from '../../../components/signaturePad/SignaturePad';
 import { Button, Popover } from 'antd';
 
-const Content = ({ width, setOpen, handleSignatureSave }) => {
-    return (
-        <div style={{ minWidth: `${width}px`, height: '200px' }} className='overflow-y-auto'>
-            <SignaturePad onSave={handleSignatureSave} />
-        </div>
-    );
-}
-
 const ReviewFooter = () => {
-    const [signatureImage, setSignatureImage] = useState('');
+    const [signatureData, setSignatureData] = useState({ name: '', signature: '' });
     const [open, setOpen] = useState(false);
     const [popoverWidth, setPopoverWidth] = useState(0);
     const inputContainerRef = useRef(null);
@@ -20,39 +12,55 @@ const ReviewFooter = () => {
         if (inputContainerRef.current) setPopoverWidth(inputContainerRef.current.offsetWidth);
     }, []);
 
-    const handleVisibleChange = visible => {
+    const handleVisibleChange = (visible) => {
         setOpen(visible);
     };
 
-    const handleSignatureSave = (dataURL) => {
-        setSignatureImage(dataURL);
+    const handleSignatureSave = (name, signature) => {
+        setSignatureData({ name, signature });
+        setOpen(false);
     };
 
     return (
         <>
             <div className='digital_signature'>
                 <Popover
-                    content={<Content width={popoverWidth} setOpen={setOpen} handleSignatureSave={handleSignatureSave} />}
+                    content={
+                        <SignaturePad
+                            onSave={handleSignatureSave}
+                            initialName={signatureData.name}
+                            initialSignature={signatureData.signature}
+                        />
+                    }
                     placement='bottom'
                     trigger='click'
+                    title='Digital Signature'
                     arrow={false}
                     open={open}
-                    onOpenChange={handleVisibleChange}>
+                    onOpenChange={handleVisibleChange}
+                >
                     <div className='signature-container'>
-                        <div className='signature-title'>Digital Signature</div>
+                        <div className='signature-title'>Digital Signature
+                            {signatureData.name && (
+                                <span className='signature-name'> ({signatureData.name})</span>
+                            )}
+                        </div>
                         <div className='signature-content'>
-                            {signatureImage ? (
-                                <img
-                                    src={signatureImage}
-                                    alt="Digital Signature"
-                                    className='signature-image'
-                                />
+                            {signatureData.signature ? (
+                                <>
+                                    <img
+                                        src={signatureData.signature}
+                                        alt="Digital Signature"
+                                        className='signature-image'
+                                    />
+                                </>
                             ) : (
                                 <div className='signature-placeholder'>
                                     No signature available
                                 </div>
                             )}
                         </div>
+
                     </div>
                 </Popover>
             </div>
@@ -61,7 +69,7 @@ const ReviewFooter = () => {
                 <Button className='acc_btn'>Back</Button>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default ReviewFooter
+export default ReviewFooter;

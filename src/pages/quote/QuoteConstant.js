@@ -172,64 +172,58 @@ export const Roptions = [
     },
 ];
 
-export const initialQuestionnaire = [
-    {
-        id: 1,
-        label: 'Do you Smoke ?',
-        questions: [
-            {
-                qId: 1,
-                quest: 'Q1: How Many cigerettes do you smoke ?',
-                field: 'Number'
-            },
-            {
-                qId: 2,
-                quest: 'Q1: How Many cigerettes do you smoke ?',
-                field: 'Number'
-            }
-        ]
-    },
-    {
-        id: 2,
-        label: 'Do you Drink ?',
-        questions: [
-            {
-                qId: 1,
-                quest: 'Q1: How Many cigerettes do you smoke ?',
-                field: 'Number'
-            },
-            {
-                qId: 2,
-                quest: 'Q1: How Many cigerettes do you smoke ?',
-                field: 'Number'
-            }
-        ]
-
-    },
-    {
-        id: 3,
-        label: 'Medical History ?',
-        questions: []
-
-    },
-    {
-        id: 4,
-        label: 'Do you Drink ?',
-        questions: [
-            {
-                qId: 1,
-                quest: 'Q1: How Many cigerettes do you smoke ?',
-                field: 'Number'
-            },
-            {
-                qId: 2,
-                quest: 'Q1: How Many cigerettes do you smoke ?',
-                field: 'Number'
-            }
-        ]
-
-    },
-]
+export const initialQuestionnaire = {
+    "status_msg": "Get Question",
+    "Data": [
+        {
+            "id": 0,
+            "label": "Age Proof"
+        },
+        {
+            "id": 1,
+            "label": "ID Proof"
+        },
+        {
+            "questions": [
+                {
+                    "no": [
+                        {
+                            "id": 1,
+                            "quest": "No. Of Cigarettes Per Day"
+                        }
+                    ],
+                    "yes": [
+                        {
+                            "id": 2,
+                            "quest": "Sum Assured of Previous Policy"
+                        }
+                    ]
+                }
+            ],
+            "id": 4,
+            "label": "Have you ever applied for a fully underwritten insurance policy for life cover only and been refused terms or declined for medical or heath related reasons?"
+        },
+        {
+            "id": 2,
+            "label": "Do You Smoke"
+        },
+        {
+            "questions": [
+                {
+                    "yes": [
+                        {
+                            "id": 3,
+                            "quest": "Frequency of Intake"
+                        }
+                    ]
+                }
+            ],
+            "id": 3,
+            "label": "Do You Drink Alcohol"
+        }
+    ],
+    "status": "SUCCESS"
+}
 
 export const checklist = [
     {

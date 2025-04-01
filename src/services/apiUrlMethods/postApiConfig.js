@@ -488,6 +488,10 @@ const POST_API_URL = {
     },
     LTQuoteBeneficiaryGet: {
         url: '/common/ltQuoteBeneficiaryEdit',
+    },
+    LTQuoteQuestionaire: {
+        url: '/ltQquotDiscLoad/getQuestionnaire',
+        baseURL: 'CRUD',
     }
 };
 

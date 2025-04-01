@@ -6,10 +6,12 @@ import { useSelector } from 'react-redux';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
+import { handleFileDownloadOrView } from '../../../components/mediaHelper/mediaHelper64';
 
 export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
     const dispatch = useDispatch();
     const LTQuoteUpdateCoverData = useApiRequests('LTQuoteUpdateCoverData', 'POST');
+    const DMSFileGenerate = useApiRequests('DMSFileGenerateDocument', 'POST');
     const benefitsList = useSelector(state => state?.quote?.listOfBenefits);
     const premiumSummary = useSelector(state => state?.quote?.premiumSummary);
     const tranId = useSelector(state => state?.quote?.tranId);
@@ -46,6 +48,34 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
         }
     }
 
+    const handleIllustration = async () => {
+        dispatch(setLoader(true));
+        const payload = {
+            docTemplateName: "Term_Plan", genType: ".pdf",
+            docParms: { tranId }
+        }
+        try {
+            const response = await DMSFileGenerate(payload);
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg)
+            }
+            if (response?.status === 'SUCCESS') {
+                const updatedItem = {
+                    filename: `${payload?.docTemplateName}${payload?.genType}`,
+                    base64String: response?.Data?.attachment,
+                    genType: payload?.genType
+                };
+                console.log("updatedItem : ", updatedItem)
+                handleFileDownloadOrView(updatedItem);
+                console.log("response : ", response)
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Error on Viewing file');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    }
+
     return (
         <div className='benefits_prem_summary mt-3'>
             <div className='re_calc_box'>
@@ -75,7 +105,9 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
                         dispatch(setStepperIndex(0))
                     }}
                     className='oth_btn'>Modify Quote</Button>
-                <Button className='oth_btn'>View Illustration</Button>
+                <Button
+                    onClick={() => handleIllustration()}
+                    className='oth_btn'>View Illustration</Button>
                 <Button
                     onClick={() => {
                         dispatch(setComQuote(true))

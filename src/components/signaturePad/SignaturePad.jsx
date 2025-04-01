@@ -1,13 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Button, message } from 'antd';
+import { Button, message, Input } from 'antd';
 import './SignaturePad.scss';
 
-const SignaturePad = ({ onSave, width = 600, height = 200 }) => {
+const SignaturePad = ({ onSave, width = 600, height = 200, initialName, initialSignature }) => {
     const canvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
-    const [hasSignature, setHasSignature] = useState(false);
-    const [signatureImage, setSignatureImage] = useState('');
-    const [showSignatureImage, setShowSignatureImage] = useState(false);
+    const [hasSignature, setHasSignature] = useState(!!initialSignature);
+    const [name, setName] = useState(initialName || '');
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -18,75 +17,43 @@ const SignaturePad = ({ onSave, width = 600, height = 200 }) => {
         context.lineCap = 'round';
         context.strokeStyle = '#000000';
 
-        // Clear canvas initially
-        context.fillStyle = '#ffffff';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-    }, []);
+        // If there's an initial signature, load it onto the canvas
+        if (initialSignature) {
+            const image = new Image();
+            image.src = initialSignature;
+            image.onload = () => {
+                context.drawImage(image, 0, 0);
+            };
+        } else {
+            // Clear canvas initially
+            context.fillStyle = '#ffffff';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    }, [initialSignature]);
 
     const startDrawing = (e) => {
-        const canvas = canvasRef.current;
-        const context = canvas.getContext('2d');
-        const rect = canvas.getBoundingClientRect();
-
-        // Calculate mouse position relative to canvas
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
+        const { offsetX, offsetY } = e.nativeEvent;
+        const context = canvasRef.current.getContext('2d');
         context.beginPath();
-        context.moveTo(x, y);
+        context.moveTo(offsetX, offsetY);
         setIsDrawing(true);
         setHasSignature(true);
     };
 
     const draw = (e) => {
         if (!isDrawing) return;
-
-        const canvas = canvasRef.current;
-        const context = canvas.getContext('2d');
-        const rect = canvas.getBoundingClientRect();
-
-        // Calculate mouse position relative to canvas
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        context.lineTo(x, y);
+        const { offsetX, offsetY } = e.nativeEvent;
+        const context = canvasRef.current.getContext('2d');
+        context.lineTo(offsetX, offsetY);
         context.stroke();
     };
 
     const stopDrawing = () => {
         if (isDrawing) {
-            const canvas = canvasRef.current;
-            const context = canvas.getContext('2d');
+            const context = canvasRef.current.getContext('2d');
             context.closePath();
             setIsDrawing(false);
         }
-    };
-
-    // For touch devices
-    const handleTouchStart = (e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        canvasRef.current.dispatchEvent(mouseEvent);
-    };
-
-    const handleTouchMove = (e) => {
-        e.preventDefault();
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        canvasRef.current.dispatchEvent(mouseEvent);
-    };
-
-    const handleTouchEnd = (e) => {
-        e.preventDefault();
-        const mouseEvent = new MouseEvent('mouseup', {});
-        canvasRef.current.dispatchEvent(mouseEvent);
     };
 
     const clearSignature = () => {
@@ -95,8 +62,6 @@ const SignaturePad = ({ onSave, width = 600, height = 200 }) => {
         context.fillStyle = '#ffffff';
         context.fillRect(0, 0, canvas.width, canvas.height);
         setHasSignature(false);
-        setShowSignatureImage(false);
-        setSignatureImage('');
     };
 
     const saveSignature = () => {
@@ -104,25 +69,27 @@ const SignaturePad = ({ onSave, width = 600, height = 200 }) => {
             message.error('Please provide a signature before submitting');
             return;
         }
+        if (!name.trim()) {
+            message.error('Please enter your name before submitting');
+            return;
+        }
 
         const canvas = canvasRef.current;
         const signatureDataURL = canvas.toDataURL('image/png');
-        console.log("Signature data URL:", signatureDataURL);
-
-        // Store the signature image data URL in state
-        setSignatureImage(signatureDataURL);
-        setShowSignatureImage(true);
-
-        if (onSave) {
-            onSave(signatureDataURL);
-            message.success('Signature saved successfully');
-        } else {
-            message.success('Signature saved successfully');
-        }
+        onSave(name, signatureDataURL);
+        message.success('Signature saved successfully');
     };
 
     return (
         <div className="signature-pad-container">
+            <div className='signature-pad-title'>
+                <Input
+                    size='large'
+                    placeholder="Enter your name"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                />
+            </div>
             <div className="signature-pad-canvas-container">
                 <canvas
                     ref={canvasRef}
@@ -133,37 +100,24 @@ const SignaturePad = ({ onSave, width = 600, height = 200 }) => {
                     onMouseMove={draw}
                     onMouseUp={stopDrawing}
                     onMouseLeave={stopDrawing}
-                    onTouchStart={handleTouchStart}
-                    onTouchMove={handleTouchMove}
-                    onTouchEnd={handleTouchEnd}
+                    onTouchStart={startDrawing}
+                    onTouchMove={draw}
+                    onTouchEnd={stopDrawing}
                 />
             </div>
             <div className="signature-pad-actions">
-                <Button
-                    onClick={clearSignature}
-                    className="signature-pad-clear-btn"
-                >
-                    Clear
+                <Button onClick={clearSignature} className="signature-pad-clear-btn">
+                    Reset
                 </Button>
                 <Button
                     type="primary"
                     onClick={saveSignature}
                     className="signature-pad-submit-btn"
-                    disabled={!hasSignature}
+                    disabled={!hasSignature || !name.trim()}
                 >
-                    Submit Signature
+                    Save
                 </Button>
             </div>
-            {showSignatureImage && (
-                <div className="signature-image-display">
-                    <h4>Your Signature:</h4>
-                    <img
-                        src={signatureImage}
-                        alt="Your signature"
-                        className="signature-image"
-                    />
-                </div>
-            )}
         </div>
     );
 };
