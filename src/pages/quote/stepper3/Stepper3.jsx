@@ -83,7 +83,7 @@ const Stepper3 = () => {
                     <button
                         onClick={() => dispatch(setStepperIndex(3))}
                         type='submit'>
-                        Save
+                        Next
                     </button>
                     <button
                         onClick={() => dispatch(setStepperIndex(1))}>

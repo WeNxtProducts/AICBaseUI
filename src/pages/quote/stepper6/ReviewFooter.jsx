@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SignaturePad from '../../../components/signaturePad/SignaturePad';
 import { Button, Popover } from 'antd';
-import { digitalSignature } from '../../../pages/quote/QuoteConstant';
 
 const ReviewFooter = () => {
     const [signatureData, setSignatureData] = useState({ name: '', signature: '' });

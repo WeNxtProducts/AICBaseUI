@@ -10,6 +10,7 @@ const { TabPane } = Tabs;
 const CustomerAddress = () => {
     const currentAddress = useSelector(state => state?.quote?.currentAddress);
     const residenceAddress = useSelector(state => state?.quote?.residenceAddress);
+    const sameAddress = useSelector(state => state?.quote?.sameAddress);
     const [activeTabKey, setActiveTabKey] = useState('1');
 
     const handleTabChange = key => {
@@ -22,11 +23,21 @@ const CustomerAddress = () => {
                 <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                     <TabPane key='1' tab={<TabPanelHeader name='Current Address' />}>
                         {/* <AddressFields /> */}
-                        <AddressFieldsForms setActiveTabKey={setActiveTabKey} root='CurrentAddress' initialValues={currentAddress} />
+                        <AddressFieldsForms
+                            setActiveTabKey={setActiveTabKey}
+                            root='CurrentAddress'
+                            initialValues={currentAddress}
+                            freeze={false}
+                        />
                     </TabPane>
-                    <TabPane key='2' tab={<TabPanelHeader name='Permanent Address' />}>
+                    <TabPane disabled={sameAddress} key='2' tab={<TabPanelHeader name='Permanent Address' />}>
                         {/* <AddressFields /> */}
-                        <AddressFieldsForms setActiveTabKey={setActiveTabKey} root='ResidenceAddress' initialValues={residenceAddress} />
+                        <AddressFieldsForms
+                            setActiveTabKey={setActiveTabKey}
+                            root='ResidenceAddress'
+                            initialValues={residenceAddress}
+                            freeze={sameAddress}
+                        />
                     </TabPane>
                 </Tabs>
             </div>

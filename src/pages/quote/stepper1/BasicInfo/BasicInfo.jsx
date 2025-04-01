@@ -77,6 +77,7 @@ const BasicInfo = () => {
                         navigateBtn={false}
                         btnText={{ btn1: 'Get Quote' }}
                         validationSchema={basicInfoSchema}
+                        freeze={false}
                     />
                 </div>
             )}

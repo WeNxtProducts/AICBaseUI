@@ -20,7 +20,8 @@ const initialState = {
     },
     loader: false,
     custDetailId: null,
-    nomineeId: null
+    nomineeId: null,
+    sameAddress: false
 };
 
 const QuoteSlices = createSlice({
@@ -86,6 +87,9 @@ const QuoteSlices = createSlice({
         },
         setNomineeId: (state, action) => {
             state.nomineeId = action.payload;
+        },
+        setSameAddress: (state, action) => {
+            state.sameAddress = action.payload;
         }
     },
 });
@@ -95,7 +99,7 @@ export const { setStepperIndex, setComQuote, setStepper3
     setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId,
     setProdCode, setPlanCode, setLoader, setCustDetailId,
     setCurrentAddress, setResidenceAddress, setNomineeDetails,
-    setNomineeId
+    setNomineeId, setSameAddress
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

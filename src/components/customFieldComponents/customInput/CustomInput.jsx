@@ -21,7 +21,6 @@ const CustomInput = ({
     //  const [fieldValue, setFieldValue] = useState('');
 
     useEffect(() => {
-        //   console.log('readOnly : ', readOnly);
         //   setFieldValue(value);
         if (firstFieldRef?.current) {
             firstFieldRef.current.focus();

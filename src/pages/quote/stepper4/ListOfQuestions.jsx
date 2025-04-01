@@ -5,26 +5,25 @@ import { useDispatch } from 'react-redux';
 import { setLoader, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
+import { useSelector } from 'react-redux';
 
 const { Group: RadioGroup } = Radio;
 
 const ListOfQuestions = () => {
     const dispatch = useDispatch();
     const LTQuoteQuestionaire = useApiRequests('LTQuoteQuestionaire', 'POST');
+    const LTQuoteQuestionaireSave = useApiRequests('LTQuoteQuestionaireSave', 'POST');
+    const tranId = useSelector((state) => state.quote.tranId);
     const [questionnaire, setQuestionnaire] = useState([]);
 
     useEffect(() => {
         handleGetQuestionnaire();
     }, []);
 
-    useEffect(() => {
-        console.log('questionnaire : ', questionnaire);
-    }, [questionnaire]);
-
     const handleGetQuestionnaire = async () => {
         dispatch(setLoader(true));
         try {
-            const payload = { queryParams: { DTL_DS_TYPE: 1, DTL_DS_CODE: "PRO" } };
+            const payload = { queryParams: { DTL_DS_TYPE: 1, DTL_DS_CODE: "PRO", DTL_DTG_GROUP_CODE: "UWQUEST" } };
             const response = await LTQuoteQuestionaire(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
@@ -41,7 +40,7 @@ const ListOfQuestions = () => {
         setQuestionnaire(prevQuestionnaire =>
             prevQuestionnaire.map(section =>
                 section.id === sectionId
-                    ? { ...section, selected: response }
+                    ? { ...section, yesOrNo: response }
                     : section
             )
         );
@@ -52,10 +51,10 @@ const ListOfQuestions = () => {
         setQuestionnaire((prevQuestionnaire) =>
             prevQuestionnaire.map((section) => {
                 if (section.id === sectionId) {
-                    if (section.questions && section.selected) {
+                    if (section.questions && section.yesOrNo) {
                         const updatedQuestions = {
                             ...section.questions,
-                            [section.selected]: section.questions[section.selected].map((question) =>
+                            [section.yesOrNo]: section.questions[section.yesOrNo].map((question) =>
                                 question.id === questionId ? { ...question, value: inputValue } : question
                             ),
                         };
@@ -67,8 +66,49 @@ const ListOfQuestions = () => {
         );
     };
 
-    const handleSaveQuestions = () => {
-        // dispatch(setStepperIndex(4))
+    const validateQuestions = (questionnaire) => {
+        for (const item of questionnaire) {
+            if (!Object.prototype.hasOwnProperty.call(item, 'yesOrNo') || !item.yesOrNo) {
+                return false;
+            }
+            const { yes = [], no = [] } = item.questions || {};
+            const areQuestionsAnswered = (questions) => {
+                return questions.every(question => question.value && question.value.trim() !== '');
+            };
+            if (item.yesOrNo === 'yes' && yes.length > 0 && !areQuestionsAnswered(yes))
+                return false;
+            if (item.yesOrNo === 'no' && no.length > 0 && !areQuestionsAnswered(no))
+                return false;
+        }
+        return true;
+    };
+
+    const handleSaveQuestions = async () => {
+        dispatch(setLoader(true));
+        const isValid = validateQuestions(questionnaire);
+        if (!isValid) {
+            dispatch(setLoader(false));
+            showNotification.WARNING('Please fill all the questions');
+            return;
+        }
+        const modifiedPayload = questionnaire.map(item => {
+            const { questions, ...rest } = item;
+            return { ...rest, quotTranId: tranId, inQuestions: [questions] };
+        });
+        const payload = { saveQuestions: modifiedPayload };
+        console.log(payload);
+        try {
+            const response = await LTQuoteQuestionaireSave(payload);
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                showNotification.SUCCESS(response?.status_msg);
+                // dispatch(setStepperIndex(4));
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
     }
 
     return (
@@ -84,14 +124,14 @@ const ListOfQuestions = () => {
                                     { label: 'No', value: 'no' },
                                 ]}
                                 onChange={e => handleSectionResponse(section.id, e.target.value)}
-                                value={section.selected || ''}
+                                value={section.yesOrNo || ''}
                                 optionType='button'
                                 buttonStyle='solid'
                             />
                         </div>
-                        {section.selected && section.questions && section?.questions?.[section.selected]?.length > 0 && (
+                        {section.yesOrNo && section.questions && section?.questions?.[section.yesOrNo]?.length > 0 && (
                             <div className='questions_container'>
-                                {section?.questions?.[section.selected]?.map((question, index) => (
+                                {section?.questions?.[section.yesOrNo]?.map((question, index) => (
                                     <div key={question.id} className='question_item'>
                                         <label className='question_label mr-5'>Q{index + 1}. {question.quest}</label>
                                         <CustomInput

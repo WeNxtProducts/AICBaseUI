@@ -88,7 +88,7 @@ const QuoteForm = ({
                                             );
                                             // values?.[root]?.formFields[fieldKey],
                                             //[values?.[root]?.formFields, lovList?.[dataId], formRender, freeze]
-                                        }, [values]);
+                                        }, [values, freeze]);
                                     })}
                                 </div>
                                 {!freeze && (

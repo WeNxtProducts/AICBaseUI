@@ -492,6 +492,10 @@ const POST_API_URL = {
     LTQuoteQuestionaire: {
         url: '/ltQquotDiscLoad/getQuestionnaire',
         baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireSave: {
+        url: '/ltQquotDiscLoad/saveQuestionnaire',
+        baseURL: 'CRUD',
     }
 };
 

@@ -114,6 +114,10 @@
     grid-template-columns: repeat(6, 1fr);
     // align-items: flex-start;
 
+    .mail_field {
+      grid-column: span 6;
+    }
+
     .basic_info_form {
       grid-column: span 6;
       margin-top: 10px;
