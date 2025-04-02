@@ -1,3 +1,8 @@
+import visacard from '../../assets/VisaStamp.png'
+import masterCard from '../../assets/MCStamp.png'
+import bankImg from '../../assets/bankStamp.png'
+
+
 export const basicInfoInitValues = {
     basic_info: {
         formFields: {
@@ -363,3 +368,24 @@ export const tableData = [
     { benefit: 'Terminal Illness(Accelerated)', sumAssured: '200000', term: 9, premium: '1,000', include: false },
     { benefit: 'Passive War Risk', sumAssured: '100000', term: 12, premium: '5000.20', include: false },
 ];
+
+export const payMethodlist = [
+    {
+        id: 1,
+        name: 'Pay by card',
+        description: 'To pay, please enter your VISA, MasterCard or Maestro payment card information.',
+        img: visacard
+    },
+    {
+        id: 2,
+        name: 'Pay via internet banking',
+        description: 'Do you have access to internet banking and want to pay immediately? Just select your bank and make the payment.',
+        img: bankImg
+    },
+    {
+        id: 3,
+        name: 'Pay via Cheque.',
+        description: 'Do you have to Cheque and want to pay from Cheque? Just select your bank and make the payment.',
+        img: bankImg
+    }
+]

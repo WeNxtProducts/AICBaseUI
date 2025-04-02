@@ -14,6 +14,7 @@ const QuoteStepper = () => {
         { label: 'Questions' },
         { label: 'Upload Docs' },
         { label: 'Review' },
+        { label: 'Payment' },
     ];
 
     const handleStepClick = (index) => {

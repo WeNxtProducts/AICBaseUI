@@ -14,6 +14,8 @@ import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequen
 import { setBasicInfoForm, setCurrentAddress, setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress } from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
 import './Quote.scss';
+import PaymentStepper from './paymentStepper/PaymentStepper';
+import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -23,6 +25,7 @@ const Quote = () => {
     const basicInfoForm = useSelector(state => state?.quote?.basicInfoForm);
     const prodCode = useSelector(state => state?.quote?.prodCode);
     const loader = useSelector(state => state?.quote?.loader);
+    const payFinish = useSelector(state => state?.quote?.payFinish);
 
     useEffect(() => {
         if (basicInfoForm === null) {
@@ -71,17 +74,20 @@ const Quote = () => {
             {loader && <Loader />}
             <div className='Quote'>
                 <QuoteHeader />
-                <div className='content_box p-3'>
-                    <QuoteStepper />
-                    <div className='px-5'>
-                        {stepperIndex === 0 && <Stepper1 />}
-                        {stepperIndex === 1 && <Stepper2 />}
-                        {stepperIndex === 2 && <Stepper3 />}
-                        {stepperIndex === 3 && <Stepper4 />}
-                        {stepperIndex === 4 && <Stepper5 />}
-                        {stepperIndex === 5 && <Stepper6 />}
+                {payFinish ? <PaymentConfirmPage /> : (
+                    <div className='content_box p-3'>
+                        <QuoteStepper />
+                        <div className='px-5'>
+                            {stepperIndex === 0 && <Stepper1 />}
+                            {stepperIndex === 1 && <Stepper2 />}
+                            {stepperIndex === 2 && <Stepper3 />}
+                            {stepperIndex === 3 && <Stepper4 />}
+                            {stepperIndex === 4 && <Stepper5 />}
+                            {stepperIndex === 5 && <Stepper6 />}
+                            {stepperIndex === 6 && <PaymentStepper />}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </QuoteContext.Provider>
     );

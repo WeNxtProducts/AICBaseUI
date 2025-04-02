@@ -91,11 +91,11 @@ export const BenefitsPremSummary = ({ handleGetListOfBenefits }) => {
             <div className='summary_box'>
                 <div className='flex justify-between'>
                     <p className='sum_name'>Sum Assured</p>
-                    <p className='sum_val'>{`AED ${formatNumber(premiumSummary?.totalSumAssured)}`}</p>
+                    <p className='sum_val'>{`$ ${formatNumber(premiumSummary?.totalSumAssured)}`}</p>
                 </div>
                 <div className='flex justify-between mt-3'>
                     <p className='sum_name'>Total monthly premium</p>
-                    <p className='sum_val'>{`AED ${formatNumber(premiumSummary?.totalMonthlyPrem)}`}</p>
+                    <p className='sum_val'>{`$ ${formatNumber(premiumSummary?.totalMonthlyPrem)}`}</p>
                 </div>
             </div>
 
