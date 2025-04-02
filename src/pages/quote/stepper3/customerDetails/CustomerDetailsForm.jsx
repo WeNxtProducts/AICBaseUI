@@ -20,7 +20,7 @@ const CustomerDetailsForm = () => {
     const dispatch = useDispatch();
     const custAssuredDetails = useSelector(state => state?.quote?.custAssuredDetails);
     const dropDown = useSelector(state => state?.quote?.dropDown);
-    const prodCode = useSelector(state => state?.quote?.prodCode);
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
     const LTQuoteAssuredDtlsUpdate = useApiRequests('LTQuoteAssuredDtlsUpdate', 'POST');
     const LTQuoteAssuredDtlsGet = useApiRequests('LTQuoteAssuredDtlsGet', 'GET');
     const custDetailId = useSelector(state => state?.quote?.custDetailId)

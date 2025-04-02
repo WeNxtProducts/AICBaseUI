@@ -1,5 +1,5 @@
 import React from 'react';
-import sampImg from '../../../../assets/term-insurance.png';
+import sampImg from '../../../assets/term-insurance.png';
 
 const PlanCard = ({ value, onSelect }) => {
     const { LABEL } = value;

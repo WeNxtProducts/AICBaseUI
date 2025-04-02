@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import QuoteHeader from './quoteHeader/QuoteHeader';
 import QuoteStepper from './stepper/Stepper';
 import Stepper1 from './stepper1/Stepper1';
 import Stepper2 from './stepper2/stepper2';
@@ -11,11 +10,15 @@ import Stepper6 from './stepper6/Stepper6';
 import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
-import { setBasicInfoForm, setCurrentAddress, setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress } from '../../globalStore/slices/QuoteSlice';
+import {
+    clearQuote, setBasicInfoForm, setCurrentAddress,
+    setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress
+} from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
 import './Quote.scss';
 import PaymentStepper from './paymentStepper/PaymentStepper';
 import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
+import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -23,13 +26,17 @@ const Quote = () => {
     const LTLovJson = useApiRequests('lovToJson', 'GET');
     const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
     const basicInfoForm = useSelector(state => state?.quote?.basicInfoForm);
-    const prodCode = useSelector(state => state?.quote?.prodCode);
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
     const loader = useSelector(state => state?.quote?.loader);
     const payFinish = useSelector(state => state?.quote?.payFinish);
 
     useEffect(() => {
         if (basicInfoForm === null) {
             fetchFieldAndLovList();
+        }
+
+        return () => {
+            dispatch(clearQuote());
         }
     }, []);
 

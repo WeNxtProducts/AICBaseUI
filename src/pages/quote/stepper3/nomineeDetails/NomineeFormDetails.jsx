@@ -23,7 +23,7 @@ const NomineeFormDetails = () => {
     const activeSection = useSelector(state => state?.quote?.stepper_3);
     const tranId = useSelector(state => state?.quote?.tranId);
     const dropDown = useSelector(state => state?.quote?.dropDown);
-    const prodCode = useSelector(state => state?.quote?.prodCode);
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
 
     const addOrUpdate = async (payload, api) => {
         try {

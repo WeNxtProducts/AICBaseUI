@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    prodCode: '',
-    planCode: '',
     tranId: '',
     stepperIndex: 0,
     compQuote: false,
@@ -67,12 +65,6 @@ const QuoteSlices = createSlice({
         setPremiumSummary: (state, action) => {
             state.premiumSummary = action.payload;
         },
-        setProdCode: (state, action) => {
-            state.prodCode = action.payload;
-        },
-        setPlanCode: (state, action) => {
-            state.planCode = action.payload;
-        },
         setLoader: (state, action) => {
             state.loader = action.payload;
         },
@@ -104,9 +96,7 @@ const QuoteSlices = createSlice({
             state.payFinish = action.payload;
         },
         clearQuote: (state) => {
-            state.prodCode = '',
-                state.planCode = '',
-                state.tranId = '',
+            state.tranId = '',
                 state.stepperIndex = 0,
                 state.compQuote = false,
                 state.stepper_3 = '',
@@ -135,7 +125,7 @@ const QuoteSlices = createSlice({
 export const { setStepperIndex, setComQuote, setStepper3
     , setBasicInfoForm, setDropDown, setCustAssuredDetails,
     setListOfBenefits, setBenefitsSA, setPremiumSummary, setTranId,
-    setProdCode, setPlanCode, setLoader, setCustDetailId,
+    setLoader, setCustDetailId,
     setCurrentAddress, setResidenceAddress, setNomineeDetails,
     setNomineeId, setSameAddress, setPayStepper, setPayMethod,
     setPayFinish, clearQuote

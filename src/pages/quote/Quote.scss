@@ -45,57 +45,11 @@
   //   border: 1px solid green;
   min-height: 100lvh;
 
-  .product_listing {
-    .breadcrumb-title {
-      cursor: pointer;
-      font-weight: 600;
-      color: #888888;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .highlight {
-      color: #0382c8;
-    }
-  }
-
-  .product_listing_empty {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 75vh;
-  }
-
   .process_button {
     background-color: #0382c8;
     padding: 4px 15px;
     color: #ffffff;
     border-radius: 5px;
-  }
-
-  .quote_header {
-    // position: sticky;
-    // top: 0;
-    background-color: #ffffff;
-    // z-index: 1;
-
-    .img_head {
-      height: 55px;
-
-      .logo_img {
-        margin-left: 30px;
-        padding-top: 4px;
-        width: 63px;
-        height: 59px;
-      }
-    }
-
-    .sub_header {
-      background-color: #defff1;
-      height: 20px;
-    }
   }
 
   .content_box {

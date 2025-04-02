@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import QuoteHeader from '../quoteHeader/QuoteHeader'
 import { Breadcrumb, Button } from 'antd'
 import { IoIosArrowForward } from 'react-icons/io'
-import FromHeader from '../../../components/fieldsWithValues/FromHeader'
-import showNotification from '../../../components/notification/Notification'
-import { setProdCode, setPlanCode, setDropDown, setBasicInfoForm } from '../../../globalStore/slices/QuoteSlice'
-import { useDispatch } from 'react-redux';
-import useApiRequests from '../../../services/useApiRequests'
-import ProductCard from './productCard/ProductCard'
-import PlanCard from './productCard/PlanCard'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-import '../Quote.scss'
-import Loader from '../../../components/loader/Loader'
+import useApiRequests from '../../services/useApiRequests';
+import QuoteHeader from '../quoteHeader/QuoteHeader';
+import Loader from '../loader/Loader';
+import FromHeader from '../fieldsWithValues/FromHeader';
+import ProductCard from './productCard/ProductCard';
+import PlanCard from './productCard/PlanCard';
+import showNotification from '../notification/Notification';
+import { setProdCode } from '../../globalStore/slices/QuoteProdPlanSlice';
+import './QuoteProdListing.scss'
 
 const QuoteProductList = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const getProdList = useApiRequests('getPreClaimDate', 'POST');
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
+    const planCode = useSelector(state => state?.quoteProdPlanCode?.planCode);
     const [locationState, setLocationState] = useState('Product List');
     const breadCrumbsItem = [{ title: 'Product List' }, { title: 'Plan List' }];
     const [selectedProduct, setSelectedProduct] = useState('');
@@ -53,8 +55,6 @@ const QuoteProductList = () => {
 
     const handleSelectProduct = item => {
         dispatch(setProdCode(item?.PROD_CODE));
-        dispatch(setBasicInfoForm(null))
-        dispatch(setDropDown(null))
         setSelectedProduct(item?.PROD_CODE);
         navigate('/quote');
     };
@@ -68,7 +68,7 @@ const QuoteProductList = () => {
     }, []);
 
     return (
-        <div className='Quote'>
+        <div className='Quote_product_listing'>
             {loader && <Loader />}
             <QuoteHeader />
             {productList?.length > 0 ? (

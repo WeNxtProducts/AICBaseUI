@@ -12,7 +12,7 @@ const BasicInfo = () => {
     const dispatch = useDispatch();
     const tranId = useSelector(state => state?.quote?.tranId);
     const basicInfoForm = useSelector(state => state?.quote?.basicInfoForm);
-    const prodCode = useSelector(state => state?.quote?.prodCode);
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
     const dropDown = useSelector(state => state?.quote?.dropDown);
     const loader = useSelector(state => state?.quote?.loader);
     const LTQuoteSave = useApiRequests('LTQuoteSave', 'POST');
