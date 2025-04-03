@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    tranId: 231,
+    tranId: '',
     stepperIndex: 0,
     compQuote: false,
     stepper_3: '',

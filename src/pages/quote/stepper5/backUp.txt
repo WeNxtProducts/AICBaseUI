@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useCallback, useEffect, useState } from 'react';
 import { Checkbox, Tooltip } from 'antd';
 import { DeleteOutlined, EyeOutlined, SaveOutlined } from '@ant-design/icons';
 import { useDropzone } from 'react-dropzone';
@@ -10,6 +11,39 @@ import showNotification from '../../../components/notification/Notification';
 import useApiRequests from '../../../services/useApiRequests';
 import { DeleteKeys } from '../QuoteConstant';
 import { useDispatch } from 'react-redux';
+
+const initialChecklist = [
+    {
+        "DTL_DTG_GROUP_CODE": "CHKLST",
+        "DTL_SR_NO": 1,
+        "DTL_DS_TYPE": "1",
+        "DTL_DS_CODE": "PRO",
+        "DTL_INS_DT": "2024-08-21 00:00:00.0",
+        "DTL_MANDATORY_YN": "Y",
+        "DTL_REF_NO": 0,
+        "DTL_INS_ID": "ADMIN",
+        "DTL_TODO_LIST_ITEM": "Age Proof",
+        "DTL_TYPE": "Y",
+        "DTL_DEFAULT_YN": "Y",
+        "DTL_MODULE_ID": "IL",
+        "DTL_BL_TODO_LIST_ITEM": "Age Proof"
+    },
+    {
+        "DTL_DTG_GROUP_CODE": "CHKLST",
+        "DTL_SR_NO": 2,
+        "DTL_DS_TYPE": "1",
+        "DTL_DS_CODE": "PRO",
+        "DTL_INS_DT": "2024-08-21 00:00:00.0",
+        "DTL_MANDATORY_YN": "Y",
+        "DTL_REF_NO": 1,
+        "DTL_INS_ID": "ADMIN",
+        "DTL_TODO_LIST_ITEM": "ID Proof",
+        "DTL_TYPE": "Y",
+        "DTL_DEFAULT_YN": "Y",
+        "DTL_MODULE_ID": "IL",
+        "DTL_BL_TODO_LIST_ITEM": "ID Proof"
+    }
+]
 
 const fileData = {
     module: 'quote',
@@ -24,11 +58,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
     const DMSFileDelete = useApiRequests('DMSDelete64', 'POST');
     const DMSFileView = useApiRequests('DMSView64', 'POST');
     const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
-    const [checklist, setChecklist] = useState([]);
-    // Store the active dropzone ID
-    const [activeDropzoneId, setActiveDropzoneId] = useState(null);
-    // Create a ref to also store the activeDropzoneId to ensure we always have the latest value
-    const activeDropzoneIdRef = useRef(null);
+    const [checklist, setChecklist] = useState(initialChecklist);
 
     const handleFetchId = async () => {
         dispatch(setLoader(true));
@@ -37,7 +67,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
                 console.log('response', response?.Data)
-                setChecklist(response?.Data)
+                // setChecklist(response?.Data)
             }
         } catch (err) {
             showNotification.WARNING(err?.message || 'Something went wrong');
@@ -50,77 +80,70 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         handleFetchId()
     }, [])
 
-    // Update the ref whenever activeDropzoneId changes
-    useEffect(() => {
-        activeDropzoneIdRef.current = activeDropzoneId;
-    }, [activeDropzoneId]);
-
-    const onDrop = useCallback(async (acceptedFiles) => {
+    const onDrop = useCallback(async (acceptedFiles, rowId) => {
         const file = acceptedFiles[0];
-        // Use the ref value to ensure we have the latest activeDropzoneId
-        const currentActiveDropzoneId = activeDropzoneIdRef.current;
-
-        if (!file || !currentActiveDropzoneId) {
+        if (!file) {
             return;
         }
-
         try {
             const base64String = await readFileAsBase64(file);
-
-            setChecklist(prevChecklist => {
-                return prevChecklist.map((item) => {
-                    if (item.DTL_SR_NO === currentActiveDropzoneId) {
-                        return {
-                            ...item,
-                            filename: file.name,
-                            base64String: base64String,
-                            DocType: item?.DTL_TODO_LIST_ITEM,
-                            genType: getFileFormat(file),
-                            uploadscrn,
-                            TranId: tranId,
-                            param_add1: '',
-                            param_add2: '',
-                            ...fileData,
-                        };
-                    }
-                    return item;
-                });
+            const updatedChecklist = checklist.map((item) => {
+                if (item.DTL_SR_NO === rowId) {
+                    return {
+                        ...item,
+                        filename: file.name,
+                        base64String: base64String,
+                        DocType: item?.DTL_TODO_LIST_ITEM,
+                        genType: getFileFormat(file),
+                        uploadscrn,
+                        TranId: tranId,
+                        param_add1: '',
+                        param_add2: '',
+                        ...fileData,
+                    };
+                }
+                return item;
             });
+
+            setChecklist(updatedChecklist);
         } catch (error) {
             console.error("Error reading file:", error);
         }
-    }, [tranId, uploadscrn]); // Remove activeDropzoneId from dependencies since we're using the ref
+    }, [checklist]);
 
-    // Use a single dropzone instance
-    const { getRootProps, getInputProps, open } = useDropzone({
-        onDrop,
-        noClick: true,
-        noKeyboard: true,
-        accept: {
-            'image/jpeg': ['.jpeg', '.jpg'],
-            'image/png': ['.png'],
-            'image/gif': ['.gif'],
-            'image/tiff': ['.tiff', '.tif'],
-            'text/plain': ['.txt'],
-            'application/pdf': ['.pdf'],
-            'application/msword': ['.doc'],
-            'application/vnd.ms-excel': ['.xls'],
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
-            'message/rfc822': ['.eml']
-        }
-    });
+
+    const createDropzoneOpener = (rowId) => {
+        const { getRootProps, getInputProps, open } = useDropzone({
+            onDrop: (acceptedFiles) => onDrop(acceptedFiles, rowId),
+            noClick: true,
+            noKeyboard: true,
+            accept: {
+                'image/jpeg': ['.jpeg', '.jpg'],
+                'image/png': ['.png'],
+                'image/gif': ['.gif'],
+                'image/tiff': ['.tiff', '.tif'],
+                'text/plain': ['.txt'],
+                'application/pdf': ['.pdf'],
+                'application/msword': ['.doc'],
+                'application/vnd.ms-excel': ['.xls'],
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+                'message/rfc822': ['.eml']
+            }
+        });
+
+        return (
+            <div {...getRootProps()} style={{ display: 'none' }}>
+                <input {...getInputProps()} />
+                <button type="button" onClick={open} id={`open-${rowId}`} style={{ display: 'none' }}>
+                    Open File Dialog
+                </button>
+            </div>
+        );
+    };
 
     const handleFileNameClick = (rowId) => {
-        console.log("rowId", rowId);
-        // Set the activeDropzoneId in state
-        setActiveDropzoneId(rowId);
-        // Also set it in the ref for immediate access
-        activeDropzoneIdRef.current = rowId;
-        // Open the file browser - this needs to happen after we've set the ID
-        setTimeout(() => {
-            open();
-        }, 0);
+        document.getElementById(`open-${rowId}`).click();
     };
 
     const updateFileKeyAtIndex = (index, newValue) => {
@@ -160,7 +183,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                 handleFileDownloadOrView(updatedItem);
             }
         } catch {
-            showNotification.ERROR('File Not Viewed!');
+            showNotification.ERROR('File Not Uploaded!');
         }
     };
 
@@ -173,12 +196,12 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
     };
 
     const handleDelete = async (payload, index) => {
-        const { doc_sys_id } = payload;
+        const { doc_sys_id } = payload
         const deleteId = { doc_sys_id: [doc_sys_id] };
         try {
             const response = await DMSFileDelete(deleteId);
             if (response?.status === 'SUCCESS') {
-                deleteByIndex(index);
+                deleteByIndex(index)
                 showNotification.SUCCESS(`${payload?.filename} Deleted Successfully`);
             } else if (response?.status === 'FAILURE') {
                 showNotification.ERROR('File Not Deleted!');
@@ -188,28 +211,24 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         }
     };
 
+
     const deleteByIndex = (index) => {
-        setChecklist(prevChecklist => {
-            return prevChecklist.map((item, idx) => {
-                if (idx === index) {
-                    const newItem = { ...item };
-                    DeleteKeys.forEach(key => {
-                        delete newItem[key];
-                    });
-                    return newItem;
-                }
-                return item;
-            });
+        const updatedChecklist = checklist.map((item, idx) => {
+            if (idx === index) {
+                const newItem = { ...item };
+                DeleteKeys.forEach(key => {
+                    delete newItem[key];
+                });
+
+                return newItem;
+            }
+            return item;
         });
+        setChecklist(updatedChecklist);
     }
 
     return (
         <div className='quote_checklist'>
-            {/* Single dropzone instance */}
-            <div {...getRootProps()} style={{ display: 'none' }}>
-                <input {...getInputProps()} />
-            </div>
-
             {checklist?.length > 0 &&
                 <table className='checklist_table'>
                     <thead>
@@ -235,6 +254,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                                     ) : (
                                         <span className='need_to_upload'>Click to Upload</span>
                                     )}
+                                    {createDropzoneOpener(item.DTL_SR_NO)}
                                 </td>
                                 <td>
                                     <Tooltip placement='top' title='Post'>
@@ -257,6 +277,9 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
 
                                     <Tooltip placement='top' title='Delete'>
                                         <span
+                                            // onClick={() => {
+                                            //     deleteByIndex(index)
+                                            // }}
                                             onClick={() => {
                                                 if (item?.doc_sys_id) handleDelete(item, index)
                                                 else if (!item?.doc_sys_id) deleteByIndex(index)

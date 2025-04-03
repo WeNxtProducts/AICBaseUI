@@ -11,37 +11,23 @@ const { Group: RadioGroup } = Radio;
 
 const ListOfQuestions = () => {
     const dispatch = useDispatch();
-    const LTQuoteQuestionaire = useApiRequests('LTQuoteQuestionaire', 'POST');
     const LTQuoteQuestionaireSave = useApiRequests('LTQuoteQuestionaireSave', 'POST');
     const LTQuoteQuestionaireGet = useApiRequests('LTQuoteQuestionaireGet', 'POST');
+    const LTQuoteQuestionaireUpdate = useApiRequests('LTQuoteQuestionaireUpdate', 'POST');
     const tranId = useSelector((state) => state.quote.tranId);
     const [questionnaire, setQuestionnaire] = useState([]);
 
     useEffect(() => {
-        handleGetQuestionnaire();
         handleGetQuestionnaireWithValues();
     }, []);
 
     const handleGetQuestionnaireWithValues = async () => {
-        try {
-            const queryparams = { tranId }
-            const response = await LTQuoteQuestionaireGet('', queryparams);
-            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
-            if (response?.status === 'SUCCESS') {
-                console.log(response?.Data);
-            }
-        } catch (err) {
-            showNotification.WARNING(err?.message || 'Something went wrong');
-        } finally {
-            dispatch(setLoader(false));
-        }
-    };
-
-    const handleGetQuestionnaire = async () => {
         dispatch(setLoader(true));
         try {
-            const payload = { queryParams: { DTL_DS_TYPE: 1, DTL_DS_CODE: "PRO", DTL_DTG_GROUP_CODE: "UWQUEST" } };
-            const response = await LTQuoteQuestionaire(payload);
+            const payload = {
+                queryParams: { DTL_DS_TYPE: 1, DTL_DS_CODE: "PRO", DTL_DTG_GROUP_CODE: "UWQUEST", tranId }
+            }
+            const response = await LTQuoteQuestionaireGet(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
                 setQuestionnaire(response?.Data);
@@ -100,32 +86,37 @@ const ListOfQuestions = () => {
         return true;
     };
 
-    const handleSaveQuestions = async () => {
+    const handleUpdateOrSave = async (payload, apiCall) => {
         dispatch(setLoader(true));
-        const isValid = validateQuestions(questionnaire);
-        if (!isValid) {
-            dispatch(setLoader(false));
-            showNotification.WARNING('Please fill all the questions');
-            return;
-        }
-        const modifiedPayload = questionnaire.map(item => {
-            const { questions, ...rest } = item;
-            return { ...rest, quotTranId: tranId, inQuestions: [questions] };
-        });
-        const payload = { saveQuestions: modifiedPayload };
-        console.log(payload);
         try {
-            const response = await LTQuoteQuestionaireSave(payload);
+            const response = await apiCall(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
                 showNotification.SUCCESS(response?.status_msg);
-                // dispatch(setStepperIndex(4));
+                dispatch(setStepperIndex(4));
             }
         } catch (err) {
             showNotification.WARNING(err?.message || 'Something went wrong');
         } finally {
             dispatch(setLoader(false));
         }
+    }
+
+    const handleSaveQuestions = async () => {
+        const isValid = validateQuestions(questionnaire);
+        if (!isValid) {
+            dispatch(setLoader(false));
+            showNotification.WARNING('Please fill all the questions');
+            return;
+        }
+        const allQuotTranIdZero = questionnaire.every(item => item.quotTranId === 0);
+        const modifiedPayload = questionnaire.map(item => {
+            const { questions, ...rest } = item;
+            return { ...rest, quotTranId: tranId, inQuestions: [questions] };
+        });
+        const payload = { saveQuestions: modifiedPayload };
+        console.log(allQuotTranIdZero, modifiedPayload);
+        handleUpdateOrSave(payload, allQuotTranIdZero ? LTQuoteQuestionaireSave : LTQuoteQuestionaireUpdate);
     }
 
     return (

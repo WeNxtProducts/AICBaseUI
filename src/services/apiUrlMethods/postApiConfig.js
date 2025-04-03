@@ -500,6 +500,10 @@ const POST_API_URL = {
     LTQuoteQuestionaireGet: {
         url: '/ltQquotDiscLoad/getQuestionnaireWithValues',
         baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireUpdate: {
+        url: '/ltQquotDiscLoad/updateQuestionnaireWithValues',
+        baseURL: 'CRUD',
     }
 };
 
