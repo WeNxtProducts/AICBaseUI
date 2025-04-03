@@ -1,6 +1,7 @@
 import React from 'react'
 import { Divider } from 'antd'
 import PlanSummarySelected from './PlanSummarySelected'
+import MainDetailBox from './MainDetailBox'
 
 const GStepper2 = () => {
     return (
@@ -12,7 +13,9 @@ const GStepper2 = () => {
                 <div className='cover_details'>
                     <PlanSummarySelected />
                 </div>
-                <div className='extra_details'><p>hello</p></div>
+                <div className='extra_details'>
+                    <MainDetailBox />
+                </div>
             </div>
         </div>
     )

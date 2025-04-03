@@ -13,12 +13,29 @@ const ListOfQuestions = () => {
     const dispatch = useDispatch();
     const LTQuoteQuestionaire = useApiRequests('LTQuoteQuestionaire', 'POST');
     const LTQuoteQuestionaireSave = useApiRequests('LTQuoteQuestionaireSave', 'POST');
+    const LTQuoteQuestionaireGet = useApiRequests('LTQuoteQuestionaireGet', 'POST');
     const tranId = useSelector((state) => state.quote.tranId);
     const [questionnaire, setQuestionnaire] = useState([]);
 
     useEffect(() => {
         handleGetQuestionnaire();
+        handleGetQuestionnaireWithValues();
     }, []);
+
+    const handleGetQuestionnaireWithValues = async () => {
+        try {
+            const queryparams = { tranId }
+            const response = await LTQuoteQuestionaireGet('', queryparams);
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                console.log(response?.Data);
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    };
 
     const handleGetQuestionnaire = async () => {
         dispatch(setLoader(true));

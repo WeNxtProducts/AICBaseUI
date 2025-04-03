@@ -29,6 +29,30 @@
     text-align: center;
 }
 
+@mixin common-box-style() {
+    background-color: #DCE0E9;
+    padding: 10px;
+    min-height: 100px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin head-1() {
+    color: #4D5E80;
+    font-size: 12px;
+}
+
+@mixin box-btn() {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #0382C8;
+    color: #ffffff;
+    padding: 5px 10px;
+}
+
 .group-life-quote {
 
     .content_box {
@@ -108,15 +132,112 @@
 
             .cover_details {
                 grid-column: span 3;
-
-                .selected_plan_summary{
-                    
-                }
             }
 
             .extra_details {
-                border: 1px solid red;
                 grid-column: span 1;
+
+
+                .main_detail_box {
+                    background-color: #F5F5F5;
+                    border-radius: 10px;
+                    padding: 10px;
+
+                    .dwn_box {
+                        @include common-box-style();
+
+                        .head1 {
+                            @include head-1();
+                        }
+
+                        .head2 {
+                            @include head-1();
+                            font-weight: 600;
+                        }
+
+                        .btn1_download {
+                            @include box-btn();
+                        }
+                    }
+
+                    .communication_box {
+                        margin-top: 30px;
+                        @include common-box-style();
+
+                        .head1 {
+                            @include head-1();
+                        }
+
+                        .comm_btn {
+                            width: 100%;
+                            display: flex;
+                            justify-content: space-between;
+                            gap: 10px;
+
+                            .btn1_download {
+                                @include box-btn();
+                            }
+                        }
+                    }
+
+                    .grp_details_box {
+                        margin-top: 40px;
+
+                        .grp_details_title {
+                            text-align: center;
+                            color: #0A1629;
+                            font-size: 15px;
+                            font-weight: 700;
+                        }
+
+                        .hor_divider {
+                            margin-top: 10px;
+                            width: 100%;
+                            border: 1px solid #E4E6E8;
+                        }
+
+                        .grp_details {
+                            margin-top: 10px;
+                            min-height: 100px;
+                            background-color: #DCE0E9;
+                            border-radius: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            padding: 10px;
+
+                            .grp_details1 {
+
+                                .grp_details_label {
+                                    color: #91929E;
+                                    font-size: 12px;
+
+                                }
+
+                                .grp_details_value {
+                                    color: #0A1629;
+                                    font-size: 15px;
+                                    font-weight: 600;
+                                }
+
+                                .with_download {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+
+                                    .down_icon {
+                                        cursor: pointer;
+                                        color: #000000;
+
+                                        &:hover {
+                                            color: #0382C8;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
