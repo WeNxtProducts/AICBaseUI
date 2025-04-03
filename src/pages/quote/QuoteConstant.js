@@ -389,3 +389,20 @@ export const payMethodlist = [
         img: bankImg
     }
 ]
+
+export const quoteSteps = [
+    { label: 'Basic Details' },
+    { label: 'List of Benefits' },
+    { label: 'Assured/Cust Details' },
+    { label: 'Questions' },
+    { label: 'Upload Docs' },
+    { label: 'Review' },
+    { label: 'Payment' },
+];
+
+export const grpSteps = [
+    { label: 'Basic Details' },
+    { label: 'Plan Summary' },
+    { label: 'Review' },
+    { label: 'Payment' },
+];

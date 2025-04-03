@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import QuoteStepper from './stepper/Stepper';
 import Stepper1 from './stepper1/Stepper1';
 import Stepper2 from './stepper2/stepper2';
 import Stepper3 from './stepper3/Stepper3';
@@ -11,14 +10,18 @@ import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
 import {
-    clearQuote, setBasicInfoForm, setCurrentAddress,
-    setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress
+    clearQuote, setBasicInfoForm, setComQuote, setCurrentAddress,
+    setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress,
+    setStepper3,
+    setStepperIndex
 } from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
 import './Quote.scss';
 import PaymentStepper from './paymentStepper/PaymentStepper';
 import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
 import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
+import { quoteSteps } from './QuoteConstant';
+import StepperComponent from '../../components/stepper/Stepper';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -74,6 +77,12 @@ const Quote = () => {
         }
     };
 
+    const handleStepClick = (index) => {
+        dispatch(setStepper3(''))
+        dispatch(setComQuote(false))
+        dispatch(setStepperIndex(index));
+    }
+
     const data = {}
 
     return (
@@ -83,7 +92,10 @@ const Quote = () => {
                 <QuoteHeader />
                 {payFinish ? <PaymentConfirmPage /> : (
                     <div className='content_box p-3'>
-                        <QuoteStepper />
+                        <StepperComponent quoteSteps={quoteSteps}
+                            stepperChange={handleStepClick}
+                            stepperIndex={stepperIndex}
+                        />
                         <div className='px-5'>
                             {stepperIndex === 0 && <Stepper1 />}
                             {stepperIndex === 1 && <Stepper2 />}

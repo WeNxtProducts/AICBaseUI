@@ -56,7 +56,7 @@ const QuoteProductList = () => {
     const handleSelectProduct = item => {
         dispatch(setProdCode(item?.PROD_CODE));
         setSelectedProduct(item?.PROD_CODE);
-        navigate('/quote');
+        navigate('/quote'); //quote
     };
 
     const handleSelectPlan = item => {

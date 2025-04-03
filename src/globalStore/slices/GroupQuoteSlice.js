@@ -2,27 +2,31 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    prodCode: '',
-    planCode: '',
     tranId: '',
     stepperIndex: 0,
+    loader: false,
+    basicInfoForm: null,
+    dropDown: null
 };
 
 const GroupQuoteSlices = createSlice({
     name: 'GroupQuoteSlices',
     initialState,
     reducers: {
-        setProdCode: (state, action) => {
-            state.prodCode = action.payload;
-        },
-        setPlanCode: (state, action) => {
-            state.planCode = action.payload;
-        },
         setTranId: (state, action) => {
             state.tranId = action.payload;
         },
         setStepperIndex: (state, action) => {
             state.stepperIndex = action.payload;
+        },
+        setLoader: (state, action) => {
+            state.loader = action.payload;
+        },
+        setBasicInfoForm: (state, action) => {
+            state.basicInfoForm = action.payload;
+        },
+        setDropDown: (state, action) => {
+            state.dropDown = action.payload;
         },
         clearGroupQuote: (state) => {
             state.prodCode = '',
@@ -33,7 +37,8 @@ const GroupQuoteSlices = createSlice({
     },
 });
 
-export const { setProdCode, setPlanCode, setTranId,
-    setStepperIndex, clearGroupQuote } = GroupQuoteSlices.actions;
+export const { setTranId, setStepperIndex, clearGroupQuote,
+    setLoader, setBasicInfoForm,
+    setDropDown } = GroupQuoteSlices.actions;
 
 export default GroupQuoteSlices.reducer;

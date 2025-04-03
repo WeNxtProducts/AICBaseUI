@@ -1,26 +1,11 @@
 import React from 'react';
 import { Step, Stepper } from 'react-form-stepper';
-import { useSelector, useDispatch } from 'react-redux';
-import { setComQuote, setStepper3, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import './Stepper.scss';
 
-const QuoteStepper = () => {
-    const dispatch = useDispatch();
-    const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
-    const quoteSteps = [
-        { label: 'Basic Details' },
-        { label: 'List of Benefits' },
-        { label: 'Assured/Cust Details' },
-        { label: 'Questions' },
-        { label: 'Upload Docs' },
-        { label: 'Review' },
-        { label: 'Payment' },
-    ];
+const StepperComponent = ({ quoteSteps, stepperChange, stepperIndex }) => {
 
     const handleStepClick = (index) => {
-        dispatch(setStepper3(''))
-        dispatch(setComQuote(false))
-        dispatch(setStepperIndex(index));
+        stepperChange(index);
     };
 
     return (
@@ -68,4 +53,4 @@ const QuoteStepper = () => {
     );
 };
 
-export default QuoteStepper;
+export default StepperComponent;
