@@ -8,7 +8,7 @@ import { clearQuote } from '../../../globalStore/slices/QuoteSlice';
 const PaymentConfirmPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [countdown, setCountdown] = useState(10000);
+    const [countdown, setCountdown] = useState(5);
 
     useEffect(() => {
         const timer = setInterval(() => {

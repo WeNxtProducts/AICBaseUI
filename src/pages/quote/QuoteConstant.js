@@ -260,7 +260,7 @@ export const checklist = [
 export const DeleteKeys = [
     'DocType', 'TranId', 'base64String', 'dms_status', 'filename',
     'genType', 'module', 'param_add1', 'param_add2', 'replaceFlag',
-    'screenName', 'uploadscrn'
+    'screenName', 'uploadscrn', 'doc_sys_id', 'filepath'
 ];
 
 export const custDetails = [

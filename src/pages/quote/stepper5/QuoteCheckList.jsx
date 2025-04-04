@@ -24,11 +24,38 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
     const DMSFileDelete = useApiRequests('DMSDelete64', 'POST');
     const DMSFileView = useApiRequests('DMSView64', 'POST');
     const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
+    const LTQuoteChecklistSave = useApiRequests('LTQuoteChecklistSave', 'POST');
+    const LTQuoteChecklistUpdate = useApiRequests('LTQuoteChecklistUpdate', 'POST');
     const [checklist, setChecklist] = useState([]);
-    // Store the active dropzone ID
     const [activeDropzoneId, setActiveDropzoneId] = useState(null);
-    // Create a ref to also store the activeDropzoneId to ensure we always have the latest value
     const activeDropzoneIdRef = useRef(null);
+    const [saveOrUpdate, setSaveOrUpdate] = useState(false);
+
+    const handleGetSavedFiles = async (docFiles) => {
+        dispatch(setLoader(true));
+        try {
+            const payload = { queryParams: { tranId: tranId } };
+            const response = await getMapQuery(payload, { queryId: 195 });
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                if (Array.isArray(response?.Data)) {
+                    const updatedDocs = docFiles.map(data => {
+                        const check = response?.Data?.find(doc =>
+                            doc?.DocType === data?.DTL_TODO_LIST_ITEM && doc?.dms_status === 'Y'
+                        );
+                        return {
+                            ...data, ...check
+                        }
+                    });
+                    setChecklist(updatedDocs)
+                } else setChecklist(docFiles)
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    }
 
     const handleFetchId = async () => {
         dispatch(setLoader(true));
@@ -36,8 +63,8 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
             const response = await getMapQuery({ queryId }, { queryId });
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
-                console.log('response', response?.Data)
                 setChecklist(response?.Data)
+                // handleGetSavedFiles(response?.Data)
             }
         } catch (err) {
             showNotification.WARNING(err?.message || 'Something went wrong');
@@ -46,11 +73,32 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         }
     };
 
+    const handleGetFilledFiles = async () => {
+        dispatch(setLoader(true));
+        try {
+            const payload = { queryParams: { tranId, groupCode: "CHKLST" } };
+            const response = await getMapQuery(payload, { queryId: 265 });
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                if (Array.isArray(response?.Data)) {
+                    handleGetSavedFiles(response?.Data)
+                    setSaveOrUpdate(true)
+                } else if (!Array.isArray(response?.Data)) {
+                    handleFetchId()
+                    setSaveOrUpdate(false)
+                }
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    }
+
     useEffect(() => {
-        handleFetchId()
+        handleGetFilledFiles()
     }, [])
 
-    // Update the ref whenever activeDropzoneId changes
     useEffect(() => {
         activeDropzoneIdRef.current = activeDropzoneId;
     }, [activeDropzoneId]);
@@ -89,9 +137,8 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         } catch (error) {
             console.error("Error reading file:", error);
         }
-    }, [tranId, uploadscrn]); // Remove activeDropzoneId from dependencies since we're using the ref
+    }, [tranId, uploadscrn]);
 
-    // Use a single dropzone instance
     const { getRootProps, getInputProps, open } = useDropzone({
         onDrop,
         noClick: true,
@@ -111,13 +158,10 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         }
     });
 
-    const handleFileNameClick = (rowId) => {
-        console.log("rowId", rowId);
-        // Set the activeDropzoneId in state
-        setActiveDropzoneId(rowId);
-        // Also set it in the ref for immediate access
-        activeDropzoneIdRef.current = rowId;
-        // Open the file browser - this needs to happen after we've set the ID
+    const handleFileNameClick = (item) => {
+        if (item?.doc_sys_id) return;
+        setActiveDropzoneId(item?.DTL_SR_NO);
+        activeDropzoneIdRef.current = item?.DTL_SR_NO;
         setTimeout(() => {
             open();
         }, 0);
@@ -172,13 +216,37 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         }
     };
 
+    const handleUpdateFiles = async (updatingFiles, status) => {
+        const updatedSave = checklist
+            ?.filter(item => updatingFiles.includes(item?.DTL_TODO_LIST_ITEM))
+            .map(({ DTL_TODO_LIST_ITEM, DTL_SR_NO }) => ({
+                DTLS_TRAN_ID: DTL_SR_NO,
+                DTLS_TODO_LIST_ITEM: DTL_TODO_LIST_ITEM,
+                DTLS_APPR_STS: status,
+                DTLS_QUOT_TRAN_ID: tranId,
+            }));
+
+        const payload = { doListRequest: updatedSave }
+        try {
+            const response = await LTQuoteChecklistUpdate(payload);
+            if (response?.status === 'SUCCESS') {
+                handleGetFilledFiles()
+            } else if (response?.status === 'FAILURE') {
+                showNotification.ERROR('File Not Updated!');
+            }
+        } catch {
+            showNotification.ERROR('File Not Updated!');
+        }
+    }
+
     const handleDelete = async (payload, index) => {
-        const { doc_sys_id } = payload;
+        console.log("payload : ", payload)
+        const { doc_sys_id, DTL_TODO_LIST_ITEM } = payload;
         const deleteId = { doc_sys_id: [doc_sys_id] };
         try {
             const response = await DMSFileDelete(deleteId);
             if (response?.status === 'SUCCESS') {
-                deleteByIndex(index);
+                handleUpdateFiles([DTL_TODO_LIST_ITEM], 'N')
                 showNotification.SUCCESS(`${payload?.filename} Deleted Successfully`);
             } else if (response?.status === 'FAILURE') {
                 showNotification.ERROR('File Not Deleted!');
@@ -203,6 +271,46 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
         });
     }
 
+    const handleUploadAll = async () => {
+        console.log("handleUploadAll : ", checklist)
+        const filteredData = checklist.filter(item => Object.prototype.hasOwnProperty.call(item, 'base64String'));
+        const docname = filteredData.map(item => item.DTL_TODO_LIST_ITEM);
+        console.log("filteredData : ", docname)
+        try {
+            const response = await DMSFileUpload(filteredData);
+            const allSuccess = response?.Overall.every(item => item.status == 'SUCCESS');
+            if (allSuccess) {
+                showNotification.SUCCESS(`Uploaded Successfully`);
+                saveOrUpdate ? handleUpdateFiles(docname, 'Y') : handleSaveAll(docname)
+            } else if (!allSuccess) {
+                showNotification.ERROR('File Not Uploaded!');
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        }
+    }
+
+    const handleSaveAll = async (docname) => {
+        const updatedSave = checklist?.map((item) => {
+            const { DTL_TODO_LIST_ITEM } = item
+            return {
+                DTLS_TODO_LIST_ITEM: DTL_TODO_LIST_ITEM,
+                DTLS_APPR_STS: 'Y',
+                DTLS_QUOT_TRAN_ID: tranId,
+            }
+        })
+        const payload = { doListRequest: updatedSave }
+        try {
+            const response = await LTQuoteChecklistSave(payload);
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                handleGetFilledFiles()
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        }
+    }
+
     return (
         <div className='quote_checklist'>
             {/* Single dropzone instance */}
@@ -224,12 +332,12 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                         {checklist.map((item, index) => (
                             <tr key={item.DTL_SR_NO}>
                                 <td>
-                                    <Checkbox />
+                                    <Checkbox checked={item.DTLS_APPR_STS === 'Y'} />
                                 </td>
                                 <td>{item.DTL_TODO_LIST_ITEM}</td>
                                 <td
-                                    className='cursor-pointer'
-                                    onClick={() => handleFileNameClick(item?.DTL_SR_NO)}>
+                                    className={`${item?.filename ? 'cursor-default' : 'cursor-pointer'}`}
+                                    onClick={() => handleFileNameClick(item)}>
                                     {item?.filename ? (
                                         <span>{item?.filename}</span>
                                     ) : (
@@ -237,7 +345,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                                     )}
                                 </td>
                                 <td>
-                                    <Tooltip placement='top' title='Post'>
+                                    {/* <Tooltip placement='top' title='Post'>
                                         <span
                                             onClick={() => {
                                                 handleUpload(item, index);
@@ -245,7 +353,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                                             className='icon-wrapper save-icon'>
                                             <SaveOutlined />
                                         </span>
-                                    </Tooltip>
+                                    </Tooltip> */}
 
                                     <Tooltip placement='top' title='View'>
                                         <span
@@ -271,6 +379,13 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                     </tbody>
                 </table>
             }
+            <div className='save_btn_grid_final mt-3'>
+                <button
+                    onClick={() => handleUploadAll()}
+                    type='button'>
+                    Upload
+                </button>
+            </div>
         </div>
     );
 };

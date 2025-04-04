@@ -30,7 +30,7 @@ const Stepper5 = () => {
                             <QuoteCheckList
                                 queryId='264'
                                 setLoader={setLoader}
-                                tranId={tranId}
+                                tranId={tranId.toString()}
                                 uploadscrn='checklist-digital'
                             />
                         </TabPane>
@@ -45,7 +45,7 @@ const Stepper5 = () => {
                 <button
                     onClick={() => dispatch(setStepperIndex(5))}
                     type='submit'>
-                    Save
+                    Next
                 </button>
                 <button
                     onClick={() => dispatch(setStepperIndex(3))}

@@ -159,7 +159,7 @@ const ListOfQuestions = () => {
                 <button
                     onClick={() => handleSaveQuestions()}
                 >
-                    Save
+                    Save & Next
                 </button>
                 <button
                     onClick={() => dispatch(setStepperIndex(2))}

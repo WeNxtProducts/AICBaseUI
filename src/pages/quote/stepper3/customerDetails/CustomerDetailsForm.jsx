@@ -37,7 +37,6 @@ const CustomerDetailsForm = () => {
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
                 showNotification.SUCCESS(response?.status_msg);
-                console.log("Response : ", response)
                 dispatch(setStepper3('customerAddress'))
             }
         } catch (err) {

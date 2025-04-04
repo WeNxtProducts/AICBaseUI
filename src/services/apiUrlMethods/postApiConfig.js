@@ -489,6 +489,9 @@ const POST_API_URL = {
     LTQuoteBeneficiaryGet: {
         url: '/common/ltQuoteBeneficiaryEdit',
     },
+    LTQuoteBasicInfoGet: {
+        url: '/common/ltQuoteEdit',
+    },
     LTQuoteQuestionaire: {
         url: '/ltQquotDiscLoad/getQuestionnaire',
         baseURL: 'CRUD',
@@ -503,6 +506,14 @@ const POST_API_URL = {
     },
     LTQuoteQuestionaireUpdate: {
         url: '/ltQquotDiscLoad/updateQuestionnaireWithValues',
+        baseURL: 'CRUD',
+    },
+    LTQuoteChecklistSave: {
+        url: '/docList/saveDocList',
+        baseURL: 'CRUD',
+    },
+    LTQuoteChecklistUpdate: {
+        url: '/docList/updateDocList',
         baseURL: 'CRUD',
     }
 };
