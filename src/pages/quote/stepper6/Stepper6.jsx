@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import ReviewHeader from './ReviewHeader'
 import ReviewCustOcc from './ReviewCustOcc'
-import { custDetails } from '../QuoteConstant'
 import ReviewCustAddress from './ReviewCustAddress'
 import ReviewFooter from './ReviewFooter'
 import useApiRequests from '../../../services/useApiRequests'
 import { useSelector } from 'react-redux'
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence'
+import ReviewQuestionaire from './ReviewQuestionaire'
+import UploadDocListReview from './UploadDocListReview'
+import showNotification from '../../../components/notification/Notification'
 
 const Stepper6 = () => {
     const tranId = useSelector(state => state?.quote?.tranId);
@@ -29,6 +31,7 @@ const Stepper6 = () => {
             queryParams: { DTL_DS_TYPE: 1, DTL_DS_CODE: "PRO", DTL_DTG_GROUP_CODE: "UWQUEST", tranId }
         }
         const payloadChecklist = { queryParams: { tranId, groupCode: "CHKLST" } };
+        const payloadDoc = { queryParams: { tranId: tranId.toString() } };
 
         Promise.all([
             LTQuoteBasicInfo('', LTQuoteBasicInfoParams),
@@ -39,24 +42,41 @@ const Stepper6 = () => {
             LTQuoteAssuredDtails('', LTQuoteAssuredDtailsParams),
             LTQuoteNomineeDetails('', nomineeParams),
             LTQuoteQuestionaireDetails(payloadQuestions),
-            LTQuoteDocDetails(payloadChecklist, { queryId: 265 })
+            LTQuoteDocDetails(payloadChecklist, { queryId: 265 }),
+            LTQuoteDocDetails(payloadDoc, { queryId: 195 })
         ])
-            .then(([basicInfo, benefits, assuredDetails, nomineeDetails, questionnaireDetails, docDetails]) => {
+            .then(([basicInfo, benefits, assuredDetails, nomineeDetails, questionnaireDetails, docDetails, fileList]) => {
+                const updatedDocs = docDetails?.Data?.map(data => {
+                    const check = fileList?.Data?.find(doc =>
+                        doc?.DocType === data?.DTL_TODO_LIST_ITEM && doc?.dms_status === 'Y'
+                    );
+                    return {
+                        ...data, ...check
+                    }
+                })
                 const unOrderedData = {
-                    basicInfo: basicInfo?.Data?.frontForm,
+                    basicInfo: {
+                        label: 'Basic Info',
+                        formFields: {
+                            ...basicInfo?.Data?.frontForm?.formFields,
+                            ...assuredDetails?.Data?.QuotAssuredDtls?.formFields
+                        }
+                    },
                     QuotAssuredDtls: assuredDetails?.Data?.QuotAssuredDtls,
-                    Nominee: nomineeDetails?.Data?.Nominee
+                    Nominee: nomineeDetails?.Data?.Nominee,
+                    CurrentAddress: assuredDetails?.Data?.CurrentAddress,
+                    ResidenceAddress: assuredDetails?.Data?.ResidenceAddress
                 };
                 const orderedData = sortObjectByPFDSeqNo(unOrderedData);
                 setData({
                     ...orderedData,
                     benefits: benefits?.Data,
                     questionnaireDetails: questionnaireDetails?.Data,
-                    docDetails: docDetails?.Data
+                    docDetails: updatedDocs
                 });
             })
             .catch((err) => {
-                console.error('Error fetching data:', err);
+                showNotification.WARNING(err?.message || 'Something went wrong');
             });
     }, []);
 
@@ -73,10 +93,19 @@ const Stepper6 = () => {
                 <div className='review_form'>
                     <ReviewHeader />
                     <div className='mt-2'>
-                        <ReviewCustOcc title='Customer Details' details={custDetails} data={data?.basicInfo} />
+                        <ReviewCustOcc title='Customer Details' data={data?.basicInfo} />
                     </div>
                     <div className='mt-5'>
-                        <ReviewCustAddress title='Customer Details' details={custDetails} data={data} />
+                        <ReviewCustOcc title='Current Address' data={data?.CurrentAddress} />
+                    </div>
+                    <div className='mt-5'>
+                        <ReviewCustOcc title='Residence Address' data={data?.ResidenceAddress} />
+                    </div>
+                    <div className='mt-5'>
+                        <ReviewQuestionaire list={data?.questionnaireDetails} />
+                    </div>
+                    <div className='mt-5'>
+                        <UploadDocListReview list={data?.docDetails} />
                     </div>
                     <div className='mt-5 review_footer'>
                         <ReviewFooter />

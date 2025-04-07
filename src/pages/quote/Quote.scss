@@ -774,6 +774,13 @@
       border-radius: 5px;
       border: 1px solid #4D5E80;
 
+      .review_title {
+        color: #4D5E80;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
       .rev_header {
         background-color: #0382C8;
         padding: 5px 10px;
@@ -800,17 +807,10 @@
       .review_details {
         padding: 10px 10px;
 
-        .review_title {
-          color: #4D5E80;
-          font-size: 15px;
-          font-weight: 700;
-          margin-bottom: 10px;
-        }
-
         .details_grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 20px 50px;
+          gap: 13px 50px;
           align-items: center;
 
           .detail_field {
@@ -834,6 +834,24 @@
 
       .review_address {
         padding: 10px 10px;
+      }
+
+      .review_questionaire {
+        padding: 13px 10px;
+
+        .question {
+          color: #000000;
+          font-size: 14px;
+          font-weight: 400;
+        }
+
+        .answer_label {
+          margin-top: 10px;
+          color: #4D5E80;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 30px;
+        }
       }
     }
 
@@ -910,5 +928,45 @@
         }
       }
     }
+
+    .doc_list_upload {
+      padding: 10px 10px;
+
+      .doc_table {
+        width: 100%;
+        border-collapse: collapse;
+
+        thead {
+          color: #6B6B6B;
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        tbody {
+          color: #202020;
+          font-size: 15px;
+          font-weight: 500;
+        }
+
+        th,
+        td {
+          text-align: left;
+          padding: 5px;
+        }
+
+        th {
+          font-weight: bold;
+        }
+
+        tr {
+          border-bottom: 1px solid transparent;
+        }
+
+        tr:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
   }
 }
