@@ -246,7 +246,6 @@ const SignaturePad = ({ onSave, width = 600, height = 200, initialName, initialS
 
         const signatureDataURL = canvas.toDataURL('image/png');
         onSave(name, signatureDataURL);
-        message.success('Signature saved successfully');
     };
 
     const toggleTool = (selectedTool) => {

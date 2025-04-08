@@ -48,8 +48,8 @@ const ReviewFooter = () => {
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
                 if (Array.isArray(response?.Data)) {
-                    const clientSignData = response?.Data?.find(sign => sign?.type === 'client');
-                    const brokerSignData = response?.Data?.find(sign => sign?.type === 'broker');
+                    const clientSignData = response?.Data?.find(sign => sign?.type === 'client' && sign?.dms_status === 'Y');
+                    const brokerSignData = response?.Data?.find(sign => sign?.type === 'broker' && sign?.dms_status === 'Y');
                     if (clientSignData)
                         setClientSign({ name: clientSignData?.signName, signature: clientSignData?.filepath, ...clientSignData });
                     else
@@ -80,7 +80,7 @@ const ReviewFooter = () => {
                 {clientSign || brokerSign ? (
                     <>
                         <CusBroSign title='Client Signature' doctype='client' data={clientSign} />
-                        {/* <CusBroSign title='Broker Signature' doctype='broker' data={brokerSign} /> */}
+                        <CusBroSign title='Broker Signature' doctype='broker' data={brokerSign} />
                     </>
                 ) : null}
             </div>

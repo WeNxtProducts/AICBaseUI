@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 const fileData = {
     module: 'quote',
     replaceFlag: 'N',
-    dms_status: 'N',
+    dms_status: 'Y',
     screenName: 'DMS',
     genType: '.png',
     uploadscrn: 'Sign-digital'
@@ -28,22 +28,16 @@ const CusBroSign = ({ title, doctype, data }) => {
         if (inputContainerRef.current) setPopoverWidth(inputContainerRef.current.offsetWidth);
     }, []);
 
-    useEffect(() => {
-        console.log("signatureData : ", signatureData)
-    }, [signatureData])
-
     const handleGetBase64 = async (pathDoc) => {
-        console.log("handleGetBase64 : ")
         const payload = [{ path: pathDoc }];
         try {
             const response = await DMSFileView(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR('File Not Viewed!');
             if (response?.status === 'SUCCESS') {
-                console.log("Inside :")
                 setSignatureData({
+                    ...data,
                     name: data?.name,
                     signature: `data:image/png;base64,${response?.base64Strings[0]}`,
-                    ...data
                 });
             }
         } catch {
@@ -53,7 +47,6 @@ const CusBroSign = ({ title, doctype, data }) => {
 
     useEffect(() => {
         if (data && data?.signature && data?.name) {
-            console.log("call")
             handleGetBase64(data?.signature)
         }
     }, [data]);
@@ -64,12 +57,11 @@ const CusBroSign = ({ title, doctype, data }) => {
 
     const handleSignatureSave = (name, signature) => {
         setSignatureData({ name, signature });
-        handleUpload({ name, signature, ...data })
+        handleUpload({ ...data, name, signature })
         setOpen(false);
     };
 
     const uploadNewSign = async (signdata) => {
-        console.log(signdata)
         const payload = {
             ...fileData,
             filename: `${tranId}-${title}-Sign`,
@@ -79,13 +71,11 @@ const CusBroSign = ({ title, doctype, data }) => {
             param_add1: signdata?.name,
             param_add2: doctype
         }
-        // console.log("handleUpload : ", payload)
         try {
             const response = await DMSFileUpload([payload]);
             if (response?.Overall[0]?.status === 'FAILURE')
                 showNotification.ERROR('File Not Uploaded!');
             if (response?.Overall[0]?.status === 'SUCCESS') {
-                console.log("response : ", response)
                 showNotification.SUCCESS(`${payload?.filename} Uploaded Successfully`);
             }
         } catch {
@@ -109,9 +99,8 @@ const CusBroSign = ({ title, doctype, data }) => {
     };
 
     const handleUpload = async (signdata) => {
-        console.log("signdata : ", signdata)
         if (signdata?.doc_sys_id) {
-            handleDelete(signdata)
+            handleDelete({ ...data, ...signdata })
         } else {
             uploadNewSign(signdata)
         }
