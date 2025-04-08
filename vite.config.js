@@ -21,6 +21,9 @@ export default defineConfig(({ mode }) => {
         server: {
             port: __urlport,
             strictPort: true,
+            hmr: {
+                overlay: false, // Disable the HMR error overlay
+            },
         },
         resolve: {
             alias: {
