@@ -26,6 +26,7 @@ const RightSideForm = () => {
   const getDeptList = useApiRequests('getDept', 'POST');
   const getLangList = useApiRequests('getLang', 'POST');
   const getRulesJSON = useApiRequests('getRulesJSON', 'POST');
+  const staticToken = useApiRequests('getStaticToken', 'GET');
   const [showPassword, setShowPassword] = useState(false);
   const [dropDowns, setDropDowns] = useState({
     languageList: [],
@@ -60,6 +61,18 @@ const RightSideForm = () => {
     } catch (error) {
       console.error('error : ', error);
     }
+  };
+
+  const getStaticToken = async () => {
+    navigate('/quoteProducts')
+    // try {
+    //   const response = await staticToken();
+    //   console.log("Response : ", response)
+    //   dispatch(setToken(response));
+    //   navigate('/quoteProducts')
+    // } catch (error) {
+    //   console.error('error : ', error);
+    // }
   };
 
   useEffect(() => {
@@ -201,7 +214,9 @@ const RightSideForm = () => {
                   <p className='login-new-style'>Login</p>
                   <button
                     type='button'
-                    onClick={() => navigate('/quoteProducts')} className='w-full get_quote_btn'
+                    onClick={() => {
+                      getStaticToken()
+                    }} className='w-full get_quote_btn'
                   >
                     Get Quote
                   </button>

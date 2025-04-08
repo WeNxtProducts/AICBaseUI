@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     tranId: '',
+    quotationNo: '',
     stepperIndex: 0,
     compQuote: false,
     stepper_3: '',
@@ -95,6 +96,9 @@ const QuoteSlices = createSlice({
         setPayFinish: (state, action) => {
             state.payFinish = action.payload;
         },
+        setQuotationNo: (state, action) => {
+            state.quotationNo = action.payload;
+        },
         clearQuote: (state) => {
             state.tranId = '',
                 state.stepperIndex = 0,
@@ -117,7 +121,8 @@ const QuoteSlices = createSlice({
                 state.sameAddress = false,
                 state.payStepper = 0,
                 state.payMethod = 1,
-                state.payFinish = false
+                state.payFinish = false,
+                state.quotationNo = ''
         }
     },
 });
@@ -128,7 +133,7 @@ export const { setStepperIndex, setComQuote, setStepper3
     setLoader, setCustDetailId,
     setCurrentAddress, setResidenceAddress, setNomineeDetails,
     setNomineeId, setSameAddress, setPayStepper, setPayMethod,
-    setPayFinish, clearQuote
+    setPayFinish, setQuotationNo, clearQuote
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

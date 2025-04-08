@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setBasicInfoForm, setLoader, setStepperIndex, setTranId } from '../../../../globalStore/slices/QuoteSlice';
+import { setBasicInfoForm, setLoader, setQuotationNo, setStepperIndex, setTranId } from '../../../../globalStore/slices/QuoteSlice';
 import QuoteForm from '../../quoteForm/QuoteForm';
 import useApiRequests from '../../../../services/useApiRequests';
 import { deepCopy, extractFieldValuesInPlace } from '../../../../components/commonHelper/DataSend';
@@ -31,11 +31,14 @@ const BasicInfo = () => {
             if (response?.status === 'SUCCESS') {
                 showNotification.SUCCESS(response?.status_msg);
                 dispatch(setBasicInfoForm(values))
-                if (!tranId) dispatch(setTranId(response?.data?.Id));
+                if (!tranId) {
+                    dispatch(setTranId(response?.data?.Id))
+                    dispatch(setQuotationNo(response?.data?.POL_NO))
+                }
                 dispatch(setStepperIndex(1));
             }
         } catch (err) {
-            console.error(err);
+            showNotification.WARNING(err?.message || 'Something went wrong');
         } finally {
             dispatch(setLoader(false));
         }

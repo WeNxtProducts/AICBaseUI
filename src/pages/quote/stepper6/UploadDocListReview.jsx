@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 
 const UploadDocListReview = ({ list }) => {
-    useEffect(() => {
-        console.log("list: ", list);
-    }, [list]);
 
     return (
         <div className='doc_list_upload'>

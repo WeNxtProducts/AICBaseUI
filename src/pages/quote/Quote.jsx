@@ -32,15 +32,22 @@ const Quote = () => {
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
     const loader = useSelector(state => state?.quote?.loader);
     const payFinish = useSelector(state => state?.quote?.payFinish);
+    const quotationNo = useSelector(state => state?.quote?.quotationNo);
+    const { QUOT_FIRST_NAME: { PFD_FLD_VALUE: Fname } = {},
+        QUOT_MIDDLE_NAME: { PFD_FLD_VALUE: Mname } = {},
+        QUOT_LAST_NAME: { PFD_FLD_VALUE: Lname } = {} }
+        = useSelector(state => state?.quote?.basicInfoForm?.frontForm?.formFields || {});
+
+    const name = `${Fname} ${Mname} ${Lname}`.trim();
 
     useEffect(() => {
         if (basicInfoForm === null) {
             fetchFieldAndLovList();
         }
 
-        return () => {
-            dispatch(clearQuote());
-        }
+        // return () => {
+        //     dispatch(clearQuote());
+        // }
     }, []);
 
     const fetchFieldAndLovList = async () => {
@@ -89,7 +96,7 @@ const Quote = () => {
         <QuoteContext.Provider value={data}>
             {loader && <Loader />}
             <div className='Quote'>
-                <QuoteHeader />
+                <QuoteHeader id={quotationNo} name={name} />
                 {payFinish ? <PaymentConfirmPage /> : (
                     <div className='content_box p-3'>
                         <StepperComponent quoteSteps={quoteSteps}

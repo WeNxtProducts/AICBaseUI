@@ -9,16 +9,19 @@ import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySeq
 import ReviewQuestionaire from './ReviewQuestionaire'
 import UploadDocListReview from './UploadDocListReview'
 import showNotification from '../../../components/notification/Notification'
+import BeneficiaryDetailsReview from './BeneficiaryDetailsReview'
+import ListOfBenefitsReview from './ListOfBenefitsReview'
+import ListOfConcernSelect from './ListOfConcernSelect'
 
 const Stepper6 = () => {
     const tranId = useSelector(state => state?.quote?.tranId);
     const custDetailId = useSelector(state => state?.quote?.custDetailId);
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
-    const nomineeId = useSelector(state => state?.quote?.nomineeId);
+    const premiumSummary = useSelector(state => state?.quote?.premiumSummary);
     const LTQuoteBasicInfo = useApiRequests('LTQuoteBasicInfoGet', 'GET');
     const LTQuoteListOfBenefits = useApiRequests('getPreClaimDate', 'POST');
     const LTQuoteAssuredDtails = useApiRequests('LTQuoteAssuredDtlsGet', 'GET');
-    const LTQuoteNomineeDetails = useApiRequests('LTQuoteBeneficiaryGet', 'GET');
+    const LTQuoteNomineeDetails = useApiRequests('getPreClaimDate', 'POST');
     const LTQuoteQuestionaireDetails = useApiRequests('LTQuoteQuestionaireGet', 'POST');
     const LTQuoteDocDetails = useApiRequests('getPreClaimDate', 'POST');
     const [data, setData] = useState(null);
@@ -26,7 +29,7 @@ const Stepper6 = () => {
     useEffect(() => {
         const LTQuoteBasicInfoParams = { tranId, screenName: prodCode, screenCode: 'GETQUOTE' }
         const LTQuoteAssuredDtailsParams = { tranId: custDetailId, screenName: prodCode, screenCode: 'GETQUOTE' }
-        const nomineeParams = { tranId: nomineeId, screenName: prodCode, screenCode: 'GETQUOTE' }
+        const nomineePayload = { queryParams: { tranId } }
         const payloadQuestions = {
             queryParams: { DTL_DS_TYPE: 1, DTL_DS_CODE: "PRO", DTL_DTG_GROUP_CODE: "UWQUEST", tranId }
         }
@@ -40,7 +43,7 @@ const Stepper6 = () => {
                 { queryId: 406 },
             ),
             LTQuoteAssuredDtails('', LTQuoteAssuredDtailsParams),
-            LTQuoteNomineeDetails('', nomineeParams),
+            LTQuoteNomineeDetails(nomineePayload, { queryId: 266 }),
             LTQuoteQuestionaireDetails(payloadQuestions),
             LTQuoteDocDetails(payloadChecklist, { queryId: 265 }),
             LTQuoteDocDetails(payloadDoc, { queryId: 195 })
@@ -63,7 +66,7 @@ const Stepper6 = () => {
                         }
                     },
                     QuotAssuredDtls: assuredDetails?.Data?.QuotAssuredDtls,
-                    Nominee: nomineeDetails?.Data?.Nominee,
+                    // Nominee: nomineeDetails?.Data?.Nominee,
                     CurrentAddress: assuredDetails?.Data?.CurrentAddress,
                     ResidenceAddress: assuredDetails?.Data?.ResidenceAddress
                 };
@@ -72,7 +75,8 @@ const Stepper6 = () => {
                     ...orderedData,
                     benefits: benefits?.Data,
                     questionnaireDetails: questionnaireDetails?.Data,
-                    docDetails: updatedDocs
+                    docDetails: updatedDocs,
+                    Nominee: nomineeDetails?.Data
                 });
             })
             .catch((err) => {
@@ -106,6 +110,15 @@ const Stepper6 = () => {
                     </div>
                     <div className='mt-5'>
                         <UploadDocListReview list={data?.docDetails} />
+                    </div>
+                    <div className='mt-5'>
+                        <BeneficiaryDetailsReview list={data?.Nominee} />
+                    </div>
+                    <div className='mt-5'>
+                        <ListOfBenefitsReview list={data?.benefits} premiumSummary={premiumSummary} />
+                    </div>
+                    <div className='mt-5'>
+                        <ListOfConcernSelect />
                     </div>
                     <div className='mt-5 review_footer'>
                         <ReviewFooter />

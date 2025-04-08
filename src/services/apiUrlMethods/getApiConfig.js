@@ -116,6 +116,9 @@ const GET_API_URL = {
         url: '/prodFactor/get',
         baseURL: 'CRUD',
     },
+    getStaticToken: {
+        url: '/auth/static-token'
+    }
 };
 
 export default GET_API_URL;
