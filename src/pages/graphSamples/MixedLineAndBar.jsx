@@ -114,7 +114,7 @@ const MixedLineAndBar = () => {
     }, []);
 
     return (
-        <ReactECharts option={chartOptions} style={{ height: '400px', width: '100%' }} />
+        <ReactECharts option={chartOptions} style={{ height: '350px', width: '100%' }} />
     );
 };
 

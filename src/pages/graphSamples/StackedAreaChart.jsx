@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
 import empData from './scatterGrapj.json';
 
-const StackedAreaChart = () => {
+const StackedAreaChart = ({ view = 'small' }) => {
     const [chartOptions, setChartOptions] = useState({});
     const policyData = empData.Sheet1;
 
@@ -47,7 +47,7 @@ const StackedAreaChart = () => {
             title: {
                 text: '',
             },
-            tooltip: {
+            tooltip: view === 'large' && {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'cross',
@@ -56,23 +56,36 @@ const StackedAreaChart = () => {
                     },
                 },
             },
-            legend: {
+            legend: view === 'large' && {
                 data: ['Sum Assured', 'Basic Premium Rate', 'OCB Premium', 'Average Age'],
             },
             grid: {
+                top: view === 'large' ? 60 : 40,
                 left: '3%',
-                right: '4%',
-                bottom: '3%',
+                right: view === 'large' ? 10 : 2,
+                bottom: view === 'large' ? 45 : 25,
                 containLabel: true,
             },
             xAxis: {
+                name: 'Product Name',
                 type: 'category',
                 boundaryGap: false,
                 data: productNames,
+                nameLocation: 'middle',
+                nameGap: 30,
             },
             yAxis: {
+                name: 'Sum Assured',
                 type: 'value',
+                axisLabel: {
+                    formatter: view === 'small' ? (value) => {
+                        if (value >= 1e6) return `${value / 1e6}M`;
+                        if (value >= 1e3) return `${value / 1e3}k`;
+                        return value;
+                    } : undefined,
+                },
             },
+
             series: [
                 {
                     name: 'Sum Assured',
@@ -110,10 +123,11 @@ const StackedAreaChart = () => {
         };
 
         setChartOptions(options);
-    }, []);
+    }, [view, policyData]);
 
     return (
-        <ReactECharts option={chartOptions} style={{ height: '400px', width: '95%' }} />
+        <ReactECharts option={chartOptions}
+            style={{ height: view === 'large' ? '400px' : '250px', width: '95%' }} />
     );
 };
 

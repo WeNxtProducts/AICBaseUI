@@ -25,6 +25,7 @@ const CusBroSign = ({ title, doctype, data }) => {
     const inputContainerRef = useRef(null);
 
     useEffect(() => {
+        // console.log("data : ", data)
         if (inputContainerRef.current) setPopoverWidth(inputContainerRef.current.offsetWidth);
     }, []);
 
@@ -76,6 +77,11 @@ const CusBroSign = ({ title, doctype, data }) => {
             if (response?.Overall[0]?.status === 'FAILURE')
                 showNotification.ERROR('File Not Uploaded!');
             if (response?.Overall[0]?.status === 'SUCCESS') {
+                console.log("response : ", response?.Overall[0]?.Data?.doc_sys_id)
+                setSignatureData((prev) => ({
+                    ...prev,
+                    doc_sys_id: response?.Overall[0]?.Data?.doc_sys_id,
+                }));
                 showNotification.SUCCESS(`${payload?.filename} Uploaded Successfully`);
             }
         } catch {
@@ -105,6 +111,10 @@ const CusBroSign = ({ title, doctype, data }) => {
             uploadNewSign(signdata)
         }
     }
+
+    useEffect(() => {
+        console.log("signatureData : ", signatureData)
+    }, [signatureData])
 
     return (
         <>

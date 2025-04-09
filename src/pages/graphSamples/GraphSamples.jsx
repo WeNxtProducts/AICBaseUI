@@ -6,20 +6,20 @@ import MixedLineAndBar from './MixedLineAndBar'
 
 const GraphSamples = () => {
     return (
-        <div className='grid grid-cols-8'>
-            <div className='col-span-8'>
+        <div className='grid grid-cols-8 gap-5'>
+            <div className='col-span-4 border-2 p-1'>
                 <p>Large Scatter</p>
-                <ScatterPlot />
+                <ScatterPlot view='large' />
             </div>
-            <div className='col-span-8 mt-4'>
+            <div className='col-span-4 border-2 p-1'>
                 <p>Stacked Area Chart</p>
-                <StackedAreaChart />
+                <StackedAreaChart view='large' />
             </div>
-            <div className='col-span-8 mt-4'>
+            <div className='col-span-4 mt-4 border-2 p-1'>
                 <p>Stacked Horizontal Bar</p>
-                <StackedHorizontalBarChart />
+                <StackedHorizontalBarChart view='large' />
             </div>
-            <div className='col-span-8 mt-4'>
+            <div className='col-span-4 mt-4 border-2 p-1'>
                 <p>Mixed Line and Bar with WaterMark</p>
                 <MixedLineAndBar />
             </div>

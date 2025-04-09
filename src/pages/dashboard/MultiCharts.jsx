@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import CommonChart from './CommonChart';
 import GraphModal from './GraphModal';
+import ScatterPlot from '../graphSamples/ScatterPlot';
+import StackedAreaChart from '../graphSamples/StackedAreaChart';
+import StackedHorizontalBarChart from '../graphSamples/StackedHorizontalBarChart';
+import MixedLineAndBar from '../graphSamples/MixedLineAndBar';
 
 const MultiCharts = () => {
     const [graphOpen, setGraphOpen] = useState(false);
@@ -37,36 +41,22 @@ const MultiCharts = () => {
     return (
         <div className='multi-charts mt-7'>
             <div onClick={() => handleOpenMainchart('1')} className='chart'>
-                <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p>
-                <CommonChart
-                    details={false}
-                    data1={graph1?.data1}
-                    data2={graph1?.data2}
-                />
+                {/* <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p> */}
+                <ScatterPlot view="small" />
             </div>
             <div onClick={() => handleOpenMainchart('2')} className='chart'>
-                <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p>
-                <CommonChart
-                    details={false}
-                    data1={graph2?.data1}
-                    data2={graph2?.data2}
-                />
+                {/* <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p> */}
+                <StackedAreaChart />
             </div>
             <div onClick={() => handleOpenMainchart('3')} className='chart'>
-                <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p>
-                <CommonChart
-                    details={false}
-                    data1={graph3?.data1}
-                    data2={graph3?.data2}
-                />
+                {/* <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p> */}
+                {/* <StackedHorizontalBarChart /> */}
+                <ScatterPlot view="small" />
             </div>
             <div onClick={() => handleOpenMainchart('4')} className='chart'>
-                <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p>
-                <CommonChart
-                    details={false}
-                    data1={graph4?.data1}
-                    data2={graph4?.data2}
-                />
+                {/* <p className='ml-4 mt-2 multi-graph-labels'>Forecast Vs Actuals</p> */}
+                {/* <MixedLineAndBar /> */}
+                <ScatterPlot view="small" />
             </div>
             {graphOpen && <GraphModal graphOpen={graphOpen} selectedGraph={selectedGraph}
                 handleClose={handleClose} />}

@@ -66,6 +66,14 @@ const StackedHorizontalBarChart = () => {
                 type: 'category',
                 data: productNames,
             },
+            dataZoom: [
+                {
+                    type: 'inside',
+                },
+                {
+                    type: 'slider',
+                },
+            ],
             series: [
                 // {
                 //     name: 'Sum Assured',
@@ -121,7 +129,7 @@ const StackedHorizontalBarChart = () => {
         setChartOptions(options);
     }, []);
 
-    return <ReactECharts option={chartOptions} style={{ height: '400px', width: '95%' }} />;
+    return <ReactECharts option={chartOptions} style={{ height: '350px', width: '95%' }} />;
 };
 
 export default StackedHorizontalBarChart;
