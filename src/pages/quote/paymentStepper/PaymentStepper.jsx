@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PlanCard from './PlanCard'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PaymentSelection from './paymentSelection/PaymentSelection';
+import { setPayStepper } from '../../../globalStore/slices/QuoteSlice';
 import './PaymentStepper.scss'
 
 const PaymentStepper = () => {
+    const dispatch = useDispatch();
     const payStepper = useSelector((state) => state.quote.payStepper);
+
+    useEffect(() => {
+        return (() => {
+            dispatch(setPayStepper(0))
+        })
+    }, [])
 
     return (
         <div className='PaymentStepper'>

@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'antd';
 import useApiRequests from '../../../services/useApiRequests';
-import { setLoader } from '../../../globalStore/slices/QuoteSlice';
+import { setLoader, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import showNotification from '../../../components/notification/Notification';
 import { useDispatch, useSelector } from 'react-redux';
-import dayjs from 'dayjs';
 import CusBroSign from './CusBroSign';
 
 const ReviewFooter = () => {
@@ -15,38 +14,11 @@ const ReviewFooter = () => {
         QUOT_LAST_NAME: { PFD_FLD_VALUE: Lname } = {} }
         = useSelector(state => state?.quote?.basicInfoForm?.frontForm?.formFields || {});
     const name = `${Fname} ${Mname} ${Lname}`.trim();
-    const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const getSignDetails = useApiRequests('getPreClaimDate', 'POST');
     const emailTrigger = useApiRequests('emailTrigger', 'POST');
     const tranId = useSelector(state => state?.quote?.tranId);
     const [clientSign, setClientSign] = useState(null);
     const [brokerSign, setBrokerSign] = useState(null);
-
-    const handleProcedureCall = async () => {
-        dispatch(setLoader(true));
-        const payload = {
-            inParams: {
-                P_POL_TRAN_ID: tranId,
-                P_POL_NO: quotationNo,
-                V_POL_ISSUE_DT: dayjs().format('D/MM/YYYY')
-            }
-        }
-        try {
-            const response = await invokeClaimsProcedure(payload, {
-                procedureName: 'PROP_CONVERT',
-                packageName: 'WNPKG_QUICK_QUOTE',
-            });
-            if (response?.status === 'FAILURE') {
-                showNotification.ERROR(response?.status_msg);
-            } else if (response?.status === 'SUCCESS') {
-                dispatch(setLoader(false));
-            }
-        } catch (err) {
-            showNotification.WARNING(err?.message || 'Something went wrong');
-        } finally {
-            dispatch(setLoader(false));
-        }
-    }
 
     const handleSendEmail = async () => {
         dispatch(setLoader(true));
@@ -66,6 +38,7 @@ const ReviewFooter = () => {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
                 showNotification.SUCCESS(response?.status_msg);
+                dispatch(setStepperIndex(6))
             }
         } catch (err) {
             showNotification.WARNING(err?.message || 'Something went wrong');
@@ -75,7 +48,6 @@ const ReviewFooter = () => {
     }
 
     const handleFinalSubmit = async () => {
-        // handleProcedureCall()
         handleSendEmail()
     };
 

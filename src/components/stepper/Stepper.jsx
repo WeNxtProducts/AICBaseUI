@@ -27,7 +27,7 @@ const StepperComponent = ({ quoteSteps, stepperChange, stepperIndex }) => {
                     fontWeight: 600,
                 }}
                 className='custom_stepper'
-                activeStep={2}
+                activeStep={stepperIndex}
             >
                 {quoteSteps.map((item, index) => {
                     let stepClass = 'upcoming';
