@@ -1,13 +1,26 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Form, Formik } from 'formik';
 import { CustomDatePicker, CustomInput, CustomNumberField, CustomSelect, CustomTextArea } from '../../../components/commonExportsFields/CommonExportsFields';
+import useApiRequests from '../../../services/useApiRequests';
+import { productType } from '../../../contants/productMasterDropDown';
+import showNotification from '../../../components/notification/Notification';
+import { ProductMasterContext } from '../ProductMaster';
+import { useDispatch } from 'react-redux';
+import { setProdMastId } from '../../../globalStore/slices/ProdMastSlice';
 
 const ProdMastEntryForm = () => {
+    const dispatch = useDispatch()
+    const { id: tranId } = useContext(ProductMasterContext);
+    const productMasterGetById = useApiRequests('productMasterGetById', 'POST');
+    const productMasterCreate = useApiRequests('productMasterCreate', 'POST');
+    const productMasterUpdate = useApiRequests('productMasterUpdate', 'POST');
+
+    const [loader, setLoader] = useState(false);
     const [initValues, setInitValues] = useState({
         PROD_CODE: '',
-        DESC: '',
-        SHORT_DESC: '',
-        LONG_DESC: '',
+        PROD_DESC: '',
+        PROD_SHORT_DESC: '',
+        PROD_LONG_DESC: '',
         PROD_TYPE: '',
         PROD_SUB_TYPE: '',
         CONTRIBUTION_FROM: '',
@@ -21,13 +34,61 @@ const ProdMastEntryForm = () => {
         PENSION_PURCHASE: '',
         SUM_ASSURED: '',
         SUM_ASSURED_AMT: '',
-        EFF_DATE_FM: '',
-        EFF_DATE_TO: ''
+        PROD_EFF_FM_DT: '',
+        PROD_EFF_TO_DT: ''
     });
 
-    const onSubmit = values => {
-        console.log("Values : ", values);
+    const handleGetData = async () => {
+        try {
+            const response = await productMasterGetById('', { tranId: tranId });
+            if (response?.status === 'FAILURE') {
+                setLoader(false)
+                showNotification.ERROR(response?.status_msg)
+            }
+            if (response?.status === 'SUCCESS') {
+                setInitValues(response?.Data)
+                showNotification.SUCCESS(response?.status_msg)
+            }
+        } catch (err) {
+            setLoader(false)
+            showNotification.ERROR('SomeTing Went Wrong!!');
+        }
     };
+
+    useEffect(() => {
+        if (tranId) {
+            console.log(tranId)
+            handleGetData()
+        }
+    }, [tranId])
+
+    const handleCreateOrUpdate = async (values, apiCalls) => {
+        const payload = {
+            productMaster: {
+                formFields: values
+            }
+        }
+        try {
+            const response = await apiCalls(payload, {}, tranId && { tranId });
+            if (response?.status === 'FAILURE') {
+                setLoader(false)
+                showNotification.ERROR(response?.status_msg)
+            }
+            if (response?.status === 'SUCCESS') {
+                if (!tranId)
+                    dispatch(setProdMastId(response?.data?.Id))
+                setLoader(false)
+                showNotification.SUCCESS(response?.status_msg)
+            }
+        } catch (err) {
+            setLoader(false)
+            showNotification.ERROR('SomeTing Went Wrong!!');
+        }
+    };
+
+    const onSubmit = values => {
+        handleCreateOrUpdate(values, tranId ? productMasterUpdate : productMasterCreate)
+    }
 
     return (
         <div>
@@ -64,12 +125,12 @@ const ProdMastEntryForm = () => {
                                         <p className='col-span-1 form-label'>Descrption</p>
                                         <div className='col-span-3'>
                                             <CustomInput
-                                                name='DESC'
+                                                name='PROD_DESC'
                                                 size='large'
                                                 placeholder='description'
                                                 readOnly={false}
                                                 value={values?.DESC}
-                                                onChange={e => setFieldValue('DESC', e.target.value)}
+                                                onChange={e => setFieldValue('PROD_DESC', e.target.value)}
                                             />
                                         </div>
                                     </div>
@@ -78,12 +139,12 @@ const ProdMastEntryForm = () => {
                                         <p className='col-span-1 form-label'>Short Description</p>
                                         <div className='col-span-3'>
                                             <CustomInput
-                                                name='SHORT_DESC'
+                                                name='PROD_SHORT_DESC'
                                                 size='large'
                                                 placeholder='short description'
                                                 readOnly={false}
-                                                value={values?.SHORT_DESC}
-                                                onChange={e => setFieldValue('SHORT_DESC', e.target.value)}
+                                                value={values?.PROD_SHORT_DESC}
+                                                onChange={e => setFieldValue('PROD_SHORT_DESC', e.target.value)}
                                             />
                                         </div>
                                     </div>
@@ -92,11 +153,11 @@ const ProdMastEntryForm = () => {
                                         <p className='col-span-1 form-label'>Long Description</p>
                                         <div className='col-span-3'>
                                             <CustomTextArea
-                                                value={values?.LONG_DESC}
+                                                value={values?.PROD_LONG_DESC}
                                                 placeholder='long description'
                                                 readOnly={false}
                                                 onChange={e => {
-                                                    setFieldValue('LONG_DESC', e.target.value);
+                                                    setFieldValue('PROD_LONG_DESC', e.target.value);
                                                 }}
                                             />
                                         </div>
@@ -110,14 +171,14 @@ const ProdMastEntryForm = () => {
                                                 size='medium'
                                                 showSearch={false}
                                                 readOnly={false}
-                                                options={[]}
+                                                options={productType}
                                                 placeholder='select'
                                                 value={values?.PROD_TYPE || undefined}
                                                 onChange={e => setFieldValue('PROD_TYPE', e)}
                                             />
                                         </div>
                                     </div>
-
+                                    {/* 
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Product Sub Type</p>
                                         <div className='col-span-3'>
@@ -306,18 +367,18 @@ const ProdMastEntryForm = () => {
                                                 onChange={e => setFieldValue('SUM_ASSURED_AMT', e.target.value)}
                                             />
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='col-span-1 form-label'>Effective date from</p>
                                         <div className='col-span-3'>
                                             <CustomDatePicker
-                                                name='EFF_DATE_FM'
+                                                name='PROD_EFF_FM_DT'
                                                 placeholder='date'
                                                 size='medium'
                                                 readOnly={false}
-                                                value={values?.EFF_DATE_FM}
-                                                onChange={date => setFieldValue('EFF_DATE_FM', date)}
+                                                value={values?.PROD_EFF_FM_DT}
+                                                onChange={date => setFieldValue('PROD_EFF_FM_DT', date)}
                                             />
                                         </div>
                                     </div>
@@ -326,18 +387,18 @@ const ProdMastEntryForm = () => {
                                         <p className='col-span-1 form-label'>Effective date to</p>
                                         <div className='col-span-3'>
                                             <CustomDatePicker
-                                                name='EFF_DATE_TO'
+                                                name='PROD_EFF_TO_DT'
                                                 placeholder='date'
                                                 size='medium'
                                                 readOnly={false}
-                                                value={values?.EFF_DATE_TO}
-                                                onChange={date => setFieldValue('EFF_DATE_TO', date)}
+                                                value={values?.PROD_EFF_TO_DT}
+                                                onChange={date => setFieldValue('PROD_EFF_TO_DT', date)}
                                             />
                                         </div>
                                     </div>
                                     <div className='col-span-2 flex items-center justify-center'>
                                         <button className='submit_btn' type='submit'>
-                                            Submit
+                                            {tranId ? 'Update' : 'Submit'}
                                         </button>
                                     </div>
                                 </Form>

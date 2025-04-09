@@ -10,6 +10,9 @@ import SurrenderMaturitySlices from '../slices/SurrenderMaturityId';
 import RulesSlices from '../slices/RulesSlices';
 import ReInsuranceSlices from '../slices/ReInsuranceSlices';
 import QuoteSlices from '../slices/QuoteSlice';
+import ProdMastSlices from '../slices/ProdMastSlice'
+import GroupQuoteSlices from '../slices/GroupQuoteSlice';
+import QuoteProdPlanSlices from '../slices/QuoteProdPlanSlice';
 
 const rootReducer = combineReducers({
     menuSelected: menuSelected,
@@ -22,7 +25,10 @@ const rootReducer = combineReducers({
     SurrId: SurrenderMaturitySlices,
     rules: RulesSlices,
     reInsurance: ReInsuranceSlices,
-    quote: QuoteSlices
+    quote: QuoteSlices,
+    grpQuote: GroupQuoteSlices,
+    quoteProdPlanCode: QuoteProdPlanSlices,
+    prodMast: ProdMastSlices
 });
 
 export default rootReducer;

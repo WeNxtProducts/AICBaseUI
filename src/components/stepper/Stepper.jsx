@@ -1,28 +1,17 @@
 import React from 'react';
 import { Step, Stepper } from 'react-form-stepper';
-import { useSelector, useDispatch } from 'react-redux';
-import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import './Stepper.scss';
 
-const QuoteStepper = () => {
-    const dispatch = useDispatch();
-    const stepperIndex = useSelector(state => state?.quote?.stepperIndex);
-    const quoteSteps = [
-        { label: 'Benefit Details' },
-        { label: 'Assured/Cust Details' },
-        { label: 'Questions' },
-        { label: 'Upload Docs' },
-        { label: 'Review' },
-    ];
+const StepperComponent = ({ quoteSteps, stepperChange, stepperIndex }) => {
 
     const handleStepClick = (index) => {
-        dispatch(setStepperIndex(index));
+        stepperChange(index);
     };
 
     return (
         <div className='stepper'>
             <Stepper
-                nonLinear={true} // Enable non-linear navigation
+                nonLinear={true}
                 connectorStateColors={true}
                 connectorStyleConfig={{
                     completedColor: '#0382C8',
@@ -30,6 +19,7 @@ const QuoteStepper = () => {
                     disabledColor: '#eee',
                     stepSize: '2.1em',
                     size: 4,
+                    style: 'solid'
                 }}
                 styleConfig={{
                     labelFontSize: '.75rem',
@@ -63,4 +53,4 @@ const QuoteStepper = () => {
     );
 };
 
-export default QuoteStepper;
+export default StepperComponent;

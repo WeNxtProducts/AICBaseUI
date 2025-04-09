@@ -1,0 +1,149 @@
+.plan_summary_list {
+    margin-bottom: 10px;
+
+    .summary_container {
+        border-radius: 10px;
+        border: 1px solid #3F2BFF;
+        padding: 10px;
+
+        .summary_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            div:nth-child(1) {
+                p:nth-child(1) {
+                    color: #4D5E80;
+                    font-size: 14px;
+                }
+
+                p:nth-child(2) {
+                    color: #4D5E80;
+                    font-size: 17px;
+                    font-weight: 500;
+                }
+            }
+
+            img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+            }
+        }
+
+        .details_box {
+            margin-top: 10px;
+            background-color: #DCE0E9;
+            border-radius: 0 0 10px 10px;
+            padding: 10px;
+
+            .details_btn {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+
+                button {
+                    background-color: #0382C8;
+                    color: #ffffff;
+                    font-weight: 600;
+                }
+            }
+
+            .list_of_covers {
+                margin-top: 10px;
+
+                .list_of_covers_header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+
+                    .covers_head {
+                        color: #535862;
+                        font-size: 15px;
+                        font-weight: 600;
+                    }
+
+                    .download_icons {
+                        color: #535862;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: #0382C8;
+                        }
+                    }
+                }
+
+                .covers_swiper_container {
+                    position: relative;
+                    padding: 0;
+
+                    .swiper {
+                        width: 100%;
+                    }
+
+                    .swiper-button-next,
+                    .swiper-button-prev {
+                        position: absolute;
+                        top: 100%;
+                        color: #0382C8;
+                        width: 20px;
+                        height: 20px;
+
+                        &::after {
+                            font-size: 14px;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .cover_item {
+                        // background-color: #ffffff;
+                        width: 100%;
+                        border-radius: 10px;
+                        display: flex;
+                        padding: 2px 2px 2px 12px;
+                        gap: 10px;
+                        align-items: center;
+                        // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+                        .icon {
+                            color: #0039CE;
+                            font-size: 16px;
+                        }
+
+                        span {
+                            color: #4D5E80;
+                            font-weight: 500;
+                        }
+
+                    }
+                }
+
+                .total_details {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    .total_details_item {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2px;
+
+                        .total_details_item_label {
+                            color: #535862;
+                            font-weight: 500;
+                            font-size: 15px;
+                        }
+
+                        .total_details_item_value {
+                            color: #181D27;
+                            font-weight: 600;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

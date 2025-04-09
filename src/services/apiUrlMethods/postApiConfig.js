@@ -403,6 +403,122 @@ const POST_API_URL = {
         url: '/matProHeader/get',
         baseURL: 'CRUD',
     },
+    productMasterCreate: {
+        url: '/ProdMaster/save',
+        baseURL: 'CRUD',
+    },
+    productMasterUpdate: {
+        url: '/ProdMaster/update',
+        baseURL: 'CRUD',
+    },
+    withdrawSetupCreate: {
+        url: '/wdrasetup/save',
+        baseURL: 'CRUD',
+    },
+    withdrawSetupUpdate: {
+        url: '/wdrasetup/update',
+        baseURL: 'CRUD',
+    },
+    saveProFacDetails: {
+        url: '/prodFactor/save',
+        baseURL: 'CRUD',
+    },
+    updateProFacDetails: {
+        url: '/prodFactor/update',
+        baseURL: 'CRUD',
+    },
+    DMSFileUpload64: {
+        url: '/dms/new/uploadMultiple',
+        baseURL: 'DOCPRINT',
+    },
+    DMSView64: {
+        url: '/dms/retrieve',
+        baseURL: 'DOCPRINT',
+    },
+    DMSDelete64: {
+        url: '/dms/deleteFiles',
+        baseURL: 'DOCPRINT',
+    },
+    LTQuoteSave: {
+        url: '/ltQuoteDetails/save',
+        baseURL: 'CRUD',
+    },
+    LTQuoteUpdate: {
+        url: '/ltQuoteDetails/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteDelete: {
+        url: '/ltQuoteDetails/delete',
+        baseURL: 'CRUD',
+    },
+    LTQuoteGet: {
+        url: '/ltQuoteDetails/get',
+        baseURL: 'CRUD',
+    },
+    LTQuoteUpdateCoverData: {
+        url: '/ltQuoteDetails/updateLtQuotCoverData',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBasicFieldList: {
+        url: '/common/editFields',
+    },
+    LTQuoteAssuredDtlsCreate: {
+        url: '/ltQquotAssuredDtls/save',
+    },
+    LTQuoteAssuredDtlsUpdate: {
+        url: '/ltQquotAssuredDtls/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteAssuredDtlsDelete: {
+        url: '/ltQquotAssuredDtls/delete',
+    },
+    LTQuoteAssuredDtlsGet: {
+        url: '/common/ltQquotAssuredDtlsEdit',
+    },
+    LTQuoteBeneficiaryCreate: {
+        url: '/ltQuoteBeneficiary/save',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBeneficiaryUpdate: {
+        url: '/ltQuoteBeneficiary/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBeneficiaryDelete: {
+        url: '/ltQuoteBeneficiary/delete',
+    },
+    LTQuoteBeneficiaryGet: {
+        url: '/common/ltQuoteBeneficiaryEdit',
+    },
+    LTQuoteBasicInfoGet: {
+        url: '/common/ltQuoteEdit',
+    },
+    LTQuoteQuestionaire: {
+        url: '/ltQquotDiscLoad/getQuestionnaire',
+        baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireSave: {
+        url: '/ltQquotDiscLoad/saveQuestionnaire',
+        baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireGet: {
+        url: '/ltQquotDiscLoad/getQuestionnaireWithValues',
+        baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireUpdate: {
+        url: '/ltQquotDiscLoad/updateQuestionnaireWithValues',
+        baseURL: 'CRUD',
+    },
+    LTQuoteChecklistSave: {
+        url: '/docList/saveDocList',
+        baseURL: 'CRUD',
+    },
+    LTQuoteChecklistUpdate: {
+        url: '/docList/updateDocList',
+        baseURL: 'CRUD',
+    },
+    emailTrigger: {
+        url: '/emailTemplate/sendMail',
+    }
 };
 
 export default POST_API_URL;

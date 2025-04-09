@@ -1,61 +1,62 @@
 .float-label {
- position: relative;
- padding-top: 4px;
+    position: relative;
+    padding-top: 4px;
 
- .ant-input,
- .ant-picker {
-  width: 100% !important;
-  height: 35px;
-  padding: 0.6rem 0.6rem 0.6rem 12px; // Add padding-left
-  border: 1px solid #4d5e80;
-  border-radius: 6px !important; // Add border-radius
-  transition:
-   border-color 0.2s ease,
-   box-shadow 0.2s ease; // Add transition for box-shadow
-  color: black;
+    .ant-input,
+    .ant-picker {
+        width: 100% !important;
+        height: 35px;
+        padding: 0.6rem 0.6rem 0.6rem 12px; // Add padding-left
+        border: 1px solid #4D5E80;
+        border-radius: 6px !important; // Add border-radius
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease; // Add transition for box-shadow
+        color: black;
 
-  &:focus,
-  &:hover {
-   border-color: #7abfe3 !important;
-   box-shadow: none !important;
-  }
- }
+        &:focus,
+        &:hover {
+            border-color: #7abfe3 !important;
+            box-shadow: none !important;
+        }
+    }
 
- .ant-select {
-  width: 100% !important;
-  height: 35px;
+    .ant-select {
+        width: 100% !important;
+        height: 35px;
 
-  .ant-select-selector {
-   box-shadow: none !important;
-   border: 1px solid #4d5e80;
-   border-radius: 6px !important; // Add border-radius
-   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease; // Add transition for box-shadow
-   color: black;
-  }
-  .ant-select-selector:hover,
-  .ant-select-selector:focus-within {
-   border: 1px solid #7abfe3 !important;
-   box-shadow: none !important;
-  }
- }
+        .ant-select-selector {
+            box-shadow: none !important;
+            border: 1px solid #4d5e80;
+            border-radius: 6px !important; // Add border-radius
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease; // Add transition for box-shadow
+            color: black;
+        }
+
+        .ant-select-selector:hover,
+        .ant-select-selector:focus-within {
+            border: 1px solid #7abfe3 !important;
+            box-shadow: none !important;
+        }
+    }
 }
 
 .label {
- position: absolute;
- pointer-events: none;
- left: 12px;
- top: 12px;
- transition: 0.2s ease all;
- color: #878787;
- font-size: 0.85rem;
+    position: absolute;
+    pointer-events: none;
+    left: 12px;
+    top: 11px;
+    transition: 0.2s ease all;
+    color: #878787;
+    font-size: 0.85rem;
 }
 
 .label-float {
- top: -3px;
- left: 12px;
- background: #fff; // Add background color to match the input's background
- padding: 0 4px; // Add padding to create space around the label
- font-size: 0.75rem;
+    top: -7px;
+    left: 12px;
+    background: #fff; // Add background color to match the input's background
+    padding: 0 4px; // Add padding to create space around the label
+    font-size: 0.75rem;
 }

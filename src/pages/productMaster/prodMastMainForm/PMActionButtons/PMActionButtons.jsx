@@ -5,17 +5,22 @@ import ProdMastModal from './PMModals/prodMastModal/ProdMastModal';
 
 const PMActionButtons = () => {
     const [openWithdrawalSetup, setOpenWithdrawalSetup] = useState(false)
+    const [productFactor, setProductFactor] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [modalTitle, setModalTitle] = useState('')
 
     const handleClose = () => {
         setOpenWithdrawalSetup(false)
         setOpenModal(false)
+        setProductFactor(false)
     }
 
     const handleOpenModal = (title) => {
         setModalTitle(title)
-        setOpenModal(true)
+        if (title === 'Prodct Factors') {
+            setProductFactor(true)
+        }
+        // setOpenModal(true)
     }
 
     return (
@@ -33,6 +38,22 @@ const PMActionButtons = () => {
             {openWithdrawalSetup &&
                 <WithDrawalSetUp open={openWithdrawalSetup}
                     handleClose={handleClose}
+                />
+            }
+
+            {productFactor &&
+                <ProdMastModal
+                    open={productFactor}
+                    handleClose={handleClose}
+                    modalTitle={modalTitle}
+                    root='prodFactor'
+                    queryID='prodFactor'
+                    mrvGet='getProFacDetails'
+                    screenCode='PRODUCTMASTER'
+                    screenName='PRODUCTMASTER'
+                    saveRow='saveProFacDetails'
+                    editRow='updateProFacDetails'
+                    deleteRow='deleteProFacDetails'
                 />
             }
 
