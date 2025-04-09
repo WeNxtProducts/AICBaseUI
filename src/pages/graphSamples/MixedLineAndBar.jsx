@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import empData from './scatterGrapj.json'; // Make sure this file is correctly imported
 
-const MixedLineAndBar = () => {
+const MixedLineAndBar = ({ view = 'small' }) => {
     const [chartOptions, setChartOptions] = useState({});
+    const chartRef = useRef(null);
+
+    useEffect(() => {
+        setTimeout(() => {
+            chartRef.current?.getEchartsInstance()?.resize();
+        }, 0);
+    }, []);
 
     useEffect(() => {
         // Create a canvas element
@@ -32,7 +39,7 @@ const MixedLineAndBar = () => {
                 image: canvas,
                 repeat: 'repeat'
             },
-            tooltip: {
+            tooltip: view === 'large' && {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'cross',
@@ -41,7 +48,14 @@ const MixedLineAndBar = () => {
                     }
                 }
             },
-            dataZoom: [
+            grid: {
+                top: view === 'large' ? 60 : 35,
+                left: view === 'large' ? '3%' : '2%',
+                right: view === 'large' ? '13%' : '6%',
+                bottom: view === 'large' ? 65 : 25,
+                containLabel: true,
+            },
+            dataZoom: view === 'large' && [
                 {
                     type: 'inside'
                 },
@@ -49,26 +63,37 @@ const MixedLineAndBar = () => {
                     type: 'slider'
                 }
             ],
-            legend: {
+            legend: view === 'large' && {
                 data: ['Basic Premium', 'OCB Premium', 'Age']
             },
-            xAxis: [
-                {
-                    type: 'category',
-                    data: xAxisLabels,
-                    axisPointer: {
-                        type: 'shadow'
-                    }
+            xAxis: {
+                name: 'Name',
+                type: 'category',
+                data: xAxisLabels,
+                axisPointer: {
+                    type: 'shadow'
+                },
+                nameLocation: 'middle',
+                nameGap: 30,
+                axisLabel: {
+                    formatter: value => view === 'small' ? value.charAt(0) : value
                 }
-            ],
+            },
             yAxis: [
                 {
                     type: 'value',
                     name: 'Premium',
                     min: 0,
+                    // axisLabel: {
+                    //     formatter: '{value}'
+                    // },
                     axisLabel: {
-                        formatter: '{value}'
-                    }
+                        formatter: view === 'small' ? (value) => {
+                            if (value >= 1e6) return `${value / 1e6}M`;
+                            if (value >= 1e3) return `${value / 1e3}k`;
+                            return value;
+                        } : undefined,
+                    },
                 },
                 {
                     type: 'value',
@@ -114,7 +139,10 @@ const MixedLineAndBar = () => {
     }, []);
 
     return (
-        <ReactECharts option={chartOptions} style={{ height: '350px', width: '100%' }} />
+        <ReactECharts
+            ref={chartRef}
+            option={chartOptions}
+            style={{ height: view === 'large' ? '400px' : '250px', width: '100%' }} />
     );
 };
 

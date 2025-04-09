@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Modal } from 'antd';
-import MainChart from './MainChart';
-import './GraphModal.scss';
 
-const GraphModal = ({ graphOpen, handleClose, selectedGraph }) => {
+const GraphModal = ({ graphOpen, handleClose, selectedGraph, children }) => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
         setOpen(graphOpen);
-    }, []);
+    }, [graphOpen]);
 
     const handleCloseModal = () => {
         setOpen(false);
@@ -23,8 +21,10 @@ const GraphModal = ({ graphOpen, handleClose, selectedGraph }) => {
             maskClosable={false}
             footer={null}
             className='charts-line'
-            width={900}>
-            <MainChart selectedGraph={selectedGraph} />
+            width={1000}>
+            <div className=''>
+                {children}
+            </div>
         </Modal>
     );
 };

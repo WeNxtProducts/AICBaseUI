@@ -21,7 +21,7 @@ const GraphSamples = () => {
             </div>
             <div className='col-span-4 mt-4 border-2 p-1'>
                 <p>Mixed Line and Bar with WaterMark</p>
-                <MixedLineAndBar />
+                <MixedLineAndBar view='large'/>
             </div>
         </div>
     )

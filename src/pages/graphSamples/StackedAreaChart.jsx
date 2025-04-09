@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactECharts from 'echarts-for-react';
 import empData from './scatterGrapj.json';
 
 const StackedAreaChart = ({ view = 'small' }) => {
     const [chartOptions, setChartOptions] = useState({});
     const policyData = empData.Sheet1;
+    const chartRef = useRef(null);
+
+    useEffect(() => {
+        setTimeout(() => {
+            chartRef.current?.getEchartsInstance()?.resize();
+        }, 0);
+    }, []);
 
     useEffect(() => {
         const productMap = {};
@@ -126,7 +133,9 @@ const StackedAreaChart = ({ view = 'small' }) => {
     }, [view, policyData]);
 
     return (
-        <ReactECharts option={chartOptions}
+        <ReactECharts
+            ref={chartRef}
+            option={chartOptions}
             style={{ height: view === 'large' ? '400px' : '250px', width: '95%' }} />
     );
 };

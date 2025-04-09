@@ -12,6 +12,12 @@ const ScatterPlot = ({ view = 'small' }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
+        setTimeout(() => {
+            chartRef.current?.getEchartsInstance()?.resize();
+        }, 0);
+    }, []);
+
+    useEffect(() => {
         const processedData = policyData.map(policy => ({
             startDate: new Date((policy.POL_START_DATE - 25569) * 86400 * 1000),
             sumAssured: policy.POL_SUM_ASSURED,

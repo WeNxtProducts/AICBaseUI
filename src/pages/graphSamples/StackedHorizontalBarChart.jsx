@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import empData from './scatterGrapj.json';
 
-const StackedHorizontalBarChart = () => {
+const StackedHorizontalBarChart = ({ view = 'small' }) => {
     const [chartOptions, setChartOptions] = useState({});
+    const chartRef = useRef(null);
 
     useEffect(() => {
         const policyData = empData.Sheet1;
-
-        // Aggregate data by product name
         const productMap = policyData.reduce((acc, policy) => {
             const { POL_PROD_NAME, POL_SUM_ASSURED, POL_BASIC_PREM_RATE, POL_OCB_PREM, POL_ASSR_AGE } = policy;
             if (!acc[POL_PROD_NAME]) {
@@ -44,29 +43,41 @@ const StackedHorizontalBarChart = () => {
         });
 
         const options = {
-            tooltip: {
+            tooltip: view === 'large' && {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'shadow',
                 },
             },
-            legend: {
+            legend: view === 'large' && {
                 data: ['Sum Assured', 'Basic Premium Rate', 'OCB Premium', 'Average Age'],
             },
             grid: {
+                top: view === 'large' ? 60 : 35,
                 left: '3%',
-                right: '4%',
-                bottom: '3%',
+                right: view === 'large' ? '13%' : '9%',
+                bottom: view === 'large' ? 65 : 25,
                 containLabel: true,
             },
             xAxis: {
+                name: 'Sum Assured',
                 type: 'value',
+                nameLocation: 'middle',
+                nameGap: 30,
+                axisLabel: {
+                    formatter: view === 'small' ? (value) => {
+                        if (value >= 1e6) return `${value / 1e6}M`;
+                        if (value >= 1e3) return `${value / 1e3}k`;
+                        return value;
+                    } : undefined,
+                },
             },
             yAxis: {
+                name: 'Plan Types',
                 type: 'category',
                 data: productNames,
             },
-            dataZoom: [
+            dataZoom: view === 'large' && [
                 {
                     type: 'inside',
                 },
@@ -80,7 +91,7 @@ const StackedHorizontalBarChart = () => {
                 //     type: 'bar',
                 //     stack: 'total',
                 //     label: {
-                //         show: true,
+                //         show:  view === 'large',
                 //     },
                 //     emphasis: {
                 //         focus: 'series',
@@ -92,9 +103,9 @@ const StackedHorizontalBarChart = () => {
                     type: 'bar',
                     stack: 'total',
                     label: {
-                        show: true,
+                        show: view === 'large',
                     },
-                    emphasis: {
+                    emphasis: view === 'large' && {
                         focus: 'series',
                     },
                     data: basicPremRate,
@@ -104,9 +115,9 @@ const StackedHorizontalBarChart = () => {
                     type: 'bar',
                     stack: 'total',
                     label: {
-                        show: true,
+                        show: view === 'large',
                     },
-                    emphasis: {
+                    emphasis: view === 'large' && {
                         focus: 'series',
                     },
                     data: ocbPrem,
@@ -116,9 +127,9 @@ const StackedHorizontalBarChart = () => {
                     type: 'bar',
                     stack: 'total',
                     label: {
-                        show: true,
+                        show: view === 'large',
                     },
-                    emphasis: {
+                    emphasis: view === 'large' && {
                         focus: 'series',
                     },
                     data: averageAge,
@@ -127,9 +138,23 @@ const StackedHorizontalBarChart = () => {
         };
 
         setChartOptions(options);
+    }, [view]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            chartRef.current?.getEchartsInstance()?.resize();
+        }, 0);
     }, []);
 
-    return <ReactECharts option={chartOptions} style={{ height: '350px', width: '95%' }} />;
+    return (
+        <>
+            <ReactECharts
+                option={chartOptions}
+                ref={chartRef}
+                style={{ height: view === 'large' ? '400px' : '250px', width: '100%' }} />
+        </>
+    )
+
 };
 
 export default StackedHorizontalBarChart;
