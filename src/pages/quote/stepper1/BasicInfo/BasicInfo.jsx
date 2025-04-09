@@ -18,10 +18,6 @@ const BasicInfo = () => {
     const LTQuoteSave = useApiRequests('LTQuoteSave', 'POST');
     const LTQuoteUpdate = useApiRequests('LTQuoteUpdate', 'POST');
 
-    useEffect(() => {
-        console.log("basicInfoForm : ", basicInfoForm)
-    }, [basicInfoForm]);
-
     const addOrUpdateBasicInfo = async (payload, addOrUpdate, values) => {
         dispatch(setLoader(true));
         try {
@@ -48,7 +44,12 @@ const BasicInfo = () => {
         const val = deepCopy(values);
         const modifiedData = extractFieldValuesInPlace(val);
         const payload = {
-            frontForm: { formFields: { ...modifiedData.frontForm?.formFields, QUOT_PROD_CODE: prodCode, } }
+            frontForm: {
+                formFields: {
+                    ...modifiedData.frontForm?.formFields, QUOT_PROD_CODE: prodCode,
+                    QMD_SOURCE_BUS: 'D'
+                }
+            }
         };
         addOrUpdateBasicInfo(payload, tranId ? LTQuoteUpdate : LTQuoteSave, values);
     };
