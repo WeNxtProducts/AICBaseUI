@@ -66,7 +66,6 @@ const Stepper6 = () => {
                         }
                     },
                     QuotAssuredDtls: assuredDetails?.Data?.QuotAssuredDtls,
-                    // Nominee: nomineeDetails?.Data?.Nominee,
                     CurrentAddress: assuredDetails?.Data?.CurrentAddress,
                     ResidenceAddress: assuredDetails?.Data?.ResidenceAddress
                 };
@@ -83,12 +82,6 @@ const Stepper6 = () => {
                 showNotification.WARNING(err?.message || 'Something went wrong');
             });
     }, []);
-
-    // useEffect(() => {
-    //     if (data !== null) {
-    //         console.log("useEffect : ", data)
-    //     }
-    // }, [data])
 
     return (
         <div className='Stepper6'>
