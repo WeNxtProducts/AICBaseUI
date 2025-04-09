@@ -515,6 +515,9 @@ const POST_API_URL = {
     LTQuoteChecklistUpdate: {
         url: '/docList/updateDocList',
         baseURL: 'CRUD',
+    },
+    emailTrigger: {
+        url: '/emailTemplate/sendMail',
     }
 };
 

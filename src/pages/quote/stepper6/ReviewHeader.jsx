@@ -2,8 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const ReviewHeader = () => {
-    const tranId = useSelector(state => state?.quote?.tranId);
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
+    const quotationNo = useSelector(state => state?.quote?.quotationNo);
 
     return (
         <div className='rev_header'>
@@ -14,7 +14,7 @@ const ReviewHeader = () => {
 
             <div>
                 <p>Quote Number</p>
-                <p>{tranId}</p>
+                <p>{quotationNo}</p>
             </div>
         </div>
     )

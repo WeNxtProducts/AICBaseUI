@@ -10,14 +10,20 @@ import CusBroSign from './CusBroSign';
 const ReviewFooter = () => {
     const dispatch = useDispatch();
     const quotationNo = useSelector(state => state?.quote?.quotationNo);
+    const { QUOT_FIRST_NAME: { PFD_FLD_VALUE: Fname } = {},
+        QUOT_MIDDLE_NAME: { PFD_FLD_VALUE: Mname } = {},
+        QUOT_LAST_NAME: { PFD_FLD_VALUE: Lname } = {} }
+        = useSelector(state => state?.quote?.basicInfoForm?.frontForm?.formFields || {});
+    const name = `${Fname} ${Mname} ${Lname}`.trim();
     const invokeClaimsProcedure = useApiRequests('invokeClaimsProcedure', 'POST');
     const getSignDetails = useApiRequests('getPreClaimDate', 'POST');
+    const emailTrigger = useApiRequests('emailTrigger', 'POST');
     const tranId = useSelector(state => state?.quote?.tranId);
     const [clientSign, setClientSign] = useState(null);
     const [brokerSign, setBrokerSign] = useState(null);
 
-    const handleFinalSubmit = async () => {
-        // dispatch(setLoader(true));
+    const handleProcedureCall = async () => {
+        dispatch(setLoader(true));
         const payload = {
             inParams: {
                 P_POL_TRAN_ID: tranId,
@@ -25,20 +31,52 @@ const ReviewFooter = () => {
                 V_POL_ISSUE_DT: dayjs().format('D/MM/YYYY')
             }
         }
-        console.log(payload);
-        // try {
-        //     const response = await invokeClaimsProcedure(payload, {
-        //         procedureName: 'PROP_CONVERT',
-        //         packageName: 'WNPKG_QUICK_QUOTE',
-        //     });
-        //     if (response?.status === 'FAILURE') {
-        //         showNotification.ERROR(response?.status_msg);
-        //     } else if (response?.status === 'SUCCESS') {
-        //         dispatch(setLoader(false));
-        //     }
-        // } catch (err) {
-        //     dispatch(setLoader(false));
-        // }
+        try {
+            const response = await invokeClaimsProcedure(payload, {
+                procedureName: 'PROP_CONVERT',
+                packageName: 'WNPKG_QUICK_QUOTE',
+            });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                dispatch(setLoader(false));
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    }
+
+    const handleSendEmail = async () => {
+        dispatch(setLoader(true));
+        const payload = {
+            toIds: [
+                "kuzhandaivel.k@wenxttech.com"
+            ],
+            subject: `QuoteNo. - ${quotationNo}`,
+            content: { name }
+        }
+
+        try {
+            const response = await emailTrigger(payload, {
+                templateId: 122,
+            });
+            if (response?.status === 'FAILURE') {
+                showNotification.ERROR(response?.status_msg);
+            } else if (response?.status === 'SUCCESS') {
+                showNotification.SUCCESS(response?.status_msg);
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    }
+
+    const handleFinalSubmit = async () => {
+        // handleProcedureCall()
+        handleSendEmail()
     };
 
     const handleGetSavedSign = async () => {
