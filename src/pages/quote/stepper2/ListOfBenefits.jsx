@@ -9,6 +9,7 @@ const ListOfBenefits = () => {
     const dispatch = useDispatch();
     const benefitsList = useSelector(state => state?.quote?.listOfBenefits);
     const tranId = useSelector(state => state?.quote?.tranId);
+    const quotationNo = useSelector(state => state?.quote?.quotationNo);
 
     const handleChangeVal = (index) => (e) => {
         const newDescription = e.target.value;
@@ -31,7 +32,7 @@ const ListOfBenefits = () => {
             <p className='head_benefits'>List Of Benefits</p>
             {hasValidRowData(benefitsList) ? (
                 <>
-                    <div className="caption">Quotation No - {tranId}</div>
+                    <div className="caption">Quotation No - {quotationNo}</div>
                     <table className="table">
                         <thead>
                             <tr>
@@ -53,8 +54,8 @@ const ListOfBenefits = () => {
                                                 value={row.QQAC_FC_SA}
                                                 placeholder='1,000'
                                                 onChange={handleChangeVal(index)}
-                                            />
-                                            ) : (
+                                            />)
+                                            : (
                                                 formatNumber(row.QQAC_FC_SA)
                                             )
                                         }

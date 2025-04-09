@@ -1,0 +1,301 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useCallback, useEffect, useState } from 'react';
+import { Checkbox, Tooltip } from 'antd';
+import { DeleteOutlined, EyeOutlined, SaveOutlined } from '@ant-design/icons';
+import { useDropzone } from 'react-dropzone';
+import {
+    readFileAsBase64, getFileFormat,
+    handleFileDownloadOrView
+} from '../../../components/mediaHelper/mediaHelper64';
+import showNotification from '../../../components/notification/Notification';
+import useApiRequests from '../../../services/useApiRequests';
+import { DeleteKeys } from '../QuoteConstant';
+import { useDispatch } from 'react-redux';
+
+const initialChecklist = [
+    {
+        "DTL_DTG_GROUP_CODE": "CHKLST",
+        "DTL_SR_NO": 1,
+        "DTL_DS_TYPE": "1",
+        "DTL_DS_CODE": "PRO",
+        "DTL_INS_DT": "2024-08-21 00:00:00.0",
+        "DTL_MANDATORY_YN": "Y",
+        "DTL_REF_NO": 0,
+        "DTL_INS_ID": "ADMIN",
+        "DTL_TODO_LIST_ITEM": "Age Proof",
+        "DTL_TYPE": "Y",
+        "DTL_DEFAULT_YN": "Y",
+        "DTL_MODULE_ID": "IL",
+        "DTL_BL_TODO_LIST_ITEM": "Age Proof"
+    },
+    {
+        "DTL_DTG_GROUP_CODE": "CHKLST",
+        "DTL_SR_NO": 2,
+        "DTL_DS_TYPE": "1",
+        "DTL_DS_CODE": "PRO",
+        "DTL_INS_DT": "2024-08-21 00:00:00.0",
+        "DTL_MANDATORY_YN": "Y",
+        "DTL_REF_NO": 1,
+        "DTL_INS_ID": "ADMIN",
+        "DTL_TODO_LIST_ITEM": "ID Proof",
+        "DTL_TYPE": "Y",
+        "DTL_DEFAULT_YN": "Y",
+        "DTL_MODULE_ID": "IL",
+        "DTL_BL_TODO_LIST_ITEM": "ID Proof"
+    }
+]
+
+const fileData = {
+    module: 'quote',
+    replaceFlag: 'N',
+    dms_status: 'N',
+    screenName: 'DMS',
+};
+
+const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
+    const dispatch = useDispatch();
+    const DMSFileUpload = useApiRequests('DMSFileUpload64', 'POST');
+    const DMSFileDelete = useApiRequests('DMSDelete64', 'POST');
+    const DMSFileView = useApiRequests('DMSView64', 'POST');
+    const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
+    const [checklist, setChecklist] = useState(initialChecklist);
+
+    const handleFetchId = async () => {
+        dispatch(setLoader(true));
+        try {
+            const response = await getMapQuery({ queryId }, { queryId });
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                console.log('response', response?.Data)
+                // setChecklist(response?.Data)
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    };
+
+    useEffect(() => {
+        handleFetchId()
+    }, [])
+
+    const onDrop = useCallback(async (acceptedFiles, rowId) => {
+        const file = acceptedFiles[0];
+        if (!file) {
+            return;
+        }
+        try {
+            const base64String = await readFileAsBase64(file);
+            const updatedChecklist = checklist.map((item) => {
+                if (item.DTL_SR_NO === rowId) {
+                    return {
+                        ...item,
+                        filename: file.name,
+                        base64String: base64String,
+                        DocType: item?.DTL_TODO_LIST_ITEM,
+                        genType: getFileFormat(file),
+                        uploadscrn,
+                        TranId: tranId,
+                        param_add1: '',
+                        param_add2: '',
+                        ...fileData,
+                    };
+                }
+                return item;
+            });
+
+            setChecklist(updatedChecklist);
+        } catch (error) {
+            console.error("Error reading file:", error);
+        }
+    }, [checklist]);
+
+
+    const createDropzoneOpener = (rowId) => {
+        const { getRootProps, getInputProps, open } = useDropzone({
+            onDrop: (acceptedFiles) => onDrop(acceptedFiles, rowId),
+            noClick: true,
+            noKeyboard: true,
+            accept: {
+                'image/jpeg': ['.jpeg', '.jpg'],
+                'image/png': ['.png'],
+                'image/gif': ['.gif'],
+                'image/tiff': ['.tiff', '.tif'],
+                'text/plain': ['.txt'],
+                'application/pdf': ['.pdf'],
+                'application/msword': ['.doc'],
+                'application/vnd.ms-excel': ['.xls'],
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+                'message/rfc822': ['.eml']
+            }
+        });
+
+        return (
+            <div {...getRootProps()} style={{ display: 'none' }}>
+                <input {...getInputProps()} />
+                <button type="button" onClick={open} id={`open-${rowId}`} style={{ display: 'none' }}>
+                    Open File Dialog
+                </button>
+            </div>
+        );
+    };
+
+    const handleFileNameClick = (rowId) => {
+        document.getElementById(`open-${rowId}`).click();
+    };
+
+    const updateFileKeyAtIndex = (index, newValue) => {
+        setChecklist((prevFiles) => {
+            const updatedFiles = [...prevFiles];
+            const updatedFile = { ...updatedFiles[index], ...newValue };
+            updatedFiles[index] = updatedFile;
+            return updatedFiles;
+        });
+    };
+
+    const handleUpload = async (files, index) => {
+        const sendingObj = structuredClone(files)
+        delete sendingObj.description;
+        delete sendingObj.id;
+        const payload = [sendingObj]
+        try {
+            const response = await DMSFileUpload(payload);
+            if (response?.Overall[0]?.status === 'FAILURE')
+                showNotification.ERROR('File Not Uploaded!');
+            if (response?.Overall[0]?.status === 'SUCCESS') {
+                updateFileKeyAtIndex(index, response?.Overall[0]?.Data);
+                showNotification.SUCCESS(`${files?.filename} Uploaded Successfully`);
+            }
+        } catch {
+            showNotification.ERROR('File Not Uploaded!');
+        }
+    }
+
+    const handleGetAndView = async (item) => {
+        const payload = [{ path: item?.filePath }];
+        try {
+            const response = await DMSFileView(payload);
+            if (response?.status === 'FAILURE') showNotification.ERROR('File Not Viewed!');
+            if (response?.status === 'SUCCESS') {
+                const updatedItem = { ...item, base64String: response?.base64Strings[0] };
+                handleFileDownloadOrView(updatedItem);
+            }
+        } catch {
+            showNotification.ERROR('File Not Uploaded!');
+        }
+    };
+
+    const handleViewFile = (index) => {
+        if (Object.prototype.hasOwnProperty.call(checklist[index], 'base64String')) {
+            handleFileDownloadOrView(checklist[index]);
+        } else {
+            handleGetAndView(checklist[index]);
+        }
+    };
+
+    const handleDelete = async (payload, index) => {
+        const { doc_sys_id } = payload
+        const deleteId = { doc_sys_id: [doc_sys_id] };
+        try {
+            const response = await DMSFileDelete(deleteId);
+            if (response?.status === 'SUCCESS') {
+                deleteByIndex(index)
+                showNotification.SUCCESS(`${payload?.filename} Deleted Successfully`);
+            } else if (response?.status === 'FAILURE') {
+                showNotification.ERROR('File Not Deleted!');
+            }
+        } catch {
+            showNotification.ERROR('File Not Deleted!');
+        }
+    };
+
+
+    const deleteByIndex = (index) => {
+        const updatedChecklist = checklist.map((item, idx) => {
+            if (idx === index) {
+                const newItem = { ...item };
+                DeleteKeys.forEach(key => {
+                    delete newItem[key];
+                });
+
+                return newItem;
+            }
+            return item;
+        });
+        setChecklist(updatedChecklist);
+    }
+
+    return (
+        <div className='quote_checklist'>
+            {checklist?.length > 0 &&
+                <table className='checklist_table'>
+                    <thead>
+                        <tr>
+                            <th>Received (Y/N)</th>
+                            <th>Description</th>
+                            <th>File Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {checklist.map((item, index) => (
+                            <tr key={item.DTL_SR_NO}>
+                                <td>
+                                    <Checkbox />
+                                </td>
+                                <td>{item.DTL_TODO_LIST_ITEM}</td>
+                                <td
+                                    className='cursor-pointer'
+                                    onClick={() => handleFileNameClick(item?.DTL_SR_NO)}>
+                                    {item?.filename ? (
+                                        <span>{item?.filename}</span>
+                                    ) : (
+                                        <span className='need_to_upload'>Click to Upload</span>
+                                    )}
+                                    {createDropzoneOpener(item.DTL_SR_NO)}
+                                </td>
+                                <td>
+                                    <Tooltip placement='top' title='Post'>
+                                        <span
+                                            onClick={() => {
+                                                handleUpload(item, index);
+                                            }}
+                                            className='icon-wrapper save-icon'>
+                                            <SaveOutlined />
+                                        </span>
+                                    </Tooltip>
+
+                                    <Tooltip placement='top' title='View'>
+                                        <span
+                                            onClick={() => handleViewFile(index)}
+                                            className='icon-wrapper view-icon'>
+                                            <EyeOutlined />
+                                        </span>
+                                    </Tooltip>
+
+                                    <Tooltip placement='top' title='Delete'>
+                                        <span
+                                            // onClick={() => {
+                                            //     deleteByIndex(index)
+                                            // }}
+                                            onClick={() => {
+                                                if (item?.doc_sys_id) handleDelete(item, index)
+                                                else if (!item?.doc_sys_id) deleteByIndex(index)
+                                            }}
+                                            className='icon-wrapper delete-icon'>
+                                            <DeleteOutlined />
+                                        </span>
+                                    </Tooltip>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            }
+        </div>
+    );
+};
+
+export default QuoteCheckList;

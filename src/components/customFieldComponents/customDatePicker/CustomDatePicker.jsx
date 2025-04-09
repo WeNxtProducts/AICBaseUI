@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 
@@ -20,6 +20,7 @@ const CustomDatePicker = ({
     medium: { code: '1/4', desc: '3/4', main: '3/5' }, // 3/4
     large: { code: '1/4', desc: '3/4', main: 'full' },
   };
+  const datePickerRef = useRef();
 
   // console.log("value : ", dayjs(value).format('DD-MM-YYYY'))
 
@@ -40,10 +41,18 @@ const CustomDatePicker = ({
     <div className={`w-${fieldSize[size].main}`}>
       <DatePicker
         format={dateFormat}
+        onOpenChange={(open) => {
+          if (!open) {
+            setTimeout(() => {
+              datePickerRef.current?.focus();
+            }, 0);
+          }
+        }}
         // variant="borderless"
         name={name}
         disabled={readOnly ? readOnly : disabled}
         placeholder={placeholder}
+        ref={datePickerRef}
         inputReadOnly={readOnly}
         // open={!readOnly}
         onBlur={e => {

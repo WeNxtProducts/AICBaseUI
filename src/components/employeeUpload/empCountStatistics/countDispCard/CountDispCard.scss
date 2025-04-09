@@ -1,0 +1,37 @@
+.card {
+ width: 30%; // Set width to 30%
+ height: 80px; // Set height to 100px
+ background-color: #e3f5ff; // Card background color
+ border-radius: 8px; // Rounded corners
+ display: flex; // Use flexbox for layout
+ flex-direction: column; // Stack items vertically
+ justify-content: space-between; // Space between items
+ padding: 10px; // Padding inside the card
+ position: relative; // Enable positioning for icon
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Optional: Add some shadow for depth
+
+ .card-title {
+  font-size: 15px; // Title size
+  line-height: 20px;
+  font-weight: 400; // Title weight
+  color: #000000; // Title color
+ }
+
+ .card-count {
+  font-size: 20px; // Count size
+  color: #1c1c1c; // Count color
+  font-weight: 600;
+ }
+
+ .card-icon {
+  position: absolute; // Position icon absolutely
+  bottom: 10px; // Align to bottom
+  right: 10px; // Align to right
+  color: #fff; // Icon color
+
+  .image_emp_count {
+   height: 40px;
+   width: 40px;
+  }
+ }
+}

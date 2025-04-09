@@ -2,14 +2,16 @@ import React, { useState } from 'react'
 import { Tabs } from 'antd'
 import TabPanelHeader from '../../../components/collapsePanelHeader/TabPanelHeader';
 import QuoteCheckList from './QuoteCheckList';
-import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setLoader, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const { TabPane } = Tabs;
 
 const Stepper5 = () => {
     const dispatch = useDispatch();
     const [activeTabKey, setActiveTabKey] = useState('1');
+    const tranId = useSelector(state => state?.quote?.tranId);
 
     const handleTabChange = key => {
         setActiveTabKey(key);
@@ -25,7 +27,12 @@ const Stepper5 = () => {
                 <div className='plan-tabs p-2'>
                     <Tabs size='small' centered={true} activeKey={activeTabKey} onChange={handleTabChange}>
                         <TabPane key='1' tab={<TabPanelHeader name='CheckList' />}>
-                            <QuoteCheckList />
+                            <QuoteCheckList
+                                queryId='264'
+                                setLoader={setLoader}
+                                tranId={tranId.toString()}
+                                uploadscrn='checklist-digital'
+                            />
                         </TabPane>
                         <TabPane key='2' tab={<TabPanelHeader name='Medical Examination' />}>
                             <p>Hello</p>
@@ -38,7 +45,7 @@ const Stepper5 = () => {
                 <button
                     onClick={() => dispatch(setStepperIndex(5))}
                     type='submit'>
-                    Save
+                    Next
                 </button>
                 <button
                     onClick={() => dispatch(setStepperIndex(3))}

@@ -21,18 +21,28 @@ const QuoteForm = ({
         btn1: 'Save',
         btn2: 'Cancel'
     },
-    handlePrevious
+    handlePrevious,
+    validationSchema
 }) => {
     const [initValues, setInitValues] = useState(null);
     const [validation, setValidation] = useState(null);
 
     useEffect(() => {
-        const validationSchema = createYupSchema({
-            [root]: formRender[root],
-        });
-        setValidation(validationSchema);
+        // if (root === 'Nominee') {
+        //     console.log("root : ", root)
+        //     console.log("initValues : ", initValues)
+        // }
+        if (validationSchema) {
+            setValidation(validationSchema);
+        }
+        else {
+            const validationSchema = createYupSchema({
+                [root]: formRender[root],
+            });
+            setValidation(validationSchema);
+        }
         setInitValues(initialValues);
-    }, [formRender, initialValues, root]);
+    }, [formRender, initialValues, root, validationSchema]);
 
     const onHandleOnBlur = (currentData, valuesLatest, setFieldValue, val, label = '') => {
         if (handleOnBlur) {
@@ -50,12 +60,12 @@ const QuoteForm = ({
                     onSubmit={onSubmit}
                     enableReinitialize={true}>
                     {({ handleSubmit, values, errors, setFieldValue, resetForm }) => {
-
                         return (
                             <Form onSubmit={handleSubmit}>
                                 <div className={`items-start grid grid-cols-${grid} gap-x-5 gap-y-2`}>
                                     {Object.keys(formRender?.[root]?.formFields).map(fieldKey => {
                                         const dataId = formRender?.[root]?.formFields[fieldKey]?.PFD_COLUMN_NAME;
+                                        // console.log("dataId : ", dataId)
                                         return useMemo(() => {
                                             return (
                                                 <React.Fragment key={dataId}>
@@ -78,7 +88,7 @@ const QuoteForm = ({
                                             );
                                             // values?.[root]?.formFields[fieldKey],
                                             //[values?.[root]?.formFields, lovList?.[dataId], formRender, freeze]
-                                        }, [values]);
+                                        }, [values, freeze]);
                                     })}
                                 </div>
                                 {!freeze && (

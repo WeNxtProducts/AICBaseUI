@@ -1,3 +1,8 @@
+import visacard from '../../assets/VisaStamp.png'
+import masterCard from '../../assets/MCStamp.png'
+import bankImg from '../../assets/bankStamp.png'
+
+
 export const basicInfoInitValues = {
     basic_info: {
         formFields: {
@@ -255,7 +260,7 @@ export const checklist = [
 export const DeleteKeys = [
     'DocType', 'TranId', 'base64String', 'dms_status', 'filename',
     'genType', 'module', 'param_add1', 'param_add2', 'replaceFlag',
-    'screenName', 'uploadscrn'
+    'screenName', 'uploadscrn', 'doc_sys_id', 'filepath'
 ];
 
 export const custDetails = [
@@ -362,4 +367,42 @@ export const tableData = [
     { benefit: 'Critical Illness(Additional)', sumAssured: '100000', term: 8, premium: '500', include: true },
     { benefit: 'Terminal Illness(Accelerated)', sumAssured: '200000', term: 9, premium: '1,000', include: false },
     { benefit: 'Passive War Risk', sumAssured: '100000', term: 12, premium: '5000.20', include: false },
+];
+
+export const payMethodlist = [
+    {
+        id: 1,
+        name: 'Pay by card',
+        description: 'To pay, please enter your VISA, MasterCard or Maestro payment card information.',
+        img: visacard
+    },
+    {
+        id: 2,
+        name: 'Pay via internet banking',
+        description: 'Do you have access to internet banking and want to pay immediately? Just select your bank and make the payment.',
+        img: bankImg
+    },
+    {
+        id: 3,
+        name: 'Pay via Cheque.',
+        description: 'Do you have to Cheque and want to pay from Cheque? Just select your bank and make the payment.',
+        img: bankImg
+    }
+]
+
+export const quoteSteps = [
+    { label: 'Basic Details' },
+    { label: 'List of Benefits' },
+    { label: 'Assured/Cust Details' },
+    { label: 'Questions' },
+    { label: 'Upload Docs' },
+    { label: 'Review' },
+    { label: 'Payment' },
+];
+
+export const grpSteps = [
+    { label: 'Basic Details' },
+    { label: 'Plan Summary' },
+    { label: 'Review' },
+    { label: 'Payment' },
 ];

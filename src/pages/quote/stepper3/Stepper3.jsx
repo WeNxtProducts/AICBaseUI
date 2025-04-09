@@ -6,33 +6,54 @@ import CustomerAddress from './customerAddress/CustomerAddress';
 import NomineeDetails from './nomineeDetails/NomineeDetails';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { setStepper3, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setCustDetailId, setLoader, setStepper3, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import CustomerDetailsForm from './customerDetails/CustomerDetailsForm';
 import NomineeFormDetails from './nomineeDetails/NomineeFormDetails';
+import useApiRequests from '../../../services/useApiRequests';
+import showNotification from '../../../components/notification/Notification';
 
 const Stepper3 = () => {
     const dispatch = useDispatch();
     const activeSection = useSelector(state => state?.quote?.stepper_3);
+    const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
+    const tranId = useSelector(state => state?.quote?.tranId);
+    const custDetailId = useSelector(state => state?.quote?.custDetailId);
 
     const toggleAccordion = (section) => {
         dispatch(setStepper3(section))
     };
 
+    const handleFetchId = async () => {
+        dispatch(setLoader(true));
+        try {
+            const payload = { queryParams: { tranId } }
+            const response = await getMapQuery(payload, { queryId: 260 });
+            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            if (response?.status === 'SUCCESS') {
+                dispatch(setCustDetailId(response?.Data[0]?.ID))
+            }
+        } catch (err) {
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            dispatch(setLoader(false));
+        }
+    };
+
     useEffect(() => {
-        setTimeout(() => {
-            dispatch(setStepper3('customerDetails'))
-        }, 200)
+        if (custDetailId === null) {
+            handleFetchId()
+        }
     }, [])
 
     return (
         <div className='stepper_3'>
             <p className='head_assured_cust'>Assured/Customer Details</p>
-            <div>
-                <div className='life_assured_check'>
+            <div className='mt-2'>
+                {/* <div className='life_assured_check'>
                     <Checkbox className='life_check'>
                         Life Assured is premium payor
                     </Checkbox>
-                </div>
+                </div> */}
                 <CustomAccordion
                     title='Customer Details'
                     isOpen={activeSection === 'customerDetails'}
@@ -62,7 +83,7 @@ const Stepper3 = () => {
                     <button
                         onClick={() => dispatch(setStepperIndex(3))}
                         type='submit'>
-                        Save
+                        Next
                     </button>
                     <button
                         onClick={() => dispatch(setStepperIndex(1))}>

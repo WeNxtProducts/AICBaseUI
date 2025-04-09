@@ -461,6 +461,63 @@ const POST_API_URL = {
     },
     LTQuoteBasicFieldList: {
         url: '/common/editFields',
+    },
+    LTQuoteAssuredDtlsCreate: {
+        url: '/ltQquotAssuredDtls/save',
+    },
+    LTQuoteAssuredDtlsUpdate: {
+        url: '/ltQquotAssuredDtls/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteAssuredDtlsDelete: {
+        url: '/ltQquotAssuredDtls/delete',
+    },
+    LTQuoteAssuredDtlsGet: {
+        url: '/common/ltQquotAssuredDtlsEdit',
+    },
+    LTQuoteBeneficiaryCreate: {
+        url: '/ltQuoteBeneficiary/save',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBeneficiaryUpdate: {
+        url: '/ltQuoteBeneficiary/update',
+        baseURL: 'CRUD',
+    },
+    LTQuoteBeneficiaryDelete: {
+        url: '/ltQuoteBeneficiary/delete',
+    },
+    LTQuoteBeneficiaryGet: {
+        url: '/common/ltQuoteBeneficiaryEdit',
+    },
+    LTQuoteBasicInfoGet: {
+        url: '/common/ltQuoteEdit',
+    },
+    LTQuoteQuestionaire: {
+        url: '/ltQquotDiscLoad/getQuestionnaire',
+        baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireSave: {
+        url: '/ltQquotDiscLoad/saveQuestionnaire',
+        baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireGet: {
+        url: '/ltQquotDiscLoad/getQuestionnaireWithValues',
+        baseURL: 'CRUD',
+    },
+    LTQuoteQuestionaireUpdate: {
+        url: '/ltQquotDiscLoad/updateQuestionnaireWithValues',
+        baseURL: 'CRUD',
+    },
+    LTQuoteChecklistSave: {
+        url: '/docList/saveDocList',
+        baseURL: 'CRUD',
+    },
+    LTQuoteChecklistUpdate: {
+        url: '/docList/updateDocList',
+        baseURL: 'CRUD',
+    },
+    emailTrigger: {
+        url: '/emailTemplate/sendMail',
     }
 };
 

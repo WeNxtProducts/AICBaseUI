@@ -6,6 +6,8 @@ import Loader from '../components/loader/Loader';
 import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
 import IFrameSetUp from '../pages/iFrameSetUp/IFrameSetUp';
+import QuoteProductList from '../components/quoteProdListing/QuoteProductList';
+import GraphSamples from '../pages/graphSamples/GraphSamples';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
@@ -64,13 +66,22 @@ const ClaimSettlement = lazy(() => import('../pages/claimSettlement/ClaimSettlem
 const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/CashbackProcessing'));
 const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
-const QuoteProductList = lazy(() => import('../pages/quote/qoteProductList/QuoteProductList'));
+// const QuoteProductList = lazy(() => import('../pages/quote/qoteProductList/QuoteProductList'));
+const GroupLifeQuote = lazy(() => import('../pages/groupLifeQuote/GroupLifeQuote'));
 
 const AppRouter = () => {
     return (
         <div>
             <ScrollToTop />
             <Routes>
+                <Route
+                    path='/graphSamples'
+                    element={
+                        <Suspense fallback={<div>IFrameSetUp</div>}>
+                            <GraphSamples />
+                        </Suspense>
+                    }
+                />
                 <Route
                     path='/userMasterLiist'
                     element={
@@ -159,6 +170,15 @@ const AppRouter = () => {
                     element={
                         <Suspense fallback={<Loader />}>
                             <QuoteProductList />
+                        </Suspense>
+                    }
+                />
+
+                <Route
+                    path='/groupLifeQuote'
+                    element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <GroupLifeQuote />
                         </Suspense>
                     }
                 />

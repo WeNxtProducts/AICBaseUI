@@ -11,6 +11,8 @@ import RulesSlices from '../slices/RulesSlices';
 import ReInsuranceSlices from '../slices/ReInsuranceSlices';
 import QuoteSlices from '../slices/QuoteSlice';
 import ProdMastSlices from '../slices/ProdMastSlice'
+import GroupQuoteSlices from '../slices/GroupQuoteSlice';
+import QuoteProdPlanSlices from '../slices/QuoteProdPlanSlice';
 
 const rootReducer = combineReducers({
     menuSelected: menuSelected,
@@ -24,6 +26,8 @@ const rootReducer = combineReducers({
     rules: RulesSlices,
     reInsurance: ReInsuranceSlices,
     quote: QuoteSlices,
+    grpQuote: GroupQuoteSlices,
+    quoteProdPlanCode: QuoteProdPlanSlices,
     prodMast: ProdMastSlices
 });
 
