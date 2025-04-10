@@ -23,7 +23,8 @@ const initialState = {
     sameAddress: false,
     payStepper: 0,
     payMethod: 1,
-    payFinish: false
+    payFinish: false,
+    showSignBox: false
 };
 
 const QuoteSlices = createSlice({
@@ -99,6 +100,9 @@ const QuoteSlices = createSlice({
         setQuotationNo: (state, action) => {
             state.quotationNo = action.payload;
         },
+        setShowSignBox: (state, action) => {
+            state.showSignBox = action.payload;
+        },
         clearQuote: (state) => {
             state.tranId = '',
                 state.stepperIndex = 0,
@@ -122,7 +126,8 @@ const QuoteSlices = createSlice({
                 state.payStepper = 0,
                 state.payMethod = 1,
                 state.payFinish = false,
-                state.quotationNo = ''
+                state.quotationNo = '',
+                state.showSignBox = false
         }
     },
 });
@@ -133,7 +138,8 @@ export const { setStepperIndex, setComQuote, setStepper3
     setLoader, setCustDetailId,
     setCurrentAddress, setResidenceAddress, setNomineeDetails,
     setNomineeId, setSameAddress, setPayStepper, setPayMethod,
-    setPayFinish, setQuotationNo, clearQuote
+    setPayFinish, setQuotationNo, clearQuote,
+    setShowSignBox
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

@@ -11,6 +11,7 @@ const { TabPane } = Tabs;
 const Stepper5 = () => {
     const dispatch = useDispatch();
     const [activeTabKey, setActiveTabKey] = useState('1');
+    const [allUploaded, setAllUploaded] = useState(true);
     const tranId = useSelector(state => state?.quote?.tranId);
 
     const handleTabChange = key => {
@@ -34,25 +35,27 @@ const Stepper5 = () => {
                                 uploadscrn='checklist-digital'
                             />
                         </TabPane>
-                        <TabPane key='2' tab={<TabPanelHeader name='Medical Examination' />}>
+                        {/* <TabPane key='2' tab={<TabPanelHeader name='Medical Examination' />}>
                             <p>Hello</p>
-                        </TabPane>
+                        </TabPane> */}
                     </Tabs>
                 </div>
 
             </div>
-            <div className='save_btn_grid_final mt-3'>
-                <button
-                    onClick={() => dispatch(setStepperIndex(5))}
-                    type='submit'>
-                    Next
-                </button>
-                <button
-                    onClick={() => dispatch(setStepperIndex(3))}
-                >
-                    Previous
-                </button>
-            </div>
+            {allUploaded &&
+                <div className='save_btn_grid_final mt-3'>
+                    <button
+                        onClick={() => dispatch(setStepperIndex(5))}
+                        type='submit'>
+                        Next
+                    </button>
+                    <button
+                        onClick={() => dispatch(setStepperIndex(3))}
+                    >
+                        Previous
+                    </button>
+                </div>
+            }
         </div>
     )
 }

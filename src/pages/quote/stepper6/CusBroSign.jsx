@@ -77,7 +77,6 @@ const CusBroSign = ({ title, doctype, data }) => {
             if (response?.Overall[0]?.status === 'FAILURE')
                 showNotification.ERROR('File Not Uploaded!');
             if (response?.Overall[0]?.status === 'SUCCESS') {
-                console.log("response : ", response?.Overall[0]?.Data?.doc_sys_id)
                 setSignatureData((prev) => ({
                     ...prev,
                     doc_sys_id: response?.Overall[0]?.Data?.doc_sys_id,
@@ -112,9 +111,9 @@ const CusBroSign = ({ title, doctype, data }) => {
         }
     }
 
-    useEffect(() => {
-        console.log("signatureData : ", signatureData)
-    }, [signatureData])
+    // useEffect(() => {
+    //     console.log("signatureData : ", signatureData)
+    // }, [signatureData])
 
     return (
         <>

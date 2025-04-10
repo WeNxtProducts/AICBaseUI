@@ -96,7 +96,7 @@ const ReviewFooter = () => {
             </div>
             <div className='review_footer_btn'>
                 <Button onClick={() => handleFinalSubmit()} className='oth_btn'>Submit</Button>
-                <Button className='acc_btn'>Back</Button>
+                <Button onClick={() => dispatch(setStepperIndex(4))} className='acc_btn'>Back</Button>
             </div>
         </>
     );

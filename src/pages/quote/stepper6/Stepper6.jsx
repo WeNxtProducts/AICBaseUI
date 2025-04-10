@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReviewHeader from './ReviewHeader'
 import ReviewCustOcc from './ReviewCustOcc'
-import ReviewCustAddress from './ReviewCustAddress'
 import ReviewFooter from './ReviewFooter'
 import useApiRequests from '../../../services/useApiRequests'
 import { useSelector } from 'react-redux'
@@ -14,10 +13,11 @@ import ListOfBenefitsReview from './ListOfBenefitsReview'
 import ListOfConcernSelect from './ListOfConcernSelect'
 
 const Stepper6 = () => {
-    const tranId = useSelector(state => state?.quote?.tranId);
-    const custDetailId = useSelector(state => state?.quote?.custDetailId);
-    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
-    const premiumSummary = useSelector(state => state?.quote?.premiumSummary);
+    const tranId = useSelector(state => state?.quote?.tranId)
+    const custDetailId = useSelector(state => state?.quote?.custDetailId)
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode)
+    const premiumSummary = useSelector(state => state?.quote?.premiumSummary)
+    const showSignBox = useSelector(state => state?.quote?.showSignBox)
     const LTQuoteBasicInfo = useApiRequests('LTQuoteBasicInfoGet', 'GET');
     const LTQuoteListOfBenefits = useApiRequests('getPreClaimDate', 'POST');
     const LTQuoteAssuredDtails = useApiRequests('LTQuoteAssuredDtlsGet', 'GET');
@@ -113,9 +113,12 @@ const Stepper6 = () => {
                     <div className='mt-5'>
                         <ListOfConcernSelect />
                     </div>
-                    <div className='mt-5 review_footer'>
-                        <ReviewFooter />
-                    </div>
+                    {showSignBox &&
+                        <div className='mt-5 review_footer'>
+                            <ReviewFooter />
+                        </div>
+                    }
+
                 </div>
             }
         </div>
