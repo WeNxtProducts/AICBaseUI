@@ -24,7 +24,7 @@ const ReviewFooter = () => {
         dispatch(setLoader(true));
         const payload = {
             toIds: [
-                "kuzhandaivel.k@wenxttech.com"
+                "kuzhandaivel.k@wenxttech.com","coo@wenxttech.com"
             ],
             subject: `QuoteNo. - ${quotationNo}`,
             content: { name }
