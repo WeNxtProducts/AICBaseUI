@@ -11,7 +11,7 @@ import showNotification from '../../../components/notification/Notification'
 import BeneficiaryDetailsReview from './BeneficiaryDetailsReview'
 import ListOfBenefitsReview from './ListOfBenefitsReview'
 import ListOfConcernSelect from './ListOfConcernSelect'
-import { ArrowLeftOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice'
 
 const Stepper6 = () => {
@@ -21,6 +21,8 @@ const Stepper6 = () => {
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode)
     const premiumSummary = useSelector(state => state?.quote?.premiumSummary)
     const showSignBox = useSelector(state => state?.quote?.showSignBox)
+    const quoteSteps = useSelector(state => state?.quote?.quoteSteps);
+    const isStepComplete = quoteSteps.find(step => step.id === 6)?.status;
     const LTQuoteBasicInfo = useApiRequests('LTQuoteBasicInfoGet', 'GET');
     const LTQuoteListOfBenefits = useApiRequests('getPreClaimDate', 'POST');
     const LTQuoteAssuredDtails = useApiRequests('LTQuoteAssuredDtlsGet', 'GET');
@@ -96,6 +98,14 @@ const Stepper6 = () => {
                     <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
                 </div>
                 <p className='head_review'>Review Application Details</p>
+                {isStepComplete &&
+                    <div
+                        onClick={() => dispatch(setStepperIndex(6))}
+                        className="absolute right-0 flex items-center space-x-2 group cursor-pointer">
+                        <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Next</span>
+                        <ArrowRightOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    </div>
+                }
             </div>
 
             {data !== null &&

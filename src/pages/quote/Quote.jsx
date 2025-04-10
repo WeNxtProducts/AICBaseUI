@@ -16,12 +16,11 @@ import {
     setStepperIndex
 } from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
-import './Quote.scss';
 import PaymentStepper from './paymentStepper/PaymentStepper';
 import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
 import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
-import { quoteSteps } from './QuoteConstant';
 import StepperComponent from '../../components/stepper/Stepper';
+import './Quote.scss';
 
 const Quote = () => {
     const dispatch = useDispatch();
@@ -37,6 +36,7 @@ const Quote = () => {
         QUOT_MIDDLE_NAME: { PFD_FLD_VALUE: Mname } = {},
         QUOT_LAST_NAME: { PFD_FLD_VALUE: Lname } = {} }
         = useSelector(state => state?.quote?.basicInfoForm?.frontForm?.formFields || {});
+    const quoteSteps = useSelector(state => state?.quote?.quoteSteps);
 
     const name = `${Fname} ${Mname} ${Lname}`.trim();
 

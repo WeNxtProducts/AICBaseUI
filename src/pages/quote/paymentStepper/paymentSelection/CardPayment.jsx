@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import dayjs from "dayjs";
-import { setLoader, setPayFinish } from "../../../../globalStore/slices/QuoteSlice";
+import { setLoader, setPayFinish, setQuoteStepStatus } from "../../../../globalStore/slices/QuoteSlice";
 import useApiRequests from "../../../../services/useApiRequests";
 import showNotification from "../../../../components/notification/Notification";
 
@@ -90,6 +90,7 @@ const CardPayment = () => {
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
+                dispatch(setQuoteStepStatus(7))
                 dispatch(setPayFinish(true));
                 showNotification.SUCCESS(response?.status_msg);
             }

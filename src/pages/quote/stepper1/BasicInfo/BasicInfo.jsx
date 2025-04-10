@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { setBasicInfoForm, setLoader, setQuotationNo, setStepperIndex, setTranId } from '../../../../globalStore/slices/QuoteSlice';
+import {
+    setBasicInfoForm, setLoader, setQuotationNo
+    , setQuoteStepStatus, setStepperIndex, setTranId
+} from '../../../../globalStore/slices/QuoteSlice';
 import QuoteForm from '../../quoteForm/QuoteForm';
 import useApiRequests from '../../../../services/useApiRequests';
 import { deepCopy, extractFieldValuesInPlace } from '../../../../components/commonHelper/DataSend';
@@ -30,6 +33,7 @@ const BasicInfo = () => {
                 if (!tranId) {
                     dispatch(setTranId(response?.data?.Id))
                     dispatch(setQuotationNo(response?.data?.POL_NO))
+                    dispatch(setQuoteStepStatus(1))
                 }
                 dispatch(setStepperIndex(1));
             }

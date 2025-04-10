@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from 'antd';
 import useApiRequests from '../../../services/useApiRequests';
-import { setLoader, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setLoader, setQuoteStepStatus, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import showNotification from '../../../components/notification/Notification';
 import { useDispatch, useSelector } from 'react-redux';
 import CusBroSign from './CusBroSign';
@@ -37,6 +37,7 @@ const ReviewFooter = () => {
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
+                dispatch(setQuoteStepStatus(6))
                 showNotification.SUCCESS(response?.status_msg);
                 dispatch(setStepperIndex(6))
             }
@@ -89,15 +90,21 @@ const ReviewFooter = () => {
             <div className='digital_signature'>
                 {clientSign || brokerSign ? (
                     <>
-                        <CusBroSign title='Client Signature' doctype='client' data={clientSign} />
+                        <CusBroSign title='Client Signature'
+                            doctype='client'
+                            data={clientSign}
+                            signUpdate={setClientSign}
+                        />
                         {/* <CusBroSign title='Broker Signature' doctype='broker' data={brokerSign} /> */}
                     </>
                 ) : null}
             </div>
-            <div className='review_footer_btn'>
-                <Button onClick={() => handleFinalSubmit()} className='oth_btn'>Submit</Button>
-                <Button onClick={() => dispatch(setStepperIndex(4))} className='acc_btn'>Back</Button>
-            </div>
+            {/* {clientSign?.signature !== null && */}
+                <div className='review_footer_btn'>
+                    <Button onClick={() => handleFinalSubmit()} className='oth_btn'>Submit</Button>
+                    <Button onClick={() => dispatch(setStepperIndex(4))} className='acc_btn'>Back</Button>
+                </div>
+            {/* } */}
         </>
     );
 };

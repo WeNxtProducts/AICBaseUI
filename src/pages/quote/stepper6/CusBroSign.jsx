@@ -14,7 +14,7 @@ const fileData = {
     uploadscrn: 'Sign-digital'
 };
 
-const CusBroSign = ({ title, doctype, data }) => {
+const CusBroSign = ({ title, doctype, data, signUpdate }) => {
     const DMSFileUpload = useApiRequests('DMSFileUpload64', 'POST');
     const DMSFileDelete = useApiRequests('DMSDelete64', 'POST');
     const DMSFileView = useApiRequests('DMSView64', 'POST');
@@ -81,6 +81,11 @@ const CusBroSign = ({ title, doctype, data }) => {
                     ...prev,
                     doc_sys_id: response?.Overall[0]?.Data?.doc_sys_id,
                 }));
+                console.log("response?.Overall[0]?.Data : ", response?.Overall[0]?.Data)
+                signUpdate({
+                    name: signdata?.name, signature: signdata?.signature,
+                    doc_sys_id: response?.Overall[0]?.Data?.doc_sys_id
+                })
                 showNotification.SUCCESS(`${payload?.filename} Uploaded Successfully`);
             }
         } catch {

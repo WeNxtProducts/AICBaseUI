@@ -37,7 +37,9 @@ const CustomerDetailsForm = () => {
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
                 showNotification.SUCCESS(response?.status_msg);
-                dispatch(setStepper3('customerAddress'))
+                setTimeout(() => {
+                    dispatch(setStepper3('customerAddress'))
+                }, 0)
             }
         } catch (err) {
             showNotification.WARNING(err?.message || 'Something went wrong');
@@ -66,7 +68,7 @@ const CustomerDetailsForm = () => {
                 dispatch(setNomineeDetails({ Nominee: orderedData?.Nominee || {} }))
                 setTimeout(() => {
                     dispatch(setStepper3('customerDetails'))
-                }, 200)
+                }, 100)
             }
         } catch (err) {
             showNotification.WARNING(err?.message || 'Something went wrong');

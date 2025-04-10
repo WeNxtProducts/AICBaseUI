@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { quoteSteps } from '../../pages/quote/QuoteConstant';
 
 const initialState = {
     tranId: '',
@@ -24,7 +25,8 @@ const initialState = {
     payStepper: 0,
     payMethod: 1,
     payFinish: false,
-    showSignBox: false
+    showSignBox: false,
+    quoteSteps: quoteSteps
 };
 
 const QuoteSlices = createSlice({
@@ -103,6 +105,12 @@ const QuoteSlices = createSlice({
         setShowSignBox: (state, action) => {
             state.showSignBox = action.payload;
         },
+        setQuoteStepStatus: (state, action) => {
+            const step = state.quoteSteps.find(step => step.id === action.payload);
+            if (step) {
+                step.status = true;
+            }
+        },
         clearQuote: (state) => {
             state.tranId = '',
                 state.stepperIndex = 0,
@@ -127,7 +135,8 @@ const QuoteSlices = createSlice({
                 state.payMethod = 1,
                 state.payFinish = false,
                 state.quotationNo = '',
-                state.showSignBox = false
+                state.showSignBox = false,
+                state.quoteSteps = quoteSteps
         }
     },
 });
@@ -139,7 +148,7 @@ export const { setStepperIndex, setComQuote, setStepper3
     setCurrentAddress, setResidenceAddress, setNomineeDetails,
     setNomineeId, setSameAddress, setPayStepper, setPayMethod,
     setPayFinish, setQuotationNo, clearQuote,
-    setShowSignBox
+    setShowSignBox, setQuoteStepStatus
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

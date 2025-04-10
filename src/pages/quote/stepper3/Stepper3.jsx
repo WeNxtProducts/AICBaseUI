@@ -6,12 +6,12 @@ import CustomerAddress from './customerAddress/CustomerAddress';
 import NomineeDetails from './nomineeDetails/NomineeDetails';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { setCustDetailId, setLoader, setStepper3, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setCustDetailId, setLoader, setQuoteStepStatus, setStepper3, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import CustomerDetailsForm from './customerDetails/CustomerDetailsForm';
 import NomineeFormDetails from './nomineeDetails/NomineeFormDetails';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 
 const Stepper3 = () => {
     const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const Stepper3 = () => {
     const getMapQuery = useApiRequests('getPreClaimDate', 'POST');
     const tranId = useSelector(state => state?.quote?.tranId);
     const custDetailId = useSelector(state => state?.quote?.custDetailId);
+    const quoteSteps = useSelector(state => state?.quote?.quoteSteps);
+    const isStepComplete = quoteSteps.find(step => step.id === 3)?.status;
 
     const toggleAccordion = (section) => {
         dispatch(setStepper3(section))
@@ -44,6 +46,10 @@ const Stepper3 = () => {
         if (custDetailId === null) {
             handleFetchId()
         }
+
+        return () => {
+            dispatch(setStepper3(''))
+        }
     }, [])
 
     return (
@@ -56,6 +62,14 @@ const Stepper3 = () => {
                     <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
                 </div>
                 <p className="head_assured_cust">Assured/Customer Details</p>
+                {isStepComplete &&
+                    <div
+                        onClick={() => dispatch(setStepperIndex(3))}
+                        className="absolute right-0 flex items-center space-x-2 group cursor-pointer">
+                        <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Next</span>
+                        <ArrowRightOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    </div>
+                }
             </div>
             <div className='mt-2'>
                 {/* <div className='life_assured_check'>
@@ -90,7 +104,10 @@ const Stepper3 = () => {
             {!activeSection &&
                 <div className='save_btn_grid_final mt-3'>
                     <button
-                        onClick={() => dispatch(setStepperIndex(3))}
+                        onClick={() => {
+                            dispatch(setQuoteStepStatus(3))
+                            dispatch(setStepperIndex(3))
+                        }}
                         type='submit'>
                         Next
                     </button>

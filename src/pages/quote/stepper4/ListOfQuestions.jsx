@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Radio } from 'antd';
 import { CustomInput } from '../../../components/commonExportsFields/CommonExportsFields'
 import { useDispatch } from 'react-redux';
-import { setLoader, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
+import { setLoader, setQuoteStepStatus, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
 import { useSelector } from 'react-redux';
@@ -92,6 +92,7 @@ const ListOfQuestions = () => {
             const response = await apiCall(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
             if (response?.status === 'SUCCESS') {
+                dispatch(setQuoteStepStatus(4))
                 showNotification.SUCCESS(response?.status_msg);
                 dispatch(setStepperIndex(4));
             }
