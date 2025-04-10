@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { CustomNumberField } from '../../../components/commonExportsFields/CommonExportsFields';
-import { CheckCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, CheckCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { formatNumber } from '../../../components/commonHelper/CurrentFormatter';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBenefitsSA } from '../../../globalStore/slices/QuoteSlice';
+import { setBenefitsSA, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
 
 const ListOfBenefits = () => {
     const dispatch = useDispatch();
@@ -29,7 +29,15 @@ const ListOfBenefits = () => {
 
     return (
         <div className="list_of_benefits">
-            <p className='head_benefits'>List Of Benefits</p>
+            <div className="relative grid items-center">
+                <div
+                    onClick={() => dispatch(setStepperIndex(0))}
+                    className="absolute left-0 flex items-center space-x-2 group cursor-pointer">
+                    <ArrowLeftOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
+                </div>
+                <p className="head_benefits">List Of Benefits</p>
+            </div>
             {hasValidRowData(benefitsList) ? (
                 <>
                     <div className="caption">Quotation No - {quotationNo}</div>

@@ -11,6 +11,7 @@ import CustomerDetailsForm from './customerDetails/CustomerDetailsForm';
 import NomineeFormDetails from './nomineeDetails/NomineeFormDetails';
 import useApiRequests from '../../../services/useApiRequests';
 import showNotification from '../../../components/notification/Notification';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 const Stepper3 = () => {
     const dispatch = useDispatch();
@@ -47,7 +48,15 @@ const Stepper3 = () => {
 
     return (
         <div className='stepper_3'>
-            <p className='head_assured_cust'>Assured/Customer Details</p>
+            <div className="relative grid items-center">
+                <div
+                    onClick={() => dispatch(setStepperIndex(1))}
+                    className="absolute left-0 flex items-center space-x-2 group cursor-pointer">
+                    <ArrowLeftOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
+                </div>
+                <p className="head_assured_cust">Assured/Customer Details</p>
+            </div>
             <div className='mt-2'>
                 {/* <div className='life_assured_check'>
                     <Checkbox className='life_check'>

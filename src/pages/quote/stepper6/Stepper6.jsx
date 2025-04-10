@@ -3,7 +3,7 @@ import ReviewHeader from './ReviewHeader'
 import ReviewCustOcc from './ReviewCustOcc'
 import ReviewFooter from './ReviewFooter'
 import useApiRequests from '../../../services/useApiRequests'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence'
 import ReviewQuestionaire from './ReviewQuestionaire'
 import UploadDocListReview from './UploadDocListReview'
@@ -11,8 +11,11 @@ import showNotification from '../../../components/notification/Notification'
 import BeneficiaryDetailsReview from './BeneficiaryDetailsReview'
 import ListOfBenefitsReview from './ListOfBenefitsReview'
 import ListOfConcernSelect from './ListOfConcernSelect'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice'
 
 const Stepper6 = () => {
+    const dispatch = useDispatch()
     const tranId = useSelector(state => state?.quote?.tranId)
     const custDetailId = useSelector(state => state?.quote?.custDetailId)
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode)
@@ -85,7 +88,16 @@ const Stepper6 = () => {
 
     return (
         <div className='Stepper6'>
-            <p className='head_review'>Review Application Details</p>
+            <div className="relative grid items-center">
+                <div
+                    onClick={() => dispatch(setStepperIndex(4))}
+                    className="absolute left-0 flex items-center space-x-2 group cursor-pointer">
+                    <ArrowLeftOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
+                </div>
+                <p className='head_review'>Review Application Details</p>
+            </div>
+
             {data !== null &&
                 <div className='review_form'>
                     <ReviewHeader />
