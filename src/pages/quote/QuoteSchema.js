@@ -74,9 +74,9 @@ export const basicInfoSchema = () => {
                 QUOT_SMOKER_YN: Yup.object().shape({
                     PFD_FLD_VALUE: Yup.string().required('Smoker is required'),
                 }),
-                QUOT_COUNT_RESIDENCE: Yup.object().shape({
-                    PFD_FLD_VALUE: Yup.string().required('Country of Residence is required'),
-                }),
+                // QUOT_COUNT_RESIDENCE: Yup.object().shape({
+                //     PFD_FLD_VALUE: Yup.string().required('Country of Residence is required'),
+                // }),
             }),
         }),
     });
