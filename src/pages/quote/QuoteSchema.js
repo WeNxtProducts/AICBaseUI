@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import * as Yup from 'yup';
 
 export const basicInfoSchema = () => {
@@ -21,7 +22,19 @@ export const basicInfoSchema = () => {
                 }),
 
                 QUOT_DOB: Yup.object().shape({
-                    PFD_FLD_VALUE: Yup.string().required('Date of Birth is required'),
+                    PFD_FLD_VALUE: Yup.string()
+                        .required('Date of Birth is required')
+                        .test('is-18', 'Age must be at least 18 years old', function (value) {
+                            if (!value) return false;
+
+                            const birthDate = dayjs(value);
+                            if (!birthDate.isValid()) return false;
+
+                            const today = dayjs();
+                            const age = today.diff(birthDate, 'year');
+
+                            return age >= 18;
+                        }),
                 }),
 
                 QUOT_SEX: Yup.object().shape({
