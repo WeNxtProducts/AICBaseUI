@@ -13,8 +13,10 @@ const CustomDatePicker = ({
   disabled = false,
   onBlur,
   readOnly = false,
+  format = 'DD-MM-YYYY',
+  picker = 'date'
 }) => {
-  const dateFormat = 'DD-MM-YYYY';
+  const dateFormat = format;
   const fieldSize = {
     small: { code: '1/3', desc: '2/3', main: '2/5' },
     medium: { code: '1/4', desc: '3/4', main: '3/5' }, // 3/4
@@ -41,6 +43,7 @@ const CustomDatePicker = ({
     <div className={`w-${fieldSize[size].main}`}>
       <DatePicker
         format={dateFormat}
+        picker={picker}
         onOpenChange={(open) => {
           if (!open) {
             setTimeout(() => {
