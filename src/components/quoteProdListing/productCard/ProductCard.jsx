@@ -27,7 +27,7 @@ const ProductCard = ({ value, onSelect }) => {
     );
 
     return (
-        <div className='prod_card_listing_select' onClick={() => onSelect(value)}>
+        <div className='prod_card_listing_select'>
             <div className='card-content'>
                 <div className='img-container'>
                     <img src={sampImg} className='img-card' />
@@ -50,7 +50,9 @@ const ProductCard = ({ value, onSelect }) => {
                     <div className='lower-level'>
                         {actionIcons(true)}
                         <div className='mt-2 flex justify-center'>
-                            <Button className='get-quote-btn'>Get Quote</Button>
+                            <Button
+                                onClick={() => onSelect(value)}
+                                className='get-quote-btn'>Get Quote</Button>
                         </div>
                     </div>
                 </div>
