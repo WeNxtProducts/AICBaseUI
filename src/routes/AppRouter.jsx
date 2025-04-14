@@ -68,6 +68,7 @@ const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/Surr
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
 // const QuoteProductList = lazy(() => import('../pages/quote/qoteProductList/QuoteProductList'));
 const GroupLifeQuote = lazy(() => import('../pages/groupLifeQuote/GroupLifeQuote'));
+const QuoteSelect = lazy(() => import('../pages/quoteSelect/QuoteSelect'));
 
 const AppRouter = () => {
     return (
@@ -77,8 +78,16 @@ const AppRouter = () => {
                 <Route
                     path='/graphSamples'
                     element={
-                        <Suspense fallback={<div>IFrameSetUp</div>}>
+                        <Suspense fallback={<Loader />}>
                             <GraphSamples />
+                        </Suspense>
+                    }
+                />
+                <Route
+                    path='/quoteSelect'
+                    element={
+                        <Suspense fallback={<Loader />}>
+                            <QuoteSelect />
                         </Suspense>
                     }
                 />
@@ -159,7 +168,7 @@ const AppRouter = () => {
                 <Route
                     path='/quote'
                     element={
-                        <Suspense fallback={<div>QUOTE...</div>}>
+                        <Suspense fallback={<Loader />}>
                             <Quote />
                         </Suspense>
                     }
@@ -177,7 +186,7 @@ const AppRouter = () => {
                 <Route
                     path='/groupLifeQuote'
                     element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loader />}>
                             <GroupLifeQuote />
                         </Suspense>
                     }

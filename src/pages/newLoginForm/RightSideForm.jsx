@@ -64,15 +64,15 @@ const RightSideForm = () => {
   };
 
   const getStaticToken = async () => {
-    navigate('/quoteProducts')
-    // try {
-    //   const response = await staticToken();
-    //   console.log("Response : ", response)
-    //   dispatch(setToken(response));
-    //   navigate('/quoteProducts')
-    // } catch (error) {
-    //   console.error('error : ', error);
-    // }
+    // navigate('/quoteSelect') // quoteProducts
+    try {
+      const response = await staticToken();
+      console.log("Response : ", response)
+      dispatch(setToken(response?.Data));
+      navigate('/quoteSelect')
+    } catch (error) {
+      console.error('error : ', error);
+    }
   };
 
   useEffect(() => {

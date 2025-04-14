@@ -29,10 +29,11 @@ const GroupQuoteSlices = createSlice({
             state.dropDown = action.payload;
         },
         clearGroupQuote: (state) => {
-            state.prodCode = '',
-                state.planCode = '',
-                state.tranId = '',
-                state.stepperIndex = 0
+            state.tranId = '';
+            state.stepperIndex = 0;
+            state.loader = false;
+            state.basicInfoForm = null;
+            state.dropDown = null
         }
     },
 });

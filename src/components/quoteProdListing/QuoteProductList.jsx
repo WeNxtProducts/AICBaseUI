@@ -18,7 +18,7 @@ const QuoteProductList = () => {
     const dispatch = useDispatch();
     const getProdList = useApiRequests('getPreClaimDate', 'POST');
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
-    const planCode = useSelector(state => state?.quoteProdPlanCode?.planCode);
+    const life = useSelector(state => state?.quoteProdPlanCode?.life);
     const [locationState, setLocationState] = useState('Product List');
     const breadCrumbsItem = [{ title: 'Product List' }, { title: 'Plan List' }];
     const [selectedProduct, setSelectedProduct] = useState('');
@@ -56,7 +56,8 @@ const QuoteProductList = () => {
     const handleSelectProduct = item => {
         dispatch(setProdCode(item?.PROD_CODE));
         setSelectedProduct(item?.PROD_CODE);
-        navigate('/quote'); //quote
+        if (life === 'IL') navigate('/quote');
+        else if (life === 'GL') navigate('/groupLifeQuote');
     };
 
     const handleSelectPlan = item => {

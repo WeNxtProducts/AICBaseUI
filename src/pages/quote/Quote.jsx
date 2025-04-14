@@ -10,7 +10,7 @@ import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
 import {
-    clearQuote, setBasicInfoForm, setComQuote, setCurrentAddress,
+    clearQuote as clearQuoteIL, setBasicInfoForm, setComQuote, setCurrentAddress,
     setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress,
     setStepper3,
     setStepperIndex
@@ -20,9 +20,12 @@ import PaymentStepper from './paymentStepper/PaymentStepper';
 import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
 import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
 import StepperComponent from '../../components/stepper/Stepper';
+import { useNavigate } from 'react-router-dom';
+import { clearQuote as clearQuoteProdPlan } from '../../globalStore/slices/QuoteProdPlanSlice';
 import './Quote.scss';
 
 const Quote = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const getFieldList = useApiRequests('LTQuoteBasicFieldList', 'POST');
     const LTLovJson = useApiRequests('lovToJson', 'GET');
@@ -45,9 +48,11 @@ const Quote = () => {
             fetchFieldAndLovList();
         }
 
-        // return () => {
-        //     dispatch(clearQuote());
-        // }
+        return () => {
+            dispatch(clearQuoteIL());
+            dispatch(clearQuoteProdPlan());
+            navigate('/quoteSelect')
+        }
     }, []);
 
     const fetchFieldAndLovList = async () => {

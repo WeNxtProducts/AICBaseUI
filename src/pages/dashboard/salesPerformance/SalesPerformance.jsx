@@ -33,8 +33,6 @@ const SalesPerformance = () => {
             if (filteredData?.length > 0) {
                 setGraphData(filteredData);
             } else setGraphData([])
-
-            console.log("filteredData : ", filteredData)
         }
     }, [fromDate, toDate]);
 

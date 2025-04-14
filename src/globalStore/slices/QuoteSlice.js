@@ -112,31 +112,31 @@ const QuoteSlices = createSlice({
             }
         },
         clearQuote: (state) => {
-            state.tranId = '',
-                state.stepperIndex = 0,
-                state.compQuote = false,
-                state.stepper_3 = '',
-                state.basicInfoForm = null,
-                state.dropDown = null,
-                state.custAssuredDetails = null,
-                state.currentAddress = null,
-                state.residenceAddress = null,
-                state.nomineeDetails = null,
-                state.listOfBenefits = [],
-                state.premiumSummary = {
-                    totalSumAssured: 0,
-                    totalMonthlyPrem: 0,
-                },
-                state.loader = false,
-                state.custDetailId = null,
-                state.nomineeId = null,
-                state.sameAddress = false,
-                state.payStepper = 0,
-                state.payMethod = 1,
-                state.payFinish = false,
-                state.quotationNo = '',
-                state.showSignBox = false,
-                state.quoteSteps = quoteSteps
+            state.tranId = '';
+            state.stepperIndex = 0;
+            state.compQuote = false;
+            state.stepper_3 = '';
+            state.basicInfoForm = null;
+            state.dropDown = null;
+            state.custAssuredDetails = null;
+            state.currentAddress = null;
+            state.residenceAddress = null;
+            state.nomineeDetails = null;
+            state.listOfBenefits = [];
+            state.premiumSummary = {
+                totalSumAssured: 0,
+                totalMonthlyPrem: 0
+            };
+            state.loader = false;
+            state.custDetailId = null;
+            state.nomineeId = null;
+            state.sameAddress = false;
+            state.payStepper = 0;
+            state.payMethod = 1;
+            state.payFinish = false;
+            state.quotationNo = '';
+            state.showSignBox = false;
+            state.quoteSteps = quoteSteps
         }
     },
 });
