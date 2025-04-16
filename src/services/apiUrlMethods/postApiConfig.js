@@ -518,6 +518,14 @@ const POST_API_URL = {
     },
     emailTrigger: {
         url: '/emailTemplate/sendMail',
+    },
+    OTPRequest: {
+        url: '/ltQuoteDetails/triggerOTP',
+        baseURL: 'CRUD',
+    },
+    OTPVerifyRequest: {
+        url: '/ltQuoteDetails/createLogin',
+        baseURL: 'CRUD',
     }
 };
 

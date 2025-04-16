@@ -57,6 +57,7 @@ const ClaimSettlement = lazy(() => import('../pages/claimSettlement/ClaimSettlem
 const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/CashbackProcessing'));
 const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
+const CusPolList = lazy(() => import('../pages/CustomerPolicy/cusPolList/CusPolList'));
 
 const AppRouter = () => {
     return (
@@ -66,6 +67,14 @@ const AppRouter = () => {
                 {publicRoutes}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/customerPolicyList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <CusPolList />
+                            </Suspense>
+                        }
+                    />
                     <Route
                         path='/glReInsuranceList'
                         element={

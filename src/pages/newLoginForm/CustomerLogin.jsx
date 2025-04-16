@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import phoneSMS from '../../assets/TextSMS.png'
 import mailSMS from '../../assets/MailSMS.png'
 import userIdImg from '../../assets/userIdOTP.png'
 import OTPIcon from '../../assets/OTP.png'
 import CustomRadioButton from '../../components/customRadioButton/CustomRadioButton'
 import { contactOptions } from '../../components/tableComponents/sampleData'
-import { Button, Input } from 'antd'
+import { Button } from 'antd'
 import PhoneInput from '../../components/phoneInput/PhoneInput'
 import CustomInput from '../../components/customFieldComponents/customInput/CustomInput'
 import { ArrowLeftOutlined } from '@ant-design/icons'
@@ -16,17 +16,8 @@ import { storeEncryptedData } from '../../globalStore/cryptoUtils/cryptoUtil'
 import { setGroupId, setToken, setUserDetails } from '../../globalStore/slices/TokenAndMenuList'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setRulesJSON } from '../../globalStore/slices/RulesSlices'
-import SessionMaintainModal from './SessionMaintainModal'
+import OTPInput from '../../components/OTPInput/OTPInput'
 
-const dummyFormdata = {
-    "userName": "CLJO",
-    "password": "Test@123",
-    "companyCode": "001",
-    "divisionCode": "101",
-    "departmentCode": "10101",
-    "langCode": "English"
-}
 const contactImg = {
     u: { img: userIdImg, text: 'Email' },
     p: { img: phoneSMS, text: 'Phone Number' },
@@ -34,94 +25,97 @@ const contactImg = {
 }
 
 const CustomerLogin = () => {
+    const timerToResend = 60
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const sessionMaintain = useApiRequests('sessionMaintain', 'POST');
-    const loginApi = useApiRequests('login', 'POST');
-    const getRulesJSON = useApiRequests('getRulesJSON', 'POST');
-    const [SessionModal, setSessionModal] = useState(false);
-    const [loginData, setLoginData] = useState(dummyFormdata);
+    const OTPRequest = useApiRequests('OTPRequest', 'POST');
+    const OTPVerifyRequest = useApiRequests('OTPVerifyRequest', 'POST');
     const [loader, setLoader] = useState(false);
     const [OTPsent, setOTPSent] = useState(false)
+    const [sampleOTPValue, setsampleOTPValue] = useState('')
     const [contactMethod, setContactMethod] = useState('u');
-    const [phoneValue, setPhoneValue] = useState('');
+    const [value, setValue] = useState('');
+    const [otp, setOtp] = useState('');
+    const [timer, setTimer] = useState(timerToResend);
+    const [showResend, setShowResend] = useState(false);
+
+    useEffect(() => {
+        let interval;
+        if (OTPsent && timer > 0) {
+            interval = setInterval(() => {
+                setTimer(prev => prev - 1);
+            }, 1000);
+        } else if (timer === 0) {
+            setShowResend(true);
+            clearInterval(interval);
+        }
+        return () => clearInterval(interval);
+    }, [OTPsent, timer]);
 
     const handleContactMethodChange = (value) => {
+        setValue('');
         setContactMethod(value);
     };
 
-    const handleGetRules = async (userId) => {
-        setLoader(true);
-        try {
-            const response = await getRulesJSON({ userId });
-            if (response?.status === 'SUCCESS') {
-                dispatch(setRulesJSON(response?.Data));
-                navigate('/dashboard')
-            } else if (response?.status === 'FAILURE') {
-                showNotification.ERROR(response?.status_msg);
-            }
-        } catch (err) {
-            console.error('err : ', err);
-        } finally {
-            setLoader(false);
+    const handleOTPVerifyRequest = async () => {
+        if (otp?.length !== 6) {
+            showNotification.WARNING('Please Fill the OTP');
+            return
         }
-    };
-
-    const onSubmit = async values => {
         setLoader(true);
         try {
-            const response = await loginApi(values);
-            if (response?.status === 'REDIRECT') {
-                navigate(response?.Data?.URL || '/resetpassword');
-            } else if (response?.status === 'SUCCESS') {
+            const response = await OTPVerifyRequest({
+                userName: value, otp
+            });
+            if (response?.status === 'SUCCESS') {
                 storeEncryptedData('token', response?.Data?.Token || response?.Token);
                 dispatch(setToken(response?.Data?.Token || response?.Token));
-                dispatch(setUserDetails(values));
+                dispatch(setUserDetails(value));
                 dispatch(setGroupId(response?.Data?.group));
-                handleGetRules(values?.userName)
+                navigate('/customerPolicyList')
             }
             else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
-            else if (response?.status === 'WARN') {
-                setLoginData(values);
-                setSessionModal(true);
-            }
         } catch (err) {
-            console.error('login error : ', err);
+            showNotification.WARNING(err?.message || 'Something went wrong');
         } finally {
             setLoader(false);
         }
     };
 
-    const handleYes = async () => {
+    const onSubmit = async () => {
+        if (!value) {
+            showNotification.WARNING('Please Fill the Field');
+            return
+        }
+        setLoader(true);
         try {
-            const response = await sessionMaintain({
-                userName: loginData?.userName,
-            });
-            if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
+            const response = await OTPRequest('', { userName: value });
             if (response?.status === 'SUCCESS') {
-                showNotification.SUCCESS(response?.status_msg);
-                onSubmit(loginData);
+                setsampleOTPValue(response?.OTP)
+                setOTPSent(true)
+                setTimer(timerToResend);
+                setShowResend(false);
             }
+            else if (response?.status === 'FAILURE') showNotification.ERROR(response?.status_msg);
         } catch (err) {
-            console.error('err : ', err);
+            showNotification.WARNING(err?.message || 'Something went wrong');
+        } finally {
+            setLoader(false);
         }
     };
 
-    const handleNo = () => {
-        setSessionModal(false);
+    const handleValueChange = (value) => {
+        setValue(value);
     };
 
-    const handlePhoneChange = (value) => {
-        setPhoneValue(value);
-    };
-
-    const sharedProps = {
-        size: 'large',
-        placeholder: 'Enter OTP',
-        onChange: e => {
-            console.log("e.target.value : ", e.target.value)
-        }
-    };
+    const handleBack = () => {
+        setOTPSent(false)
+        setOtp('')
+        setsampleOTPValue('')
+    }
+    const handleOTPComplete = async (otpValue) => {
+        setOtp(otpValue)
+    }
 
     return (
         <div className='form-login-new'>
@@ -142,10 +136,10 @@ const CustomerLogin = () => {
                                     <p className='mb-1 text-sm text-gray-500'>User Name</p>
                                     <CustomInput
                                         placeholder='Username'
-                                        value={''}
+                                        value={value}
                                         size='large'
                                         onChange={e => {
-                                            console.log("e.target.value : ", e.target.value)
+                                            handleValueChange(e.target.value)
                                         }}
                                     />
                                 </div>
@@ -154,8 +148,8 @@ const CustomerLogin = () => {
                                 <div className='mt-5'>
                                     <p className='mb-1 text-sm text-gray-500'>Phone Number</p>
                                     <PhoneInput
-                                        value={phoneValue}
-                                        onChange={handlePhoneChange}
+                                        value={value}
+                                        onChange={handleValueChange}
                                         defaultCountryCode="+1"
                                     />
                                 </div>
@@ -165,17 +159,17 @@ const CustomerLogin = () => {
                                     <p className='mb-1 text-sm text-gray-500'>Email</p>
                                     <CustomInput
                                         placeholder='Email'
-                                        value={''}
+                                        value={value}
                                         size='large'
                                         onChange={e => {
-                                            console.log("e.target.value : ", e.target.value)
+                                            handleValueChange(e.target.value)
                                         }}
                                     />
                                 </div>
                             }
                             <div className='mt-10 flex justify-center'>
                                 <Button
-                                    onClick={() => setOTPSent(true)}
+                                    onClick={() => onSubmit()}
                                     className='send_code_btn'>Send Code</Button>
                             </div>
                         </div>
@@ -183,7 +177,7 @@ const CustomerLogin = () => {
                 ) : (
                     <div className='after_otp'>
                         <div
-                            onClick={() => setOTPSent(false)}
+                            onClick={() => { handleBack() }}
                             className="flex items-center space-x-2 group cursor-pointer">
                             <ArrowLeftOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
                             <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
@@ -195,20 +189,30 @@ const CustomerLogin = () => {
                             <p className='text-lg font-semibold text-gray-900 text-center'>Enter OTP Code</p>
                             <p className='text-sm text-gray-500'>OTP sent to your {contactImg[contactMethod]?.text}</p>
                             <p className='text-sm text-gray-500 mb-5'>abc@mail.com</p>
-                            <Input.OTP formatter={str => str.toUpperCase()} {...sharedProps} />
+                            <OTPInput length={6} onComplete={handleOTPComplete} />
+                            <p className='text-sm text-gray-500'>({sampleOTPValue})</p>
+                            {!showResend ? (
+                                <p className='text-sm text-gray-500'>
+                                    Resend OTP in 00:{timer < 10 ? `0${timer}` : timer}
+                                </p>
+                            ) : (
+                                <p
+                                    className='text-sm text-blue-600 hover:underline cursor-pointer'
+                                    onClick={onSubmit}
+                                >
+                                    Resend OTP
+                                </p>
+                            )}
                         </div>
-                        <div className='mt-10 flex justify-center'>
+                        <div className='mt-6 flex justify-center'>
                             <Button
-                                onClick={() => onSubmit(dummyFormdata)}
+                                onClick={() => handleOTPVerifyRequest()}
                                 className='send_code_btn'>Verify Code</Button>
                         </div>
                     </div>
                 )}
 
             </div>
-            {SessionModal && (
-                <SessionMaintainModal open={SessionModal} onConfirm={handleYes} onCancel={handleNo} />
-            )}
         </div>
     )
 }

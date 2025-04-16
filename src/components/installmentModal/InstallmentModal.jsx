@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
-import useMRVListingPayload from '../../../../../components/mrvListing/useMRVListingPayload';
-import { formatNumber } from '../../../../../components/commonHelper/CurrentFormatter';
 import dayjs from 'dayjs';
+import useMRVListingPayload from '../mrvListing/useMRVListingPayload';
+import { formatNumber } from '../commonHelper/CurrentFormatter';
+import './InstallmentModal.scss';
 
 const modalStyles = {
     topPosition: { top: 60 },
 };
+
+const MessageTitle = ({ title }) => <p className='modal_msg_title_installment select-none'>{title}</p>;
 
 const InstallmentModal = ({ open, handleClose, tranId, POL_NO }) => {
     const { rowData, columnData, handleMRVListingPayload } = useMRVListingPayload();
@@ -46,7 +49,7 @@ const InstallmentModal = ({ open, handleClose, tranId, POL_NO }) => {
         <Modal
             open={Open}
             width={1150}
-            title={`Installments for Policy: ${POL_NO}`}
+            title={<MessageTitle title={`Installments for Policy: ${POL_NO}`} />}
             style={modalStyles?.topPosition}
             onCancel={onClose}
             maskClosable={false}
@@ -54,7 +57,7 @@ const InstallmentModal = ({ open, handleClose, tranId, POL_NO }) => {
             footer={null}
         >
             {(hasValidRowData(rowData) && tableColumn !== null) && (
-                <div className="table-container">
+                <div className="table-container_installment_modal">
                     <table>
                         <thead>
                             <tr>

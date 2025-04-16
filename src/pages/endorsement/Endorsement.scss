@@ -680,66 +680,6 @@
   padding: 0;
   background-color: #fff;
  }
-
- .table-container {
-  padding: 10px;
-  overflow-x: auto;
-
-  table {
-   width: 100%;
-   border-collapse: collapse;
-   text-align: left;
-   border-radius: 8px;
-   overflow: hidden;
-
-   thead {
-    background-color: #0382c8;
-    color: white;
-    font-weight: bold;
-    position: sticky; /* Sticky header */
-    top: 0;
-    z-index: 1;
-   }
-
-   th,
-   td {
-    padding: 6px 16px;
-    border: 1px solid #e8e8e8;
-   }
-
-   tbody {
-    display: block;
-    max-height: 350px;
-    overflow-y: auto;
-    width: 100%;
-
-    tr {
-     display: table;
-     width: 100%;
-     table-layout: fixed;
-    }
-
-    tr:nth-child(even) {
-     background-color: #f9f9f9;
-    }
-
-    tr:hover {
-     background-color: #e6f7ff;
-     cursor: pointer;
-    }
-
-    td {
-     font-size: 14px;
-    }
-   }
-
-   thead tr {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-   }
-  }
- }
 }
 
 .confirm_surrender {

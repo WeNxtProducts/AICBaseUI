@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { Button } from 'antd';
 import { EndorsementContext } from '../../Endorsement';
 import CheckListDocuments from '../../../underWriterWorkBench/coverage/checkListDocuments/CheckListDocuments';
-import InstallmentModal from './installmentModal/InstallmentModal';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setReInsurancePolNo, setReInsuranceId } from '../../../../globalStore/slices/ReInsuranceSlices'
+import InstallmentModal from '../../../../components/installmentModal/InstallmentModal';
 
 const ValueButtons = () => {
     const dispatch = useDispatch();
