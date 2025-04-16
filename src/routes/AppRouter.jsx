@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './PrivateRoute';
 import Loader from '../components/loader/Loader';
 import ScrollToTop from './ScrollToTop';
-import IFrameSetUp from '../pages/iFrameSetUp/IFrameSetUp';
 import { publicRoutes } from './publicRoutes/PublicRoutes';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
@@ -33,7 +32,6 @@ const Receipt = lazy(() => import('../pages/receipt/Receipt'));
 const QuotationListing = lazy(() => import('../pages/quotation/quotationListing/QuotationListing'));
 const Quotation = lazy(() => import('../pages/quotation/Quotation'));
 const Quote = lazy(() => import('../pages/quote/Quote'));
-const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() => import('../pages/autoDispatchSetUp/AutoDispatchSetUp'));
 
 const AutoDispatchListing = lazy(
@@ -66,25 +64,6 @@ const AppRouter = () => {
             <ScrollToTop />
             <Routes>
                 {publicRoutes}
-                <Route
-                    path='/userMasterLiist'
-                    element={
-                        <Suspense fallback={<div>IFrameSetUp</div>}>
-                            <IFrameSetUp />
-                        </Suspense>
-                    }
-                />
-
-                <Route
-                    path='/reports'
-                    element={
-                        <Suspense fallback={<div>Report...</div>}>
-                            <ReportList />
-                        </Suspense>
-                    }
-                />
-
-                {/* ProtectedRoute */}
 
                 <Route element={<ProtectedRoute />}>
                     <Route

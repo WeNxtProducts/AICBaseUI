@@ -23,6 +23,15 @@ export const AuthRoutes = [
         }
     />,
     <Route
+        key="/customerLogin"
+        path='/customerLogin'
+        element={
+            <Suspense fallback={<div>Customer Login</div>}>
+                <NewLoginForm />
+            </Suspense>
+        }
+    />,
+    <Route
         key="/resetpassword"
         path='/resetpassword'
         element={

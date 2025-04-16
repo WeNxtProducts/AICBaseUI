@@ -5,6 +5,7 @@ import AgGridTables from '../../pages/claim/agGridTables/AgGridTables'
 import VirtualScroll from '../../components/react-virtual/VirtualScroll'
 import Loader from '../../components/loader/Loader'
 import GraphSamples from '../../pages/graphSamples/GraphSamples'
+import IFrameSetUp from '../../pages/iFrameSetUp/IFrameSetUp'
 
 
 export const TestingRoutes = [
@@ -44,5 +45,15 @@ export const TestingRoutes = [
                 <GraphSamples />
             </Suspense>
         }
+    />,
+    <Route
+        key="IFrameSetUp"
+        path='/userMasterLiist'
+        element={
+            <Suspense fallback={<div>IFrameSetUp</div>}>
+                <IFrameSetUp />
+            </Suspense>
+        }
     />
+
 ]
