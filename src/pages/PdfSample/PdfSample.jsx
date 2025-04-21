@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+// import pdfFonts from 'pdfmake/build/vfs_fonts';
+// import pdfMake from 'pdfmake/build/pdfmake';
+
 import { PDFdata as data } from '../../components/tableComponents/sampleData';
 import ExcelJS from 'exceljs';
 import './PdfSample.scss';
 import CustomTable from './CustomTable/CustomTable ';
 import TableComponent from './CustomTable/OwnTable';
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// pdfMake.vfs = pdfFonts.vfs;
 
 const PdfSample = () => {
  const [groupBy, setGroupBy] = useState('');
@@ -185,7 +187,7 @@ const PdfSample = () => {
   };
 
   // Create and download the PDF
-  pdfMake.createPdf(docDefinition).download('sample.pdf');
+  // pdfMake.createPdf(docDefinition).download('sample.pdf');
  };
 
  const exportToExcel = async () => {

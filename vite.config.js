@@ -32,21 +32,34 @@ export default defineConfig(({ mode }) => {
         },
         build: {
             minify: 'esbuild',
-            sourcemap: true,
+            sourcemap: false, // true
+            // chunkSizeWarningLimit: 1000, // Size in KB
             target: 'esnext', // Generate code for modern browsers
             emptyOutDir: true, // Clean output directory before build
             cssCodeSplit: true, // Split CSS into chunks
+
+            // rollupOptions: {
+            //     // external: ['apexcharts'],
+            //     output: {
+            //         chunkFileNames: 'chunks/[name]-[hash].js',
+            //         manualChunks: id => {
+            //             if (id.includes('node_modules')) {
+            //                 return 'vendor';
+            //             }
+            //         },
+            //     },
+            // },
+
             rollupOptions: {
-                // external: ['apexcharts'],
                 output: {
-                    chunkFileNames: 'chunks/[name]-[hash].js',
-                    manualChunks: id => {
-                        if (id.includes('node_modules')) {
-                            return 'vendor';
-                        }
+                    manualChunks: {
+                        'react-vendor': ['react', 'react-dom'],
+                        'antd-vendor': ['antd'],
+                        // Add more as needed
                     },
                 },
             },
+
             cacheDir: 'node_modules/.vite_cache',
         },
         optimizeDeps: {

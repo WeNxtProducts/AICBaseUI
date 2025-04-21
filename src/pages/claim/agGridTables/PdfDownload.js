@@ -1,11 +1,14 @@
 import * as XLSX from 'xlsx';
-import pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+// import pdfFonts from 'pdfmake/build/vfs_fonts';
+// import pdfMake from 'pdfmake/build/pdfmake';
+
+// pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+// pdfMake.vfs = pdfFonts.vfs;
 
 export const exportToPDF = gridApi => {
   const doc = getDocument(gridApi.current.api);
-  pdfMake.createPdf(doc).download();
+  // pdfMake.createPdf(doc).download();
 };
 
 export const exportToExcel = gridApi => {
