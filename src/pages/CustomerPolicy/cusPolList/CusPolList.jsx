@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import CustomerPolicyTable from '../CusPolTable/CustomerPolicyTable'
 import InstallmentModal from '../../../components/installmentModal/InstallmentModal'
-import '../CustomerPolicy.scss'
 import PolSummaryModal from './PolSummaryModal'
+import '../CustomerPolicy.scss'
 
 const CusPolList = () => {
     const [installmentOpen, setInstallmentOpen] = useState(false)

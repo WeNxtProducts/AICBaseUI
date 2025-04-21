@@ -94,6 +94,7 @@ const CustomerPolicyTable = ({ handleInstallment, handlePolicySummary }) => {
                         <th>Premium Frequency</th>
                         <th>No of Premium Paid</th>
                         <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,6 +120,7 @@ const CustomerPolicyTable = ({ handleInstallment, handlePolicySummary }) => {
                                     {policy.status}
                                 </span>
                             </td>
+                            <td>{policy.frequency}</td>
                         </tr>
                     ))}
                 </tbody>
