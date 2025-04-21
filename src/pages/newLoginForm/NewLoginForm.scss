@@ -35,11 +35,15 @@
         background-repeat: no-repeat;
         background-position: right;
         background-size: 1071px 677px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
 
         .form-login-new {
+            position: absolute;
+            top: 50%;
+            left: 74%;
+            transform: translate(-50%, -50%);
             border-radius: 10px;
             padding: 14px;
             background-color: white;

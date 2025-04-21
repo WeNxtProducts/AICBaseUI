@@ -1,14 +1,24 @@
 import weNxtLogo from '../../assets/WeNxt_Logo-removebg.png';
-import './NewLoginForm.scss';
 import RightSideForm from './RightSideForm';
 import useMobileDetect from '../../components/useMobileDetect/useMobileDetect';
 import CustomerLogin from './CustomerLogin';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { DoubleRightOutlined } from '@ant-design/icons';
+import './NewLoginForm.scss';
 
 const NewLoginForm = () => {
     //  const isMobile = useMobileDetect();
+    const navigate = useNavigate();
     const location = useLocation();
     const currentLoginForm = location.pathname
+
+    const handleLoginNavigate = () => {
+        if (currentLoginForm === '/login') {
+            navigate('/customerLogin')
+        } else if (currentLoginForm === '/customerLogin') {
+            navigate('/login')
+        }
+    }
 
     return (
         <div className='flex h-screen new_login_style'>
@@ -23,6 +33,16 @@ const NewLoginForm = () => {
                 </div>
             </div>
             <div className='rightside'>
+                <div
+                    onClick={() => handleLoginNavigate()}
+                    className="flex items-center space-x-2 justify-end mr-8 mt-2 group cursor-pointer">
+                    <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">
+                        {currentLoginForm === '/login' ? 'Customer Login' : 'Login'}
+                    </span>
+                    <DoubleRightOutlined
+                        className="h-3 w-3 text-blue-600 group-hover:text-blue-800"
+                    />
+                </div>
                 {currentLoginForm === '/login' && <RightSideForm />}
                 {currentLoginForm === '/customerLogin' && <CustomerLogin />}
             </div>
