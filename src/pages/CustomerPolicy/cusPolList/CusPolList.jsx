@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 import CustomerPolicyTable from '../CusPolTable/CustomerPolicyTable'
 import InstallmentModal from '../../../components/installmentModal/InstallmentModal'
 import PolSummaryModal from './PolSummaryModal'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import '../CustomerPolicy.scss'
+import { setPolNo } from '../../../globalStore/slices/CustPolSlice'
 
 const CusPolList = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [installmentOpen, setInstallmentOpen] = useState(false)
     const [polSummaryOpen, setPolicySummaryOpen] = useState(false)
     const [policyDetails, setPolicyDetails] = useState(null)
@@ -24,12 +29,18 @@ const CusPolList = () => {
         setPolicySummaryOpen(true)
     }
 
+    const handleSelectedPolicy = (route, item) => {
+        dispatch(setPolNo(item))
+        navigate(route)
+    }
+
     return (
         <div className='cust_pol_list'>
             <p className='header-font'>Policy List</p>
             <CustomerPolicyTable
                 handleInstallment={handleInstallment}
                 handlePolicySummary={handlePolicySummary}
+                handleSelectedPolicy={handleSelectedPolicy}
             />
 
             {installmentOpen && (

@@ -10,14 +10,14 @@ const tableData = [
     {
         id: 1,
         cover: 'Life Cover',
-        sun_assured: 100000000,
+        sun_assured: 89999898,
         premium: 78000,
     },
     {
         id: 2,
         cover: 'OCB',
-        sun_assured: 100000000,
-        premium: 78000,
+        sun_assured: 4532425,
+        premium: 4000,
     },
     {
         id: 3,

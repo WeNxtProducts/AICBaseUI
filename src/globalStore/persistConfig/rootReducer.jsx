@@ -14,6 +14,7 @@ import ProdMastSlices from '../slices/ProdMastSlice'
 import GroupQuoteSlices from '../slices/GroupQuoteSlice';
 import QuoteProdPlanSlices from '../slices/QuoteProdPlanSlice';
 import DashboardSlice from '../slices/dashboardSlice';
+import CustPolSlice from '../slices/CustPolSlice'
 
 const rootReducer = combineReducers({
     menuSelected: menuSelected,
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
     grpQuote: GroupQuoteSlices,
     quoteProdPlanCode: QuoteProdPlanSlices,
     prodMast: ProdMastSlices,
-    dashboard: DashboardSlice
+    dashboard: DashboardSlice,
+    custPol: CustPolSlice,
 });
 
 export default rootReducer;

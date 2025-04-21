@@ -1,5 +1,7 @@
 import React from 'react';
 import './CustomerPolicyTable.scss';
+import { FileSyncOutlined, SoundOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 
 const policies = [
     {
@@ -80,7 +82,7 @@ const getStatusBadgeClass = (status) => {
     return `status-badge status-${status.toLowerCase().replace(/\s+/g, '-')}`;
 };
 
-const CustomerPolicyTable = ({ handleInstallment, handlePolicySummary }) => {
+const CustomerPolicyTable = ({ handleInstallment, handlePolicySummary, handleSelectedPolicy }) => {
     return (
         <div className="table-container_customer_policy_list">
             <table className="policy-table">
@@ -120,7 +122,19 @@ const CustomerPolicyTable = ({ handleInstallment, handlePolicySummary }) => {
                                     {policy.status}
                                 </span>
                             </td>
-                            <td>{policy.frequency}</td>
+                            <td>
+                                <Tooltip title="Endorsement Request">
+                                    <FileSyncOutlined className="icon-style" onClick={() => {
+                                        handleSelectedPolicy('/endorsementRequest', policy)
+                                    }} />
+                                    <i className="fa-regular fa-file"></i>
+                                </Tooltip>
+                                <Tooltip title="Claim Intimation">
+                                    <SoundOutlined className="icon-style" onClick={() => {
+                                        handleSelectedPolicy('/claimIntimation', policy)
+                                    }} />
+                                </Tooltip>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

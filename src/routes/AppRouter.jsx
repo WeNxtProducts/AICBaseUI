@@ -58,6 +58,8 @@ const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/Cashba
 const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
 const CusPolList = lazy(() => import('../pages/CustomerPolicy/cusPolList/CusPolList'));
+const ClaimIntimation = lazy(() => import('../pages/claimIntimation/ClaimIntimation'));
+const EndorsementRequest = lazy(() => import('../pages/claimIntimation/EndorsementRequest'));
 
 const AppRouter = () => {
     return (
@@ -67,6 +69,22 @@ const AppRouter = () => {
                 {publicRoutes}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/endorsementRequest'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <EndorsementRequest />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/claimIntimation'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ClaimIntimation />
+                            </Suspense>
+                        }
+                    />
                     <Route
                         path='/customerPolicyList'
                         element={
