@@ -80,7 +80,7 @@ const getStatusBadgeClass = (status) => {
     return `status-badge status-${status.toLowerCase().replace(/\s+/g, '-')}`;
 };
 
-const CustomerPolicyTable = ({ handleInstallment }) => {
+const CustomerPolicyTable = ({ handleInstallment, handlePolicySummary }) => {
     return (
         <div className="table-container_customer_policy_list">
             <table className="policy-table">
@@ -99,7 +99,11 @@ const CustomerPolicyTable = ({ handleInstallment }) => {
                 <tbody>
                     {policies.map((policy, index) => (
                         <tr key={index}>
-                            <td>{policy.policyNo}</td>
+                            <td
+                                onClick={() => handlePolicySummary(policy)}
+                            >
+                                <span className="premium-link">{policy.policyNo}</span>
+                            </td>
                             <td>{policy.assuredName}</td>
                             <td>{policy.policyPeriod}</td>
                             <td>{policy.sumAssured}</td>
