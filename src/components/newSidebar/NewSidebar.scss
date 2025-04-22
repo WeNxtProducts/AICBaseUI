@@ -6,7 +6,7 @@ $hover-color: #e2e8f0;
 $selected-color: #818cf8;
 
 .new-sidebar {
-  transition: width 0.3s ease, box-shadow 0.3s ease;
+  transition: width 0.7s ease, box-shadow 0.3s ease;
   background-color: $background-color;
   height: 100vh;
   overflow: hidden;
@@ -73,7 +73,7 @@ $selected-color: #818cf8;
     background-color: rgba($selected-color, 0.2);
     color: $selected-color;
 
-    > .icon {
+    >.icon {
       background-color: $selected-color;
       color: white;
     }
@@ -156,7 +156,7 @@ $selected-color: #818cf8;
     transition: max-height 0.5s ease-in;
   }
 
-  > li:last-child .level-line {
+  >li:last-child .level-line {
     bottom: 0;
   }
 }
@@ -172,4 +172,9 @@ $selected-color: #818cf8;
 .sidebar::-webkit-scrollbar-thumb {
   background-color: $secondary-color;
   border-radius: 3px;
+}
+
+.new_sideBar_hovered~.app-content,
+.new_sideBar_hovered~.header-content {
+  margin-left: 15%;
 }

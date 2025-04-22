@@ -75,8 +75,8 @@ const App = () => {
 
     return (
         <div className='App'>
-            {/* {!currentPath && <Sidebar />} */}
-            <NewSidebar />
+            {!currentPath && <Sidebar />}
+            {/* <NewSidebar /> */}
             {!currentPath && (
                 <div className='header-content'>
                     <Header />

@@ -74,7 +74,7 @@ const NewSidebar = () => {
 
     return (
         <div
-            className={`new-sidebar ${isExpanded ? 'expanded sideBar_hovered' : ''}`}
+            className={`new-sidebar ${isExpanded ? 'expanded new_sideBar_hovered' : ''}`}
             onMouseEnter={() => handleExpand(true)}
             onMouseLeave={() => handleExpand(false)}
         >
