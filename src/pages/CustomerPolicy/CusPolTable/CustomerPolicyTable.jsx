@@ -38,7 +38,7 @@ const CustomerPolicyTable = ({ rowData, handleInstallment, handlePolicySummary, 
                             <td>{policy.Policy_SumAssured || '-'}</td>
                             <td>{policy.Premium_Frequency || '-'}</td>
                             <td
-                                onClick={() => handleInstallment(policy)}
+                                onClick={() => policy?.No_of_Premium_Paid > 0 && handleInstallment(policy)}
                             >
                                 <span className="premium-link">{policy.premiumsPaid || '-'}</span>
                             </td>
