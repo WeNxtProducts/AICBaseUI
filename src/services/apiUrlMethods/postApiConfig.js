@@ -526,6 +526,14 @@ const POST_API_URL = {
     OTPVerifyRequest: {
         url: '/ltQuoteDetails/createLogin',
         baseURL: 'CRUD',
+    },
+    searchClaimIntimation: {
+        url: '',
+        baseURL: 'CRUD',
+    },
+    searchEndorsementRequest: {
+        url: '',
+        baseURL: 'CRUD',
     }
 };
 

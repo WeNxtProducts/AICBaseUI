@@ -4,6 +4,7 @@ import ProtectedRoute from './PrivateRoute';
 import Loader from '../components/loader/Loader';
 import ScrollToTop from './ScrollToTop';
 import { publicRoutes } from './publicRoutes/PublicRoutes';
+import ClaimIntimationList from '../pages/claimIntimation/ClaimIntimationList/ClaimIntimationList';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
@@ -69,6 +70,32 @@ const AppRouter = () => {
                 {publicRoutes}
 
                 <Route element={<ProtectedRoute />}>
+                    <Route
+                        path='/endorsementRequestList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ClaimIntimationList
+                                    label='Endorsement Request'
+                                    search='searchEndorsementRequest'
+                                    page='/endorsementRequest'
+                                    delete='/deleteEndorsementRequest'
+                                />
+                            </Suspense>
+                        }
+                    />
+                    <Route
+                        path='/claimIntimationList'
+                        element={
+                            <Suspense fallback={<Loader />}>
+                                <ClaimIntimationList
+                                    label='Claim Intimation'
+                                    search='searchClaimIntimation'
+                                    page='/claimIntimation'
+                                    delete='/deleteClaimIntimation'
+                                />
+                            </Suspense>
+                        }
+                    />
                     <Route
                         path='/endorsementRequest'
                         element={

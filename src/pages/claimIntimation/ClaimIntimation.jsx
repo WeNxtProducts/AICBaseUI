@@ -28,7 +28,7 @@ const ClaimIntimation = () => {
         <div className='claim_intimation'>
             <div className='flex items-center pl-2'>
                 <i
-                    onClick={() => navigate('/customerPolicyList', { replace: true })}
+                    onClick={() => navigate('/claimIntimationList', { replace: true })}
                     className='bi bi-arrow-left back_icon'
                 />
                 <p className='header-font pl-2'>{`Claim Intimation`}</p>

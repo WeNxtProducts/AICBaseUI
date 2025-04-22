@@ -5,6 +5,7 @@ import Sidebar from './pages/sidebar/Sidebar';
 import Header from './pages/header/Header';
 import './App.scss';
 import { useSelector } from 'react-redux';
+import NewSidebar from './components/newSidebar/NewSidebar';
 
 const App = () => {
     //npx prettier --write .
@@ -74,7 +75,8 @@ const App = () => {
 
     return (
         <div className='App'>
-            {!currentPath && <Sidebar />}
+            {/* {!currentPath && <Sidebar />} */}
+            <NewSidebar />
             {!currentPath && (
                 <div className='header-content'>
                     <Header />

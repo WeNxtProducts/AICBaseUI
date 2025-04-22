@@ -27,7 +27,7 @@ const EndorsementRequest = () => {
         <div className='claim_intimation'>
             <div className='flex items-center pl-2'>
                 <i
-                    onClick={() => navigate('/customerPolicyList', { replace: true })}
+                    onClick={() => navigate('/endorsementRequestList', { replace: true })}
                     className='bi bi-arrow-left back_icon'
                 />
                 <p className='header-font pl-2'>{`Endorsement Request`}</p>
