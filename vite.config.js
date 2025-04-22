@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fixReactVirtualized from 'esbuild-plugin-react-virtualized';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,7 +14,7 @@ export default defineConfig(({ mode }) => {
     const __urlport = env.WENXT_PORT;
 
     return {
-        plugins: [react()],
+        plugins: [react(), visualizer({ open: true })],
         envPrefix: 'WENXT_',
         worker: {
             enabled: true,
@@ -22,8 +23,12 @@ export default defineConfig(({ mode }) => {
             port: __urlport,
             strictPort: true,
             hmr: {
-                overlay: false, // Disable the HMR error overlay
+                overlay: false,
             },
+        },
+        preview: {
+            host: true,
+            port: 3001
         },
         resolve: {
             alias: {
@@ -33,7 +38,7 @@ export default defineConfig(({ mode }) => {
         build: {
             minify: 'esbuild',
             sourcemap: false, // true
-            // chunkSizeWarningLimit: 1000, // Size in KB
+            chunkSizeWarningLimit: 1000, // Size in KB
             target: 'esnext', // Generate code for modern browsers
             emptyOutDir: true, // Clean output directory before build
             cssCodeSplit: true, // Split CSS into chunks
@@ -55,7 +60,6 @@ export default defineConfig(({ mode }) => {
                     manualChunks: {
                         'react-vendor': ['react', 'react-dom'],
                         'antd-vendor': ['antd'],
-                        // Add more as needed
                     },
                 },
             },
