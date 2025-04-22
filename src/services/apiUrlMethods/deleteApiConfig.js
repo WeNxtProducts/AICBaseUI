@@ -57,10 +57,6 @@ const DELETE_API_URL = {
         url: '/claimIntimation/delete',
         baseURL: 'CRUD',
     },
-    deleteEndorsementRequest: {
-        url: '',
-        baseURL: 'CRUD',
-    },
 };
 
 export default DELETE_API_URL;

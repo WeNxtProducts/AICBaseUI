@@ -16,7 +16,7 @@ const ClaimIntimationList = ({ label, search: searchApi, page, delete: deleteApi
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const listingAPI = useApiRequests('getListing', 'GET');
-    const deleteProposal = useApiRequests(deleteApi, 'DELETE');
+    const deleteProposal = useApiRequests(deleteApi, 'POST');
     const currentMenuId = useSelector(state => state?.tokenAndMenuList?.currentMenuId);
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const search_api = useApiRequests(searchApi, 'POST');

@@ -56,7 +56,7 @@ const InstallmentModal = ({ open, handleClose, tranId, POL_NO }) => {
             className='installment_style'
             footer={null}
         >
-            {(hasValidRowData(rowData) && tableColumn !== null) && (
+            {(hasValidRowData(rowData) && tableColumn !== null) ? (
                 <div className="table-container_installment_modal">
                     <table>
                         <thead>
@@ -89,6 +89,8 @@ const InstallmentModal = ({ open, handleClose, tranId, POL_NO }) => {
                         </tbody>
                     </table>
                 </div>
+            ):(
+                <p>No Data</p>
             )}
         </Modal>
     );

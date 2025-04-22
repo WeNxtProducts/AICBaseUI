@@ -78,7 +78,7 @@ const AppRouter = () => {
                                     label='Endorsement Request'
                                     search='searchEndorsementRequest'
                                     page='/endorsementRequest'
-                                    delete='/deleteEndorsementRequest'
+                                    delete='deleteClaimIntimation'
                                 />
                             </Suspense>
                         }
@@ -91,7 +91,7 @@ const AppRouter = () => {
                                     label='Claim Intimation'
                                     search='searchClaimIntimation'
                                     page='/claimIntimation'
-                                    delete='/deleteClaimIntimation'
+                                    delete='deleteClaimIntimation'
                                 />
                             </Suspense>
                         }
