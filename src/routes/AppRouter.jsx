@@ -100,7 +100,11 @@ const AppRouter = () => {
                         path='/endorsementRequest'
                         element={
                             <Suspense fallback={<Loader />}>
-                                <EndorsementRequest />
+                                <ClaimIntimation
+                                    typeLovId={276}
+                                    type='E'
+                                    page='/endorsementRequestList'
+                                />
                             </Suspense>
                         }
                     />
@@ -108,7 +112,11 @@ const AppRouter = () => {
                         path='/claimIntimation'
                         element={
                             <Suspense fallback={<Loader />}>
-                                <ClaimIntimation />
+                                <ClaimIntimation
+                                    typeLovId={275}
+                                    type='C'
+                                    page='/claimIntimationList'
+                                />
                             </Suspense>
                         }
                     />

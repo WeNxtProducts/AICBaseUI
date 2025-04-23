@@ -540,7 +540,7 @@ const POST_API_URL = {
         baseURL: 'CRUD',
     },
     updateClaimIntimation: {
-        url: '',
+        url: 'claimIntimation/update',
         baseURL: 'CRUD',
     }
 };

@@ -120,7 +120,8 @@ const GET_API_URL = {
         url: '/auth/static-token'
     },
     getClaimIntimation: {
-        url: ''
+        url: '/claimIntimation/get',
+        baseURL: 'CRUD',
     }
 };
 

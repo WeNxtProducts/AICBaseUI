@@ -14,62 +14,63 @@ import { setPolNo, setPolTranId } from '../../globalStore/slices/CustPolSlice';
 import Loader from '../../components/loader/Loader';
 import './ClaimIntimation.scss'
 
-const ClaimIntimation = () => {
+const ClaimIntimation = ({ typeLovId, type, page }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { pol_no, polTranId } = useSelector(state => state.custPol)
     const getParamLov = useApiRequests('getParamLov', 'GET');
-    const getInitialData = useApiRequests('getClaimIntimation', 'GET');
+    const getLossType = useApiRequests('getLovList', 'GET');
+    const getInitialData = useApiRequests('getClaimIntimation', 'POST');
     const saveAPI = useApiRequests('saveClaimIntimation', 'POST');
     const updateAPI = useApiRequests('updateClaimIntimation', 'POST');
     const [loader, setLoader] = useState(false)
-    const [policyList, setPolicyList] = useState([])
+    const [dropDown, setDropDown] = useState({})
     const [initValues, setInitValues] = useState({
         CI_POL_NO: pol_no || '',
         CI_INTM_DT: polTranId ? '' : dayjs().format('YYYY-MM-DD'),
         CI_TYPE: '',
         CI_LOSS_DT: '',
         CI_CONTACT_PER: '',
-        CI_CONTACT_NO: ''
+        CI_CONTACT_NO: '',
+        CI_EMAIL: '',
+        CI_CLM_END: type
     });
 
     const handleGetPolicyList = async () => {
         setLoader(true)
-        try {
-            const response = await getParamLov('', {
-                queryId: 274,
-                tranId: 'CUST001'
-            });
-
-            if (response?.status === 'FAILURE') {
-                showNotification.ERROR(response?.status_msg);
-            } else if (response?.status === 'SUCCESS') {
-                setPolicyList(response?.Data?.policyNumberList)
-            }
-        } catch (err) {
-            showNotification.ERROR(err?.message || 'Something went wrong!');
-        } finally {
-            setLoader(false)
-        }
+        Promise.all([
+            getParamLov('', { queryId: 274, tranId: 'CUST001' }),
+            getLossType('', { queryId: typeLovId }),
+        ])
+            .then(([policyListData, lossType]) => {
+                setDropDown({
+                    CI_POL_NO: policyListData?.Data?.policyNumberList,
+                    CI_TYPE: lossType?.Data
+                })
+            })
+            .catch((err) => {
+                showNotification.WARNING(err?.message || 'Something went wrong');
+            })
+            .finally(() => {
+                setLoader(false)
+            })
     };
 
     useEffect(() => {
-        console.log("pol_no : ", pol_no, polTranId)
+        handleGetPolicyList()
         if (polTranId) {
             handleGetInitialData()
-        } else if (!polTranId) {
-            handleGetPolicyList()
         }
     }, [])
 
     const handleGetInitialData = async () => {
         setLoader(true)
         try {
-            const response = await getInitialData();
+            const response = await getInitialData('', { tranId: polTranId });
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
-                // setInitValues(response?.Data)
+                setInitValues(response?.Data)
             }
         } catch (err) {
             showNotification.ERROR(err?.message || 'Something went wrong!');
@@ -81,14 +82,14 @@ const ClaimIntimation = () => {
     const handleUpdateOrSave = async (payload, apiCalls) => {
         setLoader(true)
         try {
-            const response = await apiCalls(payload);
+            const response = await apiCalls(payload, {}, polTranId && { polTranId });
             if (response?.status === 'FAILURE') {
                 showNotification.ERROR(response?.status_msg);
             } else if (response?.status === 'SUCCESS') {
                 showNotification.SUCCESS(response?.status_msg);
                 if (!polTranId) {
-                    dispatch(setPolNo(''));
-                    dispatch(setPolTranId(''));
+                    dispatch(setPolNo(payload?.claimIntimation?.formFields?.CI_POL_NO));
+                    dispatch(setPolTranId(response?.data?.Id));
                 }
             }
         } catch (err) {
@@ -99,7 +100,6 @@ const ClaimIntimation = () => {
     }
 
     const onSubmit = values => {
-        console.log("Values : ", values);
         const payload = {
             claimIntimation: {
                 formFields: { ...values }
@@ -113,20 +113,20 @@ const ClaimIntimation = () => {
             {loader && <Loader />}
             <div className='flex items-center pl-2'>
                 <i
-                    onClick={() => navigate('/claimIntimationList', { replace: true })}
+                    onClick={() => navigate(page, { replace: true })}
                     className='bi bi-arrow-left back_icon'
                 />
-                <p className='header-font pl-2'>{`Claim Intimation`}</p>
+                <p className='header-font pl-2'>{`${type === 'C' ? 'Claim Intimation' : 'Endorsement Request'}`}</p>
             </div>
             <div className='mt-3 mb-5'>
                 <div className='grid grid-cols-2 items-center p-2'>
                     <Formik
                         initialValues={initValues}
                         values={initValues}
-                        validationSchema={claimIntimationSchema}
+                        validationSchema={claimIntimationSchema(type)}
                         onSubmit={onSubmit}
                         enableReinitialize={true}>
-                        {({ handleSubmit, values, setFieldValue, resetForm }) => {
+                        {({ handleSubmit, values, setFieldValue, errors }) => {
                             return (
                                 <Form className='col-span-2 grid grid-cols-2 gap-5' onSubmit={handleSubmit}>
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
@@ -140,7 +140,7 @@ const ClaimIntimation = () => {
                                                 placeholder='pol no.'
                                                 size='medium'
                                                 disabled={pol_no ? true : false}
-                                                options={policyList}
+                                                options={dropDown?.CI_POL_NO}
                                                 readOnly={false}
                                                 value={values?.CI_POL_NO || undefined}
                                                 onChange={e => setFieldValue('CI_POL_NO', e)}
@@ -153,33 +153,34 @@ const ClaimIntimation = () => {
                                         </div>
 
                                     </div>
-
-                                    <div className='col-span-1 grid grid-cols-4 items-center'>
-                                        <p className='label-font select-none'>
-                                            Intimation Date
-                                            <span className='mandatory-symbol'>*</span>
-                                        </p>
-                                        <div className='col-span-3'>
-                                            <CustomDatePicker
-                                                placeholder='date'
-                                                size='medium'
-                                                disabled={true}
-                                                value={values?.CI_INTM_DT}
-                                                onChange={date => {
-                                                    setFieldValue('CI_INTM_DT', date)
-                                                }}
-                                            />
-                                            <ErrorMessage
-                                                name={`CI_INTM_DT`}
-                                                component='div'
-                                                className='error-message'
-                                            />
+                                    {type === 'C' &&
+                                        <div className='col-span-1 grid grid-cols-4 items-center'>
+                                            <p className='label-font select-none'>
+                                                Intimation Date
+                                                <span className='mandatory-symbol'>*</span>
+                                            </p>
+                                            <div className='col-span-3'>
+                                                <CustomDatePicker
+                                                    placeholder='date'
+                                                    size='medium'
+                                                    disabled={true}
+                                                    value={values?.CI_INTM_DT}
+                                                    onChange={date => {
+                                                        setFieldValue('CI_INTM_DT', date)
+                                                    }}
+                                                />
+                                                <ErrorMessage
+                                                    name={`CI_INTM_DT`}
+                                                    component='div'
+                                                    className='error-message'
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
 
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='label-font select-none'>
-                                            Loss Type
+                                            {type === 'C' ? 'Loss Type' : 'Endorsement Type'}
                                             <span className='mandatory-symbol'>*</span>
                                         </p>
                                         <div className='col-span-3'>
@@ -188,7 +189,7 @@ const ClaimIntimation = () => {
                                                 size='medium'
                                                 showSearch={false}
                                                 readOnly={false}
-                                                options={[]}
+                                                options={dropDown?.CI_TYPE}
                                                 placeholder='type'
                                                 value={values?.CI_TYPE || undefined}
                                                 onChange={e => setFieldValue('CI_TYPE', e)}
@@ -200,29 +201,30 @@ const ClaimIntimation = () => {
                                             />
                                         </div>
                                     </div>
-
-                                    <div className='col-span-1 grid grid-cols-4 items-center'>
-                                        <p className='label-font select-none'>
-                                            Loss Date
-                                            <span className='mandatory-symbol'>*</span>
-                                        </p>
-                                        <div className='col-span-3'>
-                                            <CustomDatePicker
-                                                placeholder='date'
-                                                size='medium'
-                                                // disabledDates={values?.CI_INTM_DT}
-                                                value={values?.CI_LOSS_DT}
-                                                onChange={date => {
-                                                    setFieldValue('CI_LOSS_DT', date)
-                                                }}
-                                            />
-                                            <ErrorMessage
-                                                name={`CI_LOSS_DT`}
-                                                component='div'
-                                                className='error-message'
-                                            />
+                                    {type === 'C' &&
+                                        <div className='col-span-1 grid grid-cols-4 items-center'>
+                                            <p className='label-font select-none'>
+                                                Loss Date
+                                                <span className='mandatory-symbol'>*</span>
+                                            </p>
+                                            <div className='col-span-3'>
+                                                <CustomDatePicker
+                                                    placeholder='date'
+                                                    size='medium'
+                                                    // disabledDates={values?.CI_INTM_DT}
+                                                    value={values?.CI_LOSS_DT}
+                                                    onChange={date => {
+                                                        setFieldValue('CI_LOSS_DT', date)
+                                                    }}
+                                                />
+                                                <ErrorMessage
+                                                    name={`CI_LOSS_DT`}
+                                                    component='div'
+                                                    className='error-message'
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
 
                                     <div className='col-span-1 grid grid-cols-4 items-center'>
                                         <p className='label-font select-none'>
@@ -267,6 +269,28 @@ const ClaimIntimation = () => {
                                             />
                                         </div>
                                     </div>
+                                    {type === 'E' &&
+                                        <div className='col-span-1 grid grid-cols-4 items-center'>
+                                            <p className='label-font select-none'>
+                                                Email Id
+                                                <span className='mandatory-symbol'>*</span>
+                                            </p>
+                                            <div className='col-span-3'>
+                                                <CustomInput
+                                                    name='CI_EMAIL'
+                                                    size='medium'
+                                                    placeholder='name'
+                                                    value={values?.CI_EMAIL || undefined}
+                                                    onChange={e => setFieldValue('CI_EMAIL', e.target.value)}
+                                                />
+                                                <ErrorMessage
+                                                    name={`CI_EMAIL`}
+                                                    component='div'
+                                                    className='error-message'
+                                                />
+                                            </div>
+                                        </div>
+                                    }
 
                                     <div className='col-span-2 flex items-center justify-center'>
                                         <button className='submit_btn' type='submit'>
