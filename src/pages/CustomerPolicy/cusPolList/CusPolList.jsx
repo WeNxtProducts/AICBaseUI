@@ -5,13 +5,12 @@ import PolSummaryModal from './PolSummaryModal'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setPolNo, setPolTranId } from '../../../globalStore/slices/CustPolSlice'
-import useMRVListingPayload from '../../../components/mrvListing/useMRVListingPayload'
-import '../CustomerPolicy.scss'
 import { Pagination } from 'antd'
 import useApiRequests from '../../../services/useApiRequests'
 import EmptyTable from '../../../components/emptyTable/EmptyTable'
 import Loader from '../../../components/loader/Loader'
 import showNotification from '../../../components/notification/Notification'
+import '../CustomerPolicy.scss'
 
 const CusPolList = () => {
     const navigate = useNavigate()
