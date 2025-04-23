@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import EmptyTable from '../../../components/emptyTable/EmptyTable';
 import useApiRequests from '../../../services/useApiRequests';
-import { setPolNo } from '../../../globalStore/slices/CustPolSlice';
+import { setPolNo, setPolTranId } from '../../../globalStore/slices/CustPolSlice';
 import showNotification from '../../../components/notification/Notification';
 import Loader from '../../../components/loader/Loader';
 import { TextInputWithSearchIcon } from '../../../components/commonExportsFields/CommonExportsFields';
@@ -53,10 +53,6 @@ const ClaimIntimationList = ({ label, search: searchApi, page, delete: deleteApi
     }, [label]);
 
     const handleSort = (columnName, sortOrder) => {
-        console.log('sortState : ', {
-            columnName,
-            sortOrder,
-        });
         setSortState({
             columnName,
             sortOrder,
@@ -65,11 +61,13 @@ const ClaimIntimationList = ({ label, search: searchApi, page, delete: deleteApi
 
     const handleNavigate = () => {
         dispatch(setPolNo(''));
+        dispatch(setPolTranId(''));
         navigate(page);
     };
 
     const handleEdit = item => {
-        dispatch(setPolNo(item?.ID));
+        dispatch(setPolNo(item?.Pol_No));
+        dispatch(setPolTranId(item?.ID));
         navigate(page);
     };
 
@@ -153,17 +151,15 @@ const ClaimIntimationList = ({ label, search: searchApi, page, delete: deleteApi
                             }} />
                     </div>
                 </div>
-                {label === 'Proposal' && (
-                    <div>
-                        <Button
-                            onClick={() => handleNavigate()}
-                            className='add-buttons'
-                            type='primary'
-                            icon={<i className='bi bi-plus icon-style' />}>
-                            Add {label}
-                        </Button>
-                    </div>
-                )}
+                <div>
+                    <Button
+                        onClick={() => handleNavigate()}
+                        className='add-buttons'
+                        type='primary'
+                        icon={<i className='bi bi-plus icon-style' />}>
+                        Add {label}
+                    </Button>
+                </div>
             </div>
             {rowData?.length > 0 ? (
                 <>

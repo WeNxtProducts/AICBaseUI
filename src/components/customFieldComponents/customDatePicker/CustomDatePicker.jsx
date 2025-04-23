@@ -23,9 +23,6 @@ const CustomDatePicker = ({
     large: { code: '1/4', desc: '3/4', main: 'full' },
   };
   const datePickerRef = useRef();
-
-  // console.log("value : ", dayjs(value).format('DD-MM-YYYY'))
-
   const minDate = new Date(disabledDates);
 
   const disabledDate = current => {

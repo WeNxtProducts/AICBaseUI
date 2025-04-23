@@ -534,6 +534,14 @@ const POST_API_URL = {
     searchEndorsementRequest: {
         url: '',
         baseURL: 'CRUD',
+    },
+    saveClaimIntimation: {
+        url: '/claimIntimation/save',
+        baseURL: 'CRUD',
+    },
+    updateClaimIntimation: {
+        url: '',
+        baseURL: 'CRUD',
     }
 };
 

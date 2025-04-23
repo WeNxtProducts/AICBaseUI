@@ -118,6 +118,9 @@ const GET_API_URL = {
     },
     getStaticToken: {
         url: '/auth/static-token'
+    },
+    getClaimIntimation: {
+        url: ''
     }
 };
 

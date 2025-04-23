@@ -4,7 +4,7 @@ import InstallmentModal from '../../../components/installmentModal/InstallmentMo
 import PolSummaryModal from './PolSummaryModal'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setPolNo } from '../../../globalStore/slices/CustPolSlice'
+import { setPolNo, setPolTranId } from '../../../globalStore/slices/CustPolSlice'
 import useMRVListingPayload from '../../../components/mrvListing/useMRVListingPayload'
 import '../CustomerPolicy.scss'
 import { Pagination } from 'antd'
@@ -68,7 +68,8 @@ const CusPolList = () => {
     }
 
     const handleSelectedPolicy = (route, item) => {
-        dispatch(setPolNo(item))
+        dispatch(setPolNo(item?.Policy_No))
+        dispatch(setPolTranId(item?.ID))
         navigate(route)
     }
 
