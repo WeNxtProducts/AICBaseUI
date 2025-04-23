@@ -3,7 +3,9 @@ $secondary-color: #a5b4fc;
 $background-color: #f8fafc;
 $text-color: #1e293b;
 $hover-color: #e2e8f0;
-$selected-color: #818cf8;
+$parent-selected-bg: #ef4444; // Red
+$parent-selected-border: #b91c1c; // Darker red
+$child-selected-bg: #bfdbfe; // Light blue
 
 .new-sidebar {
   transition: width 0.7s ease, box-shadow 0.3s ease;
@@ -40,9 +42,9 @@ $selected-color: #818cf8;
     border: none;
     color: $text-color;
     cursor: pointer;
-    font-size: 14px;
-    padding: 6px 10px;
-    border-radius: 6px;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
     transition: background-color 0.2s ease;
 
     &:hover {
@@ -54,67 +56,87 @@ $selected-color: #818cf8;
 .menu-item-new {
   display: flex;
   align-items: center;
-  padding: 12px 15px;
+  padding: 8px 12px;
   cursor: pointer;
   position: relative;
   white-space: nowrap;
   transition: all 0.2s ease;
   color: $text-color;
+  font-size: 12px;
 
   &:hover {
     background-color: $hover-color;
   }
 
   &.open {
-    background-color: rgba($primary-color, 0.1);
+    background-color: rgba($primary-color, 0.05);
   }
 
   &.selected {
-    background-color: rgba($selected-color, 0.2);
-    color: $selected-color;
-
-    >.icon {
-      background-color: $selected-color;
+    &.parent {
+      background-color: $parent-selected-bg;
+      border-left: 0px solid $parent-selected-border;
       color: white;
+
+      >.icon {
+        background-color: white;
+        color: $parent-selected-border;
+      }
+    }
+
+    &.child {
+      background-color: $child-selected-bg;
+      color: $text-color;
+    }
+
+    &.parent-of-child {
+      background-color: $parent-selected-bg;
+      border-left: 5px solid $parent-selected-border;
+      color: white;
+
+      >.icon {
+        background-color: white;
+        color: $parent-selected-border;
+      }
     }
   }
 
   .icon {
-    margin-right: 15px;
-    width: 32px;
-    height: 32px;
+    margin-right: 10px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
+    font-size: 12px;
     transition: all 0.2s ease;
 
     &.level-0 {
       background-color: $primary-color;
       color: white;
-      box-shadow: 0 4px 6px rgba($primary-color, 0.25);
+      box-shadow: 0 2px 4px rgba($primary-color, 0.25);
     }
   }
 
   .title {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     opacity: 1;
     transition: opacity 0.2s ease;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 160px;
+    max-width: 140px;
   }
 
   .arrow {
     margin-left: auto;
-    font-size: 12px;
+    font-size: 10px;
     transition: transform 0.2s;
     color: $secondary-color;
 
-    .open & {
+    &.open {
       transform: rotate(180deg);
     }
   }
@@ -137,11 +159,15 @@ $selected-color: #818cf8;
 @for $i from 1 through 5 {
   .level-#{$i} {
     .icon {
-      margin-left: $i * 20px;
+      margin-left: $i * 16px;
     }
 
     .level-line:nth-child(#{$i}) {
-      left: $i * 20px;
+      left: $i * 16px;
+    }
+
+    .menu-item-new {
+      padding-left: 12px + ($i * 16px);
     }
   }
 }
@@ -161,15 +187,15 @@ $selected-color: #818cf8;
   }
 }
 
-.sidebar::-webkit-scrollbar {
+.new-sidebar::-webkit-scrollbar {
   width: 6px;
 }
 
-.sidebar::-webkit-scrollbar-track {
+.new-sidebar::-webkit-scrollbar-track {
   background: $background-color;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
+.new-sidebar::-webkit-scrollbar-thumb {
   background-color: $secondary-color;
   border-radius: 3px;
 }

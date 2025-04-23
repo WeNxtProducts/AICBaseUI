@@ -3,7 +3,6 @@ import { menuData } from './menuConstant';
 import './NewSidebar.scss';
 
 const NewSidebar = () => {
-    const menuList = menuData;
     const [isExpanded, setIsExpanded] = useState(false);
     const [isPinned, setIsPinned] = useState(false);
     const [selectedPath, setSelectedPath] = useState([]);
@@ -44,18 +43,18 @@ const NewSidebar = () => {
                 </button>
             </div>
             <ul>
-                {menuList.map((item, index) => (
+                {menuData.map((item, index) => (
                     <MenuItem
                         key={index}
                         item={item}
                         isExpanded={isExpanded}
                         level={0}
-                        path={[item?.menuOptionDesc]}
+                        path={[item.menuOptionDesc]}
                         selectedPath={selectedPath}
                         openMenus={openMenus}
                         onSelect={handleSelect}
                         onToggle={handleToggle}
-                        isLastChild={index === menuList.length - 1}
+                        isLastChild={index === menuData.length - 1}
                     />
                 ))}
             </ul>
@@ -86,7 +85,7 @@ const MenuItem = ({
     }, [hasSelectedChild, isOpen, onToggle, path]);
 
     const handleClick = () => {
-        if (item.childrens) {
+        if (item.childrens && item.childrens.length > 0) {
             onToggle(path, !isOpen);
         } else {
             onSelect(path);
@@ -99,25 +98,38 @@ const MenuItem = ({
         ));
     };
 
+    const isParent = item.childrens && item.childrens.length > 0;
+    const isChild = level > 0;
+    const isItemSelected = selectedPath.join('/') === path.join('/');
+    const isParentOfSelectedChild =
+        isParent &&
+        selectedPath.length > level + 1 &&
+        selectedPath[level] === item.menuOptionDesc;
+
     return (
         <li className={`level-${level} ${isLastChild ? 'last-child' : ''}`}>
             <div
-                className={`menu-item-new ${isOpen ? 'open' : ''} ${isSelected ? 'selected' : ''
-                    }`}
+                className={`menu-item-new 
+                    ${isOpen ? 'open' : ''} 
+                    ${isItemSelected && isParent ? 'selected parent' : ''}
+                    ${isItemSelected && !isParent ? 'selected parent' : ''}
+                    ${isItemSelected && isChild ? 'selected child' : ''}
+                    ${isParentOfSelectedChild ? 'selected parent-of-child' : ''}
+                `}
                 onClick={handleClick}
             >
                 {renderLevelLines()}
-                <span className={`icon ${level === 0 ? 'level-0' : ''}`}>
-                    {/* {item.icon} */}
-                    <i
-                        className={`${item.menuIconPath}`}></i>
-                </span>
+                {(level === 0 || isParent) && (
+                    <span className={`icon ${level === 0 ? 'level-0' : ''}`}>
+                        <i className={`${item.menuIconPath}`}></i>
+                    </span>
+                )}
                 {isExpanded && <span className="title">{item.menuOptionDesc}</span>}
-                {item.childrens && isExpanded && (
-                    <span className="arrow">{isOpen ? '▼' : '▶'}</span>
+                {item.childrens && item.childrens.length > 0 && isExpanded && (
+                    <span className={`arrow ${isOpen ? 'open' : ''}`}>{isOpen ? '▼' : '▶'}</span>
                 )}
             </div>
-            {item.childrens && (
+            {item.childrens && item.childrens.length > 0 && (
                 <ul className={`sub-menu ${isOpen && isExpanded ? 'open' : ''}`}>
                     {item.childrens.map((subItem, index) => (
                         <MenuItem

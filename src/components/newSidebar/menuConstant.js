@@ -13,19 +13,7 @@ export const menuData = [
                 "menuId": "M010002",
                 "menuParentId": "M01",
                 "listingQueryId": "4",
-                "menuScreenName": "User Master",
-                "childrens": [
-                    {
-                        "menuOptionDesc": "Custo",
-                        "menuActionType": "U",
-                        "menuDispSeqNo": "2",
-                        "menuURL": "/userMasterLiist",
-                        "menuId": "M010002222",
-                        "menuParentId": "M010002",
-                        "listingQueryId": "4",
-                        "menuScreenName": "Custo"
-                    }
-                ]
+                "menuScreenName": "User Master"
             }
         ],
         "menuId": "M01",
