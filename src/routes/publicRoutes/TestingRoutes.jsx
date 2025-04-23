@@ -1,11 +1,12 @@
-import { Suspense } from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import React, { Suspense } from 'react';
 import { Route } from 'react-router-dom'
-import MultiRowTable from '../../pages/multiRowTable/MultiRowTable'
-import AgGridTables from '../../pages/claim/agGridTables/AgGridTables'
-import VirtualScroll from '../../components/react-virtual/VirtualScroll'
-import Loader from '../../components/loader/Loader'
-import GraphSamples from '../../pages/graphSamples/GraphSamples'
-import IFrameSetUp from '../../pages/iFrameSetUp/IFrameSetUp'
+const MultiRowTable = React.lazy(() => import('../../pages/multiRowTable/MultiRowTable'));
+const AgGridTables = React.lazy(() => import('../../pages/claim/agGridTables/AgGridTables'));
+const VirtualScroll = React.lazy(() => import('../../components/react-virtual/VirtualScroll'));
+const Loader = React.lazy(() => import('../../components/loader/Loader'));
+const GraphSamples = React.lazy(() => import('../../pages/graphSamples/GraphSamples'));
+const IFrameSetUp = React.lazy(() => import('../../pages/iFrameSetUp/IFrameSetUp'));
 
 
 export const TestingRoutes = [

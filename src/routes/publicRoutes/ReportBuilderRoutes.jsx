@@ -1,6 +1,7 @@
-import { Suspense } from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import React, { lazy, Suspense } from 'react';
 import { Route } from 'react-router-dom'
-import Report from '../../pages/report/Report'
+const Report = lazy(() => import('../../pages/report/Report'));
 
 export const ReportBuilderRoutes = [
     <Route

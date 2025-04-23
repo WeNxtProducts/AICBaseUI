@@ -200,7 +200,7 @@ $child-selected-bg: #bfdbfe; // Light blue
   border-radius: 3px;
 }
 
-.new_sideBar_hovered~.app-content,
-.new_sideBar_hovered~.header-content {
+.sideBar_hovered~.header-content,
+.sideBar_hovered~.private_layout_main {
   margin-left: 15%;
 }

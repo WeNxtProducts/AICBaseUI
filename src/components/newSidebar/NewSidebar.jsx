@@ -32,33 +32,35 @@ const NewSidebar = () => {
     };
 
     return (
-        <div
-            className={`new-sidebar ${isExpanded ? 'expanded new_sideBar_hovered' : ''}`}
-            onMouseEnter={() => handleExpand(true)}
-            onMouseLeave={() => handleExpand(false)}
-        >
-            <div className="sidebar-header-new">
-                <button className="pin-button" onClick={() => setIsPinned(!isPinned)}>
-                    {isPinned ? '📌 Pinned' : '📍 Pin'}
-                </button>
+        <>
+            <div
+                className={`new-sidebar ${isExpanded ? 'expanded new_sideBar_hovered' : ''}`}
+                onMouseEnter={() => handleExpand(true)}
+                onMouseLeave={() => handleExpand(false)}
+            >
+                <div className="sidebar-header-new">
+                    <button className="pin-button" onClick={() => setIsPinned(!isPinned)}>
+                        {isPinned ? '📌 Pinned' : '📍 Pin'}
+                    </button>
+                </div>
+                <ul>
+                    {menuData.map((item, index) => (
+                        <MenuItem
+                            key={index}
+                            item={item}
+                            isExpanded={isExpanded}
+                            level={0}
+                            path={[item.menuOptionDesc]}
+                            selectedPath={selectedPath}
+                            openMenus={openMenus}
+                            onSelect={handleSelect}
+                            onToggle={handleToggle}
+                            isLastChild={index === menuData.length - 1}
+                        />
+                    ))}
+                </ul>
             </div>
-            <ul>
-                {menuData.map((item, index) => (
-                    <MenuItem
-                        key={index}
-                        item={item}
-                        isExpanded={isExpanded}
-                        level={0}
-                        path={[item.menuOptionDesc]}
-                        selectedPath={selectedPath}
-                        openMenus={openMenus}
-                        onSelect={handleSelect}
-                        onToggle={handleToggle}
-                        isLastChild={index === menuData.length - 1}
-                    />
-                ))}
-            </ul>
-        </div>
+        </>
     );
 };
 

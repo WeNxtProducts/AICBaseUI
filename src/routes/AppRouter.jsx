@@ -4,7 +4,12 @@ import ProtectedRoute from './PrivateRoute';
 import Loader from '../components/loader/Loader';
 import ScrollToTop from './ScrollToTop';
 import { publicRoutes } from './publicRoutes/PublicRoutes';
-import ClaimIntimationList from '../pages/claimIntimation/ClaimIntimationList/ClaimIntimationList';
+import PublicLayoutQuote from './layouts/PublicLayoutQuote';
+import { QuoteRoutes } from './publicRoutes/QuoteRoutes';
+import PrivateLayout from './layouts/PrivateLayout';
+import PublicLayout from './layouts/PublicLayout';
+import PrivateCustomerLayout from './layouts/PrivateCustomerLayout';
+import { CustomerRoutes } from './customerRoutes/CustomerRoutes';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
@@ -58,76 +63,33 @@ const ClaimSettlement = lazy(() => import('../pages/claimSettlement/ClaimSettlem
 const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/CashbackProcessing'));
 const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
-const CusPolList = lazy(() => import('../pages/CustomerPolicy/cusPolList/CusPolList'));
-const ClaimIntimation = lazy(() => import('../pages/claimIntimation/ClaimIntimation'));
-const EndorsementRequest = lazy(() => import('../pages/claimIntimation/EndorsementRequest'));
 
 const AppRouter = () => {
     return (
         <div>
             <ScrollToTop />
             <Routes>
-                {publicRoutes}
+                <Route element={<PublicLayout />}>
+                    {publicRoutes}
+                </Route>
 
-                <Route element={<ProtectedRoute />}>
-                    <Route
-                        path='/endorsementRequestList'
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <ClaimIntimationList
-                                    label='Endorsement Request'
-                                    search='searchEndorsementRequest'
-                                    page='/endorsementRequest'
-                                    delete='deleteClaimIntimation'
-                                />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path='/claimIntimationList'
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <ClaimIntimationList
-                                    label='Claim Intimation'
-                                    search='searchClaimIntimation'
-                                    page='/claimIntimation'
-                                    delete='deleteClaimIntimation'
-                                />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path='/endorsementRequest'
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <ClaimIntimation
-                                    typeLovId={276}
-                                    type='E'
-                                    page='/endorsementRequestList'
-                                />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path='/claimIntimation'
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <ClaimIntimation
-                                    typeLovId={275}
-                                    type='C'
-                                    page='/claimIntimationList'
-                                />
-                            </Suspense>
-                        }
-                    />
-                    <Route
-                        path='/customerPolicyList'
-                        element={
-                            <Suspense fallback={<Loader />}>
-                                <CusPolList />
-                            </Suspense>
-                        }
-                    />
+                <Route element={<PublicLayoutQuote />}>
+                    {QuoteRoutes}
+                </Route>
+
+                <Route element={
+                    <PrivateCustomerLayout >
+                        <ProtectedRoute />
+                    </PrivateCustomerLayout >
+                }>
+                    {CustomerRoutes}
+                </Route>
+
+                <Route element={
+                    <PrivateLayout >
+                        <ProtectedRoute />
+                    </PrivateLayout >
+                }>
                     <Route
                         path='/glReInsuranceList'
                         element={
@@ -444,14 +406,14 @@ const AppRouter = () => {
                             </Suspense>
                         }
                     />
-                    {/* <Route
+                    <Route
                         path='/surrenderprocessing'
                         element={
                             <Suspense fallback={<div>ClaimSettlement...</div>}>
                                 <SurrenderProcessing />
                             </Suspense>
                         }
-                    /> */}
+                    />
                     <Route
                         path='/cashbackprocessing'
                         element={

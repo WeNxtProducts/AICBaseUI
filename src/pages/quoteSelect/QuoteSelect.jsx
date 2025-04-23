@@ -1,5 +1,4 @@
 import React from 'react'
-import QuoteHeader from '../../components/quoteHeader/QuoteHeader'
 import FromHeader from '../../components/fieldsWithValues/FromHeader'
 import PlanCard from '../../components/quoteProdListing/productCard/PlanCard'
 import { useNavigate } from 'react-router-dom'
@@ -27,12 +26,11 @@ const QuoteSelect = () => {
 
     return (
         <div className='quote_selection'>
-            <QuoteHeader />
             <div>
                 <FromHeader name={'Quote'} />
                 <div className='mt-1 grid grid-cols-4 gap-5 pl-2'>
                     {planList?.map(item => (
-                        <div key={item?.value} className='col-span-1'>
+                        <div key={item?.VALUE} className='col-span-1'>
                             <PlanCard value={item} onSelect={handleSelectPlan} />
                         </div>
                     ))}

@@ -1,7 +1,9 @@
-import { Suspense } from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import React, { Suspense } from 'react';
 import { Route } from 'react-router-dom'
-import ResetPassword from '../../pages/resetPassword/ResetPassword'
-import NewLoginForm from '../../pages/newLoginForm/NewLoginForm'
+const ResetPassword = React.lazy(() => import('../../pages/resetPassword/ResetPassword'));
+const NewLoginForm = React.lazy(() => import('../../pages/newLoginForm/NewLoginForm'));
+
 
 export const AuthRoutes = [
     <Route

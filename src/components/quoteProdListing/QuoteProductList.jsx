@@ -4,7 +4,6 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import useApiRequests from '../../services/useApiRequests';
-import QuoteHeader from '../quoteHeader/QuoteHeader';
 import Loader from '../loader/Loader';
 import FromHeader from '../fieldsWithValues/FromHeader';
 import ProductCard from './productCard/ProductCard';
@@ -71,7 +70,6 @@ const QuoteProductList = () => {
     return (
         <div className='Quote_product_listing'>
             {loader && <Loader />}
-            <QuoteHeader />
             {productList?.length > 0 ? (
                 <div className='product_listing'>
                     {/* <div className='pl-3 mb-1'>
