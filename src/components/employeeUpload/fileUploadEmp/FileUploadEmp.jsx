@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Button } from 'antd';
 import { readFileAsByteArray, getFileFormat } from '../../mediaHelper/MediaHelper';
+import FileUploadedList from './FileUploadedList';
 
 const FileUploadEmp = ({ files, setFiles, handleFileUploadStatus }) => {
 
@@ -44,7 +45,7 @@ const FileUploadEmp = ({ files, setFiles, handleFileUploadStatus }) => {
     });
 
     return (
-        <div className="mt-2 emp_file_drop">
+        <div className="emp_file_drop">
             {files?.length === 0 ? (
                 <div className="file-drop-zone" {...getRootProps()}>
                     <div className={`inner-drop ${isDragActive ? 'highlight_drop_area' : ''}`}>
@@ -60,20 +61,11 @@ const FileUploadEmp = ({ files, setFiles, handleFileUploadStatus }) => {
                     </div>
                 </div>
             ) : (
-                <div className="file-list">
-                    {files.map((file, index) => (
-                        <div key={index} className="file-item">
-                            <div>
-                                <p className="file-name">Name: {file.filename}</p>
-                                <p className="file-type">Type: {file.genType}</p>
-                            </div>
-                            <button type="button" className="delete-button" onClick={() => handleDelete(index)}>
-                                Delete
-                            </button>
-                        </div>
-                    ))}
-                    <Button htmlType='button' className='upl_btn' onClick={() => handleFileUploadStatus(true)}>Upload</Button>
-                </div>
+                <FileUploadedList
+                    files={files}
+                    handleDelete={handleDelete}
+                    handleFileUploadStatus={handleFileUploadStatus}
+                />
             )}
         </div>
     );

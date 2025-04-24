@@ -28,3 +28,17 @@ export const plansListGroup = [
     //     users: '300+ Corporate chooses the plan'
     // }
 ];
+
+export const uploadOptions = [
+    { value: "n", label: "New Upload" },
+    { value: "r", label: "Recent" },
+];
+
+export const coverListGL = [
+    { label: 'Death Any Cause' },
+    { label: 'Accidental Death' },
+    { label: 'Critical Illness' },
+    // { label: 'Hospitalization' },
+    // { label: 'Critical Illness' },
+    // { label: 'Hospitalization' },
+];

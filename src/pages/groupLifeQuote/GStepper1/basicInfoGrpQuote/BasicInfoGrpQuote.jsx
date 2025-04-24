@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { Radio, Tooltip } from 'antd';
 import useApiRequests from '../../../../services/useApiRequests';
 import showNotification from '../../../../components/notification/Notification';
 import GrpQuoteForm from '../../GrpQuoteForm/GrpQuoteForm';
@@ -8,8 +9,9 @@ import { deepCopy, extractFieldValuesInPlace } from '../../../../components/comm
 import { setBasicInfoForm } from '../../../../globalStore/slices/QuoteSlice';
 import { setLoader, setStepperIndex, setTranId } from '../../../../globalStore/slices/GroupQuoteSlice';
 import PlanDetails from './PlanDetails';
-import { plansListGroup } from '../../GroupLifeQuoteConstants';
+import { plansListGroup, uploadOptions } from '../../GroupLifeQuoteConstants';
 import EmployeeUpload from './EmployeeUpload';
+import { CloudDownloadOutlined } from '@ant-design/icons';
 
 const BasicInfoGrpQuote = () => {
     const dispatch = useDispatch();
@@ -17,6 +19,7 @@ const BasicInfoGrpQuote = () => {
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
     const LTQuoteSave = useApiRequests('LTQuoteSave', 'POST');
     const LTQuoteUpdate = useApiRequests('LTQuoteUpdate', 'POST');
+    const [toggleOptions, setToggleOptions] = useState('n');
 
     useEffect(() => {
         console.log("basicInfoForm : ", basicInfoForm)
@@ -61,6 +64,34 @@ const BasicInfoGrpQuote = () => {
         setFieldValue(path, value);
     };
 
+    const handleOnChange = (val) => {
+        setToggleOptions(val);
+    };
+
+    const renderGrpBtn = () => (
+        <div className="btn_grp_quote">
+            <div className="center_radio">
+                <Radio.Group
+                    value={toggleOptions}
+                    size="medium"
+                    buttonStyle="solid"
+                    disabled={false}
+                    onChange={e => handleOnChange(e.target.value)}
+                >
+                    {uploadOptions.map(method => (
+                        <Radio.Button key={method.value} value={method.value}>
+                            {method.label}
+                        </Radio.Button>
+                    ))}
+                </Radio.Group>
+            </div>
+            <Tooltip title="Download">
+                <CloudDownloadOutlined className="download_btn" />
+            </Tooltip>
+        </div>
+    );
+
+
     return (
         <div className='mt-2 basic_information'>
             {loader && <Loader />}
@@ -81,7 +112,9 @@ const BasicInfoGrpQuote = () => {
                         freeze={false}
                     >
                         <PlanDetails planList={plansListGroup} />
-                        <EmployeeUpload />
+                        <EmployeeUpload toggleOptions={toggleOptions}>
+                            {renderGrpBtn()}
+                        </EmployeeUpload>
                     </GrpQuoteForm>
                 </div>
             )}

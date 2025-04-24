@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
 import useApiRequests from '../../services/useApiRequests';
 import { clearGroupQuote, setBasicInfoForm, setDropDown, setLoader, setStepperIndex } from '../../globalStore/slices/GroupQuoteSlice';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
@@ -10,8 +9,8 @@ import { grpSteps } from '../quote/QuoteConstant';
 import GStepper1 from './GStepper1/GStepper1';
 import GStepper2 from './GStepper2/GStepper2';
 import { useNavigate } from 'react-router-dom';
-import './GroupLifeQuote.scss';
 import { clearQuote } from '../../globalStore/slices/QuoteProdPlanSlice';
+import './GroupLifeQuote.scss';
 
 const GroupLifeQuote = () => {
     const navigate = useNavigate();
@@ -70,7 +69,6 @@ const GroupLifeQuote = () => {
     return (
         <div className='group-life-quote'>
             {loader && <Loader />}
-            <QuoteHeader />
             <div className='content_box p-3'>
                 <StepperComponent quoteSteps={grpSteps}
                     stepperChange={handleStepClick}
