@@ -1,3 +1,5 @@
+@import '../../styles/variable';
+
 .cust_pol_list {
     min-height: 88vh;
     max-height: 88vh;
@@ -5,6 +7,20 @@
     background-color: #ffffff;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.09);
     padding: 20px;
+
+    .pol_list_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .add-buttons {
+            background-color: $save-button-forms;
+
+            .icon-style {
+                font-size: 16px;
+            }
+        }
+    }
 
     .header-font {
         color: #4d5e80;

@@ -12,7 +12,7 @@ import showNotification from '../notification/Notification';
 import { setProdCode } from '../../globalStore/slices/QuoteProdPlanSlice';
 import './QuoteProdListing.scss'
 
-const QuoteProductList = () => {
+const QuoteProductList = ({ from, ILnext, GLnext }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const getProdList = useApiRequests('getPreClaimDate', 'POST');
@@ -55,8 +55,8 @@ const QuoteProductList = () => {
     const handleSelectProduct = item => {
         dispatch(setProdCode(item?.PROD_CODE));
         setSelectedProduct(item?.PROD_CODE);
-        if (life === 'IL') navigate('/quote');
-        else if (life === 'GL') navigate('/groupLifeQuote');
+        if (life === 'IL') navigate(ILnext);
+        else if (life === 'GL') navigate(GLnext);
     };
 
     const handleSelectPlan = item => {

@@ -12,7 +12,7 @@ export const QuoteRoutes = [
         path='/quoteSelect'
         element={
             <Suspense fallback={<Loader />}>
-                <QuoteSelect />
+                <QuoteSelect from='C' next='/quoteProducts' />
             </Suspense>
         }
     />,
@@ -22,7 +22,7 @@ export const QuoteRoutes = [
         path='/quoteProducts'
         element={
             <Suspense fallback={<Loader />}>
-                <QuoteProductList />
+                <QuoteProductList from='C' ILnext='/quote' GLnext='/groupLifeQuote' />
             </Suspense>
         }
     />,
@@ -32,7 +32,7 @@ export const QuoteRoutes = [
         path='/quote'
         element={
             <Suspense fallback={<Loader />}>
-                <Quote />
+                <Quote from='C' next='/login' back='/quoteSelect' />
             </Suspense>
         }
     />,
@@ -42,7 +42,7 @@ export const QuoteRoutes = [
         path='/groupLifeQuote'
         element={
             <Suspense fallback={<Loader />}>
-                <GroupLifeQuote />
+                <GroupLifeQuote from='C' next='/login' back='/quoteSelect' />
             </Suspense>
         }
     />

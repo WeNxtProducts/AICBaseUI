@@ -3,9 +3,9 @@ import FromHeader from '../../components/fieldsWithValues/FromHeader'
 import PlanCard from '../../components/quoteProdListing/productCard/PlanCard'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setLife } from '../../globalStore/slices/QuoteProdPlanSlice'
+import { setFrom, setLife } from '../../globalStore/slices/QuoteProdPlanSlice'
 
-const QuoteSelect = () => {
+const QuoteSelect = ({ from, next }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const planList = [
@@ -20,8 +20,9 @@ const QuoteSelect = () => {
     ]
 
     const handleSelectPlan = item => {
-        dispatch(setLife(item?.VALUE))
-        navigate('/quoteProducts');
+        dispatch(setFrom(from));
+        dispatch(setLife(item?.VALUE));
+        navigate(next);
     };
 
     return (

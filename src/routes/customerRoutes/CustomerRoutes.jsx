@@ -1,10 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom'
 import Loader from '../../components/loader/Loader'
-const ClaimIntimationList = React.lazy(() => import('../../pages/claimIntimation/ClaimIntimationList/ClaimIntimationList'));
-const ClaimIntimation = React.lazy(() => import('../../pages/claimIntimation/ClaimIntimation'));
-const CusPolList = React.lazy(() => import('../../pages/CustomerPolicy/cusPolList/CusPolList'));
+const GroupLifeQuote = lazy(() => import('../../pages/groupLifeQuote/GroupLifeQuote'));
+const QuoteSelect = lazy(() => import('../../pages/quoteSelect/QuoteSelect'));
+const QuoteProductList = lazy(() => import('../../components/quoteProdListing/QuoteProductList'));
+const Quote = lazy(() => import('../../pages/quote/Quote'));
+const ClaimIntimationList = lazy(() => import('../../pages/claimIntimation/ClaimIntimationList/ClaimIntimationList'));
+const ClaimIntimation = lazy(() => import('../../pages/claimIntimation/ClaimIntimation'));
+const CusPolList = lazy(() => import('../../pages/CustomerPolicy/cusPolList/CusPolList'));
 
 export const CustomerRoutes = [
     <Route
@@ -67,6 +71,42 @@ export const CustomerRoutes = [
         element={
             <Suspense fallback={<Loader />}>
                 <CusPolList />
+            </Suspense>
+        }
+    />,
+    <Route
+        key="/broQuoteSelect"
+        path='/broQuoteSelect'
+        element={
+            <Suspense fallback={<Loader />}>
+                <QuoteSelect from='B' next='/broQuoteProducts' />
+            </Suspense>
+        }
+    />,
+    <Route
+        key="/broQuoteProducts"
+        path='/broQuoteProducts'
+        element={
+            <Suspense fallback={<Loader />}>
+                <QuoteProductList from='B' ILnext='/broQuote' GLnext='/broGroupLifeQuote' />
+            </Suspense>
+        }
+    />,
+    <Route
+        key="broQuote"
+        path='/broQuote'
+        element={
+            <Suspense fallback={<Loader />}>
+                <Quote from='B' next='/login' back='/broQuoteSelect' />
+            </Suspense>
+        }
+    />,
+    <Route
+        key="broGroupLifeQuote"
+        path='/broGroupLifeQuote'
+        element={
+            <Suspense fallback={<Loader />}>
+                <GroupLifeQuote from='B' next='/login' back='/broQuoteSelect' />
             </Suspense>
         }
     />

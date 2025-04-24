@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     prodCode: '',
     planCode: '',
-    life: ''
+    life: '',
+    from: ''
 };
 
 const QuoteProdPlanSlices = createSlice({
@@ -19,14 +20,18 @@ const QuoteProdPlanSlices = createSlice({
         setLife: (state, action) => {
             state.life = action.payload;
         },
+        setFrom: (state, action) => {
+            state.from = action.payload;
+        },
         clearQuote: (state) => {
             state.prodCode = '';
             state.planCode = '';
             state.life = '';
+            state.from = '';
         }
     },
 });
 
-export const { setProdCode, setPlanCode, setLife, clearQuote } = QuoteProdPlanSlices.actions;
+export const { setProdCode, setPlanCode, setLife, clearQuote, setFrom } = QuoteProdPlanSlices.actions;
 
 export default QuoteProdPlanSlices.reducer;

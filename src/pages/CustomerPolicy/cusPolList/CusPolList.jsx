@@ -5,7 +5,7 @@ import PolSummaryModal from './PolSummaryModal'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setPolNo, setPolTranId } from '../../../globalStore/slices/CustPolSlice'
-import { Pagination } from 'antd'
+import { Button, Pagination } from 'antd'
 import useApiRequests from '../../../services/useApiRequests'
 import EmptyTable from '../../../components/emptyTable/EmptyTable'
 import Loader from '../../../components/loader/Loader'
@@ -81,10 +81,25 @@ const CusPolList = () => {
         handleListingApi(calculateOffset(page));
     };
 
+    const handleNavigateToQuote = () => {
+        navigate('/broQuoteSelect');
+    };
+
     return (
         <div className='cust_pol_list'>
             {loader && <Loader />}
-            <p className='header-font'>Policy List</p>
+            <div className='pol_list_header'>
+                <p className='header-font'>Policy List</p>
+                <div>
+                    <Button
+                        onClick={() => handleNavigateToQuote()}
+                        className='add-buttons'
+                        type='primary'
+                        icon={<i className='bi bi-plus icon-style' />}>
+                        Add Quote
+                    </Button>
+                </div>
+            </div>
             {rowData?.length > 0 ? (
                 <>
                     <CustomerPolicyTable

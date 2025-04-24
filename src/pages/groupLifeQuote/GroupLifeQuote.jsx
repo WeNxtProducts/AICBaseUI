@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { clearQuote } from '../../globalStore/slices/QuoteProdPlanSlice';
 import './GroupLifeQuote.scss';
 
-const GroupLifeQuote = () => {
+const GroupLifeQuote = ({ from, next, back }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const getFieldList = useApiRequests('LTQuoteBasicFieldList', 'POST');
@@ -28,7 +28,7 @@ const GroupLifeQuote = () => {
         return () => {
             dispatch(clearGroupQuote());
             dispatch(clearQuote());
-            navigate('/quoteSelect')
+            navigate(back)
         }
     }, []);
 

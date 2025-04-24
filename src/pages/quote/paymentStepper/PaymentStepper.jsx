@@ -3,8 +3,8 @@ import PlanCard from './PlanCard'
 import { useSelector, useDispatch } from 'react-redux';
 import PaymentSelection from './paymentSelection/PaymentSelection';
 import { setPayStepper, setStepperIndex } from '../../../globalStore/slices/QuoteSlice';
-import './PaymentStepper.scss'
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import './PaymentStepper.scss'
 
 const PaymentStepper = () => {
     const dispatch = useDispatch();

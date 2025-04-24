@@ -10,21 +10,20 @@ import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
 import {
-    clearQuote as clearQuoteIL, setBasicInfoForm, setComQuote, setCurrentAddress,
-    setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress,
+    clearQuote as clearQuoteIL, setBasicInfoForm, setComQuote,
+    setDropDown, setLoader,
     setStepper3,
     setStepperIndex
 } from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
 import PaymentStepper from './paymentStepper/PaymentStepper';
 import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
-import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
 import StepperComponent from '../../components/stepper/Stepper';
 import { useNavigate } from 'react-router-dom';
 import { clearQuote as clearQuoteProdPlan } from '../../globalStore/slices/QuoteProdPlanSlice';
 import './Quote.scss';
 
-const Quote = () => {
+const Quote = ({ from, next, back }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const getFieldList = useApiRequests('LTQuoteBasicFieldList', 'POST');
@@ -44,7 +43,7 @@ const Quote = () => {
         return () => {
             dispatch(clearQuoteIL());
             dispatch(clearQuoteProdPlan());
-            navigate('/quoteSelect')
+            navigate(back)
         }
     }, []);
 
@@ -70,10 +69,6 @@ const Quote = () => {
             if (fieldResponse) {
                 const orderedData = sortObjectByPFDSeqNo(fieldResponse);
                 dispatch(setBasicInfoForm({ frontForm: orderedData?.frontForm || {} }));
-                // dispatch(setCustAssuredDetails({ QuotAssuredDtls: orderedData?.QuotAssuredDtls || {} }))
-                // dispatch(setCurrentAddress({ CurrentAddress: orderedData?.CurrentAddress || {} }))
-                // dispatch(setResidenceAddress({ ResidenceAddress: orderedData?.ResidenceAddress || {} }))
-                // dispatch(setNomineeDetails({ Nominee: orderedData?.Nominee || {} }))
             }
         } catch (err) {
             console.log(err);
