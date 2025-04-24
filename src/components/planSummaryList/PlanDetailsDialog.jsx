@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
 import { ArrowLeftOutlined, DownloadOutlined, CheckCircleOutlined } from '@ant-design/icons';
-import './PlanDetailsDialog.scss';
 
 const PlanDetailsDialog = ({ open, handleClose }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +47,7 @@ const PlanDetailsDialog = ({ open, handleClose }) => {
     return (
         <Modal
             open={isOpen}
-            width={570}
+            width={550}
             style={{ top: 60 }}
             onCancel={onClose}
             maskClosable={false}
@@ -67,7 +66,8 @@ const PlanDetailsDialog = ({ open, handleClose }) => {
                     </div>
                 </div>
 
-                <div className="plan-content">
+                {/* Scrollable Content */}
+                <div className="plan-scrollable-content">
                     <div className="plan-tabs">
                         <div className="toggle-buttons">
                             <Button type="primary" className="toggle-btn active">Male</Button>
@@ -112,10 +112,11 @@ const PlanDetailsDialog = ({ open, handleClose }) => {
                             </div>
                         ))}
                     </div>
+                </div>
 
-                    <div className="action-button">
-                        <Button type="primary" block>Close</Button>
-                    </div>
+                {/* Fixed Close Button */}
+                <div className="action-button">
+                    <Button type="primary" block onClick={onClose}>Close</Button>
                 </div>
             </div>
         </Modal>
