@@ -10,6 +10,7 @@ import PrivateLayout from './layouts/PrivateLayout';
 import PublicLayout from './layouts/PublicLayout';
 import PrivateCustomerLayout from './layouts/PrivateCustomerLayout';
 import { CustomerRoutes } from './customerRoutes/CustomerRoutes';
+import { BrokerRoutes } from './brokerRoutes/BrokerRoutes';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
@@ -83,6 +84,14 @@ const AppRouter = () => {
                     </PrivateCustomerLayout >
                 }>
                     {CustomerRoutes}
+                </Route>
+
+                <Route element={
+                    <PrivateCustomerLayout >
+                        <ProtectedRoute />
+                    </PrivateCustomerLayout >
+                }>
+                    {BrokerRoutes}
                 </Route>
 
                 <Route element={
