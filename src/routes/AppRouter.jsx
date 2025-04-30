@@ -118,7 +118,7 @@ const AppRouter = () => {
                     />
 
                     <Route
-                        path='/maturity_processing'
+                        path='/maturityProcessing'
                         element={
                             <Suspense fallback={<Loader />}>
                                 <MaturityProcessing />
@@ -136,7 +136,7 @@ const AppRouter = () => {
                     />
 
                     <Route
-                        path='/year-end-processing'
+                        path='/yearEndProcessing'
                         element={
                             <Suspense fallback={<Loader />}>
                                 <YearEndProcessing />
