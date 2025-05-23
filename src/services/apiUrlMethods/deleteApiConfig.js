@@ -53,6 +53,10 @@ const DELETE_API_URL = {
         url: '/',
         baseURL: 'CRUD',
     },
+    deleteClaimIntimation: {
+        url: '/claimIntimation/delete',
+        baseURL: 'CRUD',
+    },
 };
 
 export default DELETE_API_URL;

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import ReviewHeader from './ReviewHeader'
 import ReviewCustOcc from './ReviewCustOcc'
-import ReviewCustAddress from './ReviewCustAddress'
 import ReviewFooter from './ReviewFooter'
 import useApiRequests from '../../../services/useApiRequests'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { sortObjectByPFDSeqNo } from '../../../components/commonHelper/SortBySequence'
 import ReviewQuestionaire from './ReviewQuestionaire'
 import UploadDocListReview from './UploadDocListReview'
@@ -12,12 +11,18 @@ import showNotification from '../../../components/notification/Notification'
 import BeneficiaryDetailsReview from './BeneficiaryDetailsReview'
 import ListOfBenefitsReview from './ListOfBenefitsReview'
 import ListOfConcernSelect from './ListOfConcernSelect'
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons'
+import { setStepperIndex } from '../../../globalStore/slices/QuoteSlice'
 
 const Stepper6 = () => {
-    const tranId = useSelector(state => state?.quote?.tranId);
-    const custDetailId = useSelector(state => state?.quote?.custDetailId);
-    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
-    const premiumSummary = useSelector(state => state?.quote?.premiumSummary);
+    const dispatch = useDispatch()
+    const tranId = useSelector(state => state?.quote?.tranId)
+    const custDetailId = useSelector(state => state?.quote?.custDetailId)
+    const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode)
+    const premiumSummary = useSelector(state => state?.quote?.premiumSummary)
+    const showSignBox = useSelector(state => state?.quote?.showSignBox)
+    const quoteSteps = useSelector(state => state?.quote?.quoteSteps);
+    const isStepComplete = quoteSteps.find(step => step.id === 6)?.status;
     const LTQuoteBasicInfo = useApiRequests('LTQuoteBasicInfoGet', 'GET');
     const LTQuoteListOfBenefits = useApiRequests('getPreClaimDate', 'POST');
     const LTQuoteAssuredDtails = useApiRequests('LTQuoteAssuredDtlsGet', 'GET');
@@ -85,7 +90,24 @@ const Stepper6 = () => {
 
     return (
         <div className='Stepper6'>
-            <p className='head_review'>Review Application Details</p>
+            <div className="relative grid items-center">
+                <div
+                    onClick={() => dispatch(setStepperIndex(4))}
+                    className="absolute left-0 flex items-center space-x-2 group cursor-pointer">
+                    <ArrowLeftOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Back</span>
+                </div>
+                <p className='head_review'>Review Application Details</p>
+                {isStepComplete &&
+                    <div
+                        onClick={() => dispatch(setStepperIndex(6))}
+                        className="absolute right-0 flex items-center space-x-2 group cursor-pointer">
+                        <span className="text-blue-600 group-hover:text-blue-800 group-hover:underline">Next</span>
+                        <ArrowRightOutlined className="h-3 w-3 text-blue-600 group-hover:text-blue-800" />
+                    </div>
+                }
+            </div>
+
             {data !== null &&
                 <div className='review_form'>
                     <ReviewHeader />
@@ -113,9 +135,12 @@ const Stepper6 = () => {
                     <div className='mt-5'>
                         <ListOfConcernSelect />
                     </div>
-                    <div className='mt-5 review_footer'>
-                        <ReviewFooter />
-                    </div>
+                    {showSignBox &&
+                        <div className='mt-5 review_footer'>
+                            <ReviewFooter />
+                        </div>
+                    }
+
                 </div>
             }
         </div>

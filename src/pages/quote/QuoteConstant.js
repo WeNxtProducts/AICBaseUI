@@ -391,13 +391,13 @@ export const payMethodlist = [
 ]
 
 export const quoteSteps = [
-    { label: 'Basic Details' },
-    { label: 'List of Benefits' },
-    { label: 'Assured/Cust Details' },
-    { label: 'Questions' },
-    { label: 'Upload Docs' },
-    { label: 'Review' },
-    { label: 'Payment' },
+    { id: 1, label: 'Basic Details', status: false },
+    { id: 2, label: 'List of Benefits', status: false },
+    { id: 3, label: 'Assured/Cust Details', status: false },
+    { id: 4, label: 'Questions', status: false },
+    { id: 5, label: 'Upload Docs', status: false },
+    { id: 6, label: 'Review', status: false },
+    { id: 7, label: 'Payment', status: false },
 ];
 
 export const grpSteps = [

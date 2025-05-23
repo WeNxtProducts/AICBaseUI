@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import sampImg from '../../assets/planStamp.png';
 import { Button, Tooltip } from 'antd';
 import { CheckCircleFilled, DownloadOutlined } from '@ant-design/icons';
@@ -6,20 +6,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { coverListGL } from '../../pages/groupLifeQuote/GroupLifeQuoteConstants';
 import './PlanSummaryList.scss';
+import PlanDetailsDialog from './PlanDetailsDialog';
 
 const PlanSummaryList = () => {
-    const coverList = [
-        { label: 'Death Any Cause' },
-        { label: 'Accidental Death' },
-        { label: 'Critical Illness' },
-        // { label: 'Hospitalization' },
-        // { label: 'Critical Illness' },
-        // { label: 'Hospitalization' },
-    ];
+    const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+
+    const handleClose = () => {
+        setOpenDetailsDialog(false);
+    }
 
     return (
-        <div className='plan_summary_list'>
+        <div className="plan_summary_list">
             <div className='summary_container'>
                 <div className='summary_header'>
                     <div>
@@ -30,7 +29,7 @@ const PlanSummaryList = () => {
                 </div>
                 <div className='details_box'>
                     <div className='details_btn'>
-                        <Button htmlType='button'>Details</Button>
+                        <Button onClick={() => setOpenDetailsDialog(true)} htmlType='button'>Details</Button>
                         <Button htmlType='button'>Breakup</Button>
                     </div>
                     <div className='list_of_covers'>
@@ -65,7 +64,7 @@ const PlanSummaryList = () => {
                                     },
                                 }}
                             >
-                                {coverList.map((cover, index) => (
+                                {coverListGL.map((cover, index) => (
                                     <SwiperSlide key={index}>
                                         <div className='cover_item'>
                                             <CheckCircleFilled className="icon" />
@@ -95,6 +94,12 @@ const PlanSummaryList = () => {
                     </div>
                 </div>
             </div>
+
+            {openDetailsDialog &&
+                <PlanDetailsDialog
+                    open={openDetailsDialog}
+                    handleClose={handleClose}
+                />}
         </div>
     );
 };

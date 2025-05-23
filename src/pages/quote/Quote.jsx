@@ -10,20 +10,21 @@ import QuoteContext from './QuoteContext';
 import useApiRequests from '../../services/useApiRequests';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
 import {
-    clearQuote, setBasicInfoForm, setComQuote, setCurrentAddress,
-    setCustAssuredDetails, setDropDown, setLoader, setNomineeDetails, setResidenceAddress,
+    clearQuote as clearQuoteIL, setBasicInfoForm, setComQuote,
+    setDropDown, setLoader,
     setStepper3,
     setStepperIndex
 } from '../../globalStore/slices/QuoteSlice';
 import Loader from '../../components/loader/Loader';
-import './Quote.scss';
 import PaymentStepper from './paymentStepper/PaymentStepper';
 import PaymentConfirmPage from './paymentStepper/PaymentConfirmPage';
-import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
-import { quoteSteps } from './QuoteConstant';
 import StepperComponent from '../../components/stepper/Stepper';
+import { useNavigate } from 'react-router-dom';
+import { clearQuote as clearQuoteProdPlan } from '../../globalStore/slices/QuoteProdPlanSlice';
+import './Quote.scss';
 
-const Quote = () => {
+const Quote = ({ from, next, back }) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const getFieldList = useApiRequests('LTQuoteBasicFieldList', 'POST');
     const LTLovJson = useApiRequests('lovToJson', 'GET');
@@ -32,22 +33,18 @@ const Quote = () => {
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
     const loader = useSelector(state => state?.quote?.loader);
     const payFinish = useSelector(state => state?.quote?.payFinish);
-    const quotationNo = useSelector(state => state?.quote?.quotationNo);
-    const { QUOT_FIRST_NAME: { PFD_FLD_VALUE: Fname } = {},
-        QUOT_MIDDLE_NAME: { PFD_FLD_VALUE: Mname } = {},
-        QUOT_LAST_NAME: { PFD_FLD_VALUE: Lname } = {} }
-        = useSelector(state => state?.quote?.basicInfoForm?.frontForm?.formFields || {});
-
-    const name = `${Fname} ${Mname} ${Lname}`.trim();
+    const quoteSteps = useSelector(state => state?.quote?.quoteSteps);
 
     useEffect(() => {
         if (basicInfoForm === null) {
             fetchFieldAndLovList();
         }
 
-        // return () => {
-        //     dispatch(clearQuote());
-        // }
+        return () => {
+            dispatch(clearQuoteIL());
+            dispatch(clearQuoteProdPlan());
+            navigate(back)
+        }
     }, []);
 
     const fetchFieldAndLovList = async () => {
@@ -72,10 +69,6 @@ const Quote = () => {
             if (fieldResponse) {
                 const orderedData = sortObjectByPFDSeqNo(fieldResponse);
                 dispatch(setBasicInfoForm({ frontForm: orderedData?.frontForm || {} }));
-                // dispatch(setCustAssuredDetails({ QuotAssuredDtls: orderedData?.QuotAssuredDtls || {} }))
-                // dispatch(setCurrentAddress({ CurrentAddress: orderedData?.CurrentAddress || {} }))
-                // dispatch(setResidenceAddress({ ResidenceAddress: orderedData?.ResidenceAddress || {} }))
-                // dispatch(setNomineeDetails({ Nominee: orderedData?.Nominee || {} }))
             }
         } catch (err) {
             console.log(err);
@@ -96,7 +89,6 @@ const Quote = () => {
         <QuoteContext.Provider value={data}>
             {loader && <Loader />}
             <div className='Quote'>
-                <QuoteHeader id={quotationNo} name={name} />
                 {payFinish ? <PaymentConfirmPage /> : (
                     <div className='content_box p-3'>
                         <StepperComponent quoteSteps={quoteSteps}

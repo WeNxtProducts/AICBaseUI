@@ -4,7 +4,6 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import useApiRequests from '../../services/useApiRequests';
-import QuoteHeader from '../quoteHeader/QuoteHeader';
 import Loader from '../loader/Loader';
 import FromHeader from '../fieldsWithValues/FromHeader';
 import ProductCard from './productCard/ProductCard';
@@ -13,12 +12,12 @@ import showNotification from '../notification/Notification';
 import { setProdCode } from '../../globalStore/slices/QuoteProdPlanSlice';
 import './QuoteProdListing.scss'
 
-const QuoteProductList = () => {
+const QuoteProductList = ({ from, ILnext, GLnext }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const getProdList = useApiRequests('getPreClaimDate', 'POST');
     const prodCode = useSelector(state => state?.quoteProdPlanCode?.prodCode);
-    const planCode = useSelector(state => state?.quoteProdPlanCode?.planCode);
+    const life = useSelector(state => state?.quoteProdPlanCode?.life);
     const [locationState, setLocationState] = useState('Product List');
     const breadCrumbsItem = [{ title: 'Product List' }, { title: 'Plan List' }];
     const [selectedProduct, setSelectedProduct] = useState('');
@@ -56,7 +55,8 @@ const QuoteProductList = () => {
     const handleSelectProduct = item => {
         dispatch(setProdCode(item?.PROD_CODE));
         setSelectedProduct(item?.PROD_CODE);
-        navigate('/quote'); //quote
+        if (life === 'IL') navigate(ILnext);
+        else if (life === 'GL') navigate(GLnext);
     };
 
     const handleSelectPlan = item => {
@@ -70,7 +70,6 @@ const QuoteProductList = () => {
     return (
         <div className='Quote_product_listing'>
             {loader && <Loader />}
-            <QuoteHeader />
             {productList?.length > 0 ? (
                 <div className='product_listing'>
                     {/* <div className='pl-3 mb-1'>

@@ -117,7 +117,7 @@ const PlanCard = () => {
             </div>
             <div>
                 <div className="save_btn_grid">
-                    <button>Back</button>
+                    {/* <button>Back</button> */}
                     <button onClick={() => dispatch(setPayStepper(1))}>Make Payment</button>
                 </div>
             </div>

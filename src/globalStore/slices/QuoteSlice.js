@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { quoteSteps } from '../../pages/quote/QuoteConstant';
 
 const initialState = {
     tranId: '',
@@ -23,7 +24,9 @@ const initialState = {
     sameAddress: false,
     payStepper: 0,
     payMethod: 1,
-    payFinish: false
+    payFinish: false,
+    showSignBox: false,
+    quoteSteps: quoteSteps
 };
 
 const QuoteSlices = createSlice({
@@ -99,30 +102,41 @@ const QuoteSlices = createSlice({
         setQuotationNo: (state, action) => {
             state.quotationNo = action.payload;
         },
+        setShowSignBox: (state, action) => {
+            state.showSignBox = action.payload;
+        },
+        setQuoteStepStatus: (state, action) => {
+            const step = state.quoteSteps.find(step => step.id === action.payload);
+            if (step) {
+                step.status = true;
+            }
+        },
         clearQuote: (state) => {
-            state.tranId = '',
-                state.stepperIndex = 0,
-                state.compQuote = false,
-                state.stepper_3 = '',
-                state.basicInfoForm = null,
-                state.dropDown = null,
-                state.custAssuredDetails = null,
-                state.currentAddress = null,
-                state.residenceAddress = null,
-                state.nomineeDetails = null,
-                state.listOfBenefits = [],
-                state.premiumSummary = {
-                    totalSumAssured: 0,
-                    totalMonthlyPrem: 0,
-                },
-                state.loader = false,
-                state.custDetailId = null,
-                state.nomineeId = null,
-                state.sameAddress = false,
-                state.payStepper = 0,
-                state.payMethod = 1,
-                state.payFinish = false,
-                state.quotationNo = ''
+            state.tranId = '';
+            state.stepperIndex = 0;
+            state.compQuote = false;
+            state.stepper_3 = '';
+            state.basicInfoForm = null;
+            state.dropDown = null;
+            state.custAssuredDetails = null;
+            state.currentAddress = null;
+            state.residenceAddress = null;
+            state.nomineeDetails = null;
+            state.listOfBenefits = [];
+            state.premiumSummary = {
+                totalSumAssured: 0,
+                totalMonthlyPrem: 0
+            };
+            state.loader = false;
+            state.custDetailId = null;
+            state.nomineeId = null;
+            state.sameAddress = false;
+            state.payStepper = 0;
+            state.payMethod = 1;
+            state.payFinish = false;
+            state.quotationNo = '';
+            state.showSignBox = false;
+            state.quoteSteps = quoteSteps
         }
     },
 });
@@ -133,7 +147,8 @@ export const { setStepperIndex, setComQuote, setStepper3
     setLoader, setCustDetailId,
     setCurrentAddress, setResidenceAddress, setNomineeDetails,
     setNomineeId, setSameAddress, setPayStepper, setPayMethod,
-    setPayFinish, setQuotationNo, clearQuote
+    setPayFinish, setQuotationNo, clearQuote,
+    setShowSignBox, setQuoteStepStatus
 } = QuoteSlices.actions;
 
 export default QuoteSlices.reducer;

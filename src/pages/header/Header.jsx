@@ -63,49 +63,51 @@ const Header = () => {
     };
 
     return (
-        <header className='header-wrapper'>
-            <div className='header'>
-                <div className='search-input'>
-                    <Input
-                        className='header-Search'
-                        prefix={<i className='bi bi-search' />}
-                        placeholder='Search'
-                    />
-                </div>
-                <div className='w-1/2 user-actions flex justify-end'>
-                    <div className='flex items-center'>
-                        <div className='mr-5 mt-1'>
-                            <Badge dot>
-                                <i className='bi bi-envelope-fill icon-header'></i>
-                            </Badge>
-                        </div>
-                        <div className='mr-5'>
-                            <i className='bi bi-bell-fill icon-header'></i>
-                        </div>
+        <div className='header-content'>
+            <header className='header-wrapper'>
+                <div className='header'>
+                    <div className='search-input'>
+                        <Input
+                            className='header-Search'
+                            prefix={<i className='bi bi-search' />}
+                            placeholder='Search'
+                        />
                     </div>
-                    <Popover
-                        content={<Content width={popoverWidth} setOpen={setOpen} />}
-                        placement='bottom'
-                        trigger='click'
-                        arrow={false}
-                        open={open}
-                        onOpenChange={handleVisibleChange}>
-                        <div
-                            ref={inputContainerRef}
-                            onClick={() => handleOptions()}
-                            className='flex items-center justify-between profile-options'>
-                            <div className='flex items-center'>
-                                <Avatar className='profile-header' size={64} icon={<img alt='logo' src={weNxtLogo} />} />
-                                <p className='pl-2 user-name select-none cursor-pointer'>{userDetails?.userName}</p>
+                    <div className='w-1/2 user-actions flex justify-end'>
+                        <div className='flex items-center'>
+                            <div className='mr-5 mt-1'>
+                                <Badge dot>
+                                    <i className='bi bi-envelope-fill icon-header'></i>
+                                </Badge>
                             </div>
-                            <i className='bi bi-chevron-compact-down ml-2 icon-header'></i>
+                            <div className='mr-5'>
+                                <i className='bi bi-bell-fill icon-header'></i>
+                            </div>
                         </div>
-                    </Popover>
-                    <i className='bi bi-list ml-3 icon-header'></i>
+                        <Popover
+                            content={<Content width={popoverWidth} setOpen={setOpen} />}
+                            placement='bottom'
+                            trigger='click'
+                            arrow={false}
+                            open={open}
+                            onOpenChange={handleVisibleChange}>
+                            <div
+                                ref={inputContainerRef}
+                                onClick={() => handleOptions()}
+                                className='flex items-center justify-between profile-options'>
+                                <div className='flex items-center'>
+                                    <Avatar className='profile-header' size={64} icon={<img alt='logo' src={weNxtLogo} />} />
+                                    <p className='pl-2 user-name select-none cursor-pointer'>{userDetails?.userName}</p>
+                                </div>
+                                <i className='bi bi-chevron-compact-down ml-2 icon-header'></i>
+                            </div>
+                        </Popover>
+                        <i className='bi bi-list ml-3 icon-header'></i>
+                    </div>
                 </div>
-            </div>
-            {/* <SubHeader /> */}
-        </header>
+                {/* <SubHeader /> */}
+            </header>
+        </div>
     );
 };
 

@@ -518,6 +518,30 @@ const POST_API_URL = {
     },
     emailTrigger: {
         url: '/emailTemplate/sendMail',
+    },
+    OTPRequest: {
+        url: '/ltQuoteDetails/triggerOTP',
+        baseURL: 'CRUD',
+    },
+    OTPVerifyRequest: {
+        url: '/ltQuoteDetails/createLogin',
+        baseURL: 'CRUD',
+    },
+    searchClaimIntimation: {
+        url: '',
+        baseURL: 'CRUD',
+    },
+    searchEndorsementRequest: {
+        url: '',
+        baseURL: 'CRUD',
+    },
+    saveClaimIntimation: {
+        url: '/claimIntimation/save',
+        baseURL: 'CRUD',
+    },
+    updateClaimIntimation: {
+        url: 'claimIntimation/update',
+        baseURL: 'CRUD',
     }
 };
 

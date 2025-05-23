@@ -18,7 +18,7 @@ const fileData = {
     screenName: 'DMS',
 };
 
-const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
+const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn, setAllUploaded }) => {
     const dispatch = useDispatch();
     const DMSFileUpload = useApiRequests('DMSFileUpload64', 'POST');
     const DMSFileDelete = useApiRequests('DMSDelete64', 'POST');
@@ -195,7 +195,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
     }
 
     const handleGetAndView = async (item) => {
-        const payload = [{ path: item?.filePath }];
+        const payload = [{ path: item?.filepath }];
         try {
             const response = await DMSFileView(payload);
             if (response?.status === 'FAILURE') showNotification.ERROR('File Not Viewed!');
@@ -240,7 +240,6 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
     }
 
     const handleDelete = async (payload, index) => {
-        console.log("payload : ", payload)
         const { doc_sys_id, DTL_TODO_LIST_ITEM } = payload;
         const deleteId = { doc_sys_id: [doc_sys_id] };
         try {
@@ -272,10 +271,8 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
     }
 
     const handleUploadAll = async () => {
-        console.log("handleUploadAll : ", checklist)
         const filteredData = checklist.filter(item => Object.prototype.hasOwnProperty.call(item, 'base64String'));
         const docname = filteredData.map(item => item.DTL_TODO_LIST_ITEM);
-        console.log("filteredData : ", docname)
         try {
             const response = await DMSFileUpload(filteredData);
             const allSuccess = response?.Overall.every(item => item.status == 'SUCCESS');
@@ -379,6 +376,7 @@ const QuoteCheckList = ({ queryId, setLoader, tranId, uploadscrn }) => {
                     </tbody>
                 </table>
             }
+
             <div className='save_btn_grid_final mt-3'>
                 <button
                     onClick={() => handleUploadAll()}

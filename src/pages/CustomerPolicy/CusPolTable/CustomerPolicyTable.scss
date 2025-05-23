@@ -1,0 +1,134 @@
+// Variables
+$table-padding: 1rem;
+$table-bg: #f9f9f9;
+$table-width: 100%;
+$table-header-bg: #f0f0f0;
+$table-th-font-weight: 600;
+$table-th-color: #333;
+$table-row-hover-bg: #f5f5f5;
+$table-alt-row-bg: #f7f7f7; // Light grey for alternate rows
+$premium-link-color: #007bff;
+$premium-link-hover-color: #0056b3;
+$border-radius: 8px;
+$font-size: 0.875rem; // 14px
+$line-height: 1.2;
+
+// Styles
+.table-container_customer_policy_list {
+    background-color: $table-bg;
+
+    .policy-table {
+        width: $table-width;
+        border-spacing: 0 0.5rem;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        font-size: $font-size;
+        line-height: $line-height;
+
+        thead {
+            background-color: $table-header-bg;
+
+            th {
+                padding: 0.8rem;
+                text-align: center;
+                font-weight: $table-th-font-weight;
+                color: $table-th-color;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+
+        tbody {
+            tr {
+                background-color: #fff;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: $table-row-hover-bg;
+                }
+
+                // Alternate row color
+                &:nth-child(even) {
+                    background-color: $table-alt-row-bg;
+                }
+
+                td {
+                    padding: 0.8rem;
+                    text-align: center;
+                    border-bottom: 1px solid #e0e0e0;
+
+                    &:first-child {
+                        border-top-left-radius: $border-radius;
+                        border-bottom-left-radius: $border-radius;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: $border-radius;
+                        border-bottom-right-radius: $border-radius;
+                    }
+                }
+
+                .premium-link {
+                    color: $premium-link-color;
+                    text-decoration: none;
+                    cursor: pointer;
+                    transition: color 0.2s ease;
+
+                    &:hover {
+                        text-decoration: underline;
+                        color: $premium-link-hover-color;
+                    }
+                }
+
+                .status-badge {
+                    display: inline-block;
+                    padding: 0.25em 0.5em;
+                    border-radius: 0.5em;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    color: #fff;
+                    text-align: center;
+                    white-space: nowrap;
+                }
+
+                .status-active {
+                    background-color: #28a745;
+                }
+
+                .status-referel-submitted {
+                    background-color: #17a2b8;
+                }
+
+                .status-lapsed {
+                    background-color: #ffc107;
+                }
+
+                .status-surrendered {
+                    background-color: #dc3545;
+                }
+
+                .status-matured {
+                    background-color: #6c757d;
+                }
+
+                .status-claim-intimated {
+                    background-color: #fd7e14;
+                }
+
+                .status-endorsement-requested {
+                    background-color: #6610f2;
+                }
+                .status-na {
+                    background-color: grey;
+                }
+            }
+        }
+
+        .icon-style {
+            color: #383838;
+            cursor: pointer;
+            margin-right: 10px;
+            color: #0056b3;
+        }
+    }
+}

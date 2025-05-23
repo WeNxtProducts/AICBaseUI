@@ -31,7 +31,8 @@ const getFileType = (filename) => {
 };
 
 export const handleFileDownloadOrView = (file) => {
-    const getMimeType = getFileType(file?.genType)
+    const getMimeType = getFileType(file?.filename)
+    console.log(":setAllUploaded: ", getMimeType)
     const byteCharacters = atob(file.base64String);
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {

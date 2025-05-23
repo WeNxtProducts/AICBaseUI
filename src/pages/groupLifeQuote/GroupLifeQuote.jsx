@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import QuoteHeader from '../../components/quoteHeader/QuoteHeader';
 import useApiRequests from '../../services/useApiRequests';
 import { clearGroupQuote, setBasicInfoForm, setDropDown, setLoader, setStepperIndex } from '../../globalStore/slices/GroupQuoteSlice';
 import { sortObjectByPFDSeqNo } from '../../components/commonHelper/SortBySequence';
-import './GroupLifeQuote.scss';
 import Loader from '../../components/loader/Loader';
 import StepperComponent from '../../components/stepper/Stepper';
 import { grpSteps } from '../quote/QuoteConstant';
 import GStepper1 from './GStepper1/GStepper1';
 import GStepper2 from './GStepper2/GStepper2';
+import { useNavigate } from 'react-router-dom';
+import { clearQuote } from '../../globalStore/slices/QuoteProdPlanSlice';
+import './GroupLifeQuote.scss';
 
-const GroupLifeQuote = () => {
+const GroupLifeQuote = ({ from, next, back }) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const getFieldList = useApiRequests('LTQuoteBasicFieldList', 'POST');
     const LTLovJson = useApiRequests('lovToJson', 'GET');
@@ -19,13 +21,14 @@ const GroupLifeQuote = () => {
     const { prodCode, planCode } = useSelector((state) => state?.quoteProdPlanCode);
 
     useEffect(() => {
-        console.log("basicInfoForm : ", basicInfoForm, dropDown)
         if (basicInfoForm === null) {
             fetchFieldAndLovList();
         }
 
         return () => {
             dispatch(clearGroupQuote());
+            dispatch(clearQuote());
+            navigate(back)
         }
     }, []);
 
@@ -66,7 +69,6 @@ const GroupLifeQuote = () => {
     return (
         <div className='group-life-quote'>
             {loader && <Loader />}
-            <QuoteHeader />
             <div className='content_box p-3'>
                 <StepperComponent quoteSteps={grpSteps}
                     stepperChange={handleStepClick}

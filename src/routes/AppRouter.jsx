@@ -1,13 +1,16 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './PrivateRoute';
-import AgGridTables from '../pages/claim/agGridTables/AgGridTables';
 import Loader from '../components/loader/Loader';
-import VirtualScroll from '../components/react-virtual/VirtualScroll';
 import ScrollToTop from './ScrollToTop';
-import IFrameSetUp from '../pages/iFrameSetUp/IFrameSetUp';
-import QuoteProductList from '../components/quoteProdListing/QuoteProductList';
-import GraphSamples from '../pages/graphSamples/GraphSamples';
+import { publicRoutes } from './publicRoutes/PublicRoutes';
+import PublicLayoutQuote from './layouts/PublicLayoutQuote';
+import { QuoteRoutes } from './publicRoutes/QuoteRoutes';
+import PrivateLayout from './layouts/PrivateLayout';
+import PublicLayout from './layouts/PublicLayout';
+import PrivateCustomerLayout from './layouts/PrivateCustomerLayout';
+import { CustomerRoutes } from './customerRoutes/CustomerRoutes';
+import { BrokerRoutes } from './brokerRoutes/BrokerRoutes';
 
 const Dashboard = lazy(() => import('../pages/dashboard/Dashboard'));
 const MaturityProcessing = lazy(() => import('../pages/maturityProcessing/MaturityProcessing'));
@@ -21,10 +24,8 @@ const GroupLife = lazy(() => import('../pages/groupLife/GroupLife'));
 const ReInsuranceListing = lazy(() => import('../pages/ReInsurance/reInsuranceListing/ReInsuranceListing'));
 const ReInsurance = lazy(() => import('../pages/ReInsurance/ReInsurance'));
 const MedicalFee = lazy(() => import('../pages/medicalFee/MedicalFee'));
-const MultiRowTable = lazy(() => import('../pages/multiRowTable/MultiRowTable'));
 const SurrenderMaturity = lazy(() => import('../pages/surrenderMaturity/SurrenderMaturity'));
 const EndoListing = lazy(() => import('../pages/endorsement/endoListing/EndoListing'));
-const Report = lazy(() => import('../pages/report/Report'));
 const ReceiptListing = lazy(() => import('../pages/receipt/receiptListing/ReceiptListing'));
 const Endorsement = lazy(() => import('../pages/endorsement/Endorsement'));
 const ClaimListing = lazy(() => import('../pages/claims/claimsListing/ClaimsListing'));
@@ -38,7 +39,6 @@ const Receipt = lazy(() => import('../pages/receipt/Receipt'));
 const QuotationListing = lazy(() => import('../pages/quotation/quotationListing/QuotationListing'));
 const Quotation = lazy(() => import('../pages/quotation/Quotation'));
 const Quote = lazy(() => import('../pages/quote/Quote'));
-const ReportList = lazy(() => import('../pages/reportList/ReportList'));
 const AutoDispatchSetUp = lazy(() => import('../pages/autoDispatchSetUp/AutoDispatchSetUp'));
 
 const AutoDispatchListing = lazy(
@@ -57,135 +57,48 @@ const TemplateListing = lazy(
 const CustomerListingScreen = lazy(
     () => import('../pages/customerListingScreens/customerListingScreen'),
 );
-const NewLoginForm = lazy(() => import('../pages/newLoginForm/NewLoginForm'));
 const ResetPassword = lazy(() => import('../pages/resetPassword/ResetPassword'));
 const ApiToJson = lazy(() => import('../pages/apiToJson/ApiToJson'));
-const Claims = lazy(() => import('../pages/claims/Claims'));
 const Claim = lazy(() => import('../pages/claim/Claim'));
 const ClaimSettlement = lazy(() => import('../pages/claimSettlement/ClaimSettlement'));
 const CashbackProcessing = lazy(() => import('../pages/cashbackProcessing/CashbackProcessing'));
 const SurrenderProcessing = lazy(() => import('../pages/surrenderProcessing/SurrenderProcessing'));
 const SurrenderPayment = lazy(() => import('../pages/surrenderPayment/SurrenderPayment'));
-// const QuoteProductList = lazy(() => import('../pages/quote/qoteProductList/QuoteProductList'));
-const GroupLifeQuote = lazy(() => import('../pages/groupLifeQuote/GroupLifeQuote'));
 
 const AppRouter = () => {
     return (
         <div>
             <ScrollToTop />
             <Routes>
-                <Route
-                    path='/graphSamples'
-                    element={
-                        <Suspense fallback={<div>IFrameSetUp</div>}>
-                            <GraphSamples />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/userMasterLiist'
-                    element={
-                        <Suspense fallback={<div>IFrameSetUp</div>}>
-                            <IFrameSetUp />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/multiRowTable'
-                    element={
-                        <Suspense fallback={<div>MultiRowTable</div>}>
-                            <MultiRowTable rowsPerPage={10} />
-                        </Suspense>
-                    }
-                />
+                <Route element={<PublicLayout />}>
+                    {publicRoutes}
+                </Route>
 
-                <Route
-                    path='/rep1'
-                    element={
-                        <Suspense fallback={<div>Report</div>}>
-                            <Report />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/agTable'
-                    element={
-                        <Suspense fallback={<div>AG GRID TABLE</div>}>
-                            <AgGridTables />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/virtualscroll'
-                    element={
-                        <Suspense fallback={<div>VirtualScroll</div>}>
-                            <VirtualScroll />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/'
-                    element={
-                        <Suspense fallback={<div>Login</div>}>
-                            <NewLoginForm />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/login'
-                    element={
-                        <Suspense fallback={<div>Login</div>}>
-                            <NewLoginForm />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/resetpassword'
-                    element={
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <ResetPassword />
-                        </Suspense>
-                    }
-                />
+                <Route element={<PublicLayoutQuote />}>
+                    {QuoteRoutes}
+                </Route>
 
-                <Route
-                    path='/reports'
-                    element={
-                        <Suspense fallback={<div>Report...</div>}>
-                            <ReportList />
-                        </Suspense>
-                    }
-                />
-                <Route
-                    path='/quote'
-                    element={
-                        <Suspense fallback={<div>QUOTE...</div>}>
-                            <Quote />
-                        </Suspense>
-                    }
-                />
+                <Route element={
+                    <PrivateCustomerLayout >
+                        <ProtectedRoute />
+                    </PrivateCustomerLayout >
+                }>
+                    {CustomerRoutes}
+                </Route>
 
-                <Route
-                    path='/quoteProducts'
-                    element={
-                        <Suspense fallback={<Loader />}>
-                            <QuoteProductList />
-                        </Suspense>
-                    }
-                />
+                <Route element={
+                    <PrivateCustomerLayout >
+                        <ProtectedRoute />
+                    </PrivateCustomerLayout >
+                }>
+                    {BrokerRoutes}
+                </Route>
 
-                <Route
-                    path='/groupLifeQuote'
-                    element={
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <GroupLifeQuote />
-                        </Suspense>
-                    }
-                />
-
-                {/* ProtectedRoute */}
-
-                <Route element={<ProtectedRoute />}>
+                <Route element={
+                    <PrivateLayout >
+                        <ProtectedRoute />
+                    </PrivateLayout >
+                }>
                     <Route
                         path='/glReInsuranceList'
                         element={
@@ -205,7 +118,7 @@ const AppRouter = () => {
                     />
 
                     <Route
-                        path='/maturity_processing'
+                        path='/maturityProcessing'
                         element={
                             <Suspense fallback={<Loader />}>
                                 <MaturityProcessing />
@@ -223,7 +136,7 @@ const AppRouter = () => {
                     />
 
                     <Route
-                        path='/year-end-processing'
+                        path='/yearEndProcessing'
                         element={
                             <Suspense fallback={<Loader />}>
                                 <YearEndProcessing />
@@ -502,14 +415,14 @@ const AppRouter = () => {
                             </Suspense>
                         }
                     />
-                    {/* <Route
+                    <Route
                         path='/surrenderprocessing'
                         element={
                             <Suspense fallback={<div>ClaimSettlement...</div>}>
                                 <SurrenderProcessing />
                             </Suspense>
                         }
-                    /> */}
+                    />
                     <Route
                         path='/cashbackprocessing'
                         element={

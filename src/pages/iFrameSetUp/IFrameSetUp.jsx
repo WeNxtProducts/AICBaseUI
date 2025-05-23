@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Home() {
+function IFrameSetUp() {
     const iframeRef = useRef(null);
     const [childMessage, setChildMessage] = useState("");
     const [messageToChild, setMessageToChild] = useState("");
@@ -74,3 +74,5 @@ export default function Home() {
         </div>
     );
 }
+
+export default IFrameSetUp;
