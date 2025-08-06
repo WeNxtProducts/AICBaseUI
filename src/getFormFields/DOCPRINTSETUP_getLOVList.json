@@ -1,7 +1,0 @@
-{
- "DPS_TYPE": [
-  { "label": "StaticDoc", "value": "StaticDoc" },
-  { "label": "Jasper", "value": "Jasper" },
-  { "label": "Xdoc", "value": "Xdoc" }
- ]
-}
